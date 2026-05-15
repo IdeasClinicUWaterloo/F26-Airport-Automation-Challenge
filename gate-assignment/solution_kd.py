@@ -5,7 +5,10 @@ Key fix for cascading changes:
 - Previously, the cascade handler skipped already-assigned flights (they are never in waiting_flights after assignment).
 - Now we cache the legs snapshot ourselves when we assign/reassign.
 - This lets us resolve time conflicts (or wingspan/jetbridge issues visible in the observation) even for assigned flights.
-- We still can't see brand-new leg data from an UpdateTiming/UpdateEquipment on an assigned flight (that's in the evaluator's internal "flagged" state only), but the evaluator's post-decision check will silently update if the new info is still valid, or hard-fail if not. This is the best we can do without changing the evaluator.
+- We still can't see brand-new leg data from an UpdateTiming/UpdateEquipment on an assigned flight 
+(that's in the evaluator's internal "flagged" state only), but the evaluator's post-decision check will 
+silently update if the new info is still valid, or hard-fail if not. This is the best we can do without 
+changing the evaluator.
 - Reassignment still incurs the expected point deduction (as documented).
 
 All other logic (first-time assignments, local conflict view for same-tick reassignments, etc.) is unchanged and works.
