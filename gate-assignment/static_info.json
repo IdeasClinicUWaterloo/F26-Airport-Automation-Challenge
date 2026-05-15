@@ -68,21 +68,21 @@
   "aircraft_info": {
     "73G": {
       "name": "Boeing 737-700",
-      "wingspan": 28,
+      "wingspan": 35.8,
       "aircraft_type": 0,
       "jetbridge_required": 0
     },
     "321": {
       "name": "Airbus A321",
-      "wingspan": 28,
+      "wingspan": 35.8,
       "aircraft_type": 0,
       "jetbridge_required": 0
     },
     "789": {
       "name": "Boeing 787-9",
-      "wingspan": 28,
-      "aircraft_type": 0,
-      "jetbridge_required": 0
+      "wingspan": 60,
+      "aircraft_type": 1,
+      "jetbridge_required": 1
     }
   }
 }
