@@ -4,7 +4,7 @@
 
 Hey, welcome to the Github Repo for the Gate Assignment Subproblem for the Brock Airport Automation Hackathon!
 
-To get started, be sure to read through the Case Study document on the Brock Sharepoint. Once you're done with that you can get started with understanding how the code/structure works.
+To get started, be read through the Case Study document on the Brock Sharepoint. Once you're done with that you can get started with understanding how the code/structure works.
 
 ## Files
 
