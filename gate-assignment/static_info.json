@@ -68,13 +68,13 @@
   "aircraft_info": {
     "73G": {
       "name": "Boeing 737-700",
-      "wingspan": 35.8,
+      "wingspan": 36,
       "aircraft_type": 0,
       "jetbridge_required": 0
     },
     "321": {
       "name": "Airbus A321",
-      "wingspan": 35.8,
+      "wingspan": 36,
       "aircraft_type": 0,
       "jetbridge_required": 0
     },
