@@ -29,18 +29,27 @@ def decide(observation):
         )
         
         for gate_id, gate in gates.items():
+            
+            gate_works = True
 
             # Check compatibility
             for leg in legs:
-                if leg["wingspan"] > gate ["max_wingspan"]:
-                    continue
-                if leg["jetbridge_required"] and gate["jetbridge"] == 0:
-                    continue
+                if wingspan > gate ["max_wingspan"]:
+                    gate_works = False
+                    break
+                if jetbridge_required and gate["jetbridge"] == 0:
+                    gate_works = False
+                    break
                 if is_international and gate["gate_type"] != 2:
-                    continue
+                    gate_works = False
+                    break
                 if leg["airplane_type"] != gate["gate_type"]:
-                    continue
-    
+                    gate_works = False
+                    break
+                
+            if not gate_works:
+                continue
+            
             assignments.append((flight_id, gate_id))
             break   
 

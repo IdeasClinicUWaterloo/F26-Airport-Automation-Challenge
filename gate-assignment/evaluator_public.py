@@ -710,5 +710,5 @@ if __name__ == "__main__":
     run_sim(
         static_info="static_info.json",
         flight_schedule="flight_data/simple.json",
-        solution_module="solution"
+        solution_module="solution_ab"
     )
