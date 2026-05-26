@@ -1,15 +1,5 @@
 HOME = "YYZ"
 
-# def time_to_mins(hhmm: str) -> int:
-#     """
-#     Convert the time from midnight to minutes.
-#
-#     Returns time in minutes since midnight
-#     """
-#
-#     h, m = hhmm.split(":")
-#     return int(h)*60 + int (m)
-
 
 def get_gate_window(legs: list):
     """
@@ -81,11 +71,53 @@ def check_time_conflict(gate_id: str, arrival_min: int, departure_min: int, gate
     BUFFER = 90
 
     for booking in gate_assignments.get(gate_id, []):
-
         if arrival_min <= booking["departure_min"] + BUFFER and departure_min >= booking["arrival_min"] - BUFFER:
             return True
 
     return False
+
+
+def gate_optimization(legs: list, gate: dict) -> int:
+    score = 0
+
+    jetbridge_required = legs[0]["jetbridge_required"]
+    wingspan = legs[0]["wingspan"]
+
+    # Score 1: avoid wasting jetbridge gates
+    if not jetbridge_required and gate["jetbridge"]:
+        score += 100
+
+    # Score 2: prefer smallest gate that still fits
+    score += gate["max_wingspan"] - wingspan
+
+    # Score 3: prefer closer gate
+    score += gate["dist"]
+
+    return score
+
+
+def find_best_gate(legs, arrival_min, departure_min, gates, local_assignments):
+    best_gate_id = None
+    best_score = None
+
+    airplane_type = legs[0]["airplane_type"]   # 0=cargo, 1=domestic, 2=international
+    wingspan = legs[0]["wingspan"]
+    jetbridge_required = legs[0]["jetbridge_required"]
+
+    for gate_id, gate in gates.items():
+        if not gate_compatible(airplane_type, wingspan, jetbridge_required, gate):
+            continue
+
+        if check_time_conflict(gate_id, arrival_min, departure_min, local_assignments):
+            continue
+
+        score = gate_optimization(legs, gate)
+
+        if best_score is None or score < best_score:
+            best_score = score
+            best_gate_id = gate_id
+
+    return best_gate_id
 
 
 def decide(observation):
@@ -107,36 +139,35 @@ def decide(observation):
         if not legs:
             continue
 
-        # These fields are already parsed onto the leg dicts by the evaluator
-        airplane_type = legs[0]["airplane_type"]   # 0=cargo, 1=domestic, 2=international
-        wingspan = legs[0]["wingspan"]
-        jetbridge_required = legs[0]["jetbridge_required"]
-
         arrival_min, departure_min = get_gate_window(legs)
 
         if arrival_min is None or departure_min is None:
             continue
 
-        for gate_id, gate in gates.items():
-            if not gate_compatible(airplane_type, wingspan, jetbridge_required, gate):
-                continue
+        gate_id = find_best_gate(
+            legs,
+            arrival_min,
+            departure_min,
+            gates,
+            local_assignments
+        )
 
-            if check_time_conflict(gate_id, arrival_min, departure_min, local_assignments):
-                continue
-
-            if gate_id not in local_assignments:
-                local_assignments[gate_id] = []
-
-            local_assignments[gate_id].append({
-                "flight_id": flight_id,
-                "arrival_min": arrival_min,
-                "departure_min": departure_min,
-            })
-
-            assignments.append((flight_id, gate_id))
-            break
-
-        else:
+        if gate_id is None:
             print(f"ERROR: No compatible gate found for {flight_id}")
+            continue
 
-    return {"assignments": assignments, "reassignments": reassignments}
+        assignments.append((flight_id, gate_id))
+
+        if gate_id not in local_assignments:
+            local_assignments[gate_id] = []
+
+        local_assignments[gate_id].append({
+            "flight_id": flight_id,
+            "arrival_min": arrival_min,
+            "departure_min": departure_min,
+        })
+
+    return {
+        "assignments": assignments,
+        "reassignments": reassignments
+    }
