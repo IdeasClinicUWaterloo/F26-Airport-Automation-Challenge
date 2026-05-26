@@ -709,6 +709,6 @@ def _apply_soft_penalties(flight_id: str, legs: list, gate_id: str, gate: dict, 
 if __name__ == "__main__":
     run_sim(
         static_info="static_info.json",
-        flight_schedule="flight_data/cascade_1.json",
+        flight_schedule="flight_data/cascade_2.json",
         solution_module="solution_ab"
     )

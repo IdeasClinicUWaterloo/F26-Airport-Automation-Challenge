@@ -78,11 +78,11 @@ def check_time_conflict(gate_id: str, arrival_min: int, departure_min: int, gate
     Returns True if there is a conflict, False otherwise.
     """
 
-    for booking in gate_assignments.get(gate_id, []):
-        print(f"  checking against booking: {booking}")
-        print(f"  new window: [{arrival_min}, {departure_min}]")
+    BUFFER = 90
 
-        if arrival_min <= booking["departure_min"] and departure_min >= booking["arrival_min"]:
+    for booking in gate_assignments.get(gate_id, []):
+
+        if arrival_min <= booking["departure_min"] + BUFFER and departure_min >= booking["arrival_min"] - BUFFER:
             return True
 
     return False
