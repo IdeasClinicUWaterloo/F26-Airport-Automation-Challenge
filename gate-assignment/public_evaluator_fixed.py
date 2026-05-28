@@ -574,7 +574,7 @@ def run_sim(static_info: str, flight_schedule: str, solution_module: str):
                 )
 
             print(f"  ↺ Reassigned {flight_id}: {old_gate_id} → {new_gate_id} "
-                  f"[arr: {time_str(arrival_min)}, dep: {time_str(departure_min)}]")
+                  f"[{_gate_window_label(legs)}]")
 
         # ----------------------------------------------------------------
         # 6. Process new assignments (unchanged from original)
@@ -633,10 +633,8 @@ def run_sim(static_info: str, flight_schedule: str, solution_module: str):
             }
             waiting_flights.pop(flight_id)
 
-            arr_str = time_str(arrival_min) if arrival_min is not None else "N/A"
-            dep_str = time_str(departure_min) if departure_min is not None else "N/A"
             print(f"  ✓ Assigned {flight_id} → {gate_id}  "
-                  f"[arr: {arr_str}, dep: {dep_str}]")
+                  f"[{_gate_window_label(legs)}]")
 
         # ----------------------------------------------------------------
         # 7. Post-decision cascade check on flagged flights
@@ -698,7 +696,7 @@ def run_sim(static_info: str, flight_schedule: str, solution_module: str):
                     break
 
             print(f"  ↻ Updated snapshot for {fid} at {assigned_gate_id} "
-                  f"[arr: {time_str(new_arrival)}, dep: {time_str(new_departure)}] (no conflict)")
+                  f"[{_gate_window_label(new_legs)}] (no conflict)")
 
     # ----------------------------------------------------------------
     # FINAL CHECKS (unchanged)
@@ -774,6 +772,31 @@ def _gate_window(legs: list):
 
     return first_time, second_time
 
+def _gate_window_label(legs: list):
+    yyz_events = []
+
+    for leg in legs:
+        if leg["arrivalStation"] == HOME:
+            yyz_events.append(("arr", leg["arrival_min"]))
+
+        if leg["departureStation"] == HOME:
+            yyz_events.append(("dep", leg["departure_min"]))
+
+    if not yyz_events:
+        return "arr: N/A, dep: N/A"
+
+    if len(yyz_events) == 1:
+        label, t = yyz_events[0]
+        return f"{label}: {time_str(t)}"
+
+    first_label, first_time = yyz_events[0]
+    second_label, second_time = yyz_events[1]
+
+    if second_time < first_time:
+        second_time += 24 * 60
+
+    return f"{first_label}: {time_str(first_time)}, {second_label}: {time_str(second_time)}"
+
 
 # -------------------------
 # Apply Soft Penalties
@@ -814,6 +837,6 @@ def _apply_soft_penalties(flight_id: str, legs: list, gate_id: str, gate: dict, 
 if __name__ == "__main__":
     run_sim(
         static_info="static_info.json",
-        flight_schedule="flight_data/cascade_2.json",
+        flight_schedule="flight_data/cascade_1.json",
         solution_module="solution_ab"
     )
