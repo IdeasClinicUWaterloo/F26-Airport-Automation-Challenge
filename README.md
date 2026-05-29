@@ -92,7 +92,7 @@ Your solution should:
 
 This is the primary coding-focused subproblem. Teams will write their logic in `solution.py`, and their solution will be evaluated against visible and hidden test scenarios.
 
-Learn more: [Airplane Gate Assignment Subproblem](./Airplane_Gate_Assignment)
+Learn more: 
 
 ---
 
