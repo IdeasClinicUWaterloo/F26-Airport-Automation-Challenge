@@ -4,11 +4,7 @@ Created by: Engineering IDEAs Clinic Co-op Students
 
 ## Quick Links
 
-* [Airplane Gate Assignment](./Airplane_Gate_Assignment)
-* [Bag Tracking and Sorting](./Bag_Tracking)
-* [Human / Foreign Object Intrusion Detection](./Intrusion_Detection)
-* [Flight Route Interpretation](./Flight_Routing)
-* [Resources](./Resources)
+
 
 ---
 
