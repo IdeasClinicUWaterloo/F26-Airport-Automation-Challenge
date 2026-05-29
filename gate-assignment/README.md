@@ -1,97 +1,235 @@
-# Gate Assignment Subproblem
+# Airplane Gate Assignment
 
-### INTERNAL REPO - DO NOT SHARE
+## Challenge Overview
 
-Hey, welcome to the Github Repo for the Gate Assignment Subproblem for the Brock Airport Automation Hackathon!
+Airports must assign aircraft to gates while managing timing, aircraft size, passenger needs, airline preferences, security rules, cargo restrictions, and unpredictable disruptions.
 
-To get started, be read through the Case Study document on the Brock Sharepoint. Once you're done with that you can get started with understanding how the code/structure works.
+In a real airport, a gate assignment that looks valid at one moment can become invalid later because of a delayed arrival, a gate outage, an aircraft type change, or a late departure. Your task is to build a system that can assign gates over time while avoiding conflicts and adapting to changing information.
 
-## Files
+You are not just trying to place flights into empty gates. You are building the core decision logic of a simplified Gate Management System.
 
-| Filename                            | Description                                                                                                                                                                |
-| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `solution.py`                       | Sample empty solution provided to participants.                                                                                                                            |
-| `solution_kd.py`                    | Example solution assigning flights to the first available compatible gate (for testing) _This is not a 'clean' solution._                                                  |
-| `scripts/validation.py`             | Utility for validating the input JSON files.                                                                                                                               |
-| `evaluator_public.py`               | Evaluator code used to score solutions (typically hidden behind a GUI).                                                                                                    |
-| `static_info.json`                  | Airport information (gate types, etc.) and airplane data (wingspan, etc.).                                                                                                 |
-| `flight_data/*.json`                | Contains the flight schedule/data. Each 'Message Event' has a time attached to it. This time is when the solution can see that particular message event. (explained later) |
-| `JsonFlightMessageSpecification.md` | JSON flight messaging specification for airport communications (by Richard from Brock Solutions).                                                                          |
+---
 
-## ToDos
+# What You Are Building
 
-- Sample solution needs to account for updateEquipment
-- Reimplement Cargo Aircraft
-- More Comprehensive Testing for Evaluator (more flight_info files and edge cases)
-- Guide participants to use optimization techniques??
-- Create a GUI/Web App for uploading solution files
-  - Need to make sure we import all libraries people may use and/or give an option to import other ones.
-  - Possible WASM Port for better performance
+You will write your gate assignment logic in `solution.py`.
 
-## How it works
+The evaluator will read flight schedule information, gate information, and flight update messages from JSON files. These messages follow the project’s JSON flight message specification. To keep the challenge focused, the evaluator will convert the messages into simpler flight and gate update calls before passing them to your solution.
 
-The Evaluator Script goes through the `flight_info.json` and iterates for each 'info_time' that is specified. For each 'info_time' it creates lists to transmit appropriate information to the users solution file.
+Your job is to decide which gate each aircraft should use and to update those decisions when new information arrives.
 
-At each 'info_time' the user has access to `observation` which is structured like:
+---
 
-```python
-observation = {
-        "time": t_min,
-        "waiting_flights": waiting_snapshot,
-        "gates": {
-            gid: {
-                "gate_type": g["gate_type"],
-                "max_wingspan": g["max_wingspan"],
-                "dist": g["dist"],
-                "jetbridge": g["jetbridge"],
-            }
-            for gid, g in gates.items()
-        },
-        "gate_assignments": {
-            gid: [
-                {
-                    "flight_id": a["flight_id"],
-                    "arrival_min": a["arrival_min"],
-                    "departure_min": a["departure_min"],
-                }
-                for a in assignments
-            ]
-            for gid, assignments in gate_assignments.items()
-        },
-        "ac_info": aircraft_info,
-    }
-```
+# Core Requirements
 
-Where:
+Your solution must:
 
-- `waiting_snapshot` is a snapshot of waiting flights (unassigned, not cancelled)
-  ```python
-  waiting_snapshot = {
-        fid: {
-            "flight_id": fid,
-            "legs": state["all_legs"],
-            "info_time": state["info_time"],
-        }
-        for fid, state in waiting_flights.items()
-    }
-  ```
-- `ac_info` contains information about the aircraft (primarily for checking wingspan/jetbridge compatibility)
+* Assign arriving and departing flights to valid gates
+* Avoid gate occupancy conflicts
+* Respect aircraft-gate compatibility
+* Account for aircraft size limits
+* Account for jet bridge requirements where applicable
+* Respect domestic, international, cargo, and security restrictions
+* Handle delays and cascading schedule changes
+* Handle missing, corrupted, or incomplete data safely
+* Reassign flights efficiently when disruptions occur
+* Produce clear output that the evaluator can check
 
-Given this information, the user has to program their solution. **To commit changes**, the function needs to return a dictionary structured like: `{"assignments": assignments, "reassignments": reassignments}`. Note that assignments are reserved for assigning a flight for the first time, and as the naming suggests, the reassignments list should only contain flights you are reassigning (either before/after its arrived)
+A solution that works only for the provided sample scenario is not enough. Your logic should generalize to different airport layouts and schedules.
 
-Where Assignments and Reassignments are lists that will contain tuples of form `(flight_id, gate_id)`.
+---
 
-## Marking
+# Example Constraints
 
-As the marking/scoring exists now there are two types of penalties
+Your solution may need to consider constraints such as:
 
-1. **Game Ending Errors** -> Wingspan incompatibility, Double Booking Gates
-2. **Point Deductions** -> Reassigning flight thats already landed (heavy deduction), flight at wrong gate type,
+| Constraint Type          | Example                                                           |
+| ------------------------ | ----------------------------------------------------------------- |
+| Occupancy                | Two aircraft cannot use the same gate at the same time            |
+| Aircraft Size            | A large aircraft cannot be assigned to a small gate               |
+| Jet Bridge               | Some aircraft or passenger flights may require a jet bridge       |
+| Domestic / International | Some gates may only handle domestic flights                       |
+| Cargo                    | Some gates may only handle cargo flights                          |
+| Security                 | Flights from certain origins may require restricted gates         |
+| Airline Preference       | Some airlines may prefer gates closer to baggage claim or lounges |
+| Turnaround Time          | Aircraft may need service time before the next departure          |
+| Gate Outage              | A gate may become unavailable during the simulation               |
+| Delay                    | A delayed aircraft may block a gate longer than expected          |
 
-## Test Cases
+---
 
-| File Name        | Explain                                          |
-| ---------------- | ------------------------------------------------ |
-| `simple.json`    | Simple Test (No cascading effect)                |
-| `cascade_1.json` | Simple Test for Cascading Changes                |
-| `cascade_2.json` | Slightly more Complex Test for Cascading Changes |
+# Starter Files
+
+This folder may include files such as:
+
+* `solution.py` - where you implement your algorithm
+* `evaluator.py` - used to test your solution
+* `JsonFlightMessageSpecification.md` — describes the JSON message format
+* `simple.json`, `cascade_1.json`, `cascade_2.json`  - Example flight schedule JSON files
+* `static_info.json` - Gate and aircraft information
+
+Do not modify the evaluator unless the challenge staff specifically tells you to. Your submitted logic should be in `solution.py`.
+
+---
+
+# Suggested Solution Approaches
+
+There is no single correct algorithm. You can use any approach that produces valid, robust assignments.
+
+---
+
+# Recommended Roadmap
+
+## Milestone 1 — Produce Valid Assignments
+
+Start by assigning every flight to a gate that is available and compatible.
+
+Focus on:
+
+* Reading inputs correctly
+* Tracking gate occupancy
+* Checking time overlaps
+* Returning assignments in the expected format
+
+## Milestone 2 — Add Constraint Checking
+
+Add validation for:
+
+* Aircraft size
+* Gate type
+* Domestic/international rules
+* Cargo restrictions
+* Jet bridge requirements
+* Missing or invalid flight data
+
+Your solution should fail safely. If no valid gate exists, it should return a clear unassigned or error state rather than creating an invalid assignment.
+
+## Milestone 3 — Handle Time Correctly
+
+Make sure your logic handles:
+
+* Arrival before departure
+* Departure and arrival order
+* Overnight flights
+* Flights that cross midnight
+* Turnaround/service time
+* Delays that extend gate occupancy
+
+Many incorrect solutions fail because they compare times as simple strings or ignore date changes.
+
+## Milestone 4 — Handle Disruptions
+
+Add logic for:
+
+* Delayed arrivals
+* Delayed departures
+* Gate outages
+* Aircraft type changes
+* Emergency reassignment
+* Cascading changes when one flight blocks another
+
+Try to minimize the number of unnecessary reassignments.
+
+## Milestone 5 — Optimize
+
+Once your system is valid, improve the quality of assignments.
+
+Possible optimization goals:
+
+* Lower total delay
+* Lower taxi or waiting time
+* Lower passenger walking distance
+* Higher airline preference satisfaction
+* Less gate idle time
+* Fewer gate changes
+* Faster recovery after disruptions
+
+## Milestone 6 — Test Edge Cases
+
+Create your own test cases. Do not rely only on the provided samples.
+
+Test cases should include:
+
+* No available valid gate
+* Multiple flights requesting the same gate window
+* A delayed aircraft blocking a gate
+* A large aircraft arriving at an airport with mostly small gates
+* Cargo flight mixed into passenger schedule
+* Domestic-only gate with an international flight
+* Gate outage during peak time
+* Missing aircraft type
+* Missing arrival or departure station
+* Flight crossing midnight
+* Through-flight with multiple legs
+* Aircraft reassignment after a disruption
+
+---
+
+# Evaluation
+
+Your solution may be evaluated using visible tests and hidden tests.
+
+## Hard Failures
+
+Hard failures may stop the simulation or produce a major penalty.
+
+Examples:
+
+* Two aircraft assigned to the same gate at the same time
+* Aircraft assigned to an incompatible gate
+* Invalid output format
+
+## Scored Metrics
+
+Solutions may also be scored on softer performance metrics.
+
+Examples:
+
+* Total delay minutes
+* Waiting time
+* Taxi or towing time
+* Gate idle time
+* Number of reassignments
+* Passenger walking distance
+* Airline preference satisfaction
+* Recovery time after disruptions
+* Robustness under missing or changing data
+
+The final evaluator may use airport layouts and flight schedules that are different from the examples provided.
+
+---
+
+# Example Score Output
+
+
+The exact scoring rules may differ during final evaluation.
+
+---
+
+# Design Tips
+
+* Keep an internal record of gates, aircraft, and assignments.
+* Validate an assignment before committing it.
+* Do not assume all gates are identical.
+* Think carefully before reassigning an aircraft that was already assigned.
+* Make your simple solution correct before making it clever.
+
+---
+
+# Deliverables
+
+Your team should submit:
+
+* `solution.py`
+* Any helper files needed by your solution
+* A short explanation of your approach
+* Optional visualizations, dashboards, UI, or simulations
+* A list of assumptions and edge cases handled
+
+During judging, be ready to explain:
+
+* How your solution prevents conflicts
+* How it handles invalid data
+* How it responds to delays or outages
+* What optimization strategy you used
+* What limitations remain
