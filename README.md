@@ -102,29 +102,8 @@ Aircraft often operate across multiple legs, route changes, delays, and partial 
 
 Potential solution directions:
 
-* Parse route information from partial flight messages
-* Reconstruct full aircraft journeys from multiple legs
-* Handle conflicting or updated route data
-* Maintain a current route state over time
-* Visualize route updates as messages arrive
 
-This subproblem emphasizes state management, data interpretation, and robustness under incomplete information.
-
----
-
-## 5. Weight Balancing for Planes — Optional / Deprioritized
-
-Aircraft must remain within safe weight and center-of-gravity limits. This optional problem asks teams to simulate or optimize passenger, luggage, cargo, and fuel loading for a fixed aircraft model.
-
-Potential solution directions:
-
-* Center-of-gravity simulation
-* Cargo and baggage loading optimization
-* Seat and compartment balancing
-* Safety envelope validation
-* Visualization of weight distribution
-
-This subproblem is deprioritized unless otherwise announced.
+This subproblem emphasizes state management, data interpretation, estimation, filtering noise for messages, considering the physics of the flight, etc.
 
 ---
 
@@ -153,7 +132,8 @@ Do not assume the visible sample data covers every case. Final evaluation may in
 4. Test obvious edge cases.
 5. Test unrealistic but possible edge cases.
 6. Optimize only after the solution is correct.
-7. Prepare a clear explanation of your design decisions.
+7.	Innovate! Add interesting and unique ideas that you have, if you find that the original problem is too easy.
+8. Prepare a clear explanation of your design decisions.
 
 A simple, reliable, well-explained prototype is better than a complex system that only works on the sample input.
 
