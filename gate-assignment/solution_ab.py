@@ -6,12 +6,6 @@ def get_gate_window(legs: list):
     Determine the gate occupancy window for a flight from its YYZ-relevant legs.
 
     Returns (arrival_min, departure_min) in minutes since midnight.
-
-    Hint: look for a leg where arrivalStation == HOME (inbound)
-          and a leg where departureStation == HOME (outbound).
-    - Both inbound and outbound: occupied from inbound arrival to outbound departure
-    - Inbound only: use arrival_min for both
-    - Outbound only: use departure_min for both
     """
 
     arrival_min = None
