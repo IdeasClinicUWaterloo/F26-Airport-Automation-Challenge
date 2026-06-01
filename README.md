@@ -82,6 +82,8 @@ Airports must dynamically assign gates to aircraft while balancing efficiency, p
 
 Your challenge is to design a system that assigns airport gates to arriving and departing flights over time.
 
+![alt text](image-1.png)
+
 Your solution should:
 
 * Respect aircraft-gate compatibility
