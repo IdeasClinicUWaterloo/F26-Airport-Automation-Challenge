@@ -82,7 +82,7 @@ Airports must dynamically assign gates to aircraft while balancing efficiency, p
 
 Your challenge is to design a system that assigns airport gates to arriving and departing flights over time.
 
-![alt text](gate_assgt.png)
+![alt text](images/gate_assgt.png)
 
 Your solution should:
 
@@ -102,7 +102,7 @@ Learn more:
 
 Aircraft often operate across multiple legs, route changes, delays, and partial messages. Your challenge is to design a system that receives flight messages and reconstructs the aircraft’s current planned or actual route.
 
-![alt text](flight_route).png)
+![alt text](images/flight_route.png)
 
 Potential solution directions:
 
