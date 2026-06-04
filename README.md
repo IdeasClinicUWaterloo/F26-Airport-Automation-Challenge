@@ -100,9 +100,15 @@ Learn more:
 
 ---
 
-## 4. Flight Route Interpretation
+## 4. Probabilistic Flight Tracking and Route Reconstruction for ATC Automation
 
-Aircraft often operate across multiple legs, route changes, delays, and partial messages. Your challenge is to design a system that receives flight messages and reconstructs the aircraft’s current planned or actual route.
+Modern Air Traffic Control systems maintain a live operational picture of aircraft moving through controlled airspace. Controllers do not rely on a single perfect source of truth. Instead, ATC automation software receives surveillance reports, flight-plan updates, route information, altitude and speed reports, weather constraints, and controller inputs. These data sources may be noisy, delayed, incomplete, or occasionally contradictory.
+
+This subproblem is a simplified version of that real-world software challenge.
+
+You are given a stream of simulated aircraft messages. Some messages report position, altitude, speed, and heading. Others report waypoints, estimated arrival times, or route updates. Messages may arrive late, contain noise, or conflict with previous information. The goal is to reconstruct the most likely aircraft route, estimate the aircraft’s current state, predict the next waypoint and ETA, and flag inconsistent or suspicious messages.
+
+In real ATC systems, this general class of problem appears in surveillance data processing, flight data processing, trajectory prediction, safety-net monitoring, and controller display systems. This hackathon version focuses on the core software ideas behind those systems:
 
 ![alt text](images/flight_route.png)
 
