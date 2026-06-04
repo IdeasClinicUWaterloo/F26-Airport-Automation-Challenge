@@ -34,6 +34,8 @@ A Departure Control System manages passenger check-in, boarding, flight closeout
 
 A Gate Management System helps airports assign aircraft to gates while considering gate availability, aircraft size, passenger convenience, international/domestic rules, cargo restrictions, and disruptions such as delays or outages.
 
+## ATC — Air Traffic Control
+
 ## Message-Driven Airport Operations
 
 Airport systems often communicate through message streams. In a real airport, this may involve queues, event streams, or integration middleware. For this challenge, some subproblems may provide simplified JSON messages or simulator data so that you can focus on the logic of your solution.
