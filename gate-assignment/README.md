@@ -80,25 +80,6 @@ There is no single correct algorithm. You can use any approach that produces val
 
 # Recommended Roadmap
 
-## Milestone 6 — Test Edge Cases
-
-Create your own test cases. Do not rely only on the provided samples.
-
-Test cases should include:
-
-* No available valid gate
-* Multiple flights requesting the same gate window
-* A delayed aircraft blocking a gate
-* A large aircraft arriving at an airport with mostly small gates
-* Cargo flight mixed into passenger schedule
-* Domestic-only gate with an international flight
-* Gate outage during peak time
-* Missing aircraft type
-* Missing arrival or departure station
-* Flight crossing midnight
-* Through-flight with multiple legs
-* Aircraft reassignment after a disruption
-
 ---
 
 # Evaluation
