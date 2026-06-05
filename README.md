@@ -44,9 +44,9 @@ Airport systems often communicate through message streams. In a real airport, th
 
 # Subproblems
 
-## 1. Bag Tracking and Sorting
+## 1. Baggage Handling System
 
-Airports move huge volumes of baggage every day through networks of conveyors, scanners, diverters, and carousels. Your challenge is to design a system that can identify, track, and route baggage through a simplified baggage handling environment.
+Airports move huge volumes of baggage every day through networks of conveyors, scanners, diverters, and carousels. Your challenge is to design a system that can identify, track, route baggage through a simplified baggage handling environment, and detect anomalies or foreign objects on conveyor systems to ensure operational safety.
 
 Potential solution directions:
 
@@ -54,6 +54,9 @@ Potential solution directions:
 * Real-time bag state tracking dashboard
 * Routing logic for conveyors and carousels
 * Error handling for unreadable, oversized, overweight, fragile, or untagged bags
+* Foreign object or anomaly detection on conveyor tracks
+* Zone-based detection alerts for baggage systems
+* Emergency stop, slowdown, or warning signals for conveyor operations
 * Simulation of bag movement through a simplified conveyor network
 * Privacy-conscious tracking that avoids unnecessary passenger personal information
 
@@ -61,24 +64,7 @@ Your solution may be software-only, hardware-assisted, simulation-based, or a mi
 
 ---
 
-## 2. Human / Foreign Object Intrusion Detection
-
-Baggage and airport operations areas can create safety risks when people or foreign objects enter restricted zones. Your challenge is to design a detection system that identifies unsafe human or object presence near conveyor or operational infrastructure.
-
-Potential solution directions:
-
-* Computer vision detection of humans in restricted zones
-* Foreign object detection near conveyor tracks
-* Zone-based intrusion alerts
-* Emergency stop, slowdown, or warning signals
-* Handling partial visibility, occlusion, and false positives
-* Visual dashboard for safety monitoring
-
-Your system does not need to directly control baggage flow. It should provide reliable safety signals that another system could act on.
-
----
-
-## 3. Airplane Gate Assignment
+## 2. Airplane Gate Assignment
 
 Airports must dynamically assign gates to aircraft while balancing efficiency, passenger experience, safety, airline preferences, and unpredictable disruptions.
 
@@ -100,7 +86,7 @@ Learn more:
 
 ---
 
-## 4. [Probabilistic Flight Tracking and Route Reconstruction for ATC Automation](flight-routing/README.md)
+## 3. [Probabilistic Flight Tracking and Route Reconstruction for ATC Automation](flight-routing/README.md)
 
 Modern Air Traffic Control systems maintain a live operational picture of aircraft moving through controlled airspace. Controllers do not rely on a single perfect source of truth. Instead, ATC automation software receives surveillance reports, flight-plan updates, route information, altitude and speed reports, weather constraints, and controller inputs. These data sources may be noisy, delayed, incomplete, or occasionally contradictory.
 
