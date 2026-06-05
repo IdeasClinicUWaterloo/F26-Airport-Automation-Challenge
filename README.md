@@ -64,7 +64,7 @@ Your solution may be software-only, hardware-assisted, simulation-based, or a mi
 
 ---
 
-## 2. Airplane Gate Assignment
+## 2. Gate Management System
 
 Airports must dynamically assign gates to aircraft while balancing efficiency, passenger experience, safety, airline preferences, and unpredictable disruptions.
 
