@@ -1,3 +1,7 @@
+# Probabilistic Flight Tracking for Air Traffic Control
+
+## Challenge Overview
+
 In real aviation systems, aircraft tracking is not just about drawing a line between reported points. Automation software must answer questions such as:
 
 * Where is the aircraft likely to be right now?
@@ -9,6 +13,66 @@ In real aviation systems, aircraft tracking is not just about drawing a line bet
 * Is a message suspicious enough to flag for review?
 
 This challenge captures the core software ideas behind those questions without requiring students to build a full production-grade ATC system.
+
+## Industry Context
+
+Modern Air Traffic Control and Air Traffic Management systems are large, safety-critical software ecosystems. They combine surveillance data, flight plans, aircraft intent, weather information, controller inputs, and operational constraints to maintain a live picture of aircraft moving through controlled airspace.
+
+In real operations, no single data source is treated as perfect. Aircraft position may come from radar, ADS-B, multilateration, Mode-S, satellite-based surveillance, or other surveillance feeds. Flight intent may come from flight plans, route clearances, trajectory predictions, airline operations systems, or controller updates. These sources can arrive at different rates, with different levels of accuracy, and sometimes with conflicting information.
+
+This is why modern ATC software uses concepts such as:
+
+* Surveillance data processing
+* Flight data processing
+* Multi-sensor fusion
+* Track correlation
+* Trajectory prediction
+* Conflict detection
+* Safety-net monitoring
+* Anomaly detection
+* Controller display systems
+
+Systems such as FAA ERAM, FAA STARS, EUROCONTROL ARTAS, and flight data processing platforms used by Air Navigation Service Providers are examples of the broader industry context behind this challenge. These systems maintain tracks, correlate surveillance reports, process flight-plan information, support controller decision-making, and help build a consistent operational picture.
+
+The simplified version in this hackathon focuses on the software ideas behind those systems rather than the full safety-critical operational environment.
+
+At a high level, industry systems work like this:
+
+```text id="nc30tw"
+Surveillance reports + flight plan data + operational updates
+        ↓
+Message validation and normalization
+        ↓
+Track association and state estimation
+        ↓
+Trajectory prediction
+        ↓
+Conflict, anomaly, and consistency checks
+        ↓
+Controller/operations display and downstream system updates
+```
+
+A real system may receive thousands of updates per minute. It must decide whether a new report belongs to an existing aircraft track, whether it contradicts the expected trajectory, whether the aircraft has deviated from its planned route, and how much confidence to place in the latest information.
+
+This challenge captures a simplified version of that problem:
+
+> Given noisy, delayed, incomplete, or conflicting aircraft messages, reconstruct the most likely flight route and estimate the aircraft’s current state.
+
+The advanced parts of this challenge map directly to real software engineering concepts used in aviation, robotics, defense, autonomous vehicles, and sensor-fusion systems:
+
+| Hackathon Concept        | Industry Analogue                                |
+| ------------------------ | ------------------------------------------------ |
+| Message parsing          | Surveillance and flight message normalization    |
+| Route reconstruction     | Flight data processing and trajectory management |
+| Dead reckoning           | Track prediction between reports                 |
+| Extended Kalman Filter   | Probabilistic state estimation                   |
+| Particle filter          | Nonlinear multi-state tracking                   |
+| Multi-hypothesis routing | Track ambiguity and route ambiguity management   |
+| Innovation monitoring    | Anomaly and spoofing detection                   |
+| ETA prediction           | Trajectory prediction                            |
+| Map visualization        | Controller and operations display systems        |
+
+The goal is not to build certified ATC software. The goal is to give students a realistic, simplified version of a problem that appears in professional air traffic automation systems: maintaining a trustworthy operational picture from imperfect data.
 
 ---
 

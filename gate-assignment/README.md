@@ -8,6 +8,94 @@ In a real airport, a gate assignment that looks valid at one moment can become i
 
 You are not just trying to place flights into empty gates. You are building the core decision logic of a simplified Gate Management System.
 
+## Industry Context
+
+Modern airports rely on connected operations software to manage flights, passengers, baggage, gates, stands, check-in counters, ground handlers, and disruption recovery. Gate planning is usually not handled as an isolated spreadsheet problem. It is part of a larger airport operations software environment.
+
+In industry, this type of problem is commonly connected to systems such as:
+
+* Airport Operational Database, or AODB
+* Resource Management System, or RMS
+* Fixed Resource Management
+* Gate and stand allocation tools
+* Airport Collaborative Decision Making, or A-CDM
+* Flight Information Display Systems, or FIDS
+* Baggage Handling Systems, or BHS
+* Baggage Reconciliation Systems, or BRS
+* Ground handling and turnaround management systems
+* Airport Operations Control Center dashboards
+
+The AODB is often treated as the central operational data source. It stores and distributes flight schedules, arrival and departure updates, aircraft information, airport resource assignments, gate changes, baggage information, and operational messages. Other systems consume this data so that airlines, airport operators, ground handlers, passenger information displays, baggage systems, and control-room staff can work from a shared operational picture.
+
+A Resource Management System uses this operational data to assign limited airport resources. These resources can include:
+
+```text id="dwv83l"
+Gates
+Remote stands
+Check-in counters
+Baggage belts
+Bus gates
+Tow positions
+Ground handling resources
+Terminal facilities
+```
+
+Gate and stand management systems must solve a dynamic planning problem. They need to assign aircraft to suitable gates while considering operational rules, infrastructure limits, airline preferences, passenger experience, and disruptions.
+
+Industry platforms from companies such as SITA, Collins Aerospace, Amadeus, INFORM, TAV Technologies, Copenhagen Optimization, ISO, Brock Solutions, and others support different parts of this airport operations technology stack. Some focus on AODB and resource management. Some focus on baggage, passenger processing, real-time operational dashboards, integration, or disruption management. The common theme is that airports need software that can combine live operational data with decision support.
+
+At a high level, a gate management system works like this:
+
+```text id="e6vgha"
+Flight schedules + aircraft data + gate inventory + live updates
+        ↓
+Operational database / shared airport state
+        ↓
+Constraint checking
+        ↓
+Candidate gate generation
+        ↓
+Optimization or rule-based assignment
+        ↓
+Conflict detection and disruption recovery
+        ↓
+Updated gate plan sent to displays, staff, airlines, and downstream systems
+```
+
+In real airport operations, a gate plan must constantly adapt. A delayed arrival can block a gate. A late departure can affect the next aircraft. A gate outage can force multiple reassignments. A widebody aircraft swap can invalidate the original plan. An international flight may require a secure gate. A cargo flight may need a different stand. A medical or emergency flight may need priority handling.
+
+This is why the challenge is framed as a **Gate Management System**, not just a gate assignment algorithm.
+
+A simple gate assignment algorithm answers:
+
+> Which gate should this flight use?
+
+A gate management system answers:
+
+> How should the airport manage all gates and stands over time as the operation changes?
+
+The hackathon version is a simplified model of this industry problem. Students are not expected to build production airport operations software. Instead, they are building the core decision logic behind one important part of that software: assigning and reassigning aircraft to gates safely and efficiently under changing conditions.
+
+The concepts in this challenge map to real airport systems as follows:
+
+| Hackathon Concept           | Industry Analogue                               |
+| --------------------------- | ----------------------------------------------- |
+| Static gate data            | Airport resource inventory                      |
+| Flight schedule JSON        | AODB flight schedule data                       |
+| Flight update messages      | Live operational updates                        |
+| Gate outage messages        | Resource availability updates                   |
+| Aircraft-gate compatibility | Stand/gate planning rules                       |
+| Occupancy conflicts         | Gate/stand collision detection                  |
+| Delay handling              | Disruption and IROPS recovery                   |
+| Reassignment minimization   | Operational stability and passenger experience  |
+| Walking distance score      | Passenger service optimization                  |
+| Airline preferences         | Business rules and stakeholder constraints      |
+| Hidden test scenarios       | Robustness against real operational variability |
+
+The final goal is to build a simplified airport decision-support module that can answer:
+
+> Given the current schedule, gate inventory, live updates, and operational constraints, where should each aircraft go, and how should the plan change when the airport operation changes?
+
 ---
 
 # What You Are Building
