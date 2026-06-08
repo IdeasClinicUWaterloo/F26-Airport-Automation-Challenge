@@ -71,7 +71,7 @@ Conflict, anomaly, and consistency checks
 Controller display + downstream systems (airport ops, baggage, gates, FIDS)
 ```
 
-A real system may process thousands of surveillance reports per minute. For each report, it must decide whether it belongs to an existing track, whether it contradicts the expected trajectory, whether it represents a genuine route change or a sensor error, and how much confidence to place in the new information. This is not a database lookup — it is a continuous estimation problem.
+A real system may process thousands of surveillance reports per minute. For each report, it must decide whether it belongs to an existing track, whether it contradicts the expected trajectory, whether it represents a genuine route change or a sensor error, and how much confidence to place in the new information. This is not a database lookup, it is a continuous estimation problem.
 
 ### How the Hackathon Maps to Real Systems
 
@@ -162,9 +162,9 @@ The aircraft state may include:
 
 The tracker should perform two core operations.
 
-**Predict:** When no new message has arrived, the tracker predicts the aircraft's next state using a simplified flight dynamics model — estimating how far the aircraft has traveled, whether altitude should have changed, how much closer it should be to the next waypoint, and how uncertainty has grown.
+**Predict:** When no new message has arrived, the tracker predicts the aircraft's next state using a simplified flight dynamics model, estimating how far the aircraft has traveled, whether altitude should have changed, how much closer it should be to the next waypoint, and how uncertainty has grown.
 
-**Update:** When a new message arrives, the tracker updates its state estimate — pulling the estimated position toward the reported position, reducing uncertainty after a reliable message, increasing uncertainty if the message conflicts with prior data, recalculating the next waypoint and ETA, and flagging the message if the mismatch is too large.
+**Update:** When a new message arrives, the tracker updates its state estimate, pulling the estimated position toward the reported position, reducing uncertainty after a reliable message, increasing uncertainty if the message conflicts with prior data, recalculating the next waypoint and ETA, and flagging the message if the mismatch is too large.
 
 A strong implementation should show uncertainty increasing when messages are sparse and decreasing when reliable messages arrive.
 
@@ -196,7 +196,7 @@ Advanced solutions may use **innovation-based anomaly detection**: comparing the
 
 ## Autonomous Mapping and Path Planning (Stretch Goal)
 
-Teams may optionally add autonomous route planning. In this version, the system does not only reconstruct the route — it can also reason about better or safer routes.
+Teams may optionally add autonomous route planning. In this version, the system does not only reconstruct the route, it can also reason about better or safer routes.
 
 For example, the system may:
 
@@ -247,35 +247,35 @@ Your solution should output an updated route and tracking estimate after process
 
 Solutions may be scored on:
 
-- **Route Reconstruction Accuracy** — how close is the reconstructed route to the true route?
-- **State Estimation Accuracy** — how close are estimated position, altitude, speed, and heading to the true simulated state?
-- **ETA Accuracy** — how close are predicted arrival times to ground truth?
-- **Conflict Handling** — does the solution correctly identify contradictory messages?
-- **Late Message Handling** — can the solution incorporate delayed or out-of-order messages correctly?
-- **Hypothesis Management** — does the solution maintain and select the correct route hypothesis when ambiguous?
-- **Anomaly Detection** — does the solution flag suspicious messages without too many false alarms?
-- **Code Quality** — is the solution modular, readable, and maintainable?
-- **Optional Visualization** — does the solution clearly display route, uncertainty, and alerts?
+- **Route Reconstruction Accuracy** - how close is the reconstructed route to the true route?
+- **State Estimation Accuracy** - how close are estimated position, altitude, speed, and heading to the true simulated state?
+- **ETA Accuracy** - how close are predicted arrival times to ground truth?
+- **Conflict Handling** - does the solution correctly identify contradictory messages?
+- **Late Message Handling** - can the solution incorporate delayed or out-of-order messages correctly?
+- **Hypothesis Management** - does the solution maintain and select the correct route hypothesis when ambiguous?
+- **Anomaly Detection** - does the solution flag suspicious messages without too many false alarms?
+- **Code Quality** - is the solution modular, readable, and maintainable?
+- **Optional Visualization** - does the solution clearly display route, uncertainty, and alerts?
 
 ---
 
 ## Suggested Student Milestones
 
-**Milestone 1 — Working Parser:** Parse all message types into structured Python objects.
+**Milestone 1 - Working Parser:** Parse all message types into structured Python objects.
 
-**Milestone 2 — Deterministic Route State:** Maintain a route and update it when new waypoint messages arrive.
+**Milestone 2 - Deterministic Route State:** Maintain a route and update it when new waypoint messages arrive.
 
-**Milestone 3 — Basic Prediction:** Estimate current position and ETA using speed, heading, and waypoint distance.
+**Milestone 3 - Basic Prediction:** Estimate current position and ETA using speed, heading, and waypoint distance.
 
-**Milestone 4 — Consistency Checks:** Detect impossible jumps, conflicting waypoints, and invalid ETAs.
+**Milestone 4 - Consistency Checks:** Detect impossible jumps, conflicting waypoints, and invalid ETAs.
 
-**Milestone 5 — EKF or Particle Filter:** Add probabilistic state estimation with uncertainty.
+**Milestone 5 - EKF or Particle Filter:** Add probabilistic state estimation with uncertainty.
 
-**Milestone 6 — Multi-Hypothesis Tracking:** Maintain several possible route explanations and select the most likely one.
+**Milestone 6 - Multi-Hypothesis Tracking:** Maintain several possible route explanations and select the most likely one.
 
-**Milestone 7 — Anomaly Detection:** Use prediction error or innovation magnitude to flag suspicious messages.
+**Milestone 7 - Anomaly Detection:** Use prediction error or innovation magnitude to flag suspicious messages.
 
-**Milestone 8 — Visualization:** Display the route, aircraft state, uncertainty, and alerts on a map.
+**Milestone 8 - Visualization:** Display the route, aircraft state, uncertainty, and alerts on a map.
 
 ---
 
@@ -285,4 +285,4 @@ By the end of the challenge, your system should be able to read a messy stream o
 
 > "Where is this aircraft most likely going, where is it now, when will it arrive, and which messages should we not fully trust?"
 
-This is the same question that systems like ARTAS, ERAM, and STARS answer — thousands of times per minute, for every aircraft in controlled airspace.
+This is the same question that systems like ARTAS, ERAM, and STARS answer - thousands of times per minute, for every aircraft in controlled airspace.
