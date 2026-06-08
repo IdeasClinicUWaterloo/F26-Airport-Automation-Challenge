@@ -24,7 +24,7 @@ Modern Air Traffic Control and Air Traffic Management systems are among the most
 
 No single data source is treated as perfect. Aircraft position may come from primary radar, secondary radar, ADS-B (Automatic Dependent Surveillance–Broadcast), multilateration, Mode-S transponders, satellite-based surveillance, or a combination of several feeds. Flight intent comes from filed flight plans, route clearances, trajectory predictions from airline operations systems, and controller updates. These sources arrive at different rates, carry different levels of accuracy, and sometimes contradict each other.
 
-This is why modern ATC software does not simply display the last known position of an aircraft. It fuses multiple data streams, estimates the most likely current state, predicts where the aircraft is heading, and flags anything that looks inconsistent or suspicious. This class of software engineering — combining noisy, delayed, and conflicting inputs into a reliable operational picture — is called **surveillance data processing**, **track management**, or more broadly, **sensor fusion**.
+This is why modern ATC software does not simply display the last known position of an aircraft. It fuses multiple data streams, estimates the most likely current state, predicts where the aircraft is heading, and flags anything that looks inconsistent or suspicious. This class of software engineering, combining noisy, delayed, and conflicting inputs into a reliable operational picture, is called **surveillance data processing**, **track management**, or more broadly, **sensor fusion**.
 
 ### Real Systems That Solve This Problem
 
@@ -32,11 +32,11 @@ Several operational systems in use today embody these ideas:
 
 **FAA ERAM (En Route Automation Modernization)** is the United States' primary en-route ATC system, replacing the older HOST system. It processes surveillance data from across the national airspace, maintains track files for thousands of aircraft simultaneously, performs trajectory prediction, and supports controller decision-making across Air Route Traffic Control Centers (ARTCCs).
 
-**FAA STARS (Standard Terminal Automation Replacement System)** handles the terminal domain — the airspace around busy airports — where aircraft are arriving and departing and the pace of updates is much faster. STARS correlates radar returns with flight plan data and presents controllers with a fused, labeled picture of all traffic.
+**FAA STARS (Standard Terminal Automation Replacement System)** handles the terminal domain, where aircraft are arriving and departing and the pace of updates is much faster. STARS correlates radar returns with flight plan data and presents controllers with a fused, labeled picture of all traffic.
 
 **EUROCONTROL ARTAS (ATM Surveillance Tracker and Server)** is widely deployed across European airspace. ARTAS is specifically designed as a multi-sensor tracker: it receives inputs from many different radar and ADS-B stations and fuses them into a single coherent track for each aircraft. It uses advanced filtering and track association algorithms to handle the noise, delays, and gaps that arise from real surveillance infrastructure.
 
-**NAV CANADA's automated flight data processing systems**, used to manage one of the world's largest and most complex airspaces by area, apply similar principles — combining radar surveillance, ADS-B data, and flight plan information into actionable tracks for controllers.
+**NAV CANADA's automated flight data processing systems**, used to manage one of the world's largest and most complex airspaces by area, acombining radar surveillance, ADS-B data, and flight plan information into actionable tracks for controllers.
 
 Beyond ATC, similar tracking and estimation problems appear in:
 
@@ -47,9 +47,9 @@ Beyond ATC, similar tracking and estimation problems appear in:
 
 ### Where Brock Solutions Fits
 
-While Brock Solutions is best known for its **SmartSuite** baggage and passenger operations platform, the broader SmartSuite ecosystem also connects to flight-level data. **SmartSuite Enterprise**, Brock's operational management layer, ingests real-time flight information alongside baggage and passenger data to give airports and airlines a unified view of operations. It consumes flight schedule data, live arrival and departure updates, and gate assignment information — the same categories of flight data that ATC systems produce and downstream airport systems consume.
+While Brock Solutions is best known for its **SmartSuite** baggage and passenger operations platform, the broader SmartSuite ecosystem also connects to flight-level data. **SmartSuite Enterprise**, Brock's operational management layer, ingests real-time flight information alongside baggage and passenger data to give airports and airlines a unified view of operations. It consumes flight schedule data, live arrival and departure updates, and gate assignment information, the same categories of flight data that ATC systems produce and downstream airport systems consume.
 
-This makes the connection direct: the flight tracking and state estimation problem you are solving in this challenge represents the upstream source of the live flight data that systems like SmartSuite Enterprise depend on. ATC systems produce the authoritative picture of where aircraft are and when they will arrive; airport operations systems like SmartSuite consume that picture to coordinate baggage, gates, ground handlers, and passengers. The two challenges in this hackathon — ATC tracking and Gate Management — represent adjacent layers in the same operational stack.
+This makes the connection direct: the flight tracking and state estimation problem you are solving in this challenge represents the upstream source of the live flight data that systems like SmartSuite Enterprise depend on. ATC systems produce the authoritative picture of where aircraft are and when they will arrive; airport operations systems like SmartSuite consume that picture to coordinate baggage, gates, ground handlers, and passengers.
 
 ### The Full Data Pipeline
 
@@ -127,7 +127,7 @@ This approach is easier to implement and gives students a working baseline. A ba
 
 ## Advanced Solution Path
 
-An advanced solution treats the problem as probabilistic aircraft tracking — the approach used in real ATC systems like ARTAS and ERAM.
+An advanced solution treats the problem as probabilistic aircraft tracking, the approach used in real ATC systems like ARTAS and ERAM.
 
 Instead of assuming every message is perfectly correct, the system maintains an estimated aircraft state and uncertainty. As new messages arrive, the estimate is updated. When messages are missing, the system predicts forward. When messages conflict, the system compares different possible explanations.
 
