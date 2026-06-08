@@ -46,7 +46,9 @@ Airport systems often communicate through message streams. In a real airport, th
 
 ## 1. Baggage Handling System
 
-Airports move huge volumes of baggage every day through networks of conveyors, scanners, diverters, and carousels. Your challenge is to design a system that can identify, track, route baggage through a simplified baggage handling environment, and detect anomalies or foreign objects on conveyor systems to ensure operational safety.
+Brock Solutions develops an array of software solutions for airports known as the SmartSuite. One of the primary focuses of the SmartSuite is tracking and processing huge volumes of baggage every day through networks of conveyors, scanners, diverters, and carousels. A harmonized system that manages these parts is known as a Baggage Handling System (BHS).
+
+Your challenge is to design a BHS that can identify, track, route baggage through a simplified baggage handling environment, and detect anomalies or foreign objects on conveyor systems to ensure operational safety.
 
 Potential solution directions:
 
