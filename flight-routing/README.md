@@ -1,4 +1,4 @@
-# Probabilistic Flight Tracking for Air Traffic Control
+# Air Traffic Control System
 
 ## Challenge Overview
 
@@ -24,7 +24,7 @@ Modern Air Traffic Control and Air Traffic Management systems are among the most
 
 No single data source is treated as perfect. Aircraft position may come from primary radar, secondary radar, ADS-B (Automatic Dependent Surveillance–Broadcast), multilateration, Mode-S transponders, satellite-based surveillance, or a combination of several feeds. Flight intent comes from filed flight plans, route clearances, trajectory predictions from airline operations systems, and controller updates. These sources arrive at different rates, carry different levels of accuracy, and sometimes contradict each other.
 
-This is why modern ATC software does not simply display the last known position of an aircraft. It fuses multiple data streams, estimates the most likely current state, predicts where the aircraft is heading, and flags anything that looks inconsistent or suspicious. This class of software engineering, combining noisy, delayed, and conflicting inputs into a reliable operational picture, is called **surveillance data processing**, **track management**, or more broadly, **sensor fusion**.
+This is why modern ATC software does not simply display the last known position of an aircraft. It fuses multiple data streams, estimates the most likely current state, predicts where the aircraft is heading, and flags anything that looks inconsistent or suspicious. This class of software engineering, combining noisy, delayed, and conflicting inputs into a reliable operational picture, is called surveillance data processing, track management, or more broadly, sensor fusion.
 
 ### Real Systems That Solve This Problem
 
@@ -80,8 +80,7 @@ A real system may process thousands of surveillance reports per minute. For each
 | Message parsing            | Surveillance and flight message normalization        |
 | Route reconstruction       | Flight data processing and trajectory management     |
 | Dead reckoning             | Track prediction between radar updates               |
-| Extended Kalman Filter     | Probabilistic state estimation (used in ARTAS, etc.) |
-| Particle filter            | Nonlinear multi-state tracking                       |
+| Extended Kalman Filter     | Probabilistic state estimation (used in ARTAS, etc.) |  
 | Multi-hypothesis routing   | Track ambiguity and route ambiguity management       |
 | Innovation monitoring      | Anomaly and spoofing detection                       |
 | ETA prediction             | Trajectory prediction                                |
@@ -121,7 +120,7 @@ Students can:
 - Estimate the next waypoint using the most recent known route
 - Estimate arrival time using simple distance and speed calculations
 
-This approach is easier to implement and gives students a working baseline. A basic solution might be called a **Message Parser and Route Reconstructor**. It rewards clean parsing, good data structures, consistency checks, and reasonable route updates.
+This approach is easier to implement and gives students a working baseline. A basic solution might be called a Message Parser and Route Reconstructor. It rewards clean parsing, good data structures, consistency checks, and reasonable route updates.
 
 ---
 
@@ -134,7 +133,6 @@ Instead of assuming every message is perfectly correct, the system maintains an 
 Advanced techniques may include:
 
 - Extended Kalman Filtering
-- Particle Filtering
 - Multi-hypothesis tracking
 - Innovation-based anomaly detection
 - Late-message correction
@@ -190,7 +188,9 @@ The system should flag messages that are inconsistent with the current estimate.
 - A route update that contradicts several recent reliable messages
 - A delayed message that would have been plausible earlier but no longer matches the current state
 
-Advanced solutions may use **innovation-based anomaly detection**: comparing the predicted state to the observed message and flagging the message if the difference exceeds what the current uncertainty would expect. This is the approach used in operational multi-sensor trackers like ARTAS.
+Advanced solutions may use innovation-based anomaly detection: comparing the predicted state to the observed message and flagging the message if the difference exceeds what the current uncertainty would expect. This is the approach used in operational multi-sensor trackers like ARTAS.
+
+A note on the term "innovation": In estimation theory and Kalman filter literature, innovation is the difference between what the filter predicted a message would report and what the message actually reports. For example, if your filter predicted the aircraft would be at a certain position and altitude, and the incoming message reports something significantly different, that gap is the innovation. If the gap is larger than what your current uncertainty estimate considers plausible, the message is flagged as suspicious. The word has nothing to do with creativity, it is standard terminology used in real multi-sensor tracking systems like EUROCONTROL ARTAS.
 
 ---
 
@@ -269,7 +269,7 @@ Solutions may be scored on:
 
 **Milestone 4 - Consistency Checks:** Detect impossible jumps, conflicting waypoints, and invalid ETAs.
 
-**Milestone 5 - EKF or Particle Filter:** Add probabilistic state estimation with uncertainty.
+**Milestone 5 - KF/EKF or other Filter:** Add probabilistic state estimation with uncertainty.
 
 **Milestone 6 - Multi-Hypothesis Tracking:** Maintain several possible route explanations and select the most likely one.
 
@@ -285,4 +285,4 @@ By the end of the challenge, your system should be able to read a messy stream o
 
 > "Where is this aircraft most likely going, where is it now, when will it arrive, and which messages should we not fully trust?"
 
-This is the same question that systems like ARTAS, ERAM, and STARS answer - thousands of times per minute, for every aircraft in controlled airspace.
+This is the same question that systems like ARTAS, ERAM, and STARS answer thousands of times per minute, for every aircraft in controlled airspace.
