@@ -40,9 +40,9 @@ You will build a simulation-driven baggage sortation and monitoring application.
 
 Your solution will implement simplified versions of three core SmartSort components:
 
-1. **The SAC Engine (Backend)**: A dynamic pathfinding script that routes baggage through a conveyor network graph.
-2. **The DHS Pipeline (Analytics)**: A data processing utility that captures telemetry logs from the simulation loop to calculate real-time system performance metrics.
-3. **The BSD Dashboard (Frontend)**: A 2D graphical user interface that visualizes the conveyor grid, actively tracks moving baggage, and plots operational KPIs.
+1. **The SAC (Backend)**: A dynamic pathfinding script that routes baggage through a conveyor network graph.
+2. **The DHS (Analytics)**: A data processing utility that captures telemetry logs from the simulation loop to calculate real-time system performance metrics.
+3. **The BSD (Frontend)**: A 2D graphical user interface that visualizes the conveyor grid, actively tracks moving baggage, and plots operational KPIs.
 
 ---
 
