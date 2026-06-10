@@ -1,3 +1,5 @@
+![alt text](images/brock.png)
+
 # Brock Solutions Airport Automation Challenge
 
 Created by: Engineering IDEAs Clinic Co-op Students

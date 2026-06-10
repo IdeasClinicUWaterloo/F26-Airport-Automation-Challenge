@@ -1,4 +1,4 @@
-# Airplane Gate Assignment
+# Gate Management System
 
 ## Challenge Overview
 

@@ -1,5 +1,7 @@
 # Baggage Handling System
 
+![alt text](assets/smart_suite.png)
+
 ## Challenge Overview
 
 Brock Solutions is a global engineering solutions and professional services company that develops solutions for many industries, including the airport industry. Brock Solutions provides an array of software solutions for airports known as the SmartSuite. The software packages contained in SmartSuite help with various parts of airport automation, with a heavy focus on Baggage Handling Systems (BHS). Below are the main solutions within SmartSuite that deal with Baggage Handling:
