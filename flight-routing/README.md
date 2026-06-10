@@ -14,6 +14,8 @@ In real aviation systems, aircraft tracking is not just about drawing a line bet
 
 This challenge captures the core software ideas behind those questions without requiring students to build a full production-grade ATC system.
 
+Note: In real world scenarios, flight messages are received in a much greater quantity within a short period of time. For this challenge, you will be given spaced out, delayed, and incomplete messages to encourage and build skills in state estimation.
+
 ---
 
 ## Industry Context
