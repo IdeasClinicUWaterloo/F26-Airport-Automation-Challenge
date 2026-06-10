@@ -1,5 +1,7 @@
 # Baggage Sortation and Analytics System
 
+![alt text](assets/smart_suite.png)
+
 ## Challenge Overview
 
 Brock Solutions is a global engineering solutions and professional services company that develops automation software for various industries, including the airport industry. Brock Solutions provides an array of software packages known as the **SmartSuite** to streamline airport operations. One of the solutions within SmartSuite is **SmartSort**, a high-level control (HLC) and sortation management system used to route baggage, track system telemetry, and report operational key performance indicators (KPIs). 
