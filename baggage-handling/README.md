@@ -76,27 +76,13 @@ There is variable degree of difficulty to these challenges. Some of the challeng
 
 ---
 
-# Example Constraints
-
----
-
-# Baggage State and Tracking
-
----
-
-# Multi-Source Message Handling
-
----
-
-# Anomaly Detection
-
----
-
 # Starter Files
 
 ---
 
 # Suggested Solution Approaches
+
+There is no unique solution for any of the problems. As long as the Core Requirements are met, feel free to choose any approach. 
 
 ---
 
@@ -106,15 +92,9 @@ There is variable degree of difficulty to these challenges. Some of the challeng
 
 # Evaluation
 
-## Hard Failures
+Solutions may be evaluated by evaluator scripts or human judges.  
 
 ## Scored Metrics
-
-## Example Score Output
-
----
-
-# Design Tips
 
 ---
 
