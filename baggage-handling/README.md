@@ -1,101 +1,136 @@
-# Baggage Handling System
+# Baggage Sortation and Analytics System
 
 ## Challenge Overview
 
-Brock Solutions is a global engineering solutions and professional services company that develops solutions for many industries, including the airport industry. Brock Solutions provides an array of software solutions for airports known as the SmartSuite. The software packages contained in SmartSuite help with various parts of airport automation, with a heavy focus on Baggage Handling Systems (BHS). Below are the main solutions within SmartSuite that deal with Baggage Handling:
+Brock Solutions is a global engineering solutions and professional services company that develops automation software for various industries, including the airport industry. Brock Solutions provides an array of software packages known as the **SmartSuite** to streamline airport operations. One of the solutions within SmartSuite is **SmartSort**, a high-level control (HLC) and sortation management system used to route baggage, track system telemetry, and report operational key performance indicators (KPIs). 
 
-### SmartBag
+In a real airport terminal, a baggage conveyor system is a dynamic, high-volume logistical network. Sorting thousands of bags per hour requires real-time adaptations to handle distruptions like mechanical conveyor jams, variable line speeds, routing bottlenecks, and shifting flight gates.
 
-SmartBag is the Baggage Reconciliation System (BRS) solution in SmartSuite. Its purpose is to track baggage and ensure that baggage is moving to the correct destination. The functionality of SmartBag is as follows: 
-
-* **SmartBag Reconciliation**: Reconciles checked baggage with passengers to provide information about whether baggage can be loaded onto aircrafts. Tracks loading issues and provides baggage handlers with any information needed to locate and offload bags if needed.
-* **SmartBag Recovery**: Reflights delayed baggage to be reconnected with passengers at their destinations as efficiently and cost-effectively as possible.
-* **SmartBag Tracking**: Scans incoming or outgoing bags to view tracking information about them including inbound flight number, remaining time to connecting flight (with Hot Bag indication), and assigned gate for the bag’s outbound flight.
-* **SmartBag Grouping**: Allows bags to be grouped with specific validation rules. Baggage handlers can track, validate, and perform bulk actions as defined on bags to ensure efficient movement and visibility on the ramp and throughout the airport. 
-* **Other Functionality**: SmartBag contains multiple other functions that are not within the scope of this challenge, including weight management, notification systems, and agent services. 
-
-### SmartDrop
-
-SmartDrop is a bag drop efficiency solution within the SmartSuite. It provides airports with functionality to streamline the baggage acceptance process by allowing passengers to self-tag their bags at airport kiosks before dropping them off. There are three options for airports to choose from:
-
-* **Agent Bag Drop**: Closest to traditional systems. Allows agents to quickly validate the bags, skipping the tagging step by letting passengers self-tag.
-* **Mobile Bag Drop**: Similar to Agent Bag Drop, allows agents to use mobile devices for even quicker validation and acceptance.
-* **Auto Bag Drop**: A Self-Service Bag Drop (SSBD) solution that allows passengers to drop their bags off without any agents required.
-
-### SmartSort
-
-SmartSort is the heart of the BHS solutions within SmartSuite. It is a sortation management and High-Level Control (HLC) system used to track bags and report all key performance indicators about them within the airport. This allows airports to identify, implement, and measure operational improvements within the BHS. SmartSort consists of the following sub-systems:
-
-* **Sort Allocation Controller (SAC)**: The main sortation system. Controls conveyor system to transport baggage to their correct destinations. 
-* **Data Historian System (DHS)**: Collects and stores time series data from the various sensors and components in the conveyor system. This data is used to monitor components for enhancing efficiency, predicting failures, and other data analysis processes.
-* **Manual Encode Console (MEC)**: Allows operators or agents to manually enter bag information when automatic scanners cannot read it. 
-* **Bag Status Display (BSD)**: Creates an interative 3D BHS map that shows all the bags moving through the conveyor system.
-* **Web Client**: Integrates all sub-systems into a single web client for easy access.
+This challenge aims to capture the architecture of a modern Baggage Handling System (BHS). You will build a simplified equivalent of the SmartSort platform, integrating real features that are available in the software used by many international airports. 
 
 ---
 
-# What You Are Building
+## Industry Context
 
-You will create simplified equivalents of the three SmartSuite solutions outlined in the previous section. The level of detail and breadth is up to the group as long as the Core Requirements are met. 
+### High-Level Control and Telemetry in Airport Logistics
 
-For SmartBag and SmartSort, you will be given different cases to handle with your solution that will be handled by an evaluator file. SmartDrop will be evaluated by human judges for depth of functionality and user-friendly design.
+Modern airport baggage systems are highly complex behind the scenes. Bags are tracked via barcodes or RFID tags as they pass physical laser arrays and diverters along long stretches of interconnected conveyor belts. Controlling this hardware requires software that can process real-time events, calculate optimal travel paths instantly, and isolate mechanical failures before they cause gridlock across the entire terminal.
 
----
+In an enterprise environment, this data pipeline is split into distinctive layers that communicate with one another:
 
-# Core Requirements
+* **The Routing Layer** executes the automation logic, directing physical diverters to send bags down specific paths.
+* **The Data Historian Layer** collects high-frequency sensor telemetry to predict component failures and evaluate system efficiency.
+* **The Visualization Layer** translates raw data into a unified command center interface, allowing terminal operators to spot bottlenecks and deploy maintenance teams instantly.
 
-The core requirements are separated by solution. The requirements represent the minimum requirements for the group. If time permits, groups can work on more than what is outlined.
+### Real Systems That Solve This Problem
 
-### SmartBag
+Brock Solutions' **SmartSort** platform coordinates these tasks simultaneously by breaking the architecture into specialized subsystems:
 
-* Implement two (2) of the SmartBag functions
-    * **Reconciliation**: You will be given a list of baggage information to be loaded into an aircraft and a list of loaded baggage. For the baggage to be loaded, create a script to check if they are authorized to be loaded onto the aircraft. For the baggage already loaded, create a script to check if all of the baggage is valid, and if not, generate text to send the baggage handler about the invalid baggage's location.
-    * **Recovery**: You will be given a list of delayed baggage and flights leaving the airport. Connect baggage to flights in a way that minimizes the overall delay of baggage to their owners. 
-    * **Grouping**: You will be given a list of baggage and their information. Create a GUI that visualizes the information associated with the baggage and allows a user to group properties of different baggage together. Evaluated by human judges based on visual design, features, user-friendly functions, etc.
-* **SmartBag Tracking** will be integrated with **SmartDrop**. 
-
-### SmartDrop
-
-* There are three levels to this solution. Choose one (1) of these levels to build.
-    * **Agent Bag Drop (Level 1)**: You will be given a list of baggage that is to be checked in. Create a self-tag system that checks if all information about the baggage is valid and creates a scannable barcode that encodes the baggage information in it.
-    * **Mobile Bag Drop (Level 2)**: Complete level 1. Additionally, create a script that can scan your barcodes and parse the information encoded within. 
-    * **Auto Bag Drop (Level 3)**: Complete level 2. Additionally, there is a physical conveyor system in the IDEAS Clinic that you can implement this system on. You will be given access to a platform to program the conveyors. Publish your barcodes to an MQTT broker (will be given) and use the Nvidia Jetson Nanos connected to the the conveyor to run a CV script to scan your barcodes. Based on if a valid barcode is scanned, either engage the diverter or stop the conveyor.
-
-### SmartSort
-
-* Implement one (1) of the SmartSort sub-systems
-    * **SAC**: You will be given a conveyor map and list of baggage with their destinations. Create an algorithm to find the optimal path for a piece of baggage to reach its destination. There will be additional rules for paths that must be taken into account.
-    * **DHS**: You will be given a sample stream of data from a simplified conveyor system. It will contain information about conveyor failures and number of baggage processed at various junctions. Visualize the data stream into graphs and propose changes to the current system to improve efficiency.
-    * **MEC**: Extension for SmartDrop. In real world scenarios, barcodes can be hidden or inaccessible for scanners. Implement a system for an operator to manually enter baggage information in such cases.
-    * **BSD**: You will be given a list of time-series information about bags and their current positions. Create a tool to visualize the conveyor system and the status of the bags on it. 
-
-
-There is variable degree of difficulty to these challenges. Some of the challenges relate to others. Choose a set that you think your group can complete within time. 
+* **Sort Allocation Controller (SAC)**: The "brain" that calculates paths and manages conveyor routing.
+* **Data Historian System (DHS)**: The system that processes time-series logs and tracks physical performance.
+* **Bag Status Display (BSD)**: The visual user interface that maps the state of the network into a scannable operational view.
 
 ---
 
-# Starter Files
+## What You Are Building
+
+You will build a simulation-driven baggage sortation and monitoring application. Your system must read a live stream of airport operational data and execute real-time routing decisions while feeding an analytics pipeline and user interface.
+
+Your solution will implement simplified versions of three core SmartSort components:
+
+1. **The SAC Engine (Backend)**: A dynamic pathfinding script that routes baggage through a conveyor network graph.
+2. **The DHS Pipeline (Analytics)**: A data processing utility that captures telemetry logs from the simulation loop to calculate real-time system performance metrics.
+3. **The BSD Dashboard (Frontend)**: A 2D graphical user interface that visualizes the conveyor grid, actively tracks moving baggage, and plots operational KPIs.
 
 ---
 
-# Suggested Solution Approaches
+## Core Simulation Mechanics
 
-There is no unique solution for any of the problems. As long as the Core Requirements are met, feel free to choose any approach. 
+To accurately evaluate your software without the limitations of real-world "wall-clock" time, this challenge utilizes a **Discrete Tick-Based Simulation Framework**.
 
----
-
-# Recommended Roadmap
+Time in the simulator progresses in discrete iterations called **ticks** (where 1 simulation tick represents 1 second of operational airport time). The evaluator manages the physics of the environment and communicates with your software via reactive API calls at every tick.
 
 ---
 
-# Evaluation
+### Conveyor Network Geography
 
-Solutions may be evaluated by evaluator scripts or human judges.  
+The airport conveyor layout is provided as a directed graph consisting of **Nodes** (intake points, routing junctions, and destination gates) and **Edges** (the physical conveyor belts connecting them). Every conveyor belt has a designated **Base Travel Cost** measured in ticks, representing the physical length of the belt.
 
-## Scored Metrics
+### Dynamic Events
+
+To mirror real airport conveyor systems, dynamic events will occur randomly or based on the route allocation for pieces of baggage. The shortest path may not always be the quickest path, and your algorithm must be able to reroute baggage based on real time faults or junction closures.
+
+---
+
+## Starter Files
+
+Apart from inputs from the evaluator, there will be additional files to provide a starting point for some of the Core Requirements.
+
+* `historical_data.csv`: Provides a full log of a previous day's operation. Analyze this data to find patterns which can be used to further optimize your pathfinding algorithm.
+* `bsd_starter.py`: Provides a boilerplate map of the conveyor system that you can add BSD features to.
 
 ---
 
-# Deliverables
+## Core Requirements
+
+### 1. Sort Allocation Controller (SAC)
+
+* Implement a dynamic pathfinding algorithm that maps a bag's route from its intake node to its assigned flight gate.
+* Routing decisions must be evaluated at every junction; a pre-calculated path from the start may not reach the destination if there are jams
+
+### 2. Data Historian System (DHS)
+
+* Aggregate and compute operational metrics over time, including:
+    * **Conveyor Utilization**: Identifying the most heavily congested belts and junctions.
+    * **System Misroute Rate**: Tracking bags that missed their flight windows due to delays or pathfinding inefficiencies.
+    * **Mean Transit Time**: Calculating the average duration a bag takes to reach its gate from intake.
+* Use the historical CSV to map out inherent structural flaws in the airport network before the simulation begins.
+* Optionally, process live telemetry to dynamically route bags for further optimization.
+
+### 3. Bag Status Display (BSD)
+
+* Use the provided conveyor map to add BSD functionality.
+* Highlight operational nodes, destination gates, and active jam points.
+* Render real-time positions or numbers of bags moving along the network edges.
+* Integrate a dedicated analytics panel that pulls from your DHS layer to display updating line graphs or charts of system KPIs.
 
 ---
+
+## Inputs and Expected Outputs
+
+### Inputs
+
+The evaluator will supply your application with the following data sources:
+
+* `network_layout.json`: Defines the conveyor graph structure, including node IDs, edge connections, base travel costs, and target gate locations.
+* `simulation_scenario.json`: A time-step schedule defining the events that occur at each tick (baggage loading, jams, etc.).
+
+### Expected Outputs
+
+At the end of the simulation execution, your system must export:
+
+* A standardized tracking log file recording the exact tick history of every bag's path through the network.
+* An analytics report summarizing the final system-wide metrics calculated by your DHS module.
+* A running instance of the BSD graphical dashboard during evaluation for human judging review.
+
+---
+
+## Evaluation and Scoring
+
+Your submission will be scored through automated code evaluation combined with a panel review of your user interface.
+
+### Hard Failures
+
+The following events will result in severe point deductions or simulation failure:
+
+* **Invalid Routing**: Sending a bag to a node or gate not connected to its current position via a valid edge.
+* **Deadlocks**: Allowing a bag to remain trapped on an active loop indefinitely due to recursive pathfinding logic.
+* **Script Crashes**: Unhandled exceptions occurring when a sudden conveyor jam is introduced by the evaluator.
+
+### Scored Metrics
+
+Solutions will be graded on a curve across these performance criteria:
+
+* **Total Misrouted Bags**: The count of bags that arrived at their gate after their designated flight departure tick.
+* **Network Efficiency**: The cumulative travel time across all baggage items; lower total system latency scores higher.
+* **Dashboard Usability (BSD)**: Evaluated by human judges based on design clarity, visual layout of the conveyor topology, scannability of alerts, and the effectiveness of KPI visualizations.
