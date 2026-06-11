@@ -44,25 +44,19 @@ Airport systems often communicate through message streams. In a real airport, th
 
 # Subproblems
 
-## 1. Baggage Handling System
+## 1. [Baggage Handling System](baggage-handling/README.md)
 
-Brock Solutions develops an array of software solutions for airports known as the SmartSuite. One of the primary focuses of the SmartSuite is tracking and processing huge volumes of baggage every day through networks of conveyors, scanners, diverters, and carousels. A harmonized system that manages these parts is known as a Baggage Handling System (BHS).
+Brock Solutions develops airport automation software that helps airports route baggage efficiently through complex conveyor networks. A key challenge in real airports is orchestrating the movement of thousands of bags per hour while handling disruptions like mechanical jams, congestion, and shifting flight gates.
 
-Your challenge is to design a BHS that can identify, track, route baggage through a simplified baggage handling environment, and detect anomalies or foreign objects on conveyor systems to ensure operational safety.
+Your challenge is to design a baggage handling system that can dynamically route baggage through a simplified conveyor network and monitor system performance.
 
-Potential solution directions:
+Your solution should:
 
-* Barcode, RFID, or simulated tag-based bag identification
-* Real-time bag state tracking dashboard
-* Routing logic for conveyors and carousels
-* Error handling for unreadable, oversized, overweight, fragile, or untagged bags
-* Foreign object or anomaly detection on conveyor tracks
-* Zone-based detection alerts for baggage systems
-* Emergency stop, slowdown, or warning signals for conveyor operations
-* Simulation of bag movement through a simplified conveyor network
-* Privacy-conscious tracking that avoids unnecessary passenger personal information
+* Implement routing logic that directs baggage from intake points to their assigned gates, adapting in real-time to network conditions
+* Track and analyze operational metrics such as bag transit times, network congestion, and missed flight windows
+* Provide a visualization that displays the conveyor network, active baggage positions, and system performance data
 
-Your solution may be software-only, hardware-assisted, simulation-based, or a mix of all three.
+Your solution may combine backend routing logic, analytics processing, and a frontend visualization dashboard. Think about how to handle real-time events, optimize for efficiency, and ensure bags reach their destinations on time.
 
 ---
 
