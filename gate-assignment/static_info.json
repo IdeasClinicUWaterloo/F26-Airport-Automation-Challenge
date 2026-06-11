@@ -1,0 +1,88 @@
+{
+  "gate_info": {
+    "C1": {
+      "occupied": 0,
+      "gate_type": 0,
+      "max_wingspan": 65,
+      "dist": -1,
+      "jetbridge": 0
+    },
+    "C2": {
+      "occupied": 0,
+      "gate_type": 0,
+      "max_wingspan": 80,
+      "dist": -1,
+      "jetbridge": 0
+    },
+    "D1": {
+      "occupied": 0,
+      "gate_type": 1,
+      "max_wingspan": 52,
+      "dist": 150,
+      "jetbridge": 1
+    },
+    "D2": {
+      "occupied": 0,
+      "gate_type": 1,
+      "max_wingspan": 52,
+      "dist": 200,
+      "jetbridge": 1
+    },
+    "D3": {
+      "occupied": 0,
+      "gate_type": 1,
+      "max_wingspan": 45,
+      "dist": 250,
+      "jetbridge": 0
+    },
+    "I1": {
+      "occupied": 0,
+      "gate_type": 2,
+      "max_wingspan": 65,
+      "dist": 100,
+      "jetbridge": 1
+    },
+    "I2": {
+      "occupied": 0,
+      "gate_type": 2,
+      "max_wingspan": 65,
+      "dist": 180,
+      "jetbridge": 1
+    },
+    "I3": {
+      "occupied": 0,
+      "gate_type": 2,
+      "max_wingspan": 60,
+      "dist": 300,
+      "jetbridge": 0
+    },
+    "I4": {
+      "occupied": 0,
+      "gate_type": 2,
+      "max_wingspan": 80,
+      "dist": 120,
+      "jetbridge": 1
+    }
+  },
+
+  "aircraft_info": {
+    "73G": {
+      "name": "Boeing 737-700",
+      "wingspan": 36,
+      "aircraft_type": 0,
+      "jetbridge_required": 0
+    },
+    "321": {
+      "name": "Airbus A321",
+      "wingspan": 36,
+      "aircraft_type": 0,
+      "jetbridge_required": 0
+    },
+    "789": {
+      "name": "Boeing 787-9",
+      "wingspan": 60,
+      "aircraft_type": 1,
+      "jetbridge_required": 1
+    }
+  }
+}
