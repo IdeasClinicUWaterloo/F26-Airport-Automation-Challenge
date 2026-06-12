@@ -121,6 +121,7 @@ The evaluator will supply your application with the following data sources:
 
 * `network_layout.json`: Defines the conveyor graph structure, including node IDs, edge connections, base travel costs, and target gate locations.
 * `simulation_scenario.json`: A time-step schedule defining the events that occur at each tick (baggage loading, jams, etc.).
+
 ## Core Simulation Mechanics
 
 To accurately evaluate your software without the limitations of real-world "wall-clock" time, this challenge utilizes a **Discrete Tick-Based Simulation Framework**.
