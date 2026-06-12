@@ -9,7 +9,7 @@
     },
     {
       "message_id": "m2",
-      "type": "position",
+      "type": "state",
       "timestamp": "2026-06-05T10:05:00",
       "lat": 43.50,
       "lon": -82.00,
