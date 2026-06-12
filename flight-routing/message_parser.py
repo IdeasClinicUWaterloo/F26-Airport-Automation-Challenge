@@ -6,10 +6,10 @@ class MessageParser:
 
     def __init__(self, filepath="flight-routing/data/flight_msgs.json"):
         with open(filepath, "r") as f:
-            self.data = json.load(f)
+            self.flight_data = json.load(f)
 
     def get_info(self):
-        flight = self.data.get("flight_id")
+        flight = self.flight_data.get("flight_id")
 
         info = {
             "flight": flight,
@@ -22,7 +22,7 @@ class MessageParser:
             "eta": None
         }
 
-        messages = self.data.get("messages", [])
+        messages = self.flight_data.get("messages", [])
 
         for message in messages:
             msg_type = message.get("type")
