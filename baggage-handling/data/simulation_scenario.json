@@ -1,0 +1,184 @@
+{
+  "simulation": {
+    "total_ticks": 300,
+    "description": "Airport BHS simulation scenario. Five phases: warm-up, first pressure, sustained load, crisis peak, wind-down. Bags carry optional deadline_tick for priority routing. Jams are full blockages with a fixed duration."
+  },
+
+  "phases": [
+    { "name": "warm_up",       "start_tick": 1,   "end_tick": 50  },
+    { "name": "first_pressure","start_tick": 51,  "end_tick": 100 },
+    { "name": "sustained_load","start_tick": 101, "end_tick": 180 },
+    { "name": "crisis_peak",   "start_tick": 181, "end_tick": 240 },
+    { "name": "wind_down",     "start_tick": 241, "end_tick": 300 }
+  ],
+
+  "bags": [
+
+    { "bag_id": "B001", "intake_node": "IA1", "destination_gate": "GA2", "release_tick": 3 },
+    { "bag_id": "B002", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 6 },
+    { "bag_id": "B003", "intake_node": "IA2", "destination_gate": "GA4", "release_tick": 11 },
+    { "bag_id": "B004", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 16 },
+    { "bag_id": "B005", "intake_node": "IA1", "destination_gate": "GA1", "release_tick": 21 },
+    { "bag_id": "B006", "intake_node": "IB1", "destination_gate": "GB1", "release_tick": 26 },
+
+    { "bag_id": "B007", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 30 },
+    { "bag_id": "B008", "intake_node": "IA2", "destination_gate": "GA2", "release_tick": 30 },
+    { "bag_id": "B009", "intake_node": "IB1", "destination_gate": "GB3", "release_tick": 31 },
+    { "bag_id": "B010", "intake_node": "IB2", "destination_gate": "GB4", "release_tick": 31 },
+
+    { "bag_id": "B011", "intake_node": "IA1", "destination_gate": "GA2", "release_tick": 37 },
+    { "bag_id": "B012", "intake_node": "IB2", "destination_gate": "GB2", "release_tick": 43 },
+    { "bag_id": "B013", "intake_node": "IA2", "destination_gate": "GA3", "release_tick": 47 },
+
+    { "bag_id": "B014", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 53, "deadline_tick": 110 },
+    { "bag_id": "B015", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 56 },
+    { "bag_id": "B016", "intake_node": "IA2", "destination_gate": "GA4", "release_tick": 59, "deadline_tick": 115 },
+    { "bag_id": "B017", "intake_node": "IB2", "destination_gate": "GB1", "release_tick": 62 },
+    { "bag_id": "B018", "intake_node": "IA1", "destination_gate": "GA2", "release_tick": 65, "deadline_tick": 118 },
+    { "bag_id": "B019", "intake_node": "IB1", "destination_gate": "GB3", "release_tick": 68 },
+
+    { "bag_id": "B020", "intake_node": "IA2", "destination_gate": "GA1", "release_tick": 72 },
+    { "bag_id": "B021", "intake_node": "IB2", "destination_gate": "GB4", "release_tick": 75 },
+
+    { "bag_id": "B022", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 82 },
+    { "bag_id": "B023", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 85 },
+
+    { "bag_id": "B024", "intake_node": "IA2", "destination_gate": "GA2", "release_tick": 90, "deadline_tick": 145 },
+    { "bag_id": "B025", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 93, "deadline_tick": 148 },
+    { "bag_id": "B026", "intake_node": "IA1", "destination_gate": "GA4", "release_tick": 97 },
+    { "bag_id": "B027", "intake_node": "IB1", "destination_gate": "GB1", "release_tick": 99 },
+
+    { "bag_id": "B028", "intake_node": "IA2", "destination_gate": "GA3", "release_tick": 103, "deadline_tick": 165 },
+    { "bag_id": "B029", "intake_node": "IB2", "destination_gate": "GB2", "release_tick": 105 },
+    { "bag_id": "B030", "intake_node": "IA1", "destination_gate": "GA2", "release_tick": 108, "deadline_tick": 170 },
+    { "bag_id": "B031", "intake_node": "IB1", "destination_gate": "GB3", "release_tick": 111 },
+    { "bag_id": "B032", "intake_node": "IA2", "destination_gate": "GA1", "release_tick": 114 },
+    { "bag_id": "B033", "intake_node": "IB2", "destination_gate": "GB4", "release_tick": 117, "deadline_tick": 175 },
+
+    { "bag_id": "B034", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 122 },
+    { "bag_id": "B035", "intake_node": "IB1", "destination_gate": "GB1", "release_tick": 124 },
+
+    { "bag_id": "B036", "intake_node": "IA1", "destination_gate": "GA4", "release_tick": 128 },
+    { "bag_id": "B037", "intake_node": "IA2", "destination_gate": "GA2", "release_tick": 128 },
+    { "bag_id": "B038", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 129 },
+    { "bag_id": "B039", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 129 },
+
+    { "bag_id": "B040", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 136 },
+    { "bag_id": "B041", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 139 },
+
+    { "bag_id": "B042", "intake_node": "IA2", "destination_gate": "GA2", "release_tick": 155, "deadline_tick": 205 },
+    { "bag_id": "B043", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 157, "deadline_tick": 208 },
+    { "bag_id": "B044", "intake_node": "IA1", "destination_gate": "GA1", "release_tick": 160 },
+    { "bag_id": "B045", "intake_node": "IB1", "destination_gate": "GB4", "release_tick": 163 },
+    { "bag_id": "B046", "intake_node": "IA2", "destination_gate": "GA4", "release_tick": 166, "deadline_tick": 215 },
+    { "bag_id": "B047", "intake_node": "IB2", "destination_gate": "GB1", "release_tick": 169 },
+    { "bag_id": "B048", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 172 },
+    { "bag_id": "B049", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 175 },
+    { "bag_id": "B050", "intake_node": "IA2", "destination_gate": "GA2", "release_tick": 178, "deadline_tick": 225 },
+
+    { "bag_id": "B051", "intake_node": "IA1", "destination_gate": "GA2", "release_tick": 183, "deadline_tick": 230 },
+    { "bag_id": "B052", "intake_node": "IA2", "destination_gate": "GA3", "release_tick": 183, "deadline_tick": 228 },
+    { "bag_id": "B053", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 184, "deadline_tick": 232 },
+    { "bag_id": "B054", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 184, "deadline_tick": 229 },
+    { "bag_id": "B055", "intake_node": "IA1", "destination_gate": "GA4", "release_tick": 185 },
+
+    { "bag_id": "B056", "intake_node": "IA2", "destination_gate": "GA1", "release_tick": 190 },
+    { "bag_id": "B057", "intake_node": "IB1", "destination_gate": "GB4", "release_tick": 192 },
+    { "bag_id": "B058", "intake_node": "IB2", "destination_gate": "GB1", "release_tick": 195, "deadline_tick": 240 },
+
+    { "bag_id": "B059", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 199 },
+    { "bag_id": "B060", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 201 },
+
+    { "bag_id": "B061", "intake_node": "IA1", "destination_gate": "GA2", "release_tick": 207, "deadline_tick": 248 },
+    { "bag_id": "B062", "intake_node": "IA2", "destination_gate": "GA3", "release_tick": 207, "deadline_tick": 250 },
+    { "bag_id": "B063", "intake_node": "IB1", "destination_gate": "GB3", "release_tick": 208, "deadline_tick": 252 },
+    { "bag_id": "B064", "intake_node": "IB2", "destination_gate": "GB2", "release_tick": 208 },
+    { "bag_id": "B065", "intake_node": "IA1", "destination_gate": "GA4", "release_tick": 209, "deadline_tick": 255 },
+
+    { "bag_id": "B066", "intake_node": "IA2", "destination_gate": "GA2", "release_tick": 215 },
+    { "bag_id": "B067", "intake_node": "IB2", "destination_gate": "GB4", "release_tick": 218 },
+    { "bag_id": "B068", "intake_node": "IA1", "destination_gate": "GA1", "release_tick": 221 },
+    { "bag_id": "B069", "intake_node": "IB1", "destination_gate": "GB1", "release_tick": 224 },
+
+    { "bag_id": "B070", "intake_node": "IA2", "destination_gate": "GA3", "release_tick": 229 },
+    { "bag_id": "B071", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 232 },
+    { "bag_id": "B072", "intake_node": "IA1", "destination_gate": "GA2", "release_tick": 236 },
+    { "bag_id": "B073", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 238 },
+
+    { "bag_id": "B074", "intake_node": "IA2", "destination_gate": "GA4", "release_tick": 244 },
+    { "bag_id": "B075", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 248 },
+
+    { "bag_id": "B076", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 253 },
+    { "bag_id": "B077", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 255 },
+    { "bag_id": "B078", "intake_node": "IA2", "destination_gate": "GA2", "release_tick": 257 },
+    { "bag_id": "B079", "intake_node": "IB2", "destination_gate": "GB1", "release_tick": 258 },
+    { "bag_id": "B080", "intake_node": "IA1", "destination_gate": "GA1", "release_tick": 260 },
+
+    { "bag_id": "B081", "intake_node": "IA2", "destination_gate": "GA3", "release_tick": 265 },
+    { "bag_id": "B082", "intake_node": "IB1", "destination_gate": "GB4", "release_tick": 270 },
+    { "bag_id": "B083", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 275 },
+
+    { "bag_id": "B084", "intake_node": "IA1", "destination_gate": "GA2", "release_tick": 280 },
+    { "bag_id": "B085", "intake_node": "IB1", "destination_gate": "GB2", "release_tick": 280 },
+    { "bag_id": "B086", "intake_node": "IA2", "destination_gate": "GA4", "release_tick": 281 },
+    { "bag_id": "B087", "intake_node": "IB2", "destination_gate": "GB3", "release_tick": 281 },
+
+    { "bag_id": "B088", "intake_node": "IA1", "destination_gate": "GA3", "release_tick": 288 },
+    { "bag_id": "B089", "intake_node": "IB1", "destination_gate": "GB1", "release_tick": 291 },
+    { "bag_id": "B090", "intake_node": "IA2", "destination_gate": "GA2", "release_tick": 295 },
+    { "bag_id": "B091", "intake_node": "IB2", "destination_gate": "GB2", "release_tick": 297 }
+  ],
+
+  "jams": [
+    {
+      "jam_id": "J001",
+      "edge_id": "e_JA2_S2",
+      "start_tick": 67,
+      "duration": 18,
+      "note": "First pressure phase. Punishes students who hardcoded the A-side shortcut. Forces reroute through JA1→S1 or the longer spine path."
+    },
+    {
+      "jam_id": "J002",
+      "edge_id": "e_S2_S3",
+      "start_tick": 143,
+      "duration": 22,
+      "note": "Sustained load phase, hits after the false-security trough. S2 chokepoint becomes a dead end mid-spine. Bags bound for GA3/GA4 must reroute via S1→S2→... or cross-terminal."
+    },
+    {
+      "jam_id": "J003",
+      "edge_id": "e_JB3_JB5",
+      "start_tick": 197,
+      "duration": 15,
+      "note": "Crisis peak. Blocks the entry into the B-side loop trap. Bags entering via IB2→JB3 can no longer fall into the trap, but the main JB3→JB4 flow is also disrupted, stressing the B-side junction layer."
+    },
+    {
+      "jam_id": "J004",
+      "edge_id": "e_S4_S5",
+      "start_tick": 213,
+      "duration": 20,
+      "note": "Crisis peak, second jam in quick succession. The B-side chokepoint spine link goes down during peak bag density. Forces all B-side traffic through S6 detour or cross-terminal reroute. Designed to coincide with the 5-bag burst at tick 207-209."
+    },
+    {
+      "jam_id": "J005",
+      "edge_id": "e_S1_S6",
+      "start_tick": 263,
+      "duration": 25,
+      "note": "Wind-down surprise. Targets the slow detour belt — students who over-relied on it as a guaranteed fallback are caught. The S6→S5 half of the detour remains open, so complete fallback is not eliminated, only degraded."
+    }
+  ],
+
+  "notes": {
+    "bag_count": 91,
+    "deadline_bag_count": 28,
+    "jam_count": 5,
+    "burst_ticks": [30, 31, 128, 129, 183, 184, 185, 207, 208, 209, 280, 281],
+    "design_notes": [
+      "Bags with no deadline_tick have no flight window — they score on transit time only, not misroute.",
+      "Burst events never place more than 2 bags on the same intake node at the same tick.",
+      "J002 hits during the quiet trough (ticks 140-150) described in the design — false sense of security.",
+      "J003 and J004 overlap in time (J003 ends tick 212, J004 starts tick 213) creating a sustained B-side crisis.",
+      "J005 targets the detour belt specifically to challenge students who built a hardcoded fallback path.",
+      "Phases are informational — the evaluator does not need to enforce them, they are for scenario readability."
+    ]
+  }
+}
