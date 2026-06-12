@@ -14,6 +14,8 @@ In real aviation systems, aircraft tracking is not just about drawing a line bet
 
 This challenge captures the core software ideas behind those questions without requiring students to build a full production-grade ATC system.
 
+**Note: In real world scenarios, flight messages are received in a much greater quantity within a short period of time. For this challenge, you will be given spaced out, delayed, and incomplete messages to encourage and build skills in state estimation.**
+
 ---
 
 ## Industry Context
@@ -30,9 +32,11 @@ This is why modern ATC software does not simply display the last known position 
 
 Several operational systems in use today embody these ideas:
 
-**FAA ERAM (En Route Automation Modernization)** is the United States' primary en-route ATC system, replacing the older HOST system. It processes surveillance data from across the national airspace, maintains track files for thousands of aircraft simultaneously, performs trajectory prediction, and supports controller decision-making across Air Route Traffic Control Centers (ARTCCs).
+**FAA (Federal Aviation Administration) ERAM (En Route Automation Modernization)** is the United States' primary en-route ATC system, replacing the older HOST system. It processes surveillance data from across the national airspace, maintains track files for thousands of aircraft simultaneously, performs trajectory prediction, and supports controller decision-making across Air Route Traffic Control Centers (ARTCCs).
 
-**FAA STARS (Standard Terminal Automation Replacement System)** handles the terminal domain, where aircraft are arriving and departing and the pace of updates is much faster. STARS correlates radar returns with flight plan data and presents controllers with a fused, labeled picture of all traffic.
+**FAA STARS (Standard Terminal Automation Replacement System)** is another automation ATC system developed by Raytheon. The system receives and processes target reports, weather, and other information from terminal and en route sensors. STARS correlates radar returns with flight plan data and presents controllers with a fused, labeled picture of all traffic.
+
+Both ERAM and STARS are used for most ATC operations across the United States.
 
 **EUROCONTROL ARTAS (ATM Surveillance Tracker and Server)** is widely deployed across European airspace. ARTAS is specifically designed as a multi-sensor tracker: it receives inputs from many different radar and ADS-B stations and fuses them into a single coherent track for each aircraft. It uses advanced filtering and track association algorithms to handle the noise, delays, and gaps that arise from real surveillance infrastructure.
 
