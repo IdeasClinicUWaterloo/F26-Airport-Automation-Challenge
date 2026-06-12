@@ -1,5 +1,4 @@
 # Air Traffic Control System
-#test 3
 
 ## Challenge Overview
 

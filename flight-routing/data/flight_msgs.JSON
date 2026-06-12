@@ -1,0 +1,29 @@
+{
+  "flight_id": "AC101",
+  "messages": [
+    {
+      "message_id": "m1",
+      "type": "route_update",
+      "timestamp": "2026-06-05T10:00:00",
+      "route": ["YYZ", "WP001", "WP002", "DEN"]
+    },
+    {
+      "message_id": "m2",
+      "type": "position",
+      "timestamp": "2026-06-05T10:05:00",
+      "lat": 43.50,
+      "lon": -82.00,
+      "altitude": 12000,
+      "ground_speed": 310,
+      "heading": 270
+    },
+    {
+      "message_id": "m3",
+      "type": "waypoint_report",
+      "timestamp": "2026-06-05T10:20:00",
+      "current_waypoint": "WP001",
+      "next_waypoint": "WP002",
+      "eta": "2026-06-05T11:15:00"
+    }
+  ]
+}
