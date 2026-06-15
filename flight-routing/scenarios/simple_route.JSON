@@ -13,7 +13,7 @@
       "timestamp": "2026-06-05T10:05:00",
       "lat": 43.50,
       "lon": -82.00,
-      "altitude": 12000,
+      "altitude": -10,
       "ground_speed": 310,
       "heading": 270
     },
