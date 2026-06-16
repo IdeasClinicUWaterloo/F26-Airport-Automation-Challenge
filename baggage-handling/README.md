@@ -174,25 +174,6 @@ Apart from inputs from the evaluator, there will be additional files to provide 
 
 ---
 
-## Inputs and Expected Outputs
-
-### Inputs
-
-The evaluator will supply your application with the following data sources:
-
-* `network_layout.json`: Defines the conveyor graph structure, including node IDs, edge connections, base travel costs, and target gate locations.
-* `simulation_scenario.json`: A time-step schedule defining the events that occur at each tick (baggage loading, jams, etc.).
-
-### Expected Outputs
-
-At the end of the simulation execution, your system must export:
-
-* A standardized tracking log file recording the exact tick history of every bag's path through the network.
-* An analytics report summarizing the final system-wide metrics calculated by your DHS module.
-* A running instance of the BSD graphical dashboard during evaluation.
-
----
-
 ## Evaluation and Scoring
 
 Your submission will be scored through automated code evaluation combined with a human review of your user interface.
