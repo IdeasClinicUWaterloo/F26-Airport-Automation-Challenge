@@ -1,7 +1,7 @@
 {
   "meta": {
     "description": "Airport baggage conveyor network — two-terminal layout",
-    "total_nodes": 30,
+    "total_nodes": 28,
     "zones": ["intake", "junction", "spine", "gate"],
     "cost_unit": "ticks",
     "notes": "base_cost is static. effective_cost is computed at runtime by the evaluator (base_cost + congestion surcharge). wear_threshold is cumulative bag count at which the edge becomes jam-eligible."
@@ -60,11 +60,12 @@
     { "id": "e_JA3_JA5", "from": "JA3", "to": "JA5", "bidirectional": false, "base_cost": 3, "wear_threshold": 100, "type": "loop_backedge" },
     { "id": "e_JA5_JA2", "from": "JA5", "to": "JA2", "bidirectional": false, "base_cost": 4, "wear_threshold": 90,  "type": "loop_backedge" },
 
-    { "id": "e_JB1_JB2", "from": "JB1", "to": "JB2", "bidirectional": false, "base_cost": 3, "wear_threshold": 135, "type": "junction_internal" },
-    { "id": "e_JB2_JB3", "from": "JB2", "to": "JB3", "bidirectional": false, "base_cost": 4, "wear_threshold": 125, "type": "junction_internal" },
-    { "id": "e_JB3_JB4", "from": "JB3", "to": "JB4", "bidirectional": false, "base_cost": 3, "wear_threshold": 105, "type": "junction_internal" },
-    { "id": "e_JB3_JB5", "from": "JB3", "to": "JB5", "bidirectional": false, "base_cost": 3, "wear_threshold": 95,  "type": "loop_backedge" },
-    { "id": "e_JB5_JB2", "from": "JB5", "to": "JB2", "bidirectional": false, "base_cost": 4, "wear_threshold": 85,  "type": "loop_backedge" },
+    { "id": "e_JB1_JB2", "from": "JB1", "to": "JB2", "bidirectional": false, "base_cost": 3, "wear_threshold": 130, "type": "junction_internal" },
+    { "id": "e_JB1_JB3", "from": "JB1", "to": "JB3", "bidirectional": false, "base_cost": 4, "wear_threshold": 120, "type": "junction_mesh" },
+    { "id": "e_JB4_JB3", "from": "JB4", "to": "JB3", "bidirectional": false, "base_cost": 3, "wear_threshold": 125, "type": "junction_mesh" },
+    { "id": "e_JB2_JB5", "from": "JB2", "to": "JB5", "bidirectional": false, "base_cost": 3, "wear_threshold": 100, "type": "funnel_converge" },
+    { "id": "e_JB3_JB5", "from": "JB3", "to": "JB5", "bidirectional": false, "base_cost": 3, "wear_threshold": 95,  "type": "funnel_converge" },
+    { "id": "e_JB4_JB5", "from": "JB4", "to": "JB5", "bidirectional": false, "base_cost": 4, "wear_threshold": 105, "type": "funnel_converge" },
 
     { "id": "e_JA1_S1",  "from": "JA1", "to": "S1",  "bidirectional": false, "base_cost": 3, "wear_threshold": 130, "type": "shortcut" },
     { "id": "e_JA2_S2",  "from": "JA2", "to": "S2",  "bidirectional": false, "base_cost": 3, "wear_threshold": 120, "type": "shortcut" },
