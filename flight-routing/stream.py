@@ -16,7 +16,6 @@ def main():
     messages = scenario.get("messages", [])
 
     solution = FlightRoutingSolution()
-
     print(f"Starting demo for flight: {flight_id}")
     print("=" * 50)
 

@@ -11,6 +11,11 @@ class FlightRoutingSolution:
         self.anomalies = []
 
     def process_message(self, message: dict):
+        """
+            This function gets the type of message, and based on type,
+            hands off to specific functions which process the data.
+        """
+
         msg_type = message.get("type")
 
         if msg_type == "route_update":
@@ -26,9 +31,22 @@ class FlightRoutingSolution:
             self.add_anomaly(message, "Unknown message type")
 
     def process_route_update(self, message):
+        """
+            Processes route messages, and stores it in route variable 
+            within message dict.
+            Examples of routes: [YYZ, WP001, WP002, JFK]
+
+        """
+
         self.route = message.get("route", [])
 
     def process_state_message(self, message):
+        """
+        Processes messages for the aircraft's state.
+        It receives and stores the position, speed,
+        and heading of the aircraft, if valid.
+        """
+
         self.check_state_message(message)
 
         self.latest_position = {
@@ -40,11 +58,26 @@ class FlightRoutingSolution:
         self.heading = message.get("heading")
 
     def process_waypoint_report(self, message):
+        """
+        Receives and stores the waypoint message.
+        Includes current, next waypoint, and eta.
+
+        """
+
         self.current_waypoint = message.get("current_waypoint")
         self.next_waypoint = message.get("next_waypoint")
         self.eta = message.get("eta")
 
     def check_state_message(self, message):
+        """
+        Sanity check for the aircraft's state.
+        Ensures position present, and other states
+        are not unreasonable.
+
+        If they are, function calls helper which attaches an
+        anomaly message to the report.
+        """
+
         lat = message.get("lat")
         lon = message.get("lon")
         altitude = message.get("altitude")
@@ -70,6 +103,10 @@ class FlightRoutingSolution:
             self.add_anomaly(message, "Heading out of range")
 
     def add_anomaly(self, message, reason):
+        """
+        Function adds an anomaly message to the report.
+        """
+
         self.anomalies.append({
             "message_id": message.get("message_id"),
             "reason": reason
