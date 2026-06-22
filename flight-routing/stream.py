@@ -4,7 +4,7 @@ from pprint import pprint
 from message_parser import FlightRoutingSolution
 
 
-def load_scenario(filepath="flight-routing/scenarios/simple_route.json"):
+def load_scenario(filepath="flight-routing/scenarios/simple_route.JSON"):
     with open(filepath, "r") as f:
         return json.load(f)
 

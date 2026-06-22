@@ -1,14 +1,39 @@
+from dead_reckoning import DeadReckoning
+
 class FlightRoutingSolution:
     def __init__(self):
         self.route = []
-        self.latest_position = None
+        self.latest_reported_position = None
         self.altitude = None
         self.speed = None
         self.heading = None
         self.current_waypoint = None
         self.next_waypoint = None
         self.eta = None
+
         self.anomalies = []
+
+        self.dead_reckoning = DeadReckoning()
+        self.predicted_position = None
+    
+    def process_state_message(self, message):
+        """
+        Processes messages for the aircraft's state.
+        It receives and stores the position, speed,
+        and heading of the aircraft, if valid.
+        """
+
+        self.check_state_message(message)
+
+        self.latest_reported_position = {
+            "lat": message.get("lat"),
+            "lon": message.get("lon")
+        }
+        self.altitude = message.get("altitude")
+        self.speed = message.get("ground_speed")
+        self.heading = message.get("heading")
+
+        self.dead_reckoning.update_from_state_message(message)
 
     def process_message(self, message: dict):
         """
@@ -17,6 +42,12 @@ class FlightRoutingSolution:
         """
 
         msg_type = message.get("type")
+
+        # Predict position at this message's time before processing it.
+        if self.dead_reckoning.last_timestamp and message.get("timestamp"):
+            predicted = self.dead_reckoning.predict_at(message["timestamp"])
+            if predicted is not None:
+                self.predicted_position = predicted
 
         if msg_type == "route_update":
             self.process_route_update(message)
@@ -39,23 +70,6 @@ class FlightRoutingSolution:
         """
 
         self.route = message.get("route", [])
-
-    def process_state_message(self, message):
-        """
-        Processes messages for the aircraft's state.
-        It receives and stores the position, speed,
-        and heading of the aircraft, if valid.
-        """
-
-        self.check_state_message(message)
-
-        self.latest_position = {
-            "lat": message.get("lat"),
-            "lon": message.get("lon")
-        }
-        self.altitude = message.get("altitude")
-        self.speed = message.get("ground_speed")
-        self.heading = message.get("heading")
 
     def process_waypoint_report(self, message):
         """
@@ -115,7 +129,8 @@ class FlightRoutingSolution:
     def get_state(self) -> dict:
         return {
             "route": self.route,
-            "latest_position": self.latest_position,
+            "latest_position": self.latest_reported_position,
+            "predicted_position": self.predicted_position,
             "altitude": self.altitude,
             "speed": self.speed,
             "heading": self.heading,

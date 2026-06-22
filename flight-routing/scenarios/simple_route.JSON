@@ -13,9 +13,9 @@
       "timestamp": "2026-06-05T10:05:00",
       "lat": 43.50,
       "lon": -82.00,
-      "altitude": -10,
+      "altitude": 8000,
       "ground_speed": 310,
-      "heading": 270
+      "heading": 260
     },
     {
       "message_id": "m3",
