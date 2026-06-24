@@ -1,5 +1,4 @@
 # Air Traffic Control System
-#test 3
 
 ## Challenge Overview
 
@@ -47,14 +46,13 @@ Beyond ATC, similar tracking and estimation problems appear in:
 
 - **Defense and missile tracking systems**, where radar returns must be fused and targets must be distinguished from noise
 - **Autonomous vehicle perception**, where LIDAR, camera, radar, and GPS readings are fused into a consistent model of the environment
-- **Maritime vessel tracking**, where AIS messages may be delayed, spoofed, or missing
 - **Space situational awareness**, where orbital mechanics models are updated with noisy observations to track objects in Earth orbit
 
 ### Where Brock Solutions Fits
 
 While Brock Solutions is best known for its **SmartSuite** baggage and passenger operations platform, the broader SmartSuite ecosystem also connects to flight-level data. **SmartSuite Enterprise**, Brock's operational management layer, ingests real-time flight information alongside baggage and passenger data to give airports and airlines a unified view of operations. It consumes flight schedule data, live arrival and departure updates, and gate assignment information, the same categories of flight data that ATC systems produce and downstream airport systems consume.
 
-This makes the connection direct: the flight tracking and state estimation problem you are solving in this challenge represents the upstream source of the live flight data that systems like SmartSuite Enterprise depend on. ATC systems produce the authoritative picture of where aircraft are and when they will arrive; airport operations systems like SmartSuite consume that picture to coordinate baggage, gates, ground handlers, and passengers.
+This makes the connection direct: the flight tracking and state estimation problem you are solving in this challenge represents the upstream source of the live flight data that systems like SmartSuite Enterprise depend on. ATC systems produce a picture of where aircraft are and when they will arrive; airport operations systems like SmartSuite consume that picture to coordinate baggage, gates, ground handlers, and passengers.
 
 ### The Full Data Pipeline
 
