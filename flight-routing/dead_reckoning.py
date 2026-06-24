@@ -40,6 +40,11 @@ class DeadReckoning:
         )
 
     def predict(self, lat1, lon1, delta_t):
+        """
+        Predicts the position of the aircraft after delta_t seconds.
+        
+        First, it finds the distance, then uses formulas
+        with distance and original lat and lon to find the new position."""
 
         phi1 = math.radians(lat1)
         lambda1 = math.radians(lon1)
@@ -63,7 +68,7 @@ class DeadReckoning:
     
     def find_distance(self, lat1, lon1, lat2, lon2):
         """
-        Use Haversine formula to find the minimum Earth dist. 
+        Uses Haversine formula to find the minimum Earth dist 
         btwn two points.
         """
 
@@ -82,6 +87,11 @@ class DeadReckoning:
         return dist/1000 #return in km
     
     def find_bearing(self, lat1, lon1, lat2, lon2):
+        """
+        Finds the bearing, the direction from one point
+        to another using their respective long and lat
+        in radians.
+        """
 
         phi1 = math.radians(lat1)
         lambda1 = math.radians(lon1)

@@ -1,6 +1,7 @@
 import json
 from pprint import pprint
 
+from visualizer import FlightVisualizer
 from message_parser import FlightRoutingSolution
 
 
@@ -16,6 +17,11 @@ def main():
     messages = scenario.get("messages", [])
 
     solution = FlightRoutingSolution()
+
+    # visualizer = FlightVisualizer(
+    #     "flight-routing/data/static.JSON"
+    # )
+
     print(f"Starting demo for flight: {flight_id}")
     print("=" * 50)
 
@@ -25,10 +31,15 @@ def main():
 
         solution.process_message(message)
 
-        print("\nCurrent state:")
-        pprint(solution.get_state())
+        current_state = solution.get_state()
+        # visualizer.record(message, current_state)
 
+        print("\nCurrent state:")
+        pprint(current_state)
         print("-" * 50)
+
+    # Open the route/position chart after all messages are processed.
+    # visualizer.show(flight_id, solution.get_state()["route"])
 
 
 if __name__ == "__main__":

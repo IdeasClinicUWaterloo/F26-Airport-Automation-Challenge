@@ -23,7 +23,8 @@ class FlightRoutingSolution:
         and heading of the aircraft, if valid.
         """
 
-        self.check_state_message(message)
+        if not self.check_state_message(message):
+            return
 
         self.latest_reported_position = {
             "lat": message.get("lat"),
@@ -92,6 +93,8 @@ class FlightRoutingSolution:
         anomaly message to the report.
         """
 
+        valid = True
+
         lat = message.get("lat")
         lon = message.get("lon")
         altitude = message.get("altitude")
@@ -100,21 +103,29 @@ class FlightRoutingSolution:
 
         if lat is None or lon is None:
             self.add_anomaly(message, "Missing latitude or longitude")
+            valid = False
 
         if lat is not None and not (-90 <= lat <= 90):
             self.add_anomaly(message, "Latitude out of range")
+            valid = False
 
         if lon is not None and not (-180 <= lon <= 180):
             self.add_anomaly(message, "Longitude out of range")
+            valid = False
 
         if altitude is not None and altitude < 0:
             self.add_anomaly(message, "Altitude cannot be negative")
+            valid = False
 
         if speed is not None and speed < 0:
             self.add_anomaly(message, "Ground speed cannot be negative")
+            valid = False
 
         if heading is not None and not (0 <= heading <= 360):
             self.add_anomaly(message, "Heading out of range")
+            valid = False
+
+        return valid
 
     def add_anomaly(self, message, reason):
         """
