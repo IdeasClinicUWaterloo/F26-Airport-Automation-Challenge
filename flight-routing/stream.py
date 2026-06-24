@@ -5,7 +5,7 @@ from visualizer import FlightVisualizer
 from message_parser import FlightRoutingSolution
 
 
-def load_scenario(filepath="flight-routing/scenarios/simple_route.JSON"):
+def load_scenario(filepath="flight-routing/scenarios/simple_route.json"):
     with open(filepath, "r") as f:
         return json.load(f)
 
@@ -18,9 +18,9 @@ def main():
 
     solution = FlightRoutingSolution()
 
-    # visualizer = FlightVisualizer(
-    #     "flight-routing/data/static.JSON"
-    # )
+    visualizer = FlightVisualizer(
+        "flight-routing/data/route.json"
+    )
 
     print(f"Starting demo for flight: {flight_id}")
     print("=" * 50)
@@ -32,14 +32,14 @@ def main():
         solution.process_message(message)
 
         current_state = solution.get_state()
-        # visualizer.record(message, current_state)
+        visualizer.record(message, current_state)
 
         print("\nCurrent state:")
         pprint(current_state)
         print("-" * 50)
 
-    # Open the route/position chart after all messages are processed.
-    # visualizer.show(flight_id, solution.get_state()["route"])
+    #Open the route/position chart after all messages are processed.
+    visualizer.show(flight_id, solution.get_state()["route"])
 
 
 if __name__ == "__main__":
