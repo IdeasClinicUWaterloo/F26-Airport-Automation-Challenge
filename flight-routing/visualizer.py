@@ -10,6 +10,7 @@ class FlightVisualizer:
         with open(nav_data_path, "r") as file:
             self.waypoints = json.load(file)["waypoints"]
 
+        # Make arrays to store reported and predicted positions
         self.reported_points = []
         self.predicted_points = []
 
