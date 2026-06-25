@@ -35,15 +35,40 @@ function addCargoItem() {
     const desc = document.getElementById('newDesc').value.trim();
     
     if(!id || isNaN(weight) || !desc) {
-        alert("Please ensure all entry input fields contain valid metrics.");
+        alert("Please confirm all inputs contain valid parameters.");
         return;
     }
+    
     cargoDatabase.push({id, weight, desc});
     renderCargoTable();
+    
+    // Trigger the success notification popup
+    showToast(`✅ Successfully added ${id} (${weight.toLocaleString()} lbs)`);
     
     document.getElementById('newId').value = '';
     document.getElementById('newWeight').value = '';
     document.getElementById('newDesc').value = '';
+}
+
+function showToast(message) {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `<span>${message}</span>`;
+
+    // Append to container
+    container.appendChild(toast);
+
+    // Auto-remove cycle (removes layout node after fade transition completes)
+    setTimeout(() => {
+        toast.classList.add('fade-out');
+        setTimeout(() => {
+            toast.remove();
+        }, 400); // matches CSS opacity transition
+    }, 3000); // display notice for 3 seconds before starting fade
 }
 
 function deleteCargoItem(index) {
