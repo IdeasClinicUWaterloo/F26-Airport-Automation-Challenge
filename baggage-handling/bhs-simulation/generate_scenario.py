@@ -1,5 +1,8 @@
 import json
 import random
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
 
 def generate_3600_tick_scenario():
     # Set seed for reproducible randomness across student evaluations
@@ -126,7 +129,7 @@ def generate_3600_tick_scenario():
         }
     }
 
-    output_path = "baggage-handling/data/simulation_scenario.json"
+    output_path = BASE_DIR / "data" / "simulation_scenario.json"
     with open(output_path, "w") as f:
         json.dump(scenario_json, f, indent=2)
 

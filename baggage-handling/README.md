@@ -1,149 +1,104 @@
-# Baggage Sortation and Analytics System
+# Baggage Handling System
 
 ![alt text](assets/smart_suite.png)
 
 ## Challenge Overview
 
-Brock Solutions is a global engineering solutions and professional services company that develops automation software for various industries, including the airport industry. Brock Solutions provides an array of software packages known as the **SmartSuite** to streamline airport operations. One of the solutions within SmartSuite is **SmartSort**, a high-level control (HLC) and sortation management system used to route baggage, track system telemetry, and report operational key performance indicators (KPIs).
+Brock Solutions is a global engineering solutions and professional services company that designs, builds, and integrates large-scale automation software for transit, aviation, and industrial logistics. In any high-throughput sorting or material handling environment (such as an airport baggage handling system or a fulfillment center), multiple disciplines must converge: fast-moving mechanical transport, real-time control logic, edge sensor/vision tracking, and human-in-the-loop situational awareness dashboards.
 
 In a real airport terminal, a baggage conveyor system is a dynamic, high-volume logistical network. Sorting thousands of bags per hour requires real-time adaptations to handle distruptions like mechanical conveyor jams, variable line speeds, routing bottlenecks, and shifting flight gates.
 
-This challenge aims to capture the architecture of a modern Baggage Handling System (BHS). You will build a simplified equivalent of the SmartSort platform, integrating real features that are available in the software used by many international airports.
+This challenge focuses on the workings of **Baggage Handling Systems (BHS)**. You will have the opportunity to learn about the challenges that BHS systems deal with and design a solution to address them. You can use the provided tools to develop your solution or create a completely independent solution that focuses on BHS.
 
 ---
 
 ## Industry Context
 
-### High-Level Control and Telemetry in Airport Logistics
+Modern industrial sortation networks are complex ecosystems responsible for moving thousands of assets per hour with zero tracking loss. To achieve this, automated systems rely on an integrated three-layer technology stack:
 
-Modern airport baggage systems are highly complex behind the scenes. Bags are tracked via barcodes or RFID tags as they pass physical laser arrays and diverters along long stretches of interconnected conveyor belts. Controlling this hardware requires software that can process real-time events, calculate optimal travel paths instantly, and isolate mechanical failures before they cause gridlock across the entire terminal.
+1. **The Physical/Sensing Layer:** Conveyor tracks, mechanical diverters, photo-eyes, laser arrays, and vision systems that transport items and capture physical operational data at high speeds.
 
-In an enterprise environment, this data pipeline is split into distinctive layers that communicate with one another:
+2. **The Control Layer:** High-Level Control (HLC) brains that interpret sensor data in real time, evaluate routing choices, manage traffic density, and instantly actuate physical sorting hardware to steer items safely around system line blocks or mechanical jams.
 
-* **The Routing Layer** executes the automation logic, directing physical diverters to send bags down specific paths.
-* **The Data Historian Layer** collects high-frequency sensor telemetry to predict component failures and evaluate system efficiency.
-* **The Visualization Layer** translates raw data into a unified command center interface, allowing terminal operators to spot bottlenecks and deploy maintenance teams instantly.
+3. **The Data & Visual Layer:** High-frequency data historians that capture continuous time-series event logs, paired with operator command-center dashboards that synthesize background telemetry into clear, actionable visual alerts and live performance metrics.
 
-This challenge presents a simplified version of this industrial architecture.
-
-### Real Software Solutions
-
-Brock Solutions' **SmartSort** platform coordinates these tasks simultaneously by breaking the architecture into specialized subsystems:
-
-* **Sort Allocation Controller (SAC)**: The "brain" that calculates paths and manages conveyor routing.
-* **Data Historian System (DHS)**: The system that processes time-series logs and tracks physical performance.
-* **Bag Status Display (BSD)**: The visual user interface that maps the state of the network into a scannable operational view.
+A failure or inefficiency in any single layer compromises the entire facility. This challenge provides you with the tools and environments to innovate anywhere across this stack.
 
 ---
 
-## What You Are Building
+## Potential Solutions
 
-You will build a simulation-driven baggage sortation and monitoring application. Your system must read a live stream of airport operational data and execute real-time routing decisions while feeding an analytics pipeline and user interface.
+To jump-start your project, this repository contains some potential solutions and solution paths that you may use. You are free to modify, expand, strip down, or combine these resources as you see fit.
 
-Your solution will implement simplified versions of three core SmartSort components:
+### 1: The SmartSort Digital Twin & Simulation Sandbox
 
-1. **The SAC (Backend)**: The algorithmic core of your system. This component handles real-time pathfinding decisions for baggage at choice points across the network, adjusting routes based on line congestion and active system faults.
-2. **The DHS (Analytics)**: A tracking tool that captures continuous event streams from the simulation loop. It aggregates time-series data to compute system latency, track mechanical error statistics, and establish systemic performance baselines.
-3. **The BSD (Frontend)**: A 2D graphical user interface that visualizes the conveyor grid, actively tracks moving baggage, and plots operational KPIs.
+Located in the `bhs-simulation/` directory, this toolset provides a fully operational software-driven simulation environment modeling a complex 28-node airport baggage handling system across a multi-phase, 3,600-tick operational stress scenario. The environment simulates real-world complexities like dynamic conveyor line traffic congestion, unexpected mechanical breakdowns (jams), and strict delivery deadlines.
+
+* **Provided Assets:**
+    * `evaluator.py`: The master simulation engine that runs the physics, tracking, and fault-injection loops of the conveyor network.
+    * `solution.py`: A functional, baseline graph-routing controller to guide baggage to destination gates.
+    * `bsd_dashboard.py`: A native 2D desktop application that parses simulation logs to provide smooth, tick-by-tick animated operational playbacks and interactive time scrubbing.
+
+* **Potential Projects:**
+    * **Algorithmic Pathfinding Optimization:** Replace the baseline script with a more intelligent algorithm that monitors live network telemetry to actively guide inventory around active jams and high-traffic bottlenecks to maximize on-time delivery.
+    * **Dashboard UI/UX & Analytical Overhaul:** Fork the pre-built visual dashboard or build an entirely new visual stack (using React, Dash, Pygame, etc.). Design a better dashboard that enhances operator visibility, tracks key performance indicators, predicts systemic wear-and-tear, or optimizes maintenance deployment.
+
+
+### 2: The Physical Vision-Guided Conveyor Testbed
+
+Located in the `barcode-conveyor/` directory, this setup offers a hands-on hardware integration experience leveraging a physical sorting platform. The workspace models an industrial inspection and routing lane using a single conveyor loop, an adjustable mechanical diverter mechanism, and an overhead camera sensor.
+
+* **Provided Assets:**
+    * An NVIDIA Jetson Nano edge computing platform connected directly to the camera and sorting actuators, capable of executing standalone Python scripts.
+    * Baseline hardware interface access protocols, setup guides, and operational tutorials.
+
+* **Potential Projects:**
+    * **Computer Vision & Asset Tracking:** Develop real-time edge processing scripts on the Jetson Nano to capture video frames, isolate passing freight, and dynamically decode tracking barcodes or structural labels under varying operational speeds.
+    * **Hardware-Software Coordination:** Implement precise state-tracking tracking arrays and timing loops to accurately synchronize the delay window between a camera scan event and the physical firing of the downstream diverter mechanism.
+    * **Logistical Edge Networking:** Design an logging framework that cross-references scanned data against sorting manifests, tracks scanner reliability data, or pipes live field sensor events upstream to an analytical logger.
+
+
+### Avenue 3: Completely Custom & Hybrid Systems
+
+Your team is welcome to step entirely outside the provided templates:
+
+* Build hybrid systems that bridge both environments (e.g., using physical input data streams from the conveyor hardware to drive or influence variables within the broader simulated network map).
+* Integrate alternative software suites, automation platforms, or protocols (such as Node-RED flow architectures, MQTT messaging brokers, or predictive maintenance databases).
+* Engineer a unique Industrial Internet of Things (IIoT), supply chain, or warehouse management prototype tailored around your own vision.   
 
 ---
 
-## Core Simulation Mechanics
+## Workspace Directory Structure
 
-To evaluate your software fairly and reliably, this challenge utilizes a **Time-Step (Tick-Based) Simulation Framework**.
+The repository is organized into distinct project directories containing the baseline tools for your exploration:
 
-Time in the simulator progresses in uniform steps called ticks (where 1 simulation tick represents 1 second of airport operational time). Your software does not manage the main execution loop; the evaluator runs the physics of the environment and triggers reactive API calls to your code when an item requires a routing decision.
-
----
-
-### Conveyor Network Geography
-
-The airport infrastructure is represented as a directed graph composed of Nodes and Edges:
-
-* Nodes act as fixed structural milestones, categorized as Intake Ports (where baggage enters the system), Junctions (routing intersections), Spines (high-speed transit trunks), and Gates (terminal flight destinations).
-
-* Edges represent physical, directed conveyor belts connecting the nodes. Every edge carries a structural Base Travel Cost measured in ticks, representing the length of the belt.
-
-### Dynamic Events
-
-Various dynamic effects will occur throughout the simulation that can affect your routing times:
-
-* Conveyor belts do not have fixed speeds; their transit times fluctuate depending on how crowded they are. The travel time required for a bag to cross an edge scales dynamically based on the volume of active baggage currently occupying that specific conveyor line. Your routing logic must account for these fluid weights, as a physically direct route may become slower than a clear outer detour path during peak traffic.
-* The evaluator simulates real-world hardware disruptions. Conveyor lines can experience mechanical breakdowns, transitioning to a JAMMED state. When a line is jammed, any baggage currently on that edge freezes in place, and its traversal countdown halts. Your routing logic must detect active faults across the network and dynamically guide incoming bags around broken infrastructure.
-* Conveyor belts degrade over time based on the cumulative volume of freight they process. Exceeding a line's operational usage threshold will trigger automated mechanical overloads, causing unexpected structural breakdowns that temporarily halt the line.
-
----
-
-## Technical Specifications
-
-Your team must write a unified Python program. The evaluator will look for a file named `solution.py` containing an implementation of your routing module.
-
-### 1. Sort Allocation Controller (SAC) API Requirement
-
-Your `solution.py` file must expose the following entry-point function signature exactly:
-
-```python
-def route_bag(bag_id, current_node, destination_gate, active_faults, edge_occupancy):
-    """
-    Executes real-time routing decisions for a single baggage item reaching a junction.
-    
-    Parameters:
-    -----------
-    bag_id : str
-        The unique identification string of the baggage item (e.g., 'B0014')
-    current_node : str
-        The ID of the node junction the bag has just reached (e.g., 'JA3')
-    destination_gate : str
-        The target gate where the bag must be delivered (e.g., 'GA2')
-    active_faults : list of str
-        A list of specific edge IDs currently experiencing active jams (e.g., ['e_JA2_S2'])
-    edge_occupancy : dict
-        A map of edge IDs to integers representing the exact count of active bags on that belt
-        
-    Returns:
-    --------
-    str
-        The node ID of the next consecutive junction or gate to steer the bag toward.
-    """
-    # Your pathfinding and optimization logic here
-    return next_node_id
+```text
+repository-root/
+│
+├── README.md                           # Master Launchpad (This Document)
+│
+├── path-bhs-simulation/                # Simulation & Dashboard Tools
+│   ├── README_BHS.md                   # Simulation Engine & API Specifications
+│   ├── evaluator.py                    # Master Simulation Physics Loop
+│   ├── solution.py                     # Baseline Routing Script
+│   ├── bsd_dashboard.py                # 2D Desktop Playback Application
+│   └── data/
+│       ├── network_layout.json         # Network Geography Configuration
+│       └── simulation_scenario.json    # 3,600-tick Wave and Jam Timeline
+│
+└── path-barcode-conveyor/              # Physical Conveyor Tools
+    ├── README_CONVEYOR.md              # Hardware Tutorial and Setup Specifications
+    └── [Hardware/Software Tooling Files...]
 
 ```
 
-### 2. Data Historian System (DHS) Specifications
-
-Your analytics module must process the continuous time-series logging stream produced by the evaluator (`live_telemetry.csv`). It must aggregate this historical data to calculate and export the following metrics:
-
-* **Conveyor Utilization Rates**: Historical tracking of structural bottlenecks, identifying lines consistently experiencing peak volume.
-* **System Misroute Statistics**: The count of high-priority priority bags that failed to reach their target gate prior to their assigned flight deadlines.
-* **Mean Transit Efficiency**: The average tick duration required for completed baggage items to navigate from an intake point to a destination gate.
-
-You may also process the telemetry data to optimize your pathfinding algorithm.
-
-## Baseline Data
-
-The system evaluator reads its parameters from your project's `data/` directory:
-
-* `network_layout.json`: Contains the layout definitions of the terminal infrastructure, mapping node classes, edge connections, base travel costs, and structural wear thresholds.
-* `simulation_scenario.json`: Outlines a complex 3,600-tick (1 hour) operational schedule. This file dictates exactly when specific bags spawn, their designated target gates, optional strict flight arrival deadlines, and a timeline of scheduled terminal maintenance jams.
-
 ---
 
-## Evaluation and Scoring
+## Evaluation Philosophy
 
-Your submission will be scored through automated code evaluation.
+This challenge is open-ended; projects are evaluated individually on their unique technical execution, utility, and presentation. The judging panel looks favorably upon solutions that highlight the following core engineering tenets:
 
-### Hard Failures
-
-The following events will result in severe point deductions or simulation failure:
-
-* **Invalid Routing**: Sending a bag to a node or gate not connected to its current position via a valid edge.
-* **Uncaught Exceptions**: Unhandled logic crashes occurring when the simulator introduces an unexpected or unannounced mechanical fault event.
-* **Illegal Teleportation**: Returning node skips or attempting to bypass the time-step increments of intermediate conveyor tracks.
-
-### Scored Metrics
-
-Solutions will be scored based on these performance criteria:
-
-* **Total Misrouted Bags**: The count of bags that arrived at their gate after their designated flight departure tick.
-* **Mean Transit Latency**: The average travel time across all successfully delivered inventory.
+* **Robustness & Adaptivity:** How reliably does your system navigate unexpected real-world variables—whether handling an unannounced mechanical conveyor jam in software, or accommodating varying frame speeds, lighting, and sensor friction in hardware?
+* **Systems Integration:** How cleanly do the different components of your solution communicate? Is there a thoughtful data pipeline separating your core logic, analytics storage, and user interface elements?
+* **Clarity of Presentation:** How effectively can an operator understand what your system is doing? If you built, modified, or integrated a user interface, does it turn raw historical telemetry into clean, actionable situational awareness?
+* **Software/Hardware Craftsmanship:** Is your codebase modular, documented, and built using clean engineering standards? Did your team stretch the available tools to explore a creative or innovative concept?
