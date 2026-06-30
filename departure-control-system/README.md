@@ -4,7 +4,7 @@
 
 A Departure Control System (DCS) is the software that runs the departure side of an airline operation: check-in, passenger and document verification, baggage acceptance, boarding pass issuance, boarding control, as well as weight and balance.
 
-In practice a DCS is answering questions like:
+In practice a DCS is answering questions such as:
 
 - Is this passenger correctly identified, and are their documents valid for the destination?
 - How many bags should we expect from this passenger or group?
