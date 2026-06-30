@@ -13,7 +13,7 @@ In practice a DCS is answering questions such as:
 - Has a given bag moved from check-in through screening, sorting, and loading?
 - Can check-in, baggage, identity, and boarding all be seen from one place?
 
-This challenge is a scaled-down version of that problem. You're not building an airline-grade system — you're building one or more of the core pieces: predictive passenger processing, load balancing, identity workflows, or baggage tracking.
+This challenge is a scaled-down version of that problem. You're not building an airline-grade system, you're building one or more of the core pieces: predictive passenger processing, load balancing, identity workflows, or baggage tracking.
 
 ## Industry context
 
