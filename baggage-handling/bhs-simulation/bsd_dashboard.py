@@ -3,6 +3,7 @@ from tkinter import ttk
 import csv
 import os
 import sys
+from pathlib import Path
 
 # 2D Canvas Coordinate Map for the 28 Airport Nodes
 NODE_COORDINATES = {
@@ -24,6 +25,7 @@ NODE_COORDINATES = {
 NODE_RADIUS = 18
 SUB_FRAMES_PER_TICK = 10  # Animation subdivisions per tick
 REFRESH_RATE_MS = 16      # Locked to ~60 FPS smoothness
+BASE_DIR = Path(__file__).resolve().parent
 
 class BSDDashboard:
     def __init__(self, root, telemetry_path="live_telemetry.csv"):
@@ -260,6 +262,6 @@ class BSDDashboard:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    csv_file = "baggage-handling/live_telemetry.csv" if os.path.exists("baggage-handling/live_telemetry.csv") else "live_telemetry.csv"
+    csv_file = BASE_DIR / "live_telemetry.csv"
     app = BSDDashboard(root, telemetry_path=csv_file)
     root.mainloop()

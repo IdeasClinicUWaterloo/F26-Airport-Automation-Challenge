@@ -1,10 +1,12 @@
 import json
 import csv
 import sys
+from pathlib import Path
 
 # Global Simulation Constants
 CONGESTION_PENALTY = 2  # Ticks added per active bag sharing the edge
 WEAR_JAM_DURATION = 20  # How long a wear-and-tear overload jam lasts
+BASE_DIR = Path(__file__).resolve().parent
 
 class BaggageEvaluator:
     def __init__(self, layout_path, scenario_path):
@@ -243,7 +245,7 @@ class BaggageEvaluator:
                 "cumulative_volume": edge["cumulative_bags"]
             })
 
-    def export_logs(self, output_path="baggage-handling/live_telemetry.csv"):
+    def export_logs(self, output_path=BASE_DIR / "live_telemetry.csv"):
         """Dumps internal DHS time-series tracking variables to disk."""
         if not self.dhs_log_data:
             return
@@ -302,7 +304,7 @@ if __name__ == "__main__":
     import solution
 
     evaluator = BaggageEvaluator(
-        layout_path="baggage-handling/data/network_layout.json",
-        scenario_path="baggage-handling/data/simulation_scenario.json"
+        layout_path=BASE_DIR / "data" / "network_layout.json",
+        scenario_path=BASE_DIR / "data" / "simulation_scenario.json"
     )
     evaluator.run(solution)
