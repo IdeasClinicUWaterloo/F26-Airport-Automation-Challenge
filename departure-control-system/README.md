@@ -19,7 +19,7 @@ This challenge is a scaled-down version of that problem. You're not building an 
 
 Airline departure operations run on several systems staying in sync: passenger records, schedules, seat maps, aircraft configuration, baggage data, document checks, boarding status, and load constraints, all changing right up to departure.
 
-A DCS sits at the center of that. It takes in passenger and booking data, runs check-in, accepts bags, validates documents, issues boarding passes, tracks boarding, and feeds the load control process — continuously, as passengers check in, bags move, seats change, and departure gets closer.
+A DCS sits at the center of that. It takes in passenger and booking data, runs check-in, accepts bags, validates documents, issues boarding passes, tracks boarding, and feeds the load control process - continuously, as passengers check in, bags move, seats change, and departure gets closer.
 
 Most of this used to be rule-based and manually supervised. The industry is now shifting toward predictive, AI-assisted processing: estimating bag counts, spotting group travel patterns, flagging no-show or skiplag risk, and recommending seat or load adjustments before problems show up at the gate.
 
@@ -73,7 +73,7 @@ A basic version uses mock data and simple rules. A stronger version predicts bag
 - Group travel patterns, seat assignment, cabin/cargo zone
 - Check-in status, historical bag behavior, skiplag/no-show/misconnection tendency
 
-This isn't a certified W&B system — the point is showing how predictive logic improves operational decisions before departure. A strong implementation explains *why* it made a recommendation, not just what the final assignment is. For example: a group seated entirely in the rear cabin creates imbalance; several heavy bags in one cargo zone need redistribution; a passenger predicted to check two bags affects planning before the bags even arrive; a no-show risk lowers confidence in the final load estimate.
+This isn't a certified W&B system - the point is showing how predictive logic improves operational decisions before departure. A strong implementation explains *why* it made a recommendation, not just what the final assignment is. For example: a group seated entirely in the rear cabin creates imbalance; several heavy bags in one cargo zone need redistribution; a passenger predicted to check two bags affects planning before the bags even arrive; a no-show risk lowers confidence in the final load estimate.
 
 ### 2. Unified Identity Gateway
 
@@ -83,7 +83,7 @@ Simulates check-in where identity verification, document checks, and boarding pa
 - Seat confirmation, bag declaration, bag tag + boarding pass generation
 - Passenger marked ready for boarding
 
-The system should clearly show whether a passenger is cleared, blocked, or needs manual review — for reasons like a missing passport number, expired document, name mismatch, extra checks required for the destination, or an overweight bag.
+The system should clearly show whether a passenger is cleared, blocked, or needs manual review - for reasons like a missing passport number, expired document, name mismatch, extra checks required for the destination, or an overweight bag.
 
 A stronger version adds simulated biometric face-match, a document confidence score, or a rules-based approval flow.
 
@@ -93,13 +93,13 @@ Simulates real-time bag movement from check-in to loading, using QR codes, mock 
 
 accepted → tagged → scanned at induction → screened → sorted to flight → staged at gate → loaded → (or: missing/delayed/exception)
 
-The dashboard should answer: *are all accepted bags accounted for, and is anything putting departure at risk?* — showing bag location, the passenger each bag belongs to, and flight readiness.
+The dashboard should answer: *are all accepted bags accounted for, and is anything putting departure at risk?* - showing bag location, the passenger each bag belongs to, and flight readiness.
 
 ## Basic vs. advanced
 
 **Basic:** treat the DCS as a deterministic workflow. Load mock data, build check-in, generate boarding passes, accept bags and assign tags, track status, assign seats by zone, estimate load, flag obvious issues (missing docs, overweight bags, unbalanced zones). This gets you a working baseline that rewards clean data modeling and a readable UI.
 
-**Advanced:** treat it as a predictive decision-support system — estimate what's likely to happen and recommend action before all the data is in. ML bag count prediction, group detection, no-show/skiplag scoring, seat reassignment for balance, cargo optimization, document confidence scoring, baggage exception prediction, real-time dashboarding.
+**Advanced:** treat it as a predictive decision-support system - estimate what's likely to happen and recommend action before all the data is in. ML bag count prediction, group detection, no-show/skiplag scoring, seat reassignment for balance, cargo optimization, document confidence scoring, baggage exception prediction, real-time dashboarding.
 
 ## State to track
 
@@ -111,7 +111,7 @@ The dashboard should answer: *are all accepted bags accounted for, and is anythi
 
 ## Inputs
 
-Mock data may include passenger lists, bookings, historical passenger behavior, seat maps, aircraft zone layouts, baggage records, scan events, document fields, schedules, boarding events. Expect it to be messy — missing fields, late updates, conflicting bag counts, duplicate names, inconsistent scans.
+Mock data may include passenger lists, bookings, historical passenger behavior, seat maps, aircraft zone layouts, baggage records, scan events, document fields, schedules, boarding events. Expect it to be messy - missing fields, late updates, conflicting bag counts, duplicate names, inconsistent scans.
 
 ## Expected outputs
 
@@ -119,25 +119,25 @@ Check-in status, document verification status, boarding pass, seat assignment, p
 
 ## Evaluation
 
-- **Workflow completeness** — realistic check-in to boarding flow?
-- **Data modeling** — are passengers, bags, flights, seats, and scans represented clearly?
-- **Prediction quality** — are bag count, group, and risk predictions reasonable?
-- **Load balancing logic** — are the balance recommendations actually useful?
-- **Exception handling** — does it catch missing documents, bag issues, inconsistent records?
-- **Dashboard clarity** — can an operator tell at a glance whether the flight is ready?
-- **Code quality** — modular, readable, maintainable?
-- **Demo quality** — does it make the case for why predictive DCS automation matters?
+- **Workflow completeness** - realistic check-in to boarding flow?
+- **Data modeling** - are passengers, bags, flights, seats, and scans represented clearly?
+- **Prediction quality** - are bag count, group, and risk predictions reasonable?
+- **Load balancing logic** - are the balance recommendations actually useful?
+- **Exception handling** - does it catch missing documents, bag issues, inconsistent records?
+- **Dashboard clarity** - can an operator tell at a glance whether the flight is ready?
+- **Code quality** - modular, readable, maintainable?
+- **Demo quality** - does it make the case for why predictive DCS automation matters?
 
 ## Suggested milestones
 
-1. **Mock data and core models** — passenger, flight, aircraft, seat, baggage models from JSON/CSV/a small DB. *Demo: show a passenger list, seat map, and bag list for one flight.*
-2. **Basic check-in flow** — confirm passenger, seat, document status, bag count. *Demo: a passenger goes from not-checked-in to checked-in with a boarding pass.*
-3. **Baggage status tracking** — scan events move bags through states. *Demo: bags progress through check-in → screening → sorting → loading on a dashboard.*
-4. **Load estimation** — weight across cabin/cargo zones. *Demo: show whether the aircraft is balanced or one zone is overloaded.*
-5. **Predictive logic** — bag count, group behavior, no-show/skiplag risk from historical/mock data. *Demo: explain why a passenger or group is expected to add load risk.*
-6. **Recommendation engine** — seat/bag/zone changes or manual review flags. *Demo: suggest an adjustment and show the resulting improvement.*
-7. **Unified dashboard** — passenger, identity, baggage, and load state in one view. *Demo: an operator can see readiness and outstanding issues at a glance.*
-8. **Polish** — better test data, edge cases, a clean demo script. *Demo: walk judges through one passenger journey, one bag journey, one load decision.*
+1. **Mock data and core models** - passenger, flight, aircraft, seat, baggage models from JSON/CSV/a small DB. *Demo: show a passenger list, seat map, and bag list for one flight.*
+2. **Basic check-in flow** - confirm passenger, seat, document status, bag count. *Demo: a passenger goes from not-checked-in to checked-in with a boarding pass.*
+3. **Baggage status tracking** - scan events move bags through states. *Demo: bags progress through check-in → screening → sorting → loading on a dashboard.*
+4. **Load estimation** - weight across cabin/cargo zones. *Demo: show whether the aircraft is balanced or one zone is overloaded.*
+5. **Predictive logic** - bag count, group behavior, no-show/skiplag risk from historical/mock data. *Demo: explain why a passenger or group is expected to add load risk.*
+6. **Recommendation engine** - seat/bag/zone changes or manual review flags. *Demo: suggest an adjustment and show the resulting improvement.*
+7. **Unified dashboard** - passenger, identity, baggage, and load state in one view. *Demo: an operator can see readiness and outstanding issues at a glance.*
+8. **Polish** - better test data, edge cases, a clean demo script. *Demo: walk judges through one passenger journey, one bag journey, one load decision.*
 
 ## Optional stretch goals
 
