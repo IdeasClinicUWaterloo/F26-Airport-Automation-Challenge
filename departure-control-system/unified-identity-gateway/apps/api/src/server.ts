@@ -1,3 +1,4 @@
+import { pathToFileURL } from 'node:url';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import { flightRoutes } from './routes/flights';
@@ -24,7 +25,7 @@ export function buildServer() {
   return app;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const app = buildServer();
   const port = Number(process.env.PORT) || 3001;
   app.listen({ port, host: '0.0.0.0' }).catch((err) => {

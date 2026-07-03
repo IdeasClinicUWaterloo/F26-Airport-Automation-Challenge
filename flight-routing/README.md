@@ -20,61 +20,7 @@ This challenge captures the core software ideas behind those questions without r
 
 ## Industry Context
 
-### How Aircraft Are Tracked in the Real World
-
-Modern Air Traffic Control and Air Traffic Management systems are among the most complex, safety-critical software ecosystems in existence. They combine surveillance data, flight plans, aircraft intent, weather information, controller inputs, and operational constraints to maintain a continuously updated picture of every aircraft moving through controlled airspace.
-
-No single data source is treated as perfect. Aircraft position may come from primary radar, secondary radar, ADS-B (Automatic Dependent Surveillance–Broadcast), multilateration, Mode-S transponders, satellite-based surveillance, or a combination of several feeds. Flight intent comes from filed flight plans, route clearances, trajectory predictions from airline operations systems, and controller updates. These sources arrive at different rates, carry different levels of accuracy, and sometimes contradict each other.
-
-This is why modern ATC software does not simply display the last known position of an aircraft. It fuses multiple data streams, estimates the most likely current state, predicts where the aircraft is heading, and flags anything that looks inconsistent or suspicious. This class of software engineering, combining noisy, delayed, and conflicting inputs into a reliable operational picture, is called surveillance data processing, track management, or more broadly, sensor fusion.
-
-### Real Systems That Solve This Problem
-
-Several operational systems in use today embody these ideas:
-
-**FAA (Federal Aviation Administration) ERAM (En Route Automation Modernization)** is the United States' primary en-route ATC system, replacing the older HOST system. It processes surveillance data from across the national airspace, maintains track files for thousands of aircraft simultaneously, performs trajectory prediction, and supports controller decision-making across Air Route Traffic Control Centers (ARTCCs).
-
-**FAA STARS (Standard Terminal Automation Replacement System)** is another automation ATC system developed by Raytheon. The system receives and processes target reports, weather, and other information from terminal and en route sensors. STARS correlates radar returns with flight plan data and presents controllers with a fused, labeled picture of all traffic.
-
-Both ERAM and STARS are used for most ATC operations across the United States.
-
-**EUROCONTROL ARTAS (ATM Surveillance Tracker and Server)** is widely deployed across European airspace. ARTAS is specifically designed as a multi-sensor tracker: it receives inputs from many different radar and ADS-B stations and fuses them into a single coherent track for each aircraft. It uses advanced filtering and track association algorithms to handle the noise, delays, and gaps that arise from real surveillance infrastructure.
-
-**NAV CANADA's automated flight data processing systems**, used to manage one of the world's largest and most complex airspaces by area, acombining radar surveillance, ADS-B data, and flight plan information into actionable tracks for controllers.
-
-Beyond ATC, similar tracking and estimation problems appear in:
-
-- **Defense and missile tracking systems**, where radar returns must be fused and targets must be distinguished from noise
-- **Autonomous vehicle perception**, where LIDAR, camera, radar, and GPS readings are fused into a consistent model of the environment
-- **Space situational awareness**, where orbital mechanics models are updated with noisy observations to track objects in Earth orbit
-
-### Where Brock Solutions Fits
-
-While Brock Solutions is best known for its **SmartSuite** baggage and passenger operations platform, the broader SmartSuite ecosystem also connects to flight-level data. **SmartSuite Enterprise**, Brock's operational management layer, ingests real-time flight information alongside baggage and passenger data to give airports and airlines a unified view of operations. It consumes flight schedule data, live arrival and departure updates, and gate assignment information, the same categories of flight data that ATC systems produce and downstream airport systems consume.
-
-This makes the connection direct: the flight tracking and state estimation problem you are solving in this challenge represents the upstream source of the live flight data that systems like SmartSuite Enterprise depend on. ATC systems produce a picture of where aircraft are and when they will arrive; airport operations systems like SmartSuite consume that picture to coordinate baggage, gates, ground handlers, and passengers.
-
-### The Full Data Pipeline
-
-At a high level, the pipeline from surveillance to operations looks like this:
-
-```
-Raw surveillance data (radar, ADS-B, multilateration) + filed flight plans
-        ↓
-Message validation and normalization
-        ↓
-Track association: does this report belong to a known aircraft?
-        ↓
-State estimation: where is the aircraft most likely to be right now?
-        ↓
-Trajectory prediction: where is it going, and when will it arrive?
-        ↓
-Conflict, anomaly, and consistency checks
-        ↓
-Controller display + downstream systems (airport ops, baggage, gates, FIDS)
-```
-
-A real system may process thousands of surveillance reports per minute. For each report, it must decide whether it belongs to an existing track, whether it contradicts the expected trajectory, whether it represents a genuine route change or a sensor error, and how much confidence to place in the new information. This is not a database lookup, it is a continuous estimation problem.
+Real ATC systems (FAA ERAM/STARS, EUROCONTROL ARTAS, NAV CANADA's flight data systems) don't just display an aircraft's last known position. They pull in multiple imperfect, disagreeing data sources: radar, ADS-B, flight plans, controller updates, and fuse them into a best estimate of where the aircraft actually is and where it's headed, flagging anything that looks wrong. That's the same kind of problem behind autonomous vehicle perception and space object tracking, and it's the upstream data source that airport operations platforms (gates, baggage, ground handling) ultimately depend on.
 
 ### How the Hackathon Maps to Real Systems
 
@@ -148,18 +94,13 @@ This version more closely resembles the sensor fusion and state estimation logic
 
 ## State Estimation
 
-The aircraft state may include:
+The aircraft state includes:
 
 - Latitude and longitude
 - Altitude
 - Ground speed
 - Vertical speed
 - Heading
-- Fuel estimate
-- Current route index
-- Next waypoint
-- Estimated time of arrival
-- Uncertainty values
 
 The tracker should perform two core operations.
 
@@ -211,7 +152,7 @@ For example, the system may:
 
 ---
 
-## Front-End Visualization (Optional)
+## Front-End Visualization
 
 A useful visualization could include:
 
@@ -246,9 +187,24 @@ Your solution should output an updated route and tracking estimate after process
 
 ---
 
-## Evaluation
+## Running the Code
 
-Solutions may be scored on:
+Install the one dependency (used for the map visualization) and run the demo script from the repository root (not from inside `flight-routing/`, since it loads scenario and output files by a root-relative path):
+
+```bash
+pip install folium
+python flight-routing/stream.py
+```
+
+This replays `scenarios/simple_route.json` message-by-message through `FlightRoutingSolution`, printing the updated state after each message, then opens a route map built from the recorded states.
+
+To try a different message stream, point `load_scenario()` in `stream.py` at another file in `scenarios/` (e.g. `invalid.json`), or add your own scenario file in the same format.
+
+---
+
+## Things to keep in mind
+
+As you are working through your solution, keep the following questions in mind:
 
 - **Route Reconstruction Accuracy** - how close is the reconstructed route to the true route?
 - **State Estimation Accuracy** - how close are estimated position, altitude, speed, and heading to the true simulated state?
@@ -272,7 +228,7 @@ Solutions may be scored on:
 
 **Milestone 4 - Consistency Checks:** Detect impossible jumps, conflicting waypoints, and invalid ETAs.
 
-**Milestone 5 - KF/EKF or other Filter:** Add probabilistic state estimation with uncertainty.
+**Milestone 5 - EKF or other Filter:** Add probabilistic state estimation with uncertainty.
 
 **Milestone 6 - Multi-Hypothesis Tracking:** Maintain several possible route explanations and select the most likely one.
 

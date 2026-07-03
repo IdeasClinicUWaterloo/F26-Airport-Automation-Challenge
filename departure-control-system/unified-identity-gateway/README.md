@@ -65,7 +65,7 @@ docs/
 ## Running locally
 
 ```bash
-brew services start postgresql@16   # or `docker compose up -d postgres` if you have Docker
+docker compose up -d postgres   # or `brew services start postgresql@16` if you're not using Docker
 cd apps/api && cp .env.example .env && npm install && npx prisma migrate deploy && npx tsx prisma/seed.ts && npm run dev
 # in a second terminal
 cd apps/web && cp .env.example .env && npm install && npm run dev
@@ -74,6 +74,36 @@ cd apps/web && cp .env.example .env && npm install && npm run dev
 API on `http://localhost:3001`, web UI on the Vite dev URL printed in the terminal (typically `http://localhost:5173`).
 
 Run API tests: `cd apps/api && npx vitest run` (requires Postgres running and migrated).
+
+### Windows (PowerShell)
+
+Windows PowerShell 5.1 (VS Code's default terminal) doesn't support `&&` chaining, so run each line separately:
+
+```powershell
+docker compose up -d postgres
+cd apps\api
+copy .env.example .env
+npm install
+npx prisma migrate deploy
+npx tsx prisma/seed.ts
+npm run dev
+```
+
+```powershell
+# in a second terminal
+cd apps\web
+copy .env.example .env
+npm install
+npm run dev
+```
+
+Before moving to the web UI, confirm the API actually started by hitting the health check — a silently hung/crashed API is what produces "failed to fetch" in the browser with no other clue:
+
+```powershell
+Invoke-WebRequest http://localhost:3001/health
+```
+
+It should return `{"status":"ok"}`. If it hangs or refuses, the API process isn't listening — check the terminal running `npm run dev` for errors before debugging the frontend.
 
 ### Demo walkthrough
 
