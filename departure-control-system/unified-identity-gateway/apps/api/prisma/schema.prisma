@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CheckInStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  CLEARED
+  BLOCKED
+  NEEDS_REVIEW
+}
+
+enum CabinZone {
+  FRONT
+  MID
+  REAR
+}
+
+model Flight {
+  id             String         @id @default(uuid())
+  flightNumber   String
+  origin         String
+  destination    String
+  departureTime  DateTime
+  aircraftType   String
+  maxBagWeightKg Float
+  seats          Seat[]
+  passengers     Passenger[]
+  bags           Bag[]
+  boardingPasses BoardingPass[]
+}
+
+model Seat {
+  id          String     @id @default(uuid())
+  flightId    String
+  flight      Flight     @relation(fields: [flightId], references: [id])
+  seatNumber  String
+  cabinZone   CabinZone
+  occupied    Boolean    @default(false)
+  passengerId String?    @unique
+  passenger   Passenger? @relation(fields: [passengerId], references: [id])
+
+  @@unique([flightId, seatNumber])
+}
+
+model Passenger {
+  id               String        @id @default(uuid())
+  bookingRef       String        @unique
+  firstName        String
+  lastName         String
+  flightId         String
+  flight           Flight        @relation(fields: [flightId], references: [id])
+  groupId          String?
+  checkInStatus    CheckInStatus @default(NOT_STARTED)
+  declaredBagCount Int           @default(0)
+  riskFlags        String[]      @default([])
+  seat             Seat?
+  document         Document?
+  bags             Bag[]
+  boardingPass     BoardingPass?
+  auditLogs        AuditLog[]
+}
+
+model Document {
+  id              String    @id @default(uuid())
+  passengerId     String    @unique
+  passenger       Passenger @relation(fields: [passengerId], references: [id])
+  passportNumber  String
+  fullName        String
+  dob             DateTime
+  nationality     String
+  expiryDate      DateTime
+  confidenceScore Int
+  issues          String[]  @default([])
+  status          String
+}
+
+model Bag {
+  id          String    @id @default(uuid())
+  passengerId String
+  passenger   Passenger @relation(fields: [passengerId], references: [id])
+  flightId    String
+  flight      Flight    @relation(fields: [flightId], references: [id])
+  tagId       String    @unique
+  weightKg    Float
+  overweight  Boolean   @default(false)
+
+  @@index([passengerId])
+}
+
+model BoardingPass {
+  id          String    @id @default(uuid())
+  passengerId String    @unique
+  passenger   Passenger @relation(fields: [passengerId], references: [id])
+  flightId    String
+  flight      Flight    @relation(fields: [flightId], references: [id])
+  seatNumber  String
+  qrPayload   String
+  issuedAt    DateTime  @default(now())
+}
+
+model AuditLog {
+  id          String    @id @default(uuid())
+  passengerId String
+  passenger   Passenger @relation(fields: [passengerId], references: [id])
+  actorRole   String
+  action      String
+  prevStatus  String
+  newStatus   String
+  reason      String
+  timestamp   DateTime  @default(now())
+
+  @@index([passengerId])
+}
