@@ -38,6 +38,8 @@ A Gate Management System helps airports assign aircraft to gates while consideri
 
 ## ATC — Air Traffic Control
 
+An Air Traffic Control system manages the safe separation and sequencing of aircraft through taxiways, runways, and airspace sectors. ATC data includes aircraft callsigns, positions, altitudes, flight plan routes, speed and heading instructions, and handoff messages between sectors. 
+
 ## Message-Driven Airport Operations
 
 Airport systems often communicate through message streams. In a real airport, this may involve queues, event streams, or integration middleware. For this challenge, some subproblems may provide simplified JSON messages or simulator data so that you can focus on the logic of your solution.
