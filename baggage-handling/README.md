@@ -75,10 +75,10 @@ The repository is organized into distinct project directories containing the bas
 ```text
 repository-root/
 │
-├── README.md                           # Master Launchpad (This Document)
+├── README.md                           # Overview (This Document)
 │
-├── path-bhs-simulation/                # Simulation & Dashboard Tools
-│   ├── README_BHS.md                   # Simulation Engine & API Specifications
+├── bhs-simulation/                # Simulation & Dashboard Tools
+│   ├── README.md                   # Simulation Engine & API Specifications
 │   ├── evaluator.py                    # Master Simulation Physics Loop
 │   ├── solution.py                     # Baseline Routing Script
 │   ├── bsd_dashboard.py                # 2D Desktop Playback Application
@@ -86,19 +86,9 @@ repository-root/
 │       ├── network_layout.json         # Network Geography Configuration
 │       └── simulation_scenario.json    # 3,600-tick Wave and Jam Timeline
 │
-└── path-barcode-conveyor/              # Physical Conveyor Tools
-    ├── README_CONVEYOR.md              # Hardware Tutorial and Setup Specifications
-    └── [Hardware/Software Tooling Files...]
+└── barcode-conveyor/              # Physical Conveyor Tools
+    ├── README.md              # Hardware Tutorial and Setup Specifications
+    ├── barcode_scanner.py              # Code used on Jetson Nano
+    └── Node-Red Guide.docx              # Guide for Node-Red access and usage
 
 ```
-
----
-
-## Evaluation Philosophy
-
-This challenge is open-ended; projects are evaluated individually on their unique technical execution, utility, and presentation. The judging panel looks favorably upon solutions that highlight the following core engineering tenets:
-
-* **Robustness & Adaptivity:** How reliably does your system navigate unexpected real-world variables—whether handling an unannounced mechanical conveyor jam in software, or accommodating varying frame speeds, lighting, and sensor friction in hardware?
-* **Systems Integration:** How cleanly do the different components of your solution communicate? Is there a thoughtful data pipeline separating your core logic, analytics storage, and user interface elements?
-* **Clarity of Presentation:** How effectively can an operator understand what your system is doing? If you built, modified, or integrated a user interface, does it turn raw historical telemetry into clean, actionable situational awareness?
-* **Software/Hardware Craftsmanship:** Is your codebase modular, documented, and built using clean engineering standards? Did your team stretch the available tools to explore a creative or innovative concept?
