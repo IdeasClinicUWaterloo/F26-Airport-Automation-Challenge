@@ -79,6 +79,7 @@ repository-root/
 │
 ├── bhs-simulation/                # Simulation & Dashboard Tools
 │   ├── README.md                   # Simulation Engine & API Specifications
+│   ├── generate_scenario.py                # Seeded Random Scenario Generator
 │   ├── evaluator.py                    # Master Simulation Physics Loop
 │   ├── solution.py                     # Baseline Routing Script
 │   ├── bsd_dashboard.py                # 2D Desktop Playback Application
