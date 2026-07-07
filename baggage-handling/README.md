@@ -32,7 +32,7 @@ To jump-start your project, this repository contains some potential solutions an
 
 ### 1: The SmartSort Digital Twin & Simulation Sandbox
 
-Located in the `bhs-simulation/` directory, this toolset provides a fully operational software-driven simulation environment modeling a complex 28-node airport baggage handling system across a multi-phase, 3,600-tick operational stress scenario. The environment simulates real-world complexities like dynamic conveyor line traffic congestion, unexpected mechanical breakdowns (jams), and strict delivery deadlines.
+Located in the [`bhs-simulation/`](/baggage-handling/bhs-simulation/) directory, this toolset provides a fully operational software-driven simulation environment modeling a complex 28-node airport baggage handling system across a multi-phase, 3,600-tick operational stress scenario. The environment simulates real-world complexities like dynamic conveyor line traffic congestion, unexpected mechanical breakdowns (jams), and strict delivery deadlines.
 
 * **Provided Assets:**
     * `evaluator.py`: The master simulation engine that runs the physics, tracking, and fault-injection loops of the conveyor network.
@@ -46,7 +46,7 @@ Located in the `bhs-simulation/` directory, this toolset provides a fully operat
 
 ### 2: The Physical Vision-Guided Conveyor Testbed
 
-Located in the `barcode-conveyor/` directory, this setup offers a hands-on hardware integration experience leveraging a physical sorting platform. The workspace models an industrial inspection and routing lane using a single conveyor loop, an adjustable mechanical diverter mechanism, and an overhead camera sensor.
+Located in the [`barcode-conveyor/`](/baggage-handling/barcode-conveyor/) directory, this setup offers a hands-on hardware integration experience leveraging a physical sorting platform. The workspace models an industrial inspection and routing lane using a single conveyor loop, an adjustable mechanical diverter mechanism, and an overhead camera sensor.
 
 * **Provided Assets:**
     * An NVIDIA Jetson Nano edge computing platform connected directly to the camera and sorting actuators, capable of executing standalone Python scripts.
