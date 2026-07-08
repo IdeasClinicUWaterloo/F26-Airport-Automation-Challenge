@@ -22,7 +22,7 @@ To jump-start your project, this repository contains a working proof-of-concept 
 
 ### 1: SecureBag — Luggage Visual Verification System
 
-Located in the [securebag](F26-Airport-Automation-Challenge/passenger-monitoring-and-processing/securebag) directory, this system addresses a documented security vulnerability: luggage tag switching, where tags are swapped between bags to route contraband onto flights through unsuspecting passengers.
+Located in the [securebag](.../securebag) directory, this system addresses a documented security vulnerability: luggage tag switching, where tags are swapped between bags to route contraband onto flights through unsuspecting passengers.
 
 **Potential projects:**
 
