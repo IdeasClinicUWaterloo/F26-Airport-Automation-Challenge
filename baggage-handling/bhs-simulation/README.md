@@ -119,7 +119,6 @@ To run the evaluation cycle, execute the master engine script. By default, it im
 
 ```bash
 python evaluator.py
-
 ```
 
 Upon completion, the engine prints a performance summary tracking two primary quantitative metrics:
@@ -133,7 +132,6 @@ Every simulation run automatically generates a high-frequency event file named `
 
 ```bash
 python bsd_dashboard.py
-
 ```
 
 * **Interactive Scrubbing**: Use the horizontal timeline slider to instantly seek to any specific snapshot across the 3,600 ticks to isolate and inspect bottleneck points.

@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 def generate_3600_tick_scenario():
     # Set seed for reproducible randomness across student evaluations
-    random.seed(42)
+    random.seed(67)
 
     # Valid node IDs directly derived from network_layout.json
     intake_nodes = ["IA1", "IA2", "IB1", "IB2"]

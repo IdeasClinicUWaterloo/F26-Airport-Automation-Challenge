@@ -33,4704 +33,4808 @@
   "bags": [
     {
       "bag_id": "B0001",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 10
     },
     {
       "bag_id": "B0002",
       "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 7
+      "destination_gate": "GB3",
+      "release_tick": 16
     },
     {
       "bag_id": "B0003",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 25,
-      "deadline_tick": 79
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 32,
+      "deadline_tick": 77
     },
     {
       "bag_id": "B0004",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 31
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 38
     },
     {
       "bag_id": "B0005",
       "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 95
+      "destination_gate": "GB3",
+      "release_tick": 69,
+      "deadline_tick": 121
     },
     {
       "bag_id": "B0006",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 138,
-      "deadline_tick": 203
+      "intake_node": "IB2",
+      "destination_gate": "GA3",
+      "release_tick": 72,
+      "deadline_tick": 120
     },
     {
       "bag_id": "B0007",
       "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 141,
-      "deadline_tick": 201
+      "destination_gate": "GB3",
+      "release_tick": 89,
+      "deadline_tick": 153
     },
     {
       "bag_id": "B0008",
       "intake_node": "IB1",
-      "destination_gate": "GA1",
-      "release_tick": 243
+      "destination_gate": "GB1",
+      "release_tick": 99
     },
     {
       "bag_id": "B0009",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 260,
-      "deadline_tick": 319
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 126,
+      "deadline_tick": 184
     },
     {
       "bag_id": "B0010",
       "intake_node": "IA1",
-      "destination_gate": "GB2",
-      "release_tick": 263
+      "destination_gate": "GA4",
+      "release_tick": 147,
+      "deadline_tick": 193
     },
     {
       "bag_id": "B0011",
-      "intake_node": "IB1",
+      "intake_node": "IB2",
       "destination_gate": "GB4",
-      "release_tick": 286
+      "release_tick": 148
     },
     {
       "bag_id": "B0012",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 300
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 164
     },
     {
       "bag_id": "B0013",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 308,
-      "deadline_tick": 372
+      "intake_node": "IA2",
+      "destination_gate": "GB4",
+      "release_tick": 200,
+      "deadline_tick": 251
     },
     {
       "bag_id": "B0014",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 318
+      "intake_node": "IB2",
+      "destination_gate": "GA2",
+      "release_tick": 203,
+      "deadline_tick": 268
     },
     {
       "bag_id": "B0015",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 322,
-      "deadline_tick": 376
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 205
     },
     {
       "bag_id": "B0016",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 347
+      "destination_gate": "GB4",
+      "release_tick": 214
     },
     {
       "bag_id": "B0017",
       "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 348
+      "destination_gate": "GA3",
+      "release_tick": 238
     },
     {
       "bag_id": "B0018",
-      "intake_node": "IA1",
-      "destination_gate": "GB1",
-      "release_tick": 356
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 279,
+      "deadline_tick": 340
     },
     {
       "bag_id": "B0019",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 363
+      "intake_node": "IA1",
+      "destination_gate": "GB1",
+      "release_tick": 324
     },
     {
       "bag_id": "B0020",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 380,
-      "deadline_tick": 442
+      "intake_node": "IA2",
+      "destination_gate": "GB4",
+      "release_tick": 328
     },
     {
       "bag_id": "B0021",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 381
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 331,
+      "deadline_tick": 386
     },
     {
       "bag_id": "B0022",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 382
+      "intake_node": "IA2",
+      "destination_gate": "GB3",
+      "release_tick": 347
     },
     {
       "bag_id": "B0023",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 391
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 354
     },
     {
       "bag_id": "B0024",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 400
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 357
     },
     {
       "bag_id": "B0025",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 408,
-      "deadline_tick": 461
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 359
     },
     {
       "bag_id": "B0026",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 417
+      "intake_node": "IA2",
+      "destination_gate": "GB2",
+      "release_tick": 366
     },
     {
       "bag_id": "B0027",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 425
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 372
     },
     {
       "bag_id": "B0028",
-      "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 433
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 375
     },
     {
       "bag_id": "B0029",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 449
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 379
     },
     {
       "bag_id": "B0030",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 453
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 380,
+      "deadline_tick": 438
     },
     {
       "bag_id": "B0031",
       "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 466
+      "destination_gate": "GA4",
+      "release_tick": 382
     },
     {
       "bag_id": "B0032",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 487,
-      "deadline_tick": 550
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 386,
+      "deadline_tick": 436
     },
     {
       "bag_id": "B0033",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 514
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 389
     },
     {
       "bag_id": "B0034",
-      "intake_node": "IB2",
+      "intake_node": "IB1",
       "destination_gate": "GB1",
-      "release_tick": 515
+      "release_tick": 402
     },
     {
       "bag_id": "B0035",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 519
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 404
     },
     {
       "bag_id": "B0036",
       "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 520,
-      "deadline_tick": 572
+      "destination_gate": "GB2",
+      "release_tick": 405
     },
     {
       "bag_id": "B0037",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 521
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 407,
+      "deadline_tick": 453
     },
     {
       "bag_id": "B0038",
-      "intake_node": "IA1",
+      "intake_node": "IB1",
       "destination_gate": "GB2",
-      "release_tick": 528
+      "release_tick": 439
     },
     {
       "bag_id": "B0039",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 530,
-      "deadline_tick": 588
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 442
     },
     {
       "bag_id": "B0040",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 549
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 464,
+      "deadline_tick": 525
     },
     {
       "bag_id": "B0041",
-      "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 560
+      "intake_node": "IB2",
+      "destination_gate": "GA2",
+      "release_tick": 467,
+      "deadline_tick": 523
     },
     {
       "bag_id": "B0042",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 563
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 470
     },
     {
       "bag_id": "B0043",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 568
+      "intake_node": "IA1",
+      "destination_gate": "GB4",
+      "release_tick": 490
     },
     {
       "bag_id": "B0044",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 596
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 494,
+      "deadline_tick": 539
     },
     {
       "bag_id": "B0045",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 598
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 496,
+      "deadline_tick": 558
     },
     {
       "bag_id": "B0046",
-      "intake_node": "IA2",
-      "destination_gate": "GB2",
-      "release_tick": 607
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 497,
+      "deadline_tick": 557
     },
     {
       "bag_id": "B0047",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 619
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 506,
+      "deadline_tick": 571
     },
     {
       "bag_id": "B0048",
       "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 626,
-      "deadline_tick": 691
+      "destination_gate": "GB1",
+      "release_tick": 508,
+      "deadline_tick": 556
     },
     {
       "bag_id": "B0049",
       "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 629,
-      "deadline_tick": 688
+      "destination_gate": "GA1",
+      "release_tick": 509,
+      "deadline_tick": 560
     },
     {
       "bag_id": "B0050",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 630,
-      "deadline_tick": 683
+      "destination_gate": "GA4",
+      "release_tick": 533
     },
     {
       "bag_id": "B0051",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 642
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 563,
+      "deadline_tick": 621
     },
     {
       "bag_id": "B0052",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 645
+      "intake_node": "IB1",
+      "destination_gate": "GA4",
+      "release_tick": 566,
+      "deadline_tick": 614
     },
     {
       "bag_id": "B0053",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 646
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 570,
+      "deadline_tick": 630
     },
     {
       "bag_id": "B0054",
-      "intake_node": "IB1",
-      "destination_gate": "GA3",
-      "release_tick": 665
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 588,
+      "deadline_tick": 651
     },
     {
       "bag_id": "B0055",
-      "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 683
+      "intake_node": "IB1",
+      "destination_gate": "GA4",
+      "release_tick": 598
     },
     {
       "bag_id": "B0056",
       "intake_node": "IA1",
-      "destination_gate": "GB1",
-      "release_tick": 692,
-      "deadline_tick": 751
+      "destination_gate": "GA1",
+      "release_tick": 607,
+      "deadline_tick": 656
     },
     {
       "bag_id": "B0057",
       "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 693
+      "destination_gate": "GA2",
+      "release_tick": 619,
+      "deadline_tick": 678
     },
     {
       "bag_id": "B0058",
       "intake_node": "IA2",
-      "destination_gate": "GB4",
-      "release_tick": 710
+      "destination_gate": "GB1",
+      "release_tick": 622
     },
     {
       "bag_id": "B0059",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 714
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 626
     },
     {
       "bag_id": "B0060",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 717
+      "destination_gate": "GB3",
+      "release_tick": 632
     },
     {
       "bag_id": "B0061",
       "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 719
+      "destination_gate": "GB4",
+      "release_tick": 658,
+      "deadline_tick": 717
     },
     {
       "bag_id": "B0062",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 720
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 664,
+      "deadline_tick": 725
     },
     {
       "bag_id": "B0063",
-      "intake_node": "IA2",
-      "destination_gate": "GB2",
-      "release_tick": 721,
-      "deadline_tick": 777
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 677
     },
     {
       "bag_id": "B0064",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 729,
-      "deadline_tick": 785
+      "destination_gate": "GB4",
+      "release_tick": 697
     },
     {
       "bag_id": "B0065",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 738
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 702
     },
     {
       "bag_id": "B0066",
       "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 740,
-      "deadline_tick": 795
+      "release_tick": 713,
+      "deadline_tick": 777
     },
     {
       "bag_id": "B0067",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
+      "destination_gate": "GA3",
       "release_tick": 742
     },
     {
       "bag_id": "B0068",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 753
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 752
     },
     {
       "bag_id": "B0069",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 757
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 757,
+      "deadline_tick": 822
     },
     {
       "bag_id": "B0070",
-      "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 760
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 759
     },
     {
       "bag_id": "B0071",
-      "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 765
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 781
     },
     {
       "bag_id": "B0072",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 768,
-      "deadline_tick": 821
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 803,
+      "deadline_tick": 862
     },
     {
       "bag_id": "B0073",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 778
+      "destination_gate": "GA4",
+      "release_tick": 818,
+      "deadline_tick": 874
     },
     {
       "bag_id": "B0074",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 788
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 821
     },
     {
       "bag_id": "B0075",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 790
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 829,
+      "deadline_tick": 893
     },
     {
       "bag_id": "B0076",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 796,
-      "deadline_tick": 857
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 842
     },
     {
       "bag_id": "B0077",
       "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 800
+      "destination_gate": "GB1",
+      "release_tick": 847
     },
     {
       "bag_id": "B0078",
-      "intake_node": "IB1",
+      "intake_node": "IB2",
       "destination_gate": "GB3",
-      "release_tick": 807
+      "release_tick": 864
     },
     {
       "bag_id": "B0079",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 810,
-      "deadline_tick": 875
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 866
     },
     {
       "bag_id": "B0080",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 812,
-      "deadline_tick": 868
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 871
     },
     {
       "bag_id": "B0081",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 820
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 872
     },
     {
       "bag_id": "B0082",
       "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 824
+      "destination_gate": "GB3",
+      "release_tick": 880,
+      "deadline_tick": 927
     },
     {
       "bag_id": "B0083",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 828
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 882,
+      "deadline_tick": 929
     },
     {
       "bag_id": "B0084",
-      "intake_node": "IB2",
+      "intake_node": "IB1",
       "destination_gate": "GB2",
-      "release_tick": 831,
-      "deadline_tick": 893
+      "release_tick": 890
     },
     {
       "bag_id": "B0085",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 836
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 900
     },
     {
       "bag_id": "B0086",
       "intake_node": "IA1",
       "destination_gate": "GB2",
-      "release_tick": 842
+      "release_tick": 903
     },
     {
       "bag_id": "B0087",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 846
+      "intake_node": "IB2",
+      "destination_gate": "GA1",
+      "release_tick": 911
     },
     {
       "bag_id": "B0088",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 853,
-      "deadline_tick": 918
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 913,
+      "deadline_tick": 959
     },
     {
       "bag_id": "B0089",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 856
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 915
     },
     {
       "bag_id": "B0090",
-      "intake_node": "IB2",
+      "intake_node": "IA2",
       "destination_gate": "GB3",
-      "release_tick": 871
+      "release_tick": 921,
+      "deadline_tick": 972
     },
     {
       "bag_id": "B0091",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 873,
-      "deadline_tick": 927
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 925,
+      "deadline_tick": 990
     },
     {
       "bag_id": "B0092",
-      "intake_node": "IA1",
+      "intake_node": "IA2",
       "destination_gate": "GA4",
-      "release_tick": 874
+      "release_tick": 926
     },
     {
       "bag_id": "B0093",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 884
+      "intake_node": "IA2",
+      "destination_gate": "GB1",
+      "release_tick": 929
     },
     {
       "bag_id": "B0094",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 885
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 933
     },
     {
       "bag_id": "B0095",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 893
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 934
     },
     {
       "bag_id": "B0096",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 900
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 937,
+      "deadline_tick": 987
     },
     {
       "bag_id": "B0097",
-      "intake_node": "IA2",
+      "intake_node": "IB2",
       "destination_gate": "GA4",
-      "release_tick": 918,
-      "deadline_tick": 967
+      "release_tick": 944,
+      "deadline_tick": 1007
     },
     {
       "bag_id": "B0098",
-      "intake_node": "IB1",
-      "destination_gate": "GA1",
-      "release_tick": 919
+      "intake_node": "IA2",
+      "destination_gate": "GB4",
+      "release_tick": 947
     },
     {
       "bag_id": "B0099",
-      "intake_node": "IA2",
-      "destination_gate": "GB2",
-      "release_tick": 927
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 948
     },
     {
       "bag_id": "B0100",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 928
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 960
     },
     {
       "bag_id": "B0101",
       "intake_node": "IB2",
       "destination_gate": "GB3",
-      "release_tick": 937
+      "release_tick": 965
     },
     {
       "bag_id": "B0102",
-      "intake_node": "IA2",
-      "destination_gate": "GB2",
-      "release_tick": 940
+      "intake_node": "IB1",
+      "destination_gate": "GA2",
+      "release_tick": 968
     },
     {
       "bag_id": "B0103",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 941
+      "intake_node": "IA1",
+      "destination_gate": "GB3",
+      "release_tick": 969
     },
     {
       "bag_id": "B0104",
       "intake_node": "IA1",
       "destination_gate": "GA3",
-      "release_tick": 943
+      "release_tick": 975
     },
     {
       "bag_id": "B0105",
-      "intake_node": "IA2",
+      "intake_node": "IB1",
       "destination_gate": "GB3",
-      "release_tick": 946
+      "release_tick": 984,
+      "deadline_tick": 1036
     },
     {
       "bag_id": "B0106",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 951
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 993,
+      "deadline_tick": 1053
     },
     {
       "bag_id": "B0107",
-      "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 954
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 995
     },
     {
       "bag_id": "B0108",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 955
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 1002
     },
     {
       "bag_id": "B0109",
-      "intake_node": "IA2",
+      "intake_node": "IB1",
       "destination_gate": "GB4",
-      "release_tick": 956,
-      "deadline_tick": 1010
+      "release_tick": 1011,
+      "deadline_tick": 1060
     },
     {
       "bag_id": "B0110",
       "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 958,
-      "deadline_tick": 1018
+      "destination_gate": "GA3",
+      "release_tick": 1014
     },
     {
       "bag_id": "B0111",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 960
-    },
-    {
-      "bag_id": "B0112",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 965,
-      "deadline_tick": 1025
-    },
-    {
-      "bag_id": "B0113",
-      "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 966
-    },
-    {
-      "bag_id": "B0114",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 968
-    },
-    {
-      "bag_id": "B0115",
-      "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 971
-    },
-    {
-      "bag_id": "B0116",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 975,
-      "deadline_tick": 1026
-    },
-    {
-      "bag_id": "B0117",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 976
-    },
-    {
-      "bag_id": "B0118",
-      "intake_node": "IB1",
-      "destination_gate": "GA1",
-      "release_tick": 982
-    },
-    {
-      "bag_id": "B0119",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 984
-    },
-    {
-      "bag_id": "B0120",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 994,
-      "deadline_tick": 1049
-    },
-    {
-      "bag_id": "B0121",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1001,
-      "deadline_tick": 1047
-    },
-    {
-      "bag_id": "B0122",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1002
-    },
-    {
-      "bag_id": "B0123",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 1003,
-      "deadline_tick": 1068
-    },
-    {
-      "bag_id": "B0124",
-      "intake_node": "IA2",
+      "intake_node": "IA1",
       "destination_gate": "GA4",
       "release_tick": 1017
     },
     {
-      "bag_id": "B0125",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
+      "bag_id": "B0112",
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
       "release_tick": 1018
     },
     {
-      "bag_id": "B0126",
-      "intake_node": "IA1",
+      "bag_id": "B0113",
+      "intake_node": "IA2",
       "destination_gate": "GA4",
-      "release_tick": 1022
+      "release_tick": 1021
+    },
+    {
+      "bag_id": "B0114",
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 1023
+    },
+    {
+      "bag_id": "B0115",
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 1026
+    },
+    {
+      "bag_id": "B0116",
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 1027,
+      "deadline_tick": 1083
+    },
+    {
+      "bag_id": "B0117",
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 1033
+    },
+    {
+      "bag_id": "B0118",
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 1034
+    },
+    {
+      "bag_id": "B0119",
+      "intake_node": "IB2",
+      "destination_gate": "GA3",
+      "release_tick": 1037,
+      "deadline_tick": 1098
+    },
+    {
+      "bag_id": "B0120",
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 1045,
+      "deadline_tick": 1103
+    },
+    {
+      "bag_id": "B0121",
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 1047
+    },
+    {
+      "bag_id": "B0122",
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1049,
+      "deadline_tick": 1114
+    },
+    {
+      "bag_id": "B0123",
+      "intake_node": "IB2",
+      "destination_gate": "GA1",
+      "release_tick": 1055,
+      "deadline_tick": 1101
+    },
+    {
+      "bag_id": "B0124",
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1058,
+      "deadline_tick": 1120
+    },
+    {
+      "bag_id": "B0125",
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 1064
+    },
+    {
+      "bag_id": "B0126",
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 1069,
+      "deadline_tick": 1120
     },
     {
       "bag_id": "B0127",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1031,
-      "deadline_tick": 1082
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1070,
+      "deadline_tick": 1132
     },
     {
       "bag_id": "B0128",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1039
+      "intake_node": "IB2",
+      "destination_gate": "GA3",
+      "release_tick": 1073
     },
     {
       "bag_id": "B0129",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1044
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 1084,
+      "deadline_tick": 1144
     },
     {
       "bag_id": "B0130",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1046
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 1088
     },
     {
       "bag_id": "B0131",
       "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 1048,
-      "deadline_tick": 1103
+      "destination_gate": "GA1",
+      "release_tick": 1089
     },
     {
       "bag_id": "B0132",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1054,
-      "deadline_tick": 1108
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 1099,
+      "deadline_tick": 1149
     },
     {
       "bag_id": "B0133",
-      "intake_node": "IA2",
+      "intake_node": "IA1",
       "destination_gate": "GA2",
-      "release_tick": 1056,
-      "deadline_tick": 1120
+      "release_tick": 1116,
+      "deadline_tick": 1177
     },
     {
       "bag_id": "B0134",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 1062
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1118
     },
     {
       "bag_id": "B0135",
       "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1074
+      "destination_gate": "GA2",
+      "release_tick": 1122
     },
     {
       "bag_id": "B0136",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1075
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 1136,
+      "deadline_tick": 1192
     },
     {
       "bag_id": "B0137",
       "intake_node": "IB1",
       "destination_gate": "GB1",
-      "release_tick": 1078,
-      "deadline_tick": 1137
+      "release_tick": 1137,
+      "deadline_tick": 1193
     },
     {
       "bag_id": "B0138",
       "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 1079,
-      "deadline_tick": 1136
+      "destination_gate": "GB3",
+      "release_tick": 1140
     },
     {
       "bag_id": "B0139",
       "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 1087
+      "destination_gate": "GA1",
+      "release_tick": 1142,
+      "deadline_tick": 1207
     },
     {
       "bag_id": "B0140",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1089,
-      "deadline_tick": 1145
+      "intake_node": "IB1",
+      "destination_gate": "GA3",
+      "release_tick": 1145,
+      "deadline_tick": 1193
     },
     {
       "bag_id": "B0141",
       "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1090,
-      "deadline_tick": 1135
+      "destination_gate": "GB2",
+      "release_tick": 1147,
+      "deadline_tick": 1205
     },
     {
       "bag_id": "B0142",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1099
+      "intake_node": "IB2",
+      "destination_gate": "GA1",
+      "release_tick": 1148
     },
     {
       "bag_id": "B0143",
       "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 1103
+      "destination_gate": "GA1",
+      "release_tick": 1154
     },
     {
       "bag_id": "B0144",
       "intake_node": "IB2",
       "destination_gate": "GB1",
-      "release_tick": 1105,
-      "deadline_tick": 1160
+      "release_tick": 1155
     },
     {
       "bag_id": "B0145",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1108,
-      "deadline_tick": 1172
+      "intake_node": "IB2",
+      "destination_gate": "GA2",
+      "release_tick": 1157
     },
     {
       "bag_id": "B0146",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1124
+      "destination_gate": "GB3",
+      "release_tick": 1160,
+      "deadline_tick": 1225
     },
     {
       "bag_id": "B0147",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1126,
-      "deadline_tick": 1174
+      "intake_node": "IA1",
+      "destination_gate": "GB1",
+      "release_tick": 1161
     },
     {
       "bag_id": "B0148",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1127
+      "destination_gate": "GB3",
+      "release_tick": 1169
     },
     {
       "bag_id": "B0149",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 1128
+      "intake_node": "IB1",
+      "destination_gate": "GA2",
+      "release_tick": 1172
     },
     {
       "bag_id": "B0150",
       "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1164,
-      "deadline_tick": 1223
+      "destination_gate": "GB2",
+      "release_tick": 1182
     },
     {
       "bag_id": "B0151",
       "intake_node": "IB1",
-      "destination_gate": "GA3",
-      "release_tick": 1167,
-      "deadline_tick": 1231
+      "destination_gate": "GB1",
+      "release_tick": 1185
     },
     {
       "bag_id": "B0152",
       "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 1170,
-      "deadline_tick": 1225
+      "release_tick": 1193
     },
     {
       "bag_id": "B0153",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1172
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 1201
     },
     {
       "bag_id": "B0154",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 1176
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 1203
     },
     {
       "bag_id": "B0155",
       "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 1177
+      "destination_gate": "GA4",
+      "release_tick": 1210
     },
     {
       "bag_id": "B0156",
       "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 1178
+      "destination_gate": "GA3",
+      "release_tick": 1219,
+      "deadline_tick": 1283
     },
     {
       "bag_id": "B0157",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 1185,
-      "deadline_tick": 1250
-    },
-    {
-      "bag_id": "B0158",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1191
-    },
-    {
-      "bag_id": "B0159",
       "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1193,
-      "deadline_tick": 1258
-    },
-    {
-      "bag_id": "B0160",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1197
-    },
-    {
-      "bag_id": "B0161",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 1199
-    },
-    {
-      "bag_id": "B0162",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 1202
-    },
-    {
-      "bag_id": "B0163",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 1204,
-      "deadline_tick": 1256
-    },
-    {
-      "bag_id": "B0164",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 1205
-    },
-    {
-      "bag_id": "B0165",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 1212
-    },
-    {
-      "bag_id": "B0166",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1216,
-      "deadline_tick": 1277
-    },
-    {
-      "bag_id": "B0167",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
+      "destination_gate": "GB4",
       "release_tick": 1223
     },
     {
-      "bag_id": "B0168",
+      "bag_id": "B0158",
       "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 1225,
+      "deadline_tick": 1272
+    },
+    {
+      "bag_id": "B0159",
+      "intake_node": "IA2",
       "destination_gate": "GA2",
-      "release_tick": 1227
+      "release_tick": 1229
+    },
+    {
+      "bag_id": "B0160",
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1233
+    },
+    {
+      "bag_id": "B0161",
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 1238
+    },
+    {
+      "bag_id": "B0162",
+      "intake_node": "IA2",
+      "destination_gate": "GB1",
+      "release_tick": 1249,
+      "deadline_tick": 1314
+    },
+    {
+      "bag_id": "B0163",
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 1251
+    },
+    {
+      "bag_id": "B0164",
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 1253
+    },
+    {
+      "bag_id": "B0165",
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 1256,
+      "deadline_tick": 1304
+    },
+    {
+      "bag_id": "B0166",
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 1265
+    },
+    {
+      "bag_id": "B0167",
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1266,
+      "deadline_tick": 1323
+    },
+    {
+      "bag_id": "B0168",
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1268
     },
     {
       "bag_id": "B0169",
-      "intake_node": "IB1",
+      "intake_node": "IA1",
       "destination_gate": "GB1",
-      "release_tick": 1228
+      "release_tick": 1272
     },
     {
       "bag_id": "B0170",
       "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1229,
-      "deadline_tick": 1278
+      "destination_gate": "GB3",
+      "release_tick": 1274
     },
     {
       "bag_id": "B0171",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1244
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1276,
+      "deadline_tick": 1339
     },
     {
       "bag_id": "B0172",
       "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 1253,
-      "deadline_tick": 1311
+      "destination_gate": "GA2",
+      "release_tick": 1287,
+      "deadline_tick": 1333
     },
     {
       "bag_id": "B0173",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1258,
-      "deadline_tick": 1304
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 1293,
+      "deadline_tick": 1356
     },
     {
       "bag_id": "B0174",
       "intake_node": "IA1",
       "destination_gate": "GA3",
-      "release_tick": 1261,
-      "deadline_tick": 1324
+      "release_tick": 1296
     },
     {
       "bag_id": "B0175",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1267,
-      "deadline_tick": 1330
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 1297
     },
     {
       "bag_id": "B0176",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1279,
-      "deadline_tick": 1331
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 1303
     },
     {
       "bag_id": "B0177",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1287
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 1306
     },
     {
       "bag_id": "B0178",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 1290
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 1307
     },
     {
       "bag_id": "B0179",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1293,
-      "deadline_tick": 1338
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 1311
     },
     {
       "bag_id": "B0180",
-      "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 1294
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 1315,
+      "deadline_tick": 1377
     },
     {
       "bag_id": "B0181",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1313
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 1319,
+      "deadline_tick": 1382
     },
     {
       "bag_id": "B0182",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1314,
-      "deadline_tick": 1371
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1320,
+      "deadline_tick": 1381
     },
     {
       "bag_id": "B0183",
       "intake_node": "IB2",
       "destination_gate": "GB1",
-      "release_tick": 1327
+      "release_tick": 1324,
+      "deadline_tick": 1373
     },
     {
       "bag_id": "B0184",
       "intake_node": "IA1",
       "destination_gate": "GA4",
-      "release_tick": 1329,
-      "deadline_tick": 1394
+      "release_tick": 1335
     },
     {
       "bag_id": "B0185",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1332
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1338
     },
     {
       "bag_id": "B0186",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 1333
+      "destination_gate": "GA3",
+      "release_tick": 1339
     },
     {
       "bag_id": "B0187",
       "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1339,
-      "deadline_tick": 1400
+      "destination_gate": "GA4",
+      "release_tick": 1340
     },
     {
       "bag_id": "B0188",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1343
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 1341,
+      "deadline_tick": 1400
     },
     {
       "bag_id": "B0189",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1350,
-      "deadline_tick": 1395
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1345,
+      "deadline_tick": 1394
     },
     {
       "bag_id": "B0190",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
       "release_tick": 1352
     },
     {
       "bag_id": "B0191",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1354,
-      "deadline_tick": 1401
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 1355,
+      "deadline_tick": 1405
     },
     {
       "bag_id": "B0192",
       "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1359
+      "destination_gate": "GB4",
+      "release_tick": 1356,
+      "deadline_tick": 1415
     },
     {
       "bag_id": "B0193",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 1363
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 1358
     },
     {
       "bag_id": "B0194",
       "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1369,
-      "deadline_tick": 1416
+      "destination_gate": "GA4",
+      "release_tick": 1366
     },
     {
       "bag_id": "B0195",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1375
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 1383,
+      "deadline_tick": 1441
     },
     {
       "bag_id": "B0196",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 1381,
-      "deadline_tick": 1430
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 1386
     },
     {
       "bag_id": "B0197",
       "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 1384,
-      "deadline_tick": 1438
+      "destination_gate": "GB3",
+      "release_tick": 1392,
+      "deadline_tick": 1454
     },
     {
       "bag_id": "B0198",
       "intake_node": "IA1",
       "destination_gate": "GA4",
-      "release_tick": 1387
+      "release_tick": 1394
     },
     {
       "bag_id": "B0199",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1389
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1399,
+      "deadline_tick": 1453
     },
     {
       "bag_id": "B0200",
       "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 1392
+      "destination_gate": "GB2",
+      "release_tick": 1408,
+      "deadline_tick": 1464
     },
     {
       "bag_id": "B0201",
       "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1398,
-      "deadline_tick": 1448
+      "destination_gate": "GB3",
+      "release_tick": 1415
     },
     {
       "bag_id": "B0202",
-      "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 1402
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1416
     },
     {
       "bag_id": "B0203",
-      "intake_node": "IA1",
+      "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 1403
+      "release_tick": 1423
     },
     {
       "bag_id": "B0204",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1412
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 1430,
+      "deadline_tick": 1476
     },
     {
       "bag_id": "B0205",
-      "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 1413
+      "intake_node": "IA1",
+      "destination_gate": "GB3",
+      "release_tick": 1434
     },
     {
       "bag_id": "B0206",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 1422
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 1438
     },
     {
       "bag_id": "B0207",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1437
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 1439
     },
     {
       "bag_id": "B0208",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1443,
-      "deadline_tick": 1507
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1450,
+      "deadline_tick": 1503
     },
     {
       "bag_id": "B0209",
       "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 1444
-    },
-    {
-      "bag_id": "B0210",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1446
-    },
-    {
-      "bag_id": "B0211",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
+      "destination_gate": "GB1",
       "release_tick": 1452,
-      "deadline_tick": 1501
-    },
-    {
-      "bag_id": "B0212",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 1458,
       "deadline_tick": 1506
     },
     {
+      "bag_id": "B0210",
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 1460,
+      "deadline_tick": 1517
+    },
+    {
+      "bag_id": "B0211",
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 1467,
+      "deadline_tick": 1530
+    },
+    {
+      "bag_id": "B0212",
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1469,
+      "deadline_tick": 1519
+    },
+    {
       "bag_id": "B0213",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1459
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 1476,
+      "deadline_tick": 1534
     },
     {
       "bag_id": "B0214",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1468
+      "destination_gate": "GB3",
+      "release_tick": 1481
     },
     {
       "bag_id": "B0215",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 1470
-    },
-    {
-      "bag_id": "B0216",
       "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1474
-    },
-    {
-      "bag_id": "B0217",
-      "intake_node": "IA2",
       "destination_gate": "GA2",
-      "release_tick": 1486,
-      "deadline_tick": 1536
-    },
-    {
-      "bag_id": "B0218",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
       "release_tick": 1488
     },
     {
-      "bag_id": "B0219",
+      "bag_id": "B0216",
       "intake_node": "IA2",
       "destination_gate": "GA2",
+      "release_tick": 1492
+    },
+    {
+      "bag_id": "B0217",
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
       "release_tick": 1494,
-      "deadline_tick": 1553
+      "deadline_tick": 1544
+    },
+    {
+      "bag_id": "B0218",
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1498,
+      "deadline_tick": 1563
+    },
+    {
+      "bag_id": "B0219",
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1502
     },
     {
       "bag_id": "B0220",
       "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 1499
+      "destination_gate": "GB1",
+      "release_tick": 1508
     },
     {
       "bag_id": "B0221",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1503,
-      "deadline_tick": 1556
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 1510
     },
     {
       "bag_id": "B0222",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1519,
-      "deadline_tick": 1565
+      "destination_gate": "GB1",
+      "release_tick": 1511
     },
     {
       "bag_id": "B0223",
       "intake_node": "IA2",
       "destination_gate": "GA2",
-      "release_tick": 1532
+      "release_tick": 1514,
+      "deadline_tick": 1569
     },
     {
       "bag_id": "B0224",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 1536
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1516
     },
     {
       "bag_id": "B0225",
-      "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 1540
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1532,
+      "deadline_tick": 1587
     },
     {
       "bag_id": "B0226",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1541
+      "intake_node": "IB1",
+      "destination_gate": "GA1",
+      "release_tick": 1534
     },
     {
       "bag_id": "B0227",
-      "intake_node": "IB1",
+      "intake_node": "IA1",
       "destination_gate": "GB3",
-      "release_tick": 1551
+      "release_tick": 1536,
+      "deadline_tick": 1583
     },
     {
       "bag_id": "B0228",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 1556
+      "destination_gate": "GB1",
+      "release_tick": 1541
     },
     {
       "bag_id": "B0229",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 1565,
-      "deadline_tick": 1630
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1543,
+      "deadline_tick": 1603
     },
     {
       "bag_id": "B0230",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 1568
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 1544
     },
     {
       "bag_id": "B0231",
       "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 1576
+      "destination_gate": "GB1",
+      "release_tick": 1546
     },
     {
       "bag_id": "B0232",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1578
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 1549
     },
     {
       "bag_id": "B0233",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1579,
-      "deadline_tick": 1642
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1550
     },
     {
       "bag_id": "B0234",
       "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 1582
+      "destination_gate": "GB4",
+      "release_tick": 1552,
+      "deadline_tick": 1615
     },
     {
       "bag_id": "B0235",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 1585
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1553
     },
     {
       "bag_id": "B0236",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1586,
-      "deadline_tick": 1649
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1555,
+      "deadline_tick": 1604
     },
     {
       "bag_id": "B0237",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1587
+      "destination_gate": "GA1",
+      "release_tick": 1557,
+      "deadline_tick": 1612
     },
     {
       "bag_id": "B0238",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1588
+      "intake_node": "IA1",
+      "destination_gate": "GB2",
+      "release_tick": 1559
     },
     {
       "bag_id": "B0239",
-      "intake_node": "IA1",
+      "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 1589
+      "release_tick": 1560
     },
     {
       "bag_id": "B0240",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1593
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 1562
     },
     {
       "bag_id": "B0241",
       "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 1605,
-      "deadline_tick": 1670
+      "release_tick": 1564
     },
     {
       "bag_id": "B0242",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1611
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1565
     },
     {
       "bag_id": "B0243",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1614,
-      "deadline_tick": 1660
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 1567
     },
     {
       "bag_id": "B0244",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1624
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1571
     },
     {
       "bag_id": "B0245",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 1625,
-      "deadline_tick": 1683
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 1572
     },
     {
       "bag_id": "B0246",
-      "intake_node": "IA1",
-      "destination_gate": "GB1",
-      "release_tick": 1628
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1577,
+      "deadline_tick": 1629
     },
     {
       "bag_id": "B0247",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1633
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1578,
+      "deadline_tick": 1631
     },
     {
       "bag_id": "B0248",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1642,
-      "deadline_tick": 1689
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 1581,
+      "deadline_tick": 1636
     },
     {
       "bag_id": "B0249",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1648
+      "destination_gate": "GB1",
+      "release_tick": 1588
     },
     {
       "bag_id": "B0250",
       "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1651,
-      "deadline_tick": 1711
+      "destination_gate": "GA3",
+      "release_tick": 1593,
+      "deadline_tick": 1652
     },
     {
       "bag_id": "B0251",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1654,
-      "deadline_tick": 1706
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1595
     },
     {
       "bag_id": "B0252",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 1658,
-      "deadline_tick": 1719
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 1598
     },
     {
       "bag_id": "B0253",
-      "intake_node": "IB2",
+      "intake_node": "IA2",
       "destination_gate": "GA3",
-      "release_tick": 1661,
-      "deadline_tick": 1723
+      "release_tick": 1601
     },
     {
       "bag_id": "B0254",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 1675
+      "destination_gate": "GB2",
+      "release_tick": 1602,
+      "deadline_tick": 1662
     },
     {
       "bag_id": "B0255",
       "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1677
+      "destination_gate": "GB2",
+      "release_tick": 1603
     },
     {
       "bag_id": "B0256",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 1679
+      "intake_node": "IB1",
+      "destination_gate": "GA3",
+      "release_tick": 1608
     },
     {
       "bag_id": "B0257",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1680
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 1619
     },
     {
       "bag_id": "B0258",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1685,
-      "deadline_tick": 1748
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 1620,
+      "deadline_tick": 1671
     },
     {
       "bag_id": "B0259",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1686
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 1622
     },
     {
       "bag_id": "B0260",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1694
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 1629
     },
     {
       "bag_id": "B0261",
-      "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 1696
+      "intake_node": "IA2",
+      "destination_gate": "GB1",
+      "release_tick": 1632,
+      "deadline_tick": 1694
     },
     {
       "bag_id": "B0262",
-      "intake_node": "IB1",
-      "destination_gate": "GA1",
-      "release_tick": 1699,
-      "deadline_tick": 1754
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 1644
     },
     {
       "bag_id": "B0263",
-      "intake_node": "IA2",
+      "intake_node": "IB1",
       "destination_gate": "GB4",
-      "release_tick": 1700
+      "release_tick": 1664
     },
     {
       "bag_id": "B0264",
-      "intake_node": "IB2",
-      "destination_gate": "GA2",
-      "release_tick": 1704,
-      "deadline_tick": 1752
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 1669
     },
     {
       "bag_id": "B0265",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1706,
-      "deadline_tick": 1763
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1683
     },
     {
       "bag_id": "B0266",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1713
+      "intake_node": "IA2",
+      "destination_gate": "GB4",
+      "release_tick": 1686,
+      "deadline_tick": 1744
     },
     {
       "bag_id": "B0267",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1714,
-      "deadline_tick": 1777
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1689,
+      "deadline_tick": 1745
     },
     {
       "bag_id": "B0268",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 1724
+      "intake_node": "IB1",
+      "destination_gate": "GA1",
+      "release_tick": 1690,
+      "deadline_tick": 1750
     },
     {
       "bag_id": "B0269",
-      "intake_node": "IB1",
+      "intake_node": "IB2",
       "destination_gate": "GB4",
-      "release_tick": 1726,
-      "deadline_tick": 1787
+      "release_tick": 1691,
+      "deadline_tick": 1744
     },
     {
       "bag_id": "B0270",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 1730
+      "destination_gate": "GB4",
+      "release_tick": 1696,
+      "deadline_tick": 1751
     },
     {
       "bag_id": "B0271",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1736,
-      "deadline_tick": 1796
+      "intake_node": "IA1",
+      "destination_gate": "GB1",
+      "release_tick": 1699
     },
     {
       "bag_id": "B0272",
       "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 1741
+      "release_tick": 1700,
+      "deadline_tick": 1760
     },
     {
       "bag_id": "B0273",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1748
+      "destination_gate": "GA4",
+      "release_tick": 1701
     },
     {
       "bag_id": "B0274",
-      "intake_node": "IB1",
+      "intake_node": "IA1",
       "destination_gate": "GA2",
-      "release_tick": 1749
+      "release_tick": 1703,
+      "deadline_tick": 1748
     },
     {
       "bag_id": "B0275",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1750
+      "destination_gate": "GB4",
+      "release_tick": 1706
     },
     {
       "bag_id": "B0276",
-      "intake_node": "IA2",
+      "intake_node": "IA1",
       "destination_gate": "GA1",
-      "release_tick": 1751
+      "release_tick": 1714,
+      "deadline_tick": 1777
     },
     {
       "bag_id": "B0277",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 1752
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 1717
     },
     {
       "bag_id": "B0278",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 1756
+      "destination_gate": "GA1",
+      "release_tick": 1719,
+      "deadline_tick": 1780
     },
     {
       "bag_id": "B0279",
       "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1760
+      "destination_gate": "GA4",
+      "release_tick": 1723
     },
     {
       "bag_id": "B0280",
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 1729,
+      "deadline_tick": 1789
+    },
+    {
+      "bag_id": "B0281",
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 1730
+    },
+    {
+      "bag_id": "B0282",
       "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 1732
+    },
+    {
+      "bag_id": "B0283",
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1747,
+      "deadline_tick": 1799
+    },
+    {
+      "bag_id": "B0284",
+      "intake_node": "IA1",
+      "destination_gate": "GB1",
+      "release_tick": 1748
+    },
+    {
+      "bag_id": "B0285",
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 1757,
+      "deadline_tick": 1803
+    },
+    {
+      "bag_id": "B0286",
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 1767
+    },
+    {
+      "bag_id": "B0287",
+      "intake_node": "IB2",
       "destination_gate": "GB4",
       "release_tick": 1775
     },
     {
-      "bag_id": "B0281",
-      "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 1778
-    },
-    {
-      "bag_id": "B0282",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 1779,
-      "deadline_tick": 1834
-    },
-    {
-      "bag_id": "B0283",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 1780
-    },
-    {
-      "bag_id": "B0284",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 1783,
-      "deadline_tick": 1842
-    },
-    {
-      "bag_id": "B0285",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1790,
-      "deadline_tick": 1837
-    },
-    {
-      "bag_id": "B0286",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1792,
-      "deadline_tick": 1842
-    },
-    {
-      "bag_id": "B0287",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1794,
-      "deadline_tick": 1858
-    },
-    {
       "bag_id": "B0288",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 1801
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 1778,
+      "deadline_tick": 1833
     },
     {
       "bag_id": "B0289",
       "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1807,
-      "deadline_tick": 1863
+      "destination_gate": "GB2",
+      "release_tick": 1785,
+      "deadline_tick": 1836
     },
     {
       "bag_id": "B0290",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1808,
-      "deadline_tick": 1853
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1786,
+      "deadline_tick": 1848
     },
     {
       "bag_id": "B0291",
-      "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 1809
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 1787,
+      "deadline_tick": 1844
     },
     {
       "bag_id": "B0292",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1814,
-      "deadline_tick": 1873
+      "intake_node": "IA2",
+      "destination_gate": "GB3",
+      "release_tick": 1791
     },
     {
       "bag_id": "B0293",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1815
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 1795,
+      "deadline_tick": 1841
     },
     {
       "bag_id": "B0294",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 1817
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 1798
     },
     {
       "bag_id": "B0295",
-      "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 1821
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1800,
+      "deadline_tick": 1845
     },
     {
       "bag_id": "B0296",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 1829,
-      "deadline_tick": 1879
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1802
     },
     {
       "bag_id": "B0297",
       "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1832,
-      "deadline_tick": 1897
+      "destination_gate": "GB1",
+      "release_tick": 1806
     },
     {
       "bag_id": "B0298",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 1833,
-      "deadline_tick": 1895
+      "intake_node": "IA1",
+      "destination_gate": "GB3",
+      "release_tick": 1808
     },
     {
       "bag_id": "B0299",
-      "intake_node": "IA1",
-      "destination_gate": "GB1",
-      "release_tick": 1844
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 1811
     },
     {
       "bag_id": "B0300",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1852,
-      "deadline_tick": 1907
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 1821,
+      "deadline_tick": 1867
     },
     {
       "bag_id": "B0301",
-      "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 1854,
-      "deadline_tick": 1908
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 1837
     },
     {
       "bag_id": "B0302",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 1867
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 1840,
+      "deadline_tick": 1886
     },
     {
       "bag_id": "B0303",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1872,
-      "deadline_tick": 1933
+      "intake_node": "IA1",
+      "destination_gate": "GB2",
+      "release_tick": 1844
     },
     {
       "bag_id": "B0304",
-      "intake_node": "IA2",
-      "destination_gate": "GB2",
-      "release_tick": 1874
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 1853
     },
     {
       "bag_id": "B0305",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1883
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 1854,
+      "deadline_tick": 1916
     },
     {
       "bag_id": "B0306",
       "intake_node": "IB2",
       "destination_gate": "GB3",
-      "release_tick": 1884,
-      "deadline_tick": 1937
+      "release_tick": 1861
     },
     {
       "bag_id": "B0307",
-      "intake_node": "IA2",
-      "destination_gate": "GB2",
-      "release_tick": 1889
+      "intake_node": "IB1",
+      "destination_gate": "GA1",
+      "release_tick": 1868,
+      "deadline_tick": 1913
     },
     {
       "bag_id": "B0308",
       "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1892
+      "destination_gate": "GA1",
+      "release_tick": 1870,
+      "deadline_tick": 1919
     },
     {
       "bag_id": "B0309",
       "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 1894
+      "destination_gate": "GB4",
+      "release_tick": 1883
     },
     {
       "bag_id": "B0310",
       "intake_node": "IB1",
       "destination_gate": "GB4",
-      "release_tick": 1900
+      "release_tick": 1890,
+      "deadline_tick": 1952
     },
     {
       "bag_id": "B0311",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 1901,
-      "deadline_tick": 1949
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 1892,
+      "deadline_tick": 1953
     },
     {
       "bag_id": "B0312",
       "intake_node": "IA2",
-      "destination_gate": "GB4",
-      "release_tick": 1910
+      "destination_gate": "GA3",
+      "release_tick": 1899
     },
     {
       "bag_id": "B0313",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1918
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 1902
     },
     {
       "bag_id": "B0314",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 1924,
-      "deadline_tick": 1977
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 1905
     },
     {
       "bag_id": "B0315",
-      "intake_node": "IA1",
-      "destination_gate": "GB1",
-      "release_tick": 1939
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 1913
     },
     {
       "bag_id": "B0316",
-      "intake_node": "IA1",
-      "destination_gate": "GB4",
-      "release_tick": 1940
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 1922,
+      "deadline_tick": 1986
     },
     {
       "bag_id": "B0317",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 1943,
-      "deadline_tick": 1993
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1923
     },
     {
       "bag_id": "B0318",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 1947,
-      "deadline_tick": 1997
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 1924
     },
     {
       "bag_id": "B0319",
       "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 1949
+      "destination_gate": "GA1",
+      "release_tick": 1926,
+      "deadline_tick": 1985
     },
     {
       "bag_id": "B0320",
       "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 1953
+      "destination_gate": "GA3",
+      "release_tick": 1930
     },
     {
       "bag_id": "B0321",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1956,
-      "deadline_tick": 2012
+      "intake_node": "IA2",
+      "destination_gate": "GB3",
+      "release_tick": 1931
     },
     {
       "bag_id": "B0322",
       "intake_node": "IB1",
       "destination_gate": "GB1",
-      "release_tick": 1958,
-      "deadline_tick": 2012
+      "release_tick": 1932,
+      "deadline_tick": 1979
     },
     {
       "bag_id": "B0323",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 1964,
-      "deadline_tick": 2021
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1934
     },
     {
       "bag_id": "B0324",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 1965,
-      "deadline_tick": 2010
+      "destination_gate": "GB2",
+      "release_tick": 1937
     },
     {
       "bag_id": "B0325",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 1967,
-      "deadline_tick": 2032
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 1940,
+      "deadline_tick": 2002
     },
     {
       "bag_id": "B0326",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1970,
-      "deadline_tick": 2018
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 1941
     },
     {
       "bag_id": "B0327",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1975
+      "intake_node": "IA2",
+      "destination_gate": "GB3",
+      "release_tick": 1943,
+      "deadline_tick": 1991
     },
     {
       "bag_id": "B0328",
       "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 1978,
-      "deadline_tick": 2026
+      "destination_gate": "GA2",
+      "release_tick": 1949,
+      "deadline_tick": 1997
     },
     {
       "bag_id": "B0329",
-      "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 1986,
-      "deadline_tick": 2031
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 1957,
+      "deadline_tick": 2012
     },
     {
       "bag_id": "B0330",
-      "intake_node": "IA1",
-      "destination_gate": "GB4",
-      "release_tick": 1987,
-      "deadline_tick": 2034
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 1961
     },
     {
       "bag_id": "B0331",
       "intake_node": "IA1",
-      "destination_gate": "GB2",
-      "release_tick": 1989
+      "destination_gate": "GA4",
+      "release_tick": 1973
     },
     {
       "bag_id": "B0332",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 1992,
-      "deadline_tick": 2047
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1977
     },
     {
       "bag_id": "B0333",
       "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 1994
+      "destination_gate": "GA4",
+      "release_tick": 1978,
+      "deadline_tick": 2031
     },
     {
       "bag_id": "B0334",
       "intake_node": "IB1",
-      "destination_gate": "GA3",
-      "release_tick": 1995
+      "destination_gate": "GB3",
+      "release_tick": 1980
     },
     {
       "bag_id": "B0335",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 1996
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 1982,
+      "deadline_tick": 2041
     },
     {
       "bag_id": "B0336",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2003
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 1986
     },
     {
       "bag_id": "B0337",
       "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 2005,
-      "deadline_tick": 2062
+      "destination_gate": "GB1",
+      "release_tick": 1987
     },
     {
       "bag_id": "B0338",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2016
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 1990
     },
     {
       "bag_id": "B0339",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2021,
-      "deadline_tick": 2083
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2005
     },
     {
       "bag_id": "B0340",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2024
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2008,
+      "deadline_tick": 2065
     },
     {
       "bag_id": "B0341",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2026
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2010,
+      "deadline_tick": 2057
     },
     {
       "bag_id": "B0342",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2027
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 2011
     },
     {
       "bag_id": "B0343",
       "intake_node": "IB2",
       "destination_gate": "GB1",
-      "release_tick": 2034,
-      "deadline_tick": 2092
+      "release_tick": 2017
     },
     {
       "bag_id": "B0344",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 2035
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2020
     },
     {
       "bag_id": "B0345",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2049
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2023
     },
     {
       "bag_id": "B0346",
       "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2054,
-      "deadline_tick": 2118
+      "destination_gate": "GA2",
+      "release_tick": 2024,
+      "deadline_tick": 2079
     },
     {
       "bag_id": "B0347",
       "intake_node": "IA1",
-      "destination_gate": "GB4",
-      "release_tick": 2055,
-      "deadline_tick": 2106
+      "destination_gate": "GA3",
+      "release_tick": 2026
     },
     {
       "bag_id": "B0348",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2057
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2027
     },
     {
       "bag_id": "B0349",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2061
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 2028,
+      "deadline_tick": 2074
     },
     {
       "bag_id": "B0350",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2068
+      "destination_gate": "GA1",
+      "release_tick": 2032
     },
     {
       "bag_id": "B0351",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2077
+      "destination_gate": "GB1",
+      "release_tick": 2034
     },
     {
       "bag_id": "B0352",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2082
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2039,
+      "deadline_tick": 2085
     },
     {
       "bag_id": "B0353",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2084
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2043,
+      "deadline_tick": 2094
     },
     {
       "bag_id": "B0354",
       "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2095,
-      "deadline_tick": 2141
+      "destination_gate": "GA1",
+      "release_tick": 2050,
+      "deadline_tick": 2098
     },
     {
       "bag_id": "B0355",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 2096,
-      "deadline_tick": 2142
+      "intake_node": "IB1",
+      "destination_gate": "GA1",
+      "release_tick": 2051
     },
     {
       "bag_id": "B0356",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2100
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2054,
+      "deadline_tick": 2103
     },
     {
       "bag_id": "B0357",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2102,
-      "deadline_tick": 2133
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2067,
+      "deadline_tick": 2119
     },
     {
       "bag_id": "B0358",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2106,
-      "deadline_tick": 2134
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2069
     },
     {
       "bag_id": "B0359",
-      "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 2119,
-      "deadline_tick": 2146
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2073,
+      "deadline_tick": 2127
     },
     {
       "bag_id": "B0360",
-      "intake_node": "IA1",
+      "intake_node": "IA2",
       "destination_gate": "GA3",
-      "release_tick": 2122,
-      "deadline_tick": 2149
+      "release_tick": 2075
     },
     {
       "bag_id": "B0361",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2123,
-      "deadline_tick": 2150
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2076,
+      "deadline_tick": 2141
     },
     {
       "bag_id": "B0362",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2124,
-      "deadline_tick": 2156
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2081,
+      "deadline_tick": 2142
     },
     {
       "bag_id": "B0363",
       "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2127,
-      "deadline_tick": 2160
+      "destination_gate": "GA3",
+      "release_tick": 2086
     },
     {
       "bag_id": "B0364",
       "intake_node": "IA2",
       "destination_gate": "GA4",
-      "release_tick": 2128,
-      "deadline_tick": 2154
+      "release_tick": 2087
     },
     {
       "bag_id": "B0365",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2129,
-      "deadline_tick": 2159
+      "destination_gate": "GA2",
+      "release_tick": 2093
     },
     {
       "bag_id": "B0366",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2130,
-      "deadline_tick": 2156
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2094
     },
     {
       "bag_id": "B0367",
       "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2138,
-      "deadline_tick": 2163
+      "destination_gate": "GA2",
+      "release_tick": 2095,
+      "deadline_tick": 2159
     },
     {
       "bag_id": "B0368",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2141,
-      "deadline_tick": 2176
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2102,
+      "deadline_tick": 2129
     },
     {
       "bag_id": "B0369",
-      "intake_node": "IA1",
-      "destination_gate": "GB2",
-      "release_tick": 2142,
-      "deadline_tick": 2175
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2103,
+      "deadline_tick": 2136
     },
     {
       "bag_id": "B0370",
-      "intake_node": "IA2",
-      "destination_gate": "GB4",
-      "release_tick": 2145,
-      "deadline_tick": 2171
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2105,
+      "deadline_tick": 2138
     },
     {
       "bag_id": "B0371",
-      "intake_node": "IB2",
+      "intake_node": "IB1",
       "destination_gate": "GB1",
-      "release_tick": 2146,
-      "deadline_tick": 2181
+      "release_tick": 2110,
+      "deadline_tick": 2143
     },
     {
       "bag_id": "B0372",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2147,
-      "deadline_tick": 2173
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2115,
+      "deadline_tick": 2140
     },
     {
       "bag_id": "B0373",
       "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 2148,
-      "deadline_tick": 2182
+      "release_tick": 2118,
+      "deadline_tick": 2148
     },
     {
       "bag_id": "B0374",
       "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2154,
-      "deadline_tick": 2189
+      "destination_gate": "GB4",
+      "release_tick": 2120,
+      "deadline_tick": 2152
     },
     {
       "bag_id": "B0375",
       "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2156,
-      "deadline_tick": 2186
+      "destination_gate": "GA4",
+      "release_tick": 2121,
+      "deadline_tick": 2151
     },
     {
       "bag_id": "B0376",
       "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2158,
-      "deadline_tick": 2190
+      "destination_gate": "GB4",
+      "release_tick": 2122,
+      "deadline_tick": 2156
     },
     {
       "bag_id": "B0377",
       "intake_node": "IA2",
       "destination_gate": "GA2",
-      "release_tick": 2161,
-      "deadline_tick": 2192
+      "release_tick": 2125,
+      "deadline_tick": 2156
     },
     {
       "bag_id": "B0378",
       "intake_node": "IA2",
       "destination_gate": "GA3",
-      "release_tick": 2164,
-      "deadline_tick": 2189
+      "release_tick": 2126,
+      "deadline_tick": 2152
     },
     {
       "bag_id": "B0379",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2167,
-      "deadline_tick": 2200
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2127,
+      "deadline_tick": 2159
     },
     {
       "bag_id": "B0380",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2169,
-      "deadline_tick": 2197
+      "destination_gate": "GB1",
+      "release_tick": 2129,
+      "deadline_tick": 2154
     },
     {
       "bag_id": "B0381",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2173,
-      "deadline_tick": 2201
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2132,
+      "deadline_tick": 2161
     },
     {
       "bag_id": "B0382",
-      "intake_node": "IA1",
-      "destination_gate": "GB4",
-      "release_tick": 2174,
-      "deadline_tick": 2209
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2135,
+      "deadline_tick": 2170
     },
     {
       "bag_id": "B0383",
-      "intake_node": "IA1",
+      "intake_node": "IA2",
       "destination_gate": "GA2",
-      "release_tick": 2176,
-      "deadline_tick": 2210
+      "release_tick": 2139,
+      "deadline_tick": 2169
     },
     {
       "bag_id": "B0384",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2178,
-      "deadline_tick": 2204
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2142,
+      "deadline_tick": 2169
     },
     {
       "bag_id": "B0385",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 2179,
-      "deadline_tick": 2211
+      "intake_node": "IB2",
+      "destination_gate": "GA3",
+      "release_tick": 2143,
+      "deadline_tick": 2173
     },
     {
       "bag_id": "B0386",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2182,
-      "deadline_tick": 2212
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2147,
+      "deadline_tick": 2175
     },
     {
       "bag_id": "B0387",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2184,
-      "deadline_tick": 2219
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2148,
+      "deadline_tick": 2175
     },
     {
       "bag_id": "B0388",
       "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 2187,
-      "deadline_tick": 2219
+      "destination_gate": "GB3",
+      "release_tick": 2149,
+      "deadline_tick": 2181
     },
     {
       "bag_id": "B0389",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2188,
-      "deadline_tick": 2215
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2157,
+      "deadline_tick": 2190
     },
     {
       "bag_id": "B0390",
       "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 2190,
-      "deadline_tick": 2223
+      "destination_gate": "GB4",
+      "release_tick": 2159,
+      "deadline_tick": 2191
     },
     {
       "bag_id": "B0391",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2191,
-      "deadline_tick": 2224
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2167,
+      "deadline_tick": 2195
     },
     {
       "bag_id": "B0392",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2196,
-      "deadline_tick": 2231
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2168,
+      "deadline_tick": 2194
     },
     {
       "bag_id": "B0393",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 2198,
-      "deadline_tick": 2225
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2169,
+      "deadline_tick": 2200
     },
     {
       "bag_id": "B0394",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2207,
-      "deadline_tick": 2241
+      "intake_node": "IB2",
+      "destination_gate": "GA3",
+      "release_tick": 2172,
+      "deadline_tick": 2197
     },
     {
       "bag_id": "B0395",
-      "intake_node": "IA2",
+      "intake_node": "IA1",
       "destination_gate": "GA2",
-      "release_tick": 2213,
-      "deadline_tick": 2239
+      "release_tick": 2178,
+      "deadline_tick": 2208
     },
     {
       "bag_id": "B0396",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2214,
-      "deadline_tick": 2247
+      "destination_gate": "GB4",
+      "release_tick": 2179,
+      "deadline_tick": 2211
     },
     {
       "bag_id": "B0397",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2216,
-      "deadline_tick": 2241
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2182,
+      "deadline_tick": 2210
     },
     {
       "bag_id": "B0398",
-      "intake_node": "IB1",
-      "destination_gate": "GA3",
-      "release_tick": 2218,
-      "deadline_tick": 2252
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2183,
+      "deadline_tick": 2210
     },
     {
       "bag_id": "B0399",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2220,
-      "deadline_tick": 2253
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2186,
+      "deadline_tick": 2217
     },
     {
       "bag_id": "B0400",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2221,
-      "deadline_tick": 2251
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2189,
+      "deadline_tick": 2219
     },
     {
       "bag_id": "B0401",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2226,
-      "deadline_tick": 2254
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 2191,
+      "deadline_tick": 2220
     },
     {
       "bag_id": "B0402",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2227,
-      "deadline_tick": 2262
+      "intake_node": "IA1",
+      "destination_gate": "GB2",
+      "release_tick": 2194,
+      "deadline_tick": 2227
     },
     {
       "bag_id": "B0403",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2228,
-      "deadline_tick": 2263
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2196,
+      "deadline_tick": 2224
     },
     {
       "bag_id": "B0404",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2230,
-      "deadline_tick": 2255
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 2197,
+      "deadline_tick": 2228
     },
     {
       "bag_id": "B0405",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2231,
-      "deadline_tick": 2258
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2200,
+      "deadline_tick": 2225
     },
     {
       "bag_id": "B0406",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2233,
-      "deadline_tick": 2260
+      "destination_gate": "GB1",
+      "release_tick": 2201,
+      "deadline_tick": 2236
     },
     {
       "bag_id": "B0407",
       "intake_node": "IB2",
-      "destination_gate": "GA2",
-      "release_tick": 2242,
-      "deadline_tick": 2270
+      "destination_gate": "GB3",
+      "release_tick": 2202,
+      "deadline_tick": 2227
     },
     {
       "bag_id": "B0408",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2247,
-      "deadline_tick": 2279
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2204,
+      "deadline_tick": 2234
     },
     {
       "bag_id": "B0409",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2249,
-      "deadline_tick": 2274
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2207,
+      "deadline_tick": 2238
     },
     {
       "bag_id": "B0410",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2250,
-      "deadline_tick": 2277
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2212,
+      "deadline_tick": 2244
     },
     {
       "bag_id": "B0411",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2253,
-      "deadline_tick": 2287
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 2213,
+      "deadline_tick": 2238
     },
     {
       "bag_id": "B0412",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2255,
-      "deadline_tick": 2280
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2214,
+      "deadline_tick": 2241
     },
     {
       "bag_id": "B0413",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2261,
-      "deadline_tick": 2293
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2216,
+      "deadline_tick": 2244
     },
     {
       "bag_id": "B0414",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2264,
-      "deadline_tick": 2289
+      "intake_node": "IA1",
+      "destination_gate": "GB4",
+      "release_tick": 2218,
+      "deadline_tick": 2243
     },
     {
       "bag_id": "B0415",
       "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2266,
-      "deadline_tick": 2296
+      "destination_gate": "GB2",
+      "release_tick": 2219,
+      "deadline_tick": 2249
     },
     {
       "bag_id": "B0416",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2268,
-      "deadline_tick": 2297
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2220,
+      "deadline_tick": 2246
     },
     {
       "bag_id": "B0417",
-      "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 2271,
-      "deadline_tick": 2299
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2231,
+      "deadline_tick": 2260
     },
     {
       "bag_id": "B0418",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2275,
-      "deadline_tick": 2309
+      "destination_gate": "GB2",
+      "release_tick": 2232,
+      "deadline_tick": 2261
     },
     {
       "bag_id": "B0419",
       "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2276,
-      "deadline_tick": 2304
+      "destination_gate": "GB2",
+      "release_tick": 2233,
+      "deadline_tick": 2258
     },
     {
       "bag_id": "B0420",
-      "intake_node": "IA2",
+      "intake_node": "IB1",
       "destination_gate": "GA3",
-      "release_tick": 2279,
-      "deadline_tick": 2312
+      "release_tick": 2236,
+      "deadline_tick": 2269
     },
     {
       "bag_id": "B0421",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2282,
-      "deadline_tick": 2308
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2239,
+      "deadline_tick": 2273
     },
     {
       "bag_id": "B0422",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2286,
-      "deadline_tick": 2320
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2242,
+      "deadline_tick": 2271
     },
     {
       "bag_id": "B0423",
       "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 2287,
-      "deadline_tick": 2321
+      "destination_gate": "GB1",
+      "release_tick": 2246,
+      "deadline_tick": 2279
     },
     {
       "bag_id": "B0424",
-      "intake_node": "IA1",
-      "destination_gate": "GB2",
-      "release_tick": 2289,
-      "deadline_tick": 2324
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2248,
+      "deadline_tick": 2277
     },
     {
       "bag_id": "B0425",
-      "intake_node": "IB1",
+      "intake_node": "IA2",
       "destination_gate": "GB2",
-      "release_tick": 2291,
-      "deadline_tick": 2325
+      "release_tick": 2249,
+      "deadline_tick": 2276
     },
     {
       "bag_id": "B0426",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2292,
-      "deadline_tick": 2319
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2252,
+      "deadline_tick": 2281
     },
     {
       "bag_id": "B0427",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2293,
-      "deadline_tick": 2328
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2253,
+      "deadline_tick": 2279
     },
     {
       "bag_id": "B0428",
       "intake_node": "IA1",
       "destination_gate": "GA3",
-      "release_tick": 2298,
-      "deadline_tick": 2328
+      "release_tick": 2255,
+      "deadline_tick": 2287
     },
     {
       "bag_id": "B0429",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2300,
-      "deadline_tick": 2334
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2257,
+      "deadline_tick": 2286
     },
     {
       "bag_id": "B0430",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2301,
-      "deadline_tick": 2334
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2261,
+      "deadline_tick": 2289
     },
     {
       "bag_id": "B0431",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2302,
-      "deadline_tick": 2335
+      "intake_node": "IA1",
+      "destination_gate": "GB4",
+      "release_tick": 2262,
+      "deadline_tick": 2290
     },
     {
       "bag_id": "B0432",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2316,
-      "deadline_tick": 2351
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2264,
+      "deadline_tick": 2290
     },
     {
       "bag_id": "B0433",
-      "intake_node": "IA2",
-      "destination_gate": "GB4",
-      "release_tick": 2318,
-      "deadline_tick": 2348
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2267,
+      "deadline_tick": 2293
     },
     {
       "bag_id": "B0434",
-      "intake_node": "IB1",
+      "intake_node": "IB2",
       "destination_gate": "GB1",
-      "release_tick": 2320,
-      "deadline_tick": 2351
+      "release_tick": 2269,
+      "deadline_tick": 2296
     },
     {
       "bag_id": "B0435",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2323,
-      "deadline_tick": 2351
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2274,
+      "deadline_tick": 2306
     },
     {
       "bag_id": "B0436",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2325,
-      "deadline_tick": 2353
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2275,
+      "deadline_tick": 2303
     },
     {
       "bag_id": "B0437",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 2328,
-      "deadline_tick": 2355
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2276,
+      "deadline_tick": 2302
     },
     {
       "bag_id": "B0438",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2330,
-      "deadline_tick": 2364
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2279,
+      "deadline_tick": 2310
     },
     {
       "bag_id": "B0439",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 2331,
-      "deadline_tick": 2365
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2286,
+      "deadline_tick": 2320
     },
     {
       "bag_id": "B0440",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2332,
-      "deadline_tick": 2363
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2290,
+      "deadline_tick": 2323
     },
     {
       "bag_id": "B0441",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2333,
-      "deadline_tick": 2365
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2292,
+      "deadline_tick": 2318
     },
     {
       "bag_id": "B0442",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2335,
-      "deadline_tick": 2367
+      "intake_node": "IB2",
+      "destination_gate": "GA4",
+      "release_tick": 2293,
+      "deadline_tick": 2323
     },
     {
       "bag_id": "B0443",
       "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2340,
-      "deadline_tick": 2370
+      "destination_gate": "GA2",
+      "release_tick": 2297,
+      "deadline_tick": 2332
     },
     {
       "bag_id": "B0444",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2341,
-      "deadline_tick": 2369
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2298,
+      "deadline_tick": 2327
     },
     {
       "bag_id": "B0445",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2342,
-      "deadline_tick": 2373
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2303,
+      "deadline_tick": 2338
     },
     {
       "bag_id": "B0446",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2343,
-      "deadline_tick": 2372
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2308,
+      "deadline_tick": 2334
     },
     {
       "bag_id": "B0447",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2353,
-      "deadline_tick": 2380
+      "intake_node": "IB1",
+      "destination_gate": "GA4",
+      "release_tick": 2309,
+      "deadline_tick": 2341
     },
     {
       "bag_id": "B0448",
       "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2355,
-      "deadline_tick": 2384
+      "destination_gate": "GA1",
+      "release_tick": 2312,
+      "deadline_tick": 2346
     },
     {
       "bag_id": "B0449",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2360,
-      "deadline_tick": 2392
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2313,
+      "deadline_tick": 2342
     },
     {
       "bag_id": "B0450",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2362,
-      "deadline_tick": 2392
+      "intake_node": "IA1",
+      "destination_gate": "GB1",
+      "release_tick": 2318,
+      "deadline_tick": 2344
     },
     {
       "bag_id": "B0451",
       "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2363,
-      "deadline_tick": 2397
+      "destination_gate": "GA3",
+      "release_tick": 2320,
+      "deadline_tick": 2354
     },
     {
       "bag_id": "B0452",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2366,
-      "deadline_tick": 2398
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2326,
+      "deadline_tick": 2357
     },
     {
       "bag_id": "B0453",
       "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 2369,
-      "deadline_tick": 2400
+      "destination_gate": "GA4",
+      "release_tick": 2329,
+      "deadline_tick": 2362
     },
     {
       "bag_id": "B0454",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2373,
-      "deadline_tick": 2403
+      "intake_node": "IB2",
+      "destination_gate": "GA4",
+      "release_tick": 2331,
+      "deadline_tick": 2359
     },
     {
       "bag_id": "B0455",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2384,
-      "deadline_tick": 2419
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2333,
+      "deadline_tick": 2358
     },
     {
       "bag_id": "B0456",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2385,
-      "deadline_tick": 2411
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2334,
+      "deadline_tick": 2361
     },
     {
       "bag_id": "B0457",
       "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2386,
-      "deadline_tick": 2417
+      "destination_gate": "GB3",
+      "release_tick": 2335,
+      "deadline_tick": 2367
     },
     {
       "bag_id": "B0458",
       "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2389,
-      "deadline_tick": 2418
+      "destination_gate": "GA2",
+      "release_tick": 2338,
+      "deadline_tick": 2365
     },
     {
       "bag_id": "B0459",
-      "intake_node": "IB1",
+      "intake_node": "IB2",
       "destination_gate": "GB2",
-      "release_tick": 2390,
-      "deadline_tick": 2417
+      "release_tick": 2347,
+      "deadline_tick": 2377
     },
     {
       "bag_id": "B0460",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2392,
-      "deadline_tick": 2424
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2350,
+      "deadline_tick": 2375
     },
     {
       "bag_id": "B0461",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2397,
-      "deadline_tick": 2432
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2351,
+      "deadline_tick": 2378
     },
     {
       "bag_id": "B0462",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2405,
-      "deadline_tick": 2436
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2355,
+      "deadline_tick": 2382
     },
     {
       "bag_id": "B0463",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2406,
-      "deadline_tick": 2436
+      "intake_node": "IB2",
+      "destination_gate": "GA1",
+      "release_tick": 2359,
+      "deadline_tick": 2389
     },
     {
       "bag_id": "B0464",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2407,
-      "deadline_tick": 2439
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2360,
+      "deadline_tick": 2387
     },
     {
       "bag_id": "B0465",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2408,
-      "deadline_tick": 2433
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2363,
+      "deadline_tick": 2389
     },
     {
       "bag_id": "B0466",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2410,
-      "deadline_tick": 2445
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2365,
+      "deadline_tick": 2399
     },
     {
       "bag_id": "B0467",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2412,
-      "deadline_tick": 2445
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2369,
+      "deadline_tick": 2399
     },
     {
       "bag_id": "B0468",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2417,
-      "deadline_tick": 2444
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2375,
+      "deadline_tick": 2400
     },
     {
       "bag_id": "B0469",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2418,
-      "deadline_tick": 2447
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2380,
+      "deadline_tick": 2410
     },
     {
       "bag_id": "B0470",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2421,
-      "deadline_tick": 2448
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2385,
+      "deadline_tick": 2410
     },
     {
       "bag_id": "B0471",
       "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2423,
-      "deadline_tick": 2451
+      "destination_gate": "GA4",
+      "release_tick": 2390,
+      "deadline_tick": 2421
     },
     {
       "bag_id": "B0472",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2424,
-      "deadline_tick": 2455
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2397,
+      "deadline_tick": 2432
     },
     {
       "bag_id": "B0473",
-      "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 2425,
-      "deadline_tick": 2450
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2401,
+      "deadline_tick": 2434
     },
     {
       "bag_id": "B0474",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2426,
-      "deadline_tick": 2452
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2405,
+      "deadline_tick": 2430
     },
     {
       "bag_id": "B0475",
-      "intake_node": "IB1",
-      "destination_gate": "GA1",
-      "release_tick": 2428,
-      "deadline_tick": 2454
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2406,
+      "deadline_tick": 2436
     },
     {
       "bag_id": "B0476",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2433,
-      "deadline_tick": 2466
+      "intake_node": "IB2",
+      "destination_gate": "GA2",
+      "release_tick": 2408,
+      "deadline_tick": 2437
     },
     {
       "bag_id": "B0477",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2435,
-      "deadline_tick": 2465
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2413,
+      "deadline_tick": 2446
     },
     {
       "bag_id": "B0478",
       "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2436,
-      "deadline_tick": 2465
+      "destination_gate": "GA2",
+      "release_tick": 2414,
+      "deadline_tick": 2444
     },
     {
       "bag_id": "B0479",
-      "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 2438,
-      "deadline_tick": 2464
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2415,
+      "deadline_tick": 2450
     },
     {
       "bag_id": "B0480",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2439,
-      "deadline_tick": 2468
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2416,
+      "deadline_tick": 2442
     },
     {
       "bag_id": "B0481",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2442,
-      "deadline_tick": 2476
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2418,
+      "deadline_tick": 2453
     },
     {
       "bag_id": "B0482",
-      "intake_node": "IA1",
+      "intake_node": "IB1",
       "destination_gate": "GA4",
-      "release_tick": 2443,
-      "deadline_tick": 2469
+      "release_tick": 2423,
+      "deadline_tick": 2455
     },
     {
       "bag_id": "B0483",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2445,
-      "deadline_tick": 2478
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2424,
+      "deadline_tick": 2456
     },
     {
       "bag_id": "B0484",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2447,
-      "deadline_tick": 2479
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2427,
+      "deadline_tick": 2460
     },
     {
       "bag_id": "B0485",
-      "intake_node": "IB2",
+      "intake_node": "IB1",
       "destination_gate": "GB2",
-      "release_tick": 2449,
-      "deadline_tick": 2478
+      "release_tick": 2429,
+      "deadline_tick": 2458
     },
     {
       "bag_id": "B0486",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2453,
-      "deadline_tick": 2486
+      "destination_gate": "GB4",
+      "release_tick": 2431,
+      "deadline_tick": 2457
     },
     {
       "bag_id": "B0487",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2454,
-      "deadline_tick": 2480
+      "intake_node": "IA1",
+      "destination_gate": "GB3",
+      "release_tick": 2434,
+      "deadline_tick": 2463
     },
     {
       "bag_id": "B0488",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2465,
-      "deadline_tick": 2500
+      "intake_node": "IA1",
+      "destination_gate": "GB2",
+      "release_tick": 2435,
+      "deadline_tick": 2461
     },
     {
       "bag_id": "B0489",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2468,
-      "deadline_tick": 2502
+      "destination_gate": "GA2",
+      "release_tick": 2448,
+      "deadline_tick": 2475
     },
     {
       "bag_id": "B0490",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2469,
-      "deadline_tick": 2495
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2450,
+      "deadline_tick": 2482
     },
     {
       "bag_id": "B0491",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2471,
-      "deadline_tick": 2499
+      "intake_node": "IB2",
+      "destination_gate": "GA3",
+      "release_tick": 2451,
+      "deadline_tick": 2485
     },
     {
       "bag_id": "B0492",
       "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2472,
-      "deadline_tick": 2507
+      "destination_gate": "GA2",
+      "release_tick": 2452,
+      "deadline_tick": 2481
     },
     {
       "bag_id": "B0493",
       "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2476,
-      "deadline_tick": 2501
+      "destination_gate": "GA4",
+      "release_tick": 2457,
+      "deadline_tick": 2484
     },
     {
       "bag_id": "B0494",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2478,
-      "deadline_tick": 2510
+      "intake_node": "IB1",
+      "destination_gate": "GA3",
+      "release_tick": 2458,
+      "deadline_tick": 2486
     },
     {
       "bag_id": "B0495",
       "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2480,
-      "deadline_tick": 2514
+      "destination_gate": "GB4",
+      "release_tick": 2460,
+      "deadline_tick": 2495
     },
     {
       "bag_id": "B0496",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2481,
-      "deadline_tick": 2507
+      "intake_node": "IA2",
+      "destination_gate": "GB4",
+      "release_tick": 2461,
+      "deadline_tick": 2496
     },
     {
       "bag_id": "B0497",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2484,
-      "deadline_tick": 2512
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2463,
+      "deadline_tick": 2490
     },
     {
       "bag_id": "B0498",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2486,
-      "deadline_tick": 2512
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2465,
+      "deadline_tick": 2500
     },
     {
       "bag_id": "B0499",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2492,
-      "deadline_tick": 2527
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2466,
+      "deadline_tick": 2498
     },
     {
       "bag_id": "B0500",
-      "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 2493,
-      "deadline_tick": 2526
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2469,
+      "deadline_tick": 2496
     },
     {
       "bag_id": "B0501",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2495,
-      "deadline_tick": 2525
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2471,
+      "deadline_tick": 2502
     },
     {
       "bag_id": "B0502",
       "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2498,
-      "deadline_tick": 2530
+      "destination_gate": "GB2",
+      "release_tick": 2472,
+      "deadline_tick": 2502
     },
     {
       "bag_id": "B0503",
       "intake_node": "IA1",
-      "destination_gate": "GB1",
-      "release_tick": 2500,
-      "deadline_tick": 2533
+      "destination_gate": "GA1",
+      "release_tick": 2474,
+      "deadline_tick": 2508
     },
     {
       "bag_id": "B0504",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2501,
-      "deadline_tick": 2529
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2477,
+      "deadline_tick": 2505
     },
     {
       "bag_id": "B0505",
-      "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 2503,
-      "deadline_tick": 2529
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2481,
+      "deadline_tick": 2509
     },
     {
       "bag_id": "B0506",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2504,
-      "deadline_tick": 2534
+      "intake_node": "IA1",
+      "destination_gate": "GB1",
+      "release_tick": 2482,
+      "deadline_tick": 2512
     },
     {
       "bag_id": "B0507",
-      "intake_node": "IB1",
-      "destination_gate": "GA1",
-      "release_tick": 2506,
-      "deadline_tick": 2540
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2484,
+      "deadline_tick": 2509
     },
     {
       "bag_id": "B0508",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2512,
-      "deadline_tick": 2537
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2486,
+      "deadline_tick": 2511
     },
     {
       "bag_id": "B0509",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 2515,
-      "deadline_tick": 2545
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2488,
+      "deadline_tick": 2519
     },
     {
       "bag_id": "B0510",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2519,
-      "deadline_tick": 2554
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2493,
+      "deadline_tick": 2521
     },
     {
       "bag_id": "B0511",
       "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2522,
-      "deadline_tick": 2552
+      "destination_gate": "GB3",
+      "release_tick": 2494,
+      "deadline_tick": 2522
     },
     {
       "bag_id": "B0512",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2524,
-      "deadline_tick": 2556
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2498,
+      "deadline_tick": 2528
     },
     {
       "bag_id": "B0513",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2527,
-      "deadline_tick": 2554
+      "intake_node": "IA1",
+      "destination_gate": "GB2",
+      "release_tick": 2503,
+      "deadline_tick": 2531
     },
     {
       "bag_id": "B0514",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2528,
-      "deadline_tick": 2561
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2504,
+      "deadline_tick": 2533
     },
     {
       "bag_id": "B0515",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2530,
-      "deadline_tick": 2557
+      "intake_node": "IB1",
+      "destination_gate": "GA2",
+      "release_tick": 2505,
+      "deadline_tick": 2530
     },
     {
       "bag_id": "B0516",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2532,
-      "deadline_tick": 2565
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2506,
+      "deadline_tick": 2537
     },
     {
       "bag_id": "B0517",
       "intake_node": "IA1",
       "destination_gate": "GA4",
-      "release_tick": 2535,
-      "deadline_tick": 2565
+      "release_tick": 2508,
+      "deadline_tick": 2541
     },
     {
       "bag_id": "B0518",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2538,
-      "deadline_tick": 2566
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2514,
+      "deadline_tick": 2542
     },
     {
       "bag_id": "B0519",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2539,
-      "deadline_tick": 2569
+      "intake_node": "IB1",
+      "destination_gate": "GA4",
+      "release_tick": 2519,
+      "deadline_tick": 2551
     },
     {
       "bag_id": "B0520",
-      "intake_node": "IA1",
+      "intake_node": "IB1",
       "destination_gate": "GB2",
-      "release_tick": 2543,
-      "deadline_tick": 2571
+      "release_tick": 2520,
+      "deadline_tick": 2555
     },
     {
       "bag_id": "B0521",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2545,
-      "deadline_tick": 2573
+      "intake_node": "IB2",
+      "destination_gate": "GB3",
+      "release_tick": 2522,
+      "deadline_tick": 2550
     },
     {
       "bag_id": "B0522",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2550,
-      "deadline_tick": 2575
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2524,
+      "deadline_tick": 2553
     },
     {
       "bag_id": "B0523",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2551,
-      "deadline_tick": 2584
+      "intake_node": "IB1",
+      "destination_gate": "GA1",
+      "release_tick": 2525,
+      "deadline_tick": 2556
     },
     {
       "bag_id": "B0524",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2554,
-      "deadline_tick": 2583
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2527,
+      "deadline_tick": 2562
     },
     {
       "bag_id": "B0525",
       "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2555,
-      "deadline_tick": 2580
+      "destination_gate": "GB4",
+      "release_tick": 2528,
+      "deadline_tick": 2553
     },
     {
       "bag_id": "B0526",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2558,
-      "deadline_tick": 2584
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2530,
+      "deadline_tick": 2555
     },
     {
       "bag_id": "B0527",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2559,
-      "deadline_tick": 2592
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2533,
+      "deadline_tick": 2566
     },
     {
       "bag_id": "B0528",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2561,
-      "deadline_tick": 2588
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2534,
+      "deadline_tick": 2561
     },
     {
       "bag_id": "B0529",
       "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2562,
-      "deadline_tick": 2587
+      "destination_gate": "GA1",
+      "release_tick": 2535,
+      "deadline_tick": 2569
     },
     {
       "bag_id": "B0530",
       "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2563,
-      "deadline_tick": 2590
+      "destination_gate": "GB1",
+      "release_tick": 2537,
+      "deadline_tick": 2564
     },
     {
       "bag_id": "B0531",
       "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2564,
-      "deadline_tick": 2592
+      "destination_gate": "GB1",
+      "release_tick": 2540,
+      "deadline_tick": 2573
     },
     {
       "bag_id": "B0532",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2567,
-      "deadline_tick": 2592
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2541,
+      "deadline_tick": 2566
     },
     {
       "bag_id": "B0533",
-      "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 2570,
-      "deadline_tick": 2596
+      "intake_node": "IA2",
+      "destination_gate": "GB2",
+      "release_tick": 2543,
+      "deadline_tick": 2573
     },
     {
       "bag_id": "B0534",
       "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2579,
-      "deadline_tick": 2607
+      "destination_gate": "GB1",
+      "release_tick": 2545,
+      "deadline_tick": 2579
     },
     {
       "bag_id": "B0535",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2583,
-      "deadline_tick": 2614
+      "destination_gate": "GA3",
+      "release_tick": 2546,
+      "deadline_tick": 2574
     },
     {
       "bag_id": "B0536",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2586,
-      "deadline_tick": 2613
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2548,
+      "deadline_tick": 2580
     },
     {
       "bag_id": "B0537",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2587,
-      "deadline_tick": 2618
+      "destination_gate": "GB4",
+      "release_tick": 2549,
+      "deadline_tick": 2584
     },
     {
       "bag_id": "B0538",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2589,
-      "deadline_tick": 2615
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2551,
+      "deadline_tick": 2579
     },
     {
       "bag_id": "B0539",
       "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2590,
-      "deadline_tick": 2624
+      "destination_gate": "GA2",
+      "release_tick": 2552,
+      "deadline_tick": 2581
     },
     {
       "bag_id": "B0540",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2592,
-      "deadline_tick": 2622
+      "intake_node": "IA1",
+      "destination_gate": "GB2",
+      "release_tick": 2555,
+      "deadline_tick": 2589
     },
     {
       "bag_id": "B0541",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2593,
-      "deadline_tick": 2628
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 2558,
+      "deadline_tick": 2589
     },
     {
       "bag_id": "B0542",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2594,
-      "deadline_tick": 2621
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2559,
+      "deadline_tick": 2590
     },
     {
       "bag_id": "B0543",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2595,
-      "deadline_tick": 2624
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2562,
+      "deadline_tick": 2596
     },
     {
       "bag_id": "B0544",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2597,
-      "deadline_tick": 2624
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2565,
+      "deadline_tick": 2599
     },
     {
       "bag_id": "B0545",
-      "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 2602,
-      "deadline_tick": 2633
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 2568,
+      "deadline_tick": 2595
     },
     {
       "bag_id": "B0546",
       "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2613,
-      "deadline_tick": 2641
+      "destination_gate": "GB3",
+      "release_tick": 2572,
+      "deadline_tick": 2601
     },
     {
       "bag_id": "B0547",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2620,
-      "deadline_tick": 2649
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2577,
+      "deadline_tick": 2606
     },
     {
       "bag_id": "B0548",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2624,
-      "deadline_tick": 2650
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2580,
+      "deadline_tick": 2611
     },
     {
       "bag_id": "B0549",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2626,
-      "deadline_tick": 2658
+      "destination_gate": "GB3",
+      "release_tick": 2581,
+      "deadline_tick": 2607
     },
     {
       "bag_id": "B0550",
-      "intake_node": "IB2",
+      "intake_node": "IB1",
       "destination_gate": "GB2",
-      "release_tick": 2627,
-      "deadline_tick": 2659
+      "release_tick": 2582,
+      "deadline_tick": 2608
     },
     {
       "bag_id": "B0551",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2628,
-      "deadline_tick": 2654
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2586,
+      "deadline_tick": 2614
     },
     {
       "bag_id": "B0552",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2629,
-      "deadline_tick": 2662
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2588,
+      "deadline_tick": 2614
     },
     {
       "bag_id": "B0553",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2634,
-      "deadline_tick": 2664
+      "destination_gate": "GA2",
+      "release_tick": 2591,
+      "deadline_tick": 2620
     },
     {
       "bag_id": "B0554",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2637,
-      "deadline_tick": 2668
+      "intake_node": "IA1",
+      "destination_gate": "GB2",
+      "release_tick": 2592,
+      "deadline_tick": 2621
     },
     {
       "bag_id": "B0555",
       "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2638,
-      "deadline_tick": 2664
+      "destination_gate": "GB4",
+      "release_tick": 2597,
+      "deadline_tick": 2629
     },
     {
       "bag_id": "B0556",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2641,
-      "deadline_tick": 2673
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2599,
+      "deadline_tick": 2633
     },
     {
       "bag_id": "B0557",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2643,
-      "deadline_tick": 2675
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 2600,
+      "deadline_tick": 2632
     },
     {
       "bag_id": "B0558",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2645,
-      "deadline_tick": 2679
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2603,
+      "deadline_tick": 2629
     },
     {
       "bag_id": "B0559",
       "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2648,
-      "deadline_tick": 2673
+      "destination_gate": "GA2",
+      "release_tick": 2607,
+      "deadline_tick": 2639
     },
     {
       "bag_id": "B0560",
       "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2649,
-      "deadline_tick": 2679
+      "destination_gate": "GA2",
+      "release_tick": 2608,
+      "deadline_tick": 2642
     },
     {
       "bag_id": "B0561",
-      "intake_node": "IB2",
-      "destination_gate": "GA2",
-      "release_tick": 2651,
-      "deadline_tick": 2686
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2610,
+      "deadline_tick": 2642
     },
     {
       "bag_id": "B0562",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 2652,
-      "deadline_tick": 2677
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2611,
+      "deadline_tick": 2637
     },
     {
       "bag_id": "B0563",
-      "intake_node": "IB1",
+      "intake_node": "IB2",
       "destination_gate": "GB4",
-      "release_tick": 2653,
-      "deadline_tick": 2679
+      "release_tick": 2615,
+      "deadline_tick": 2640
     },
     {
       "bag_id": "B0564",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2656,
-      "deadline_tick": 2686
+      "destination_gate": "GB2",
+      "release_tick": 2616,
+      "deadline_tick": 2651
     },
     {
       "bag_id": "B0565",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2661,
-      "deadline_tick": 2692
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2617,
+      "deadline_tick": 2642
     },
     {
       "bag_id": "B0566",
       "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 2663,
-      "deadline_tick": 2696
+      "destination_gate": "GB1",
+      "release_tick": 2619,
+      "deadline_tick": 2647
     },
     {
       "bag_id": "B0567",
-      "intake_node": "IB1",
-      "destination_gate": "GA1",
-      "release_tick": 2668,
-      "deadline_tick": 2694
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2623,
+      "deadline_tick": 2651
     },
     {
       "bag_id": "B0568",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2669,
-      "deadline_tick": 2703
+      "intake_node": "IB1",
+      "destination_gate": "GA1",
+      "release_tick": 2625,
+      "deadline_tick": 2656
     },
     {
       "bag_id": "B0569",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2672,
-      "deadline_tick": 2701
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2627,
+      "deadline_tick": 2653
     },
     {
       "bag_id": "B0570",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2673,
-      "deadline_tick": 2698
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2630,
+      "deadline_tick": 2660
     },
     {
       "bag_id": "B0571",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2674,
-      "deadline_tick": 2701
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2631,
+      "deadline_tick": 2662
     },
     {
       "bag_id": "B0572",
-      "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 2675,
-      "deadline_tick": 2707
+      "intake_node": "IB2",
+      "destination_gate": "GA1",
+      "release_tick": 2634,
+      "deadline_tick": 2666
     },
     {
       "bag_id": "B0573",
       "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2682,
-      "deadline_tick": 2715
+      "destination_gate": "GB1",
+      "release_tick": 2635,
+      "deadline_tick": 2660
     },
     {
       "bag_id": "B0574",
       "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2683,
-      "deadline_tick": 2711
+      "destination_gate": "GA4",
+      "release_tick": 2636,
+      "deadline_tick": 2663
     },
     {
       "bag_id": "B0575",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2685,
-      "deadline_tick": 2714
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2637,
+      "deadline_tick": 2670
     },
     {
       "bag_id": "B0576",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2687,
-      "deadline_tick": 2721
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2640,
+      "deadline_tick": 2672
     },
     {
       "bag_id": "B0577",
-      "intake_node": "IA1",
-      "destination_gate": "GB3",
-      "release_tick": 2689,
-      "deadline_tick": 2719
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2641,
+      "deadline_tick": 2674
     },
     {
       "bag_id": "B0578",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2691,
-      "deadline_tick": 2721
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2647,
+      "deadline_tick": 2682
     },
     {
       "bag_id": "B0579",
-      "intake_node": "IB1",
+      "intake_node": "IA2",
       "destination_gate": "GB3",
-      "release_tick": 2694,
-      "deadline_tick": 2719
+      "release_tick": 2656,
+      "deadline_tick": 2689
     },
     {
       "bag_id": "B0580",
-      "intake_node": "IB2",
+      "intake_node": "IA1",
       "destination_gate": "GA2",
-      "release_tick": 2698,
-      "deadline_tick": 2726
+      "release_tick": 2661,
+      "deadline_tick": 2690
     },
     {
       "bag_id": "B0581",
       "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2699,
-      "deadline_tick": 2729
+      "destination_gate": "GA3",
+      "release_tick": 2663,
+      "deadline_tick": 2697
     },
     {
       "bag_id": "B0582",
       "intake_node": "IA1",
-      "destination_gate": "GB2",
-      "release_tick": 2700,
-      "deadline_tick": 2728
+      "destination_gate": "GA4",
+      "release_tick": 2666,
+      "deadline_tick": 2694
     },
     {
       "bag_id": "B0583",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2705,
-      "deadline_tick": 2735
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2670,
+      "deadline_tick": 2699
     },
     {
       "bag_id": "B0584",
-      "intake_node": "IB1",
+      "intake_node": "IB2",
       "destination_gate": "GB3",
-      "release_tick": 2707,
-      "deadline_tick": 2742
+      "release_tick": 2677,
+      "deadline_tick": 2712
     },
     {
       "bag_id": "B0585",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2709,
-      "deadline_tick": 2741
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2682,
+      "deadline_tick": 2707
     },
     {
       "bag_id": "B0586",
-      "intake_node": "IA2",
+      "intake_node": "IA1",
       "destination_gate": "GA1",
-      "release_tick": 2711,
-      "deadline_tick": 2745
+      "release_tick": 2683,
+      "deadline_tick": 2714
     },
     {
       "bag_id": "B0587",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2713,
-      "deadline_tick": 2740
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2685,
+      "deadline_tick": 2715
     },
     {
       "bag_id": "B0588",
       "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2717,
-      "deadline_tick": 2750
+      "destination_gate": "GB4",
+      "release_tick": 2686,
+      "deadline_tick": 2712
     },
     {
       "bag_id": "B0589",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2719,
-      "deadline_tick": 2745
+      "intake_node": "IA2",
+      "destination_gate": "GB3",
+      "release_tick": 2687,
+      "deadline_tick": 2719
     },
     {
       "bag_id": "B0590",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2721,
-      "deadline_tick": 2755
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 2692,
+      "deadline_tick": 2725
     },
     {
       "bag_id": "B0591",
-      "intake_node": "IB1",
-      "destination_gate": "GA1",
-      "release_tick": 2722,
-      "deadline_tick": 2754
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2693,
+      "deadline_tick": 2721
     },
     {
       "bag_id": "B0592",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2724,
-      "deadline_tick": 2759
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2696,
+      "deadline_tick": 2730
     },
     {
       "bag_id": "B0593",
-      "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 2729,
-      "deadline_tick": 2756
+      "intake_node": "IA1",
+      "destination_gate": "GB1",
+      "release_tick": 2708,
+      "deadline_tick": 2742
     },
     {
       "bag_id": "B0594",
-      "intake_node": "IB2",
+      "intake_node": "IB1",
       "destination_gate": "GB4",
-      "release_tick": 2735,
-      "deadline_tick": 2767
+      "release_tick": 2709,
+      "deadline_tick": 2740
     },
     {
       "bag_id": "B0595",
       "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 2737,
-      "deadline_tick": 2770
+      "destination_gate": "GA2",
+      "release_tick": 2710,
+      "deadline_tick": 2745
     },
     {
       "bag_id": "B0596",
-      "intake_node": "IA1",
+      "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 2738,
-      "deadline_tick": 2767
+      "release_tick": 2711,
+      "deadline_tick": 2736
     },
     {
       "bag_id": "B0597",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2746,
-      "deadline_tick": 2780
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2715,
+      "deadline_tick": 2741
     },
     {
       "bag_id": "B0598",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2749,
-      "deadline_tick": 2775
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2717,
+      "deadline_tick": 2750
     },
     {
       "bag_id": "B0599",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2754,
-      "deadline_tick": 2789
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2718,
+      "deadline_tick": 2751
     },
     {
       "bag_id": "B0600",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2757,
-      "deadline_tick": 2783
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2719,
+      "deadline_tick": 2754
     },
     {
       "bag_id": "B0601",
       "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 2758,
-      "deadline_tick": 2785
+      "destination_gate": "GB4",
+      "release_tick": 2722,
+      "deadline_tick": 2751
     },
     {
       "bag_id": "B0602",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2761,
-      "deadline_tick": 2790
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2727,
+      "deadline_tick": 2761
     },
     {
       "bag_id": "B0603",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2764,
-      "deadline_tick": 2790
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2728,
+      "deadline_tick": 2757
     },
     {
       "bag_id": "B0604",
-      "intake_node": "IA1",
+      "intake_node": "IB2",
       "destination_gate": "GA3",
-      "release_tick": 2770,
-      "deadline_tick": 2796
+      "release_tick": 2729,
+      "deadline_tick": 2761
     },
     {
       "bag_id": "B0605",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2773,
-      "deadline_tick": 2804
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2733,
+      "deadline_tick": 2758
     },
     {
       "bag_id": "B0606",
-      "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 2778,
-      "deadline_tick": 2809
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2740,
+      "deadline_tick": 2775
     },
     {
       "bag_id": "B0607",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2779,
-      "deadline_tick": 2814
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2742,
+      "deadline_tick": 2769
     },
     {
       "bag_id": "B0608",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2780,
-      "deadline_tick": 2806
+      "intake_node": "IA2",
+      "destination_gate": "GB3",
+      "release_tick": 2746,
+      "deadline_tick": 2781
     },
     {
       "bag_id": "B0609",
-      "intake_node": "IB2",
-      "destination_gate": "GA4",
-      "release_tick": 2781,
-      "deadline_tick": 2815
+      "intake_node": "IA1",
+      "destination_gate": "GB3",
+      "release_tick": 2749,
+      "deadline_tick": 2775
     },
     {
       "bag_id": "B0610",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2782,
-      "deadline_tick": 2813
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2752,
+      "deadline_tick": 2784
     },
     {
       "bag_id": "B0611",
       "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2783,
-      "deadline_tick": 2817
+      "destination_gate": "GB4",
+      "release_tick": 2753,
+      "deadline_tick": 2779
     },
     {
       "bag_id": "B0612",
       "intake_node": "IB1",
       "destination_gate": "GB1",
-      "release_tick": 2787,
-      "deadline_tick": 2821
+      "release_tick": 2765,
+      "deadline_tick": 2799
     },
     {
       "bag_id": "B0613",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2789,
-      "deadline_tick": 2816
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2766,
+      "deadline_tick": 2800
     },
     {
       "bag_id": "B0614",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2794,
-      "deadline_tick": 2822
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2769,
+      "deadline_tick": 2795
     },
     {
       "bag_id": "B0615",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2798,
-      "deadline_tick": 2831
+      "intake_node": "IA1",
+      "destination_gate": "GB4",
+      "release_tick": 2770,
+      "deadline_tick": 2800
     },
     {
       "bag_id": "B0616",
       "intake_node": "IA1",
       "destination_gate": "GA3",
-      "release_tick": 2807,
-      "deadline_tick": 2841
+      "release_tick": 2773,
+      "deadline_tick": 2800
     },
     {
       "bag_id": "B0617",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2808,
-      "deadline_tick": 2843
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2774,
+      "deadline_tick": 2802
     },
     {
       "bag_id": "B0618",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2812,
-      "deadline_tick": 2841
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2775,
+      "deadline_tick": 2806
     },
     {
       "bag_id": "B0619",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2813,
-      "deadline_tick": 2838
+      "intake_node": "IB2",
+      "destination_gate": "GA1",
+      "release_tick": 2777,
+      "deadline_tick": 2812
     },
     {
       "bag_id": "B0620",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2819,
-      "deadline_tick": 2851
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2778,
+      "deadline_tick": 2808
     },
     {
       "bag_id": "B0621",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2820,
-      "deadline_tick": 2847
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2779,
+      "deadline_tick": 2805
     },
     {
       "bag_id": "B0622",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2829,
-      "deadline_tick": 2855
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2780,
+      "deadline_tick": 2811
     },
     {
       "bag_id": "B0623",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2830,
-      "deadline_tick": 2862
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2781,
+      "deadline_tick": 2810
     },
     {
       "bag_id": "B0624",
-      "intake_node": "IB2",
+      "intake_node": "IB1",
       "destination_gate": "GB2",
-      "release_tick": 2834,
-      "deadline_tick": 2867
+      "release_tick": 2782,
+      "deadline_tick": 2812
     },
     {
       "bag_id": "B0625",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2836,
-      "deadline_tick": 2869
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2789,
+      "deadline_tick": 2824
     },
     {
       "bag_id": "B0626",
       "intake_node": "IB1",
-      "destination_gate": "GA4",
-      "release_tick": 2838,
-      "deadline_tick": 2872
+      "destination_gate": "GA3",
+      "release_tick": 2794,
+      "deadline_tick": 2823
     },
     {
       "bag_id": "B0627",
-      "intake_node": "IB1",
-      "destination_gate": "GA3",
-      "release_tick": 2841,
-      "deadline_tick": 2876
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2799,
+      "deadline_tick": 2832
     },
     {
       "bag_id": "B0628",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2845,
-      "deadline_tick": 2875
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2806,
+      "deadline_tick": 2838
     },
     {
       "bag_id": "B0629",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2849,
-      "deadline_tick": 2879
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2807,
+      "deadline_tick": 2842
     },
     {
       "bag_id": "B0630",
       "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2850,
-      "deadline_tick": 2875
+      "destination_gate": "GB4",
+      "release_tick": 2808,
+      "deadline_tick": 2839
     },
     {
       "bag_id": "B0631",
-      "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 2852,
-      "deadline_tick": 2878
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2813,
+      "deadline_tick": 2844
     },
     {
       "bag_id": "B0632",
       "intake_node": "IA2",
       "destination_gate": "GA2",
-      "release_tick": 2853,
-      "deadline_tick": 2879
+      "release_tick": 2817,
+      "deadline_tick": 2843
     },
     {
       "bag_id": "B0633",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2855,
-      "deadline_tick": 2890
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2818,
+      "deadline_tick": 2843
     },
     {
       "bag_id": "B0634",
       "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2862,
-      "deadline_tick": 2893
+      "destination_gate": "GB3",
+      "release_tick": 2819,
+      "deadline_tick": 2848
     },
     {
       "bag_id": "B0635",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2865,
-      "deadline_tick": 2897
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2822,
+      "deadline_tick": 2849
     },
     {
       "bag_id": "B0636",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2867,
-      "deadline_tick": 2893
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2833,
+      "deadline_tick": 2864
     },
     {
       "bag_id": "B0637",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2868,
-      "deadline_tick": 2900
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2840,
+      "deadline_tick": 2866
     },
     {
       "bag_id": "B0638",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2870,
-      "deadline_tick": 2902
+      "intake_node": "IB1",
+      "destination_gate": "GA4",
+      "release_tick": 2843,
+      "deadline_tick": 2874
     },
     {
       "bag_id": "B0639",
       "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2871,
-      "deadline_tick": 2896
+      "destination_gate": "GA1",
+      "release_tick": 2849,
+      "deadline_tick": 2878
     },
     {
       "bag_id": "B0640",
       "intake_node": "IB1",
       "destination_gate": "GA1",
-      "release_tick": 2873,
-      "deadline_tick": 2906
+      "release_tick": 2850,
+      "deadline_tick": 2880
     },
     {
       "bag_id": "B0641",
-      "intake_node": "IA2",
-      "destination_gate": "GA4",
-      "release_tick": 2880,
-      "deadline_tick": 2906
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2851,
+      "deadline_tick": 2882
     },
     {
       "bag_id": "B0642",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2883,
-      "deadline_tick": 2913
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2853,
+      "deadline_tick": 2886
     },
     {
       "bag_id": "B0643",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2886,
-      "deadline_tick": 2921
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2856,
+      "deadline_tick": 2886
     },
     {
       "bag_id": "B0644",
       "intake_node": "IA1",
-      "destination_gate": "GB2",
-      "release_tick": 2887,
-      "deadline_tick": 2916
+      "destination_gate": "GA3",
+      "release_tick": 2858,
+      "deadline_tick": 2888
     },
     {
       "bag_id": "B0645",
-      "intake_node": "IA1",
-      "destination_gate": "GB4",
-      "release_tick": 2891,
-      "deadline_tick": 2919
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2862,
+      "deadline_tick": 2889
     },
     {
       "bag_id": "B0646",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2892,
-      "deadline_tick": 2924
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2864,
+      "deadline_tick": 2893
     },
     {
       "bag_id": "B0647",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2900,
-      "deadline_tick": 2931
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2866,
+      "deadline_tick": 2899
     },
     {
       "bag_id": "B0648",
-      "intake_node": "IB2",
-      "destination_gate": "GA2",
-      "release_tick": 2901,
-      "deadline_tick": 2935
+      "intake_node": "IA1",
+      "destination_gate": "GB2",
+      "release_tick": 2872,
+      "deadline_tick": 2900
     },
     {
       "bag_id": "B0649",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2902,
-      "deadline_tick": 2934
+      "intake_node": "IA2",
+      "destination_gate": "GB4",
+      "release_tick": 2876,
+      "deadline_tick": 2907
     },
     {
       "bag_id": "B0650",
       "intake_node": "IA2",
       "destination_gate": "GA1",
-      "release_tick": 2906,
-      "deadline_tick": 2935
+      "release_tick": 2877,
+      "deadline_tick": 2906
     },
     {
       "bag_id": "B0651",
       "intake_node": "IA2",
-      "destination_gate": "GB1",
-      "release_tick": 2908,
-      "deadline_tick": 2934
+      "destination_gate": "GA1",
+      "release_tick": 2879,
+      "deadline_tick": 2909
     },
     {
       "bag_id": "B0652",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2909,
-      "deadline_tick": 2940
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 2881,
+      "deadline_tick": 2912
     },
     {
       "bag_id": "B0653",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2910,
-      "deadline_tick": 2940
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2882,
+      "deadline_tick": 2916
     },
     {
       "bag_id": "B0654",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2915,
-      "deadline_tick": 2942
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 2884,
+      "deadline_tick": 2912
     },
     {
       "bag_id": "B0655",
       "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2920,
-      "deadline_tick": 2947
+      "destination_gate": "GA1",
+      "release_tick": 2886,
+      "deadline_tick": 2920
     },
     {
       "bag_id": "B0656",
       "intake_node": "IB2",
       "destination_gate": "GB1",
-      "release_tick": 2921,
-      "deadline_tick": 2948
+      "release_tick": 2890,
+      "deadline_tick": 2924
     },
     {
       "bag_id": "B0657",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2925,
-      "deadline_tick": 2952
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2892,
+      "deadline_tick": 2926
     },
     {
       "bag_id": "B0658",
       "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2931,
-      "deadline_tick": 2966
+      "destination_gate": "GA3",
+      "release_tick": 2893,
+      "deadline_tick": 2918
     },
     {
       "bag_id": "B0659",
-      "intake_node": "IB2",
-      "destination_gate": "GB2",
-      "release_tick": 2933,
-      "deadline_tick": 2961
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2901,
+      "deadline_tick": 2931
     },
     {
       "bag_id": "B0660",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 2934,
-      "deadline_tick": 2966
+      "intake_node": "IB1",
+      "destination_gate": "GA3",
+      "release_tick": 2905,
+      "deadline_tick": 2934
     },
     {
       "bag_id": "B0661",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2937,
-      "deadline_tick": 2972
+      "destination_gate": "GA1",
+      "release_tick": 2906,
+      "deadline_tick": 2937
     },
     {
       "bag_id": "B0662",
-      "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2941,
-      "deadline_tick": 2970
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 2909,
+      "deadline_tick": 2944
     },
     {
       "bag_id": "B0663",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 2942,
-      "deadline_tick": 2967
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2911,
+      "deadline_tick": 2936
     },
     {
       "bag_id": "B0664",
-      "intake_node": "IA1",
-      "destination_gate": "GB2",
-      "release_tick": 2943,
-      "deadline_tick": 2970
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2914,
+      "deadline_tick": 2940
     },
     {
       "bag_id": "B0665",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 2946,
-      "deadline_tick": 2977
+      "intake_node": "IB2",
+      "destination_gate": "GA2",
+      "release_tick": 2915,
+      "deadline_tick": 2940
     },
     {
       "bag_id": "B0666",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2947,
-      "deadline_tick": 2977
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2916,
+      "deadline_tick": 2946
     },
     {
       "bag_id": "B0667",
-      "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2948,
-      "deadline_tick": 2979
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2917,
+      "deadline_tick": 2951
     },
     {
       "bag_id": "B0668",
       "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 2950,
-      "deadline_tick": 2977
+      "destination_gate": "GB3",
+      "release_tick": 2920,
+      "deadline_tick": 2949
     },
     {
       "bag_id": "B0669",
-      "intake_node": "IB2",
-      "destination_gate": "GB3",
-      "release_tick": 2951,
-      "deadline_tick": 2978
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 2921,
+      "deadline_tick": 2953
     },
     {
       "bag_id": "B0670",
-      "intake_node": "IB1",
-      "destination_gate": "GA2",
-      "release_tick": 2953,
-      "deadline_tick": 2983
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 2931,
+      "deadline_tick": 2961
     },
     {
       "bag_id": "B0671",
-      "intake_node": "IA1",
-      "destination_gate": "GA1",
-      "release_tick": 2954,
-      "deadline_tick": 2986
+      "intake_node": "IB2",
+      "destination_gate": "GA3",
+      "release_tick": 2933,
+      "deadline_tick": 2967
     },
     {
       "bag_id": "B0672",
       "intake_node": "IB1",
       "destination_gate": "GB3",
-      "release_tick": 2956,
-      "deadline_tick": 2990
+      "release_tick": 2938,
+      "deadline_tick": 2963
     },
     {
       "bag_id": "B0673",
       "intake_node": "IA2",
-      "destination_gate": "GA2",
-      "release_tick": 2957,
-      "deadline_tick": 2983
+      "destination_gate": "GB2",
+      "release_tick": 2939,
+      "deadline_tick": 2966
     },
     {
       "bag_id": "B0674",
-      "intake_node": "IB2",
-      "destination_gate": "GA3",
-      "release_tick": 2961,
-      "deadline_tick": 2986
+      "intake_node": "IA2",
+      "destination_gate": "GB1",
+      "release_tick": 2941,
+      "deadline_tick": 2972
     },
     {
       "bag_id": "B0675",
       "intake_node": "IB1",
       "destination_gate": "GB2",
-      "release_tick": 2964,
-      "deadline_tick": 2998
+      "release_tick": 2943,
+      "deadline_tick": 2978
     },
     {
       "bag_id": "B0676",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 2969,
-      "deadline_tick": 3000
+      "intake_node": "IA2",
+      "destination_gate": "GB2",
+      "release_tick": 2951,
+      "deadline_tick": 2978
     },
     {
       "bag_id": "B0677",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 2975,
-      "deadline_tick": 3003
+      "intake_node": "IA2",
+      "destination_gate": "GB4",
+      "release_tick": 2954,
+      "deadline_tick": 2985
     },
     {
       "bag_id": "B0678",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2976,
-      "deadline_tick": 3001
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 2957,
+      "deadline_tick": 2988
     },
     {
       "bag_id": "B0679",
-      "intake_node": "IB2",
-      "destination_gate": "GA1",
-      "release_tick": 2978,
-      "deadline_tick": 3010
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 2958,
+      "deadline_tick": 2985
     },
     {
       "bag_id": "B0680",
-      "intake_node": "IB2",
+      "intake_node": "IA1",
       "destination_gate": "GB3",
-      "release_tick": 2980,
-      "deadline_tick": 3015
+      "release_tick": 2959,
+      "deadline_tick": 2991
     },
     {
       "bag_id": "B0681",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 2984,
-      "deadline_tick": 3015
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 2960,
+      "deadline_tick": 2991
     },
     {
       "bag_id": "B0682",
       "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2989,
-      "deadline_tick": 3014
+      "destination_gate": "GA1",
+      "release_tick": 2961,
+      "deadline_tick": 2988
     },
     {
       "bag_id": "B0683",
       "intake_node": "IA1",
-      "destination_gate": "GA3",
-      "release_tick": 2992,
-      "deadline_tick": 3024
+      "destination_gate": "GA4",
+      "release_tick": 2962,
+      "deadline_tick": 2989
     },
     {
       "bag_id": "B0684",
-      "intake_node": "IA2",
-      "destination_gate": "GA1",
-      "release_tick": 2994,
-      "deadline_tick": 3027
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 2963,
+      "deadline_tick": 2997
     },
     {
       "bag_id": "B0685",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 2996,
-      "deadline_tick": 3031
+      "intake_node": "IB2",
+      "destination_gate": "GB4",
+      "release_tick": 2964,
+      "deadline_tick": 2998
     },
     {
       "bag_id": "B0686",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 3008
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 2965,
+      "deadline_tick": 2995
     },
     {
       "bag_id": "B0687",
-      "intake_node": "IA2",
+      "intake_node": "IA1",
       "destination_gate": "GA2",
-      "release_tick": 3024
+      "release_tick": 2967,
+      "deadline_tick": 2998
     },
     {
       "bag_id": "B0688",
-      "intake_node": "IA2",
-      "destination_gate": "GB3",
-      "release_tick": 3036
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2969,
+      "deadline_tick": 3003
     },
     {
       "bag_id": "B0689",
-      "intake_node": "IB1",
-      "destination_gate": "GB2",
-      "release_tick": 3052
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2970,
+      "deadline_tick": 3001
     },
     {
       "bag_id": "B0690",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 3075
+      "intake_node": "IB1",
+      "destination_gate": "GB1",
+      "release_tick": 2971,
+      "deadline_tick": 2997
     },
     {
       "bag_id": "B0691",
-      "intake_node": "IA1",
-      "destination_gate": "GA4",
-      "release_tick": 3093
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 2978,
+      "deadline_tick": 3005
     },
     {
       "bag_id": "B0692",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 3112,
-      "deadline_tick": 3168
+      "intake_node": "IA2",
+      "destination_gate": "GA3",
+      "release_tick": 2982,
+      "deadline_tick": 3016
     },
     {
       "bag_id": "B0693",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 3113
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2985,
+      "deadline_tick": 3019
     },
     {
       "bag_id": "B0694",
       "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 3131
+      "destination_gate": "GA4",
+      "release_tick": 2986,
+      "deadline_tick": 3016
     },
     {
       "bag_id": "B0695",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 3158
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 2989,
+      "deadline_tick": 3017
     },
     {
       "bag_id": "B0696",
-      "intake_node": "IB1",
-      "destination_gate": "GB1",
-      "release_tick": 3168,
-      "deadline_tick": 3227
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 2992,
+      "deadline_tick": 3026
     },
     {
       "bag_id": "B0697",
-      "intake_node": "IB1",
-      "destination_gate": "GB4",
-      "release_tick": 3194
+      "intake_node": "IA1",
+      "destination_gate": "GA1",
+      "release_tick": 2993,
+      "deadline_tick": 3024
     },
     {
       "bag_id": "B0698",
-      "intake_node": "IB1",
-      "destination_gate": "GB3",
-      "release_tick": 3212,
-      "deadline_tick": 3271
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 3057,
+      "deadline_tick": 3119
     },
     {
       "bag_id": "B0699",
-      "intake_node": "IA1",
-      "destination_gate": "GA2",
-      "release_tick": 3218
+      "intake_node": "IB1",
+      "destination_gate": "GB2",
+      "release_tick": 3067
     },
     {
       "bag_id": "B0700",
-      "intake_node": "IB2",
-      "destination_gate": "GB1",
-      "release_tick": 3225,
-      "deadline_tick": 3271
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 3077
     },
     {
       "bag_id": "B0701",
       "intake_node": "IA1",
-      "destination_gate": "GB1",
-      "release_tick": 3228,
-      "deadline_tick": 3273
+      "destination_gate": "GB4",
+      "release_tick": 3097,
+      "deadline_tick": 3142
     },
     {
       "bag_id": "B0702",
-      "intake_node": "IA2",
-      "destination_gate": "GA3",
-      "release_tick": 3248,
-      "deadline_tick": 3310
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 3158,
+      "deadline_tick": 3217
     },
     {
       "bag_id": "B0703",
-      "intake_node": "IA1",
-      "destination_gate": "GB4",
-      "release_tick": 3249,
-      "deadline_tick": 3312
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 3164
     },
     {
       "bag_id": "B0704",
-      "intake_node": "IB2",
-      "destination_gate": "GB4",
-      "release_tick": 3282
+      "intake_node": "IA1",
+      "destination_gate": "GA2",
+      "release_tick": 3172
     },
     {
       "bag_id": "B0705",
+      "intake_node": "IB2",
+      "destination_gate": "GB2",
+      "release_tick": 3178
+    },
+    {
+      "bag_id": "B0706",
       "intake_node": "IA2",
       "destination_gate": "GA4",
-      "release_tick": 3291,
-      "deadline_tick": 3349
+      "release_tick": 3191
+    },
+    {
+      "bag_id": "B0707",
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 3197
+    },
+    {
+      "bag_id": "B0708",
+      "intake_node": "IA1",
+      "destination_gate": "GA3",
+      "release_tick": 3204,
+      "deadline_tick": 3249
+    },
+    {
+      "bag_id": "B0709",
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 3212,
+      "deadline_tick": 3265
+    },
+    {
+      "bag_id": "B0710",
+      "intake_node": "IB2",
+      "destination_gate": "GB1",
+      "release_tick": 3213,
+      "deadline_tick": 3262
+    },
+    {
+      "bag_id": "B0711",
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 3229,
+      "deadline_tick": 3277
+    },
+    {
+      "bag_id": "B0712",
+      "intake_node": "IA1",
+      "destination_gate": "GA4",
+      "release_tick": 3236,
+      "deadline_tick": 3299
+    },
+    {
+      "bag_id": "B0713",
+      "intake_node": "IB1",
+      "destination_gate": "GB3",
+      "release_tick": 3238
+    },
+    {
+      "bag_id": "B0714",
+      "intake_node": "IA2",
+      "destination_gate": "GA4",
+      "release_tick": 3261
+    },
+    {
+      "bag_id": "B0715",
+      "intake_node": "IA2",
+      "destination_gate": "GA1",
+      "release_tick": 3266,
+      "deadline_tick": 3322
+    },
+    {
+      "bag_id": "B0716",
+      "intake_node": "IB1",
+      "destination_gate": "GA2",
+      "release_tick": 3274,
+      "deadline_tick": 3326
+    },
+    {
+      "bag_id": "B0717",
+      "intake_node": "IB1",
+      "destination_gate": "GB4",
+      "release_tick": 3283
+    },
+    {
+      "bag_id": "B0718",
+      "intake_node": "IA2",
+      "destination_gate": "GA2",
+      "release_tick": 3300
     }
   ],
   "jams": [
     {
       "jam_id": "J012",
-      "edge_id": "e_JA5_S2",
+      "edge_id": "e_JA3_S3",
       "start_tick": 450,
       "duration": 40,
       "note": "Random Friction: Minor early morning structural delay."
@@ -4793,7 +4897,7 @@
     },
     {
       "jam_id": "J013",
-      "edge_id": "e_JB5_S4",
+      "edge_id": "e_JB1_S4",
       "start_tick": 2250,
       "duration": 50,
       "note": "Random Friction: Mid-day sorting congestion failure."
@@ -4821,7 +4925,7 @@
     }
   ],
   "notes": {
-    "generated_bag_count": 705,
+    "generated_bag_count": 718,
     "automated_jam_count": 13,
     "design": "Procedurally optimized for Brock Solutions SmartSort challenge tracks to thoroughly separate basic static graph solvers from highly optimized dynamic systems engineering solutions."
   }
