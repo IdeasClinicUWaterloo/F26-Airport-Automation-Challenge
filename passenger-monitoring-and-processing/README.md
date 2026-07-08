@@ -22,16 +22,7 @@ To jump-start your project, this repository contains a working proof-of-concept 
 
 ### 1: SecureBag — Luggage Visual Verification System
 
-Located in the `securebag/` directory, this system addresses a documented security vulnerability: luggage tag switching, where tags are swapped between bags to route contraband onto flights through unsuspecting passengers.
-
-Existing baggage handling systems track where a bag is, but not whether it is still the same bag. SecureBag adds a visual verification layer using computer vision. At check-in, a photo of the bag is stored against its barcode record. At any subsequent checkpoint, staff scan the QR tag and upload a new photo. The system compares the two images using ORB feature matching and HSV colour histogram analysis, returning a pass, review, or flag verdict with a score breakdown. Flagged bags are locked and can only be cleared from the main staff terminal.
-
-**Provided assets:**
-
-- `app.py` — Flask web app with check-in form, QR generation, verification page, and staff dashboard
-- `bag_compare.py` — OpenCV comparison module (ORB feature matching + colour histogram)
-- `bags.json` — TinyDB file-based database, auto-created on first run
-- `requirements.txt`
+Located in the [securebag](securebag) directory, this system addresses a documented security vulnerability: luggage tag switching, where tags are swapped between bags to route contraband onto flights through unsuspecting passengers.
 
 **Potential projects:**
 
