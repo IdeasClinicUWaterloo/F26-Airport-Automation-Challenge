@@ -2,6 +2,7 @@ from dead_reckoning import DeadReckoning
 
 class FlightRoutingSolution:
     def __init__(self):
+        
         self.route = []
         self.latest_reported_position = None
         self.altitude = None
@@ -20,7 +21,9 @@ class FlightRoutingSolution:
         """
         Processes messages for the aircraft's state.
         It receives and stores the position, speed,
-        and heading of the aircraft, if valid.
+        and heading of the aircraft.
+
+        Calls check_state_message to ensure the data is valid before storing it.
         """
 
         if not self.check_state_message(message):
@@ -38,8 +41,8 @@ class FlightRoutingSolution:
 
     def process_message(self, message: dict):
         """
-            This function gets the type of message, and based on type,
-            hands off to specific functions which process the data.
+        This function gets the type of message, and based on type,
+        hands off to specific functions which process the data.
         """
 
         msg_type = message.get("type")

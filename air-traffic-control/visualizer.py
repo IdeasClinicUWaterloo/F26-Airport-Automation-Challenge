@@ -144,7 +144,7 @@ class FlightVisualizer:
         
         folium.LayerControl().add_to(m)
 
-        output_file = Path("flight-routing/output/flight_map.html").resolve()
+        output_file = Path("air-traffic-control/output/flight_map.html").resolve()
         m.save(output_file)
         webbrowser.open(output_file.as_uri())
 

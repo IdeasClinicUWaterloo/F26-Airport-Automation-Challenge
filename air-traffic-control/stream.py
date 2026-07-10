@@ -5,7 +5,7 @@ from visualizer import FlightVisualizer
 from message_parser import FlightRoutingSolution
 
 
-def load_scenario(filepath="flight-routing/scenarios/simple_route.json"):
+def load_scenario(filepath="air-traffic-control/scenarios/simple_route.json"):
     with open(filepath, "r") as f:
         return json.load(f)
 
@@ -19,7 +19,7 @@ def main():
     solution = FlightRoutingSolution()
 
     visualizer = FlightVisualizer(
-        "flight-routing/data/route.json"
+        "air-traffic-control/data/route.json"
     )
 
     print(f"Starting demo for flight: {flight_id}")

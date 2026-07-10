@@ -56,7 +56,10 @@ Focus on clear data flow and decisions, not handling every edge case.
 
 The problem space is anything inside a DCS - check-in, identity/document verification, baggage tracking, load balancing, boarding control, or the dashboard tying it together. There's no fixed feature list: pick a piece and build a real solution to it. Narrow and complete beats broad and shallow.
 
-This repo includes one implemented example, the **[Unified Identity Gateway](unified-identity-gateway/)** - identity verification, document checks, and boarding pass issuance as a single check-in flow that clearly shows whether a passenger is cleared, blocked, or needs manual review. It's here to show expected scope and depth, not to define the required shape of your submission.
+This repo includes two implemented examples, covering different slices of the DCS pipeline. They're here to show expected scope and depth, not to define the required shape of your submission:
+
+- **[Unified Identity Gateway](unified-identity-gateway/)** - identity verification, document checks, and boarding pass issuance as a single check-in flow that clearly shows whether a passenger is cleared, blocked, or needs manual review.
+- **[Load Control](load-control/)** - the "load is estimated across aircraft zones" step of the pipeline: a MILP-based weight-and-balance optimizer (`load.py`) that assigns cargo and passenger load to aircraft bays/zones to hit a target center-of-gravity within structural and zero-fuel-weight limits, plus a small Flask app (`weight_balancer_app/`) exposing it as a live tool.
 
 ## Basic vs. advanced
 

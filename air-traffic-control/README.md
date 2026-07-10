@@ -37,6 +37,26 @@ Real ATC systems (FAA ERAM/STARS, EUROCONTROL ARTAS, NAV CANADA's flight data sy
 
 ---
 
+## Regulatory & Safety Context
+
+Real ATC automation isn't just engineered for correctness — it's built to satisfy specific FAA (and international equivalent) regulations, because a bad state estimate or a missed conflict is a safety-of-flight issue, not a bug ticket. Knowing the real regulatory hooks behind this challenge's concepts is useful both for design decisions and for the "Safety and Security" judging category:
+
+| Regulation / Standard | What it governs | Where it shows up in this challenge |
+| --- | --- | --- |
+| FAA Order 7110.65 (the controllers' handbook) | Separation minima — typically 3 nm lateral in terminal airspace, 5 nm en route, 1,000 ft vertical — plus conflict-alert and MSAW (Minimum Safe Altitude Warning) procedures | The real-world reference point for "conflict detection" and "anomaly flagging" — actual separation-loss checks, not just field sanity checks |
+| 14 CFR 91.225 (ADS-B Out mandate) | Aircraft in controlled airspace must broadcast position, altitude, ground speed, and heading at defined rates | This is the message schema `state` messages in `message_parser.py` are modeling |
+| RTCA DO-260B / ICAO Annex 10 | Defines Navigation Accuracy Category (NACp/NACv) — how much confidence to place in a given position report | The real-world analogue of "uncertainty," which an EKF-based advanced solution is expected to track |
+| RTCA DO-278A | Software assurance levels for ground-based ATC automation (DO-178C is the airborne-avionics equivalent), tying verification rigor to failure severity | The reason a prototype like this would need far more testing/traceability before any real operational use |
+| 14 CFR 91.180 (RVSM) | Reduced Vertical Separation Minimum — 1,000 ft above FL290, requiring tighter altimetry accuracy | Relevant if extending altitude-based anomaly thresholds — tolerance for "how far off is too far" should tighten at higher altitudes |
+| 14 CFR 91.183 | Mandatory position reporting over compulsory points under IFR | Background for `waypoint_report` messages |
+
+Two concrete gaps between this prototype and a regulation-grounded system, worth calling out in a team's design writeup:
+
+- **Field validation vs. separation-minima validation.** `check_state_message()` in `message_parser.py` checks that lat/lon/heading/altitude/speed are physically plausible numbers (e.g. heading in `[0, 360]`). Real conflict-alert logic checks against the actual separation minima in 7110.65 (3/5 nm lateral, 1,000 ft vertical) between aircraft pairs — a materially different (and harder) problem than single-message sanity checking.
+- **No staleness/track-timeout logic.** `DeadReckoning.predict_at()` will happily coast a track forward indefinitely between updates. Real systems bound how long a track can be "coasted" before it's flagged as stale, tied to expected radar/ADS-B update rates — a natural safety-relevant addition for an advanced solution.
+
+---
+
 ## Challenge Summary
 
 You will build a flight routing and tracking module that consumes a stream of simulated aircraft messages and outputs a continuously updated route estimate.
@@ -189,11 +209,11 @@ Your solution should output an updated route and tracking estimate after process
 
 ## Running the Code
 
-Install the one dependency (used for the map visualization) and run the demo script from the repository root (not from inside `flight-routing/`, since it loads scenario and output files by a root-relative path):
+Install the one dependency (used for the map visualization) and run the demo script from the repository root (not from inside `air-traffic-control/`, since it loads scenario and output files by a root-relative path):
 
 ```bash
 pip install folium
-python flight-routing/stream.py
+python air-traffic-control/stream.py
 ```
 
 This replays `scenarios/simple_route.json` message-by-message through `FlightRoutingSolution`, printing the updated state after each message, then opens a route map built from the recorded states.

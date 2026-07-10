@@ -88,11 +88,11 @@ Your solution should:
 
 This is the primary coding-focused subproblem. Teams will write their logic in `solution.py`, and their solution will be evaluated against visible and hidden test scenarios.
 
-Learn more: 
+Learn more: [gate-assignment/README.md](gate-assignment/README.md)
 
 ---
 
-## 3. [Probabilistic Flight Tracking and Route Reconstruction for ATC Automation](flight-routing/README.md)
+## 3. [Air Traffic Control System](air-traffic-control/README.md)
 
 Modern Air Traffic Control systems maintain a live operational picture of aircraft moving through controlled airspace. Controllers do not rely on a single perfect source of truth. Instead, ATC automation software receives surveillance reports, flight-plan updates, route information, altitude and speed reports, weather constraints, and controller inputs. These data sources may be noisy, delayed, incomplete, or occasionally contradictory.
 
@@ -108,6 +108,29 @@ Potential solution directions:
 
 
 This subproblem emphasizes state management, data interpretation, estimation, filtering noise for messages, considering the physics of the flight, etc.
+
+---
+
+## 4. [Departure Control System](departure-control-system/README.md)
+
+A Departure Control System (DCS) runs the departure side of an airline operation: check-in, identity and document verification, baggage acceptance, boarding pass issuance, boarding control, and weight and balance (load control).
+
+Your challenge is to pick a piece of the DCS pipeline - check-in, identity/document verification, baggage tracking, load balancing, boarding control, or the dashboard tying it together - and build a real solution to it. Narrow and complete beats broad and shallow.
+
+Two implemented examples are included to show expected scope and depth:
+
+* **[Unified Identity Gateway](departure-control-system/unified-identity-gateway/)** - identity verification, document checks, and boarding pass issuance as a single check-in flow
+* **[Load Control](departure-control-system/load-control/)** - a MILP-based weight-and-balance optimizer that assigns cargo and passenger load to aircraft zones to hit a target center of gravity within structural limits
+
+---
+
+## 5. [Passenger Monitoring & Processing](passenger-monitoring-and-processing/README.md)
+
+Airports process thousands of passengers and bags per hour across multiple checkpoints - check-in, baggage drop, security, boarding, and carousel collection. Each handoff is a potential point of failure: delays, misrouted bags, congestion, and security gaps all have real operational and safety consequences.
+
+Your challenge is to design a solution addressing passenger flow, asset security, or accessible processing at these checkpoints.
+
+An implemented example, **[SecureBag](passenger-monitoring-and-processing/securebag/)**, addresses luggage tag-switching (a real security vulnerability used to route contraband onto flights through unsuspecting passengers) via visual bag verification. Other directions include passenger flow/congestion monitoring and accessible passenger processing.
 
 ---
 
