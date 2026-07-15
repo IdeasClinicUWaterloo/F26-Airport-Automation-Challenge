@@ -16,6 +16,19 @@ Passenger processing systems operate across three layers:
 
 **Data & Visualization:** Operator dashboards synthesize live checkpoint data into alerts, flow metrics, and congestion maps that staff use to make operational decisions — opening additional lanes, reallocating staff, or holding a gate.
 
+## Regulatory & Safety Context
+
+Passenger processing systems that handle personal data, baggage, or physical checkpoint operations are subject to Canadian federal regulation and ICAO standards. The table below maps the relevant regulations to where they show up in practice when building solutions in this space.
+
+| Regulation / Standard | What it governs | Where it shows up in this challenge |
+|---|---|---|
+| *Canadian Aviation Security Regulations, 2012* (SOR/2011-318) | Baggage screening, access control, and security procedures at Canadian airports | Any system that handles checked baggage or interacts with restricted areas must operate within these procedures — e.g. a bag verification system must not interfere with existing screening workflows |
+| ICAO Annex 17 — Aviation Security | International standards for aviation security, including baggage reconciliation (Standard 4.5.3) | The international baseline that Canadian regulations implement — relevant for any baggage tracking or integrity verification solution |
+| *Secure Air Travel Regulations* (SOR/2015-181) | Identity verification requirements for passengers at Canadian airports | Relevant for any solution that links passenger identity to baggage or checkpoint records |
+| *Air Passenger Protection Regulations* (SOR/2019-150) | Carrier obligations for delays, cancellations, and denied boarding | A passenger flow system that causes or contributes to a delay has liability implications under these regulations |
+| *Personal Information Protection and Electronic Documents Act* (PIPEDA) | Collection, use, and storage of personal information by private-sector organizations | Any system that stores passenger names, passport numbers, photos, or location data must comply with PIPEDA's consent and data minimization requirements |
+| *Accessible Transportation for Persons with Disabilities Regulations* (SOR/2019-244) | Accessibility requirements for carriers, airports, CATSA, and CBSA | Passenger-facing interfaces — digital or physical — must be usable by passengers with disabilities |
+| *Accessible Canada Act* | Proactive identification and removal of accessibility barriers by federally regulated entities | Applies to any system deployed by an airport or airline — accessibility cannot be bolted on after the fact |
 ## Potential Solutions
 
 To jump-start your project, this repository contains a working proof-of-concept you may use, modify, or build on.
