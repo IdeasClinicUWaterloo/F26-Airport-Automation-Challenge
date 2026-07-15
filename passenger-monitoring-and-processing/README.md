@@ -18,17 +18,18 @@ Passenger processing systems operate across three layers:
 
 ## Regulatory & Safety Context
 
-Passenger processing systems that handle personal data, baggage, or physical checkpoint operations are subject to Canadian federal regulation and ICAO standards. The table below maps the relevant regulations to where they show up in practice when building solutions in this space.
+Passenger processing systems operate in a heavily regulated environment — handling personal data, managing access to restricted areas, and directly affecting passenger safety and rights. A system that stores passport numbers without a retention policy, or a flow monitoring tool that contributes to a missed boarding, has real legal obligations. Knowing which regulations govern this space is useful both for making sound design decisions and for the Safety and Security judging category.
 
-| Regulation / Standard | What it governs | Where it shows up in this challenge |
+| Regulation / Standard | What it says | Link |
 |---|---|---|
-| *Canadian Aviation Security Regulations, 2012* (SOR/2011-318) | Baggage screening, access control, and security procedures at Canadian airports | Any system that handles checked baggage or interacts with restricted areas must operate within these procedures — e.g. a bag verification system must not interfere with existing screening workflows |
-| ICAO Annex 17 — Aviation Security | International standards for aviation security, including baggage reconciliation (Standard 4.5.3) | The international baseline that Canadian regulations implement — relevant for any baggage tracking or integrity verification solution |
-| *Secure Air Travel Regulations* (SOR/2015-181) | Identity verification requirements for passengers at Canadian airports | Relevant for any solution that links passenger identity to baggage or checkpoint records |
-| *Air Passenger Protection Regulations* (SOR/2019-150) | Carrier obligations for delays, cancellations, and denied boarding | A passenger flow system that causes or contributes to a delay has liability implications under these regulations |
-| *Personal Information Protection and Electronic Documents Act* (PIPEDA) | Collection, use, and storage of personal information by private-sector organizations | Any system that stores passenger names, passport numbers, photos, or location data must comply with PIPEDA's consent and data minimization requirements |
-| *Accessible Transportation for Persons with Disabilities Regulations* (SOR/2019-244) | Accessibility requirements for carriers, airports, CATSA, and CBSA | Passenger-facing interfaces — digital or physical — must be usable by passengers with disabilities |
-| *Accessible Canada Act* | Proactive identification and removal of accessibility barriers by federally regulated entities | Applies to any system deployed by an airport or airline — accessibility cannot be bolted on after the fact |
+| *Canadian Aviation Security Regulations, 2012* (SOR/2011-318) | All checked baggage must be screened before being loaded, and access to restricted areas such as baggage handling zones must be limited to authorized personnel | [laws-lois.justice.gc.ca](https://laws-lois.justice.gc.ca/eng/regulations/SOR-2011-318/index.html) |
+| ICAO Annex 17 — Aviation Security | A bag must not be loaded onto a flight if the passenger it belongs to is not on board, unless the bag has been individually identified and screened | [icao.int](https://www.icao.int/aviation-security-policy-section/Annex17) |
+| *Secure Air Travel Regulations* (SOR/2015-181) | Before a passenger boards, the carrier must confirm that the name on their boarding pass matches a valid government-issued photo ID | [laws-lois.justice.gc.ca](https://laws-lois.justice.gc.ca/eng/regulations/SOR-2015-181/FullText.html) |
+| *Air Passenger Protection Regulations* (SOR/2019-150) | If a flight is delayed or cancelled, or a passenger is denied boarding, the carrier must communicate the reason, provide care such as meals or hotels where applicable, and pay compensation based on the length of delay | [laws-lois.justice.gc.ca](https://laws-lois.justice.gc.ca/eng/regulations/SOR-2019-150/index.html) |
+| *Personal Information Protection and Electronic Documents Act* (PIPEDA) | Organizations must tell passengers what personal information they are collecting and why, collect only what they need, keep it secure, and delete it when it is no longer needed | [laws-lois.justice.gc.ca](https://laws-lois.justice.gc.ca/eng/acts/P-8.6/index.html) |
+| *Accessible Transportation for Persons with Disabilities Regulations* (SOR/2019-244) | Airports, airlines, CATSA, and CBSA must provide assistance to passengers with disabilities at every stage of their journey, including check-in, security, boarding, and baggage collection | [laws-lois.justice.gc.ca](https://laws-lois.justice.gc.ca/eng/regulations/SOR-2019-244/index.html) |
+| *Accessible Canada Act* | Federally regulated organizations must publish accessibility plans, consult people with disabilities in developing them, and actively work to remove barriers, not just respond when someone asks for help | [laws-lois.justice.gc.ca](https://lois.justice.gc.ca/eng/acts/A-0.6/FullText.html)|
+
 ## Potential Solutions
 
 To jump-start your project, this repository contains a working proof-of-concept you may use, modify, or build on.
