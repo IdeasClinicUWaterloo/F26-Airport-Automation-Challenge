@@ -113,4 +113,4 @@ That's the same question real DCS platforms answer for airlines every day before
 - [IATA Resolution 753](https://www.iata.org/contentassets/5c4aa8b8b3b1432697d2bf3301450684/reso753-implementation-guide---2023_issue-4.02.pdf) - requires airlines to scan a bag at each handoff
 - [ICAO Doc 9303](https://www.icao.int/publications/pages/publication.aspx?docnum=9303) - the standard for machine-readable passports and ID docs
 - [ICAO Annex 9](https://www.icao.int/facilitation-programmes/Annex9) - border and document control rules
-- ICAO Annex 6, Part I / IATA Weight and Balance Manual - weight and balance rules (see `load-control/`)
+- [ICAO Annex 6, Part I / IATA Weight and Balance Manual](https://www.icao.int/sites/default/files/sp-files/SAM/Documents/2008/RPEO03/Anexo%206%20ParteII%20Just%20Cambios.pdf) - weight and balance rules (see `load-control/`)
