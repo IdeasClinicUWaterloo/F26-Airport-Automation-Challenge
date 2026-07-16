@@ -113,3 +113,10 @@ If there are no hard failures, your run earns a weighted soft score (lower is be
 - Flights left unassigned at the end of the simulation
 
 Every shipped scenario is guaranteed to be solvable with **zero** hard failures, so a correct solution can always avoid them. The final evaluator may use airport layouts and flight schedules that are different from the examples provided.
+
+## Safety & Policy Resources
+
+- [IATA Airport Handling Manual (AHM)](https://www.iata.org/en/publications/manuals/ground-operations/) - the industry rulebook for ground handling
+- [IATA Ground Operations Manual (IGOM)](https://www.iata.org/en/publications/manuals/iata-ground-operations-manual/) - standard procedures for gate, ramp, and jetbridge work
+- [IATA Safety Audit for Ground Operations (ISAGO)](https://www.iata.org/en/programs/ops-infra/ground-operations/isago) - the safety audit ground handlers get certified against
+- [ICAO Annex 14](https://www.icao.int/sites/default/files/postalhistory/annex_14_aerodromes.htm) - aerodrome and gate/apron design rules
