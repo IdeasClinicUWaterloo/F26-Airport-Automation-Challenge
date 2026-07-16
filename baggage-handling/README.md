@@ -93,24 +93,13 @@ repository-root/
     └── Node-Red Guide.docx              # Guide for Node-Red access and usage
 
 ```
-## Evaluation
+## Useful Resources
 
-Because this challenge is open-ended, projects are evaluated on a case-by-case basis. Judges will use their professional discretion to evaluate how your team approaches the complexities of industrial systems engineering. 
-
-Use these guiding principles to direct your design and innovation process:
-
-### 1. Ideation & Value Proposition
-* **Relevance & Reasonability:** How effectively does your concept address real-world industrial automation bottlenecks, and how sound is your engineering approach?
-* **Stakeholder Impact:** Does your design offer clear operational advantages? Consider how your solution reduces system friction or assists baggage handlers, airport operators, and maintenance crews.
-
-### 2. Technical Feasibility & System Reliability
-* **Practicality & Factory Integration:** Can your software architecture or hardware integration scale smoothly if deployed in a real-world industrial or factory environment? 
-* **Reliability & Downtime Mitigation:** How resilient is your system? Your solution should be robust against data anomalies, unexpected hardware faults (such as simulated conveyor jams or physical vision lighting issues), and maintain minimum downtime.
-* **Operational ROI:** Does your solution provide a clear return on implementation? (e.g., a massive drop in misrouted assets, a significant increase in sorting speed, or high system efficiency relative to computational/hardware complexity).
-
-### 3. Prototype Execution
-* **Core Functionality:** At the time of judging, how functional is your prototype? Does your code run to completion, process input telemetry seamlessly, or actuate physical components successfully?
-
-### 4. Demo, Pitch, & Technical Depth
-* **Technical Explanation & Depth:** How thoroughly does your team understand the system you built? Be prepared to justify your algorithmic choices, state-tracking designs, data structures, or hardware wiring decisions.
-* **Impact of the Demonstration:** How effectively does your demonstration show off what you accomplished? Use data visualizations, live metrics tracking, or a clear physical run to visibly prove your system's performance.
+- [IATA Baggage Standards](https://www.iata.org/en/programs/ops-infra/baggage/standards/) — Includes baggage-related Resolutions and Recommended Practices, including Resolution 753 on baggage tracking and Resolution 739 on baggage security control.
+- [IATA Baggage Reference Manual (BRM)](https://www.iata.org/en/publications/manuals/baggage-reference-manual/) — The primary industry manual consolidating baggage operations guidance, best practices, and the baggage Resolutions/RPs used across airlines and ground handlers.
+- [IATA Baggage Information eXchange (BIX)](https://www.iata.org/en/programs/ops-infra/baggage/baggage-information-exchange-bix/) — Relevant to the data exchange and interoperability side of baggage handling systems, especially where tracking and automation are involved.
+- [IATA Technical Peripheral Specifications (ITPS)](https://www.iata.org/en/publications/manuals/iata-technical-peripheral-specifications/) — Covers standard device communications for baggage-related airport systems such as baggage tag printers, self-baggage drop, and common-use devices.
+- [ICAO Publications](https://www.icao.int/publications) — Useful for locating ICAO standards and guidance material that shape how airports and aviation stakeholders operate secure, interoperable systems.
+- [IABSC](https://www.iabsc.org/) — Industry association content focused on baggage handling technology, system design, operations, and real-world deployment challenges.
+- [SITA](https://www.sita.aero/) — Useful for understanding how airlines and airports implement baggage tracking, digital operations, and end-to-end baggage visibility.
+- [ACI World](https://aci.aero/) — Provides airport operations context for how baggage systems fit into larger terminal and passenger processing environments.
