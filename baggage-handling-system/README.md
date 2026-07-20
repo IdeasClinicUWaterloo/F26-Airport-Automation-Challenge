@@ -1,6 +1,6 @@
 # Baggage Handling System
 
-![alt text](assets/smart_suite.png)
+![alt text](assets/conveyor_system.webp)
 
 ## Challenge Overview
 
@@ -32,7 +32,7 @@ To jump-start your project, this repository contains some potential solutions an
 
 ### 1: The SmartSort Digital Twin & Simulation Sandbox
 
-Located in the [`bhs-simulation/`](/baggage-handling/bhs-simulation/) directory, this toolset provides a fully operational software-driven simulation environment modeling a complex 28-node airport baggage handling system across a multi-phase, 3,600-tick operational stress scenario. The environment simulates real-world complexities like dynamic conveyor line traffic congestion, unexpected mechanical breakdowns (jams), and strict delivery deadlines.
+Located in the [`bhs-simulation/`](/baggage-handling-system/bhs-simulation/) directory, this toolset provides a fully operational software-driven simulation environment modeling a complex 28-node airport baggage handling system across a multi-phase, 3,600-tick operational stress scenario. The environment simulates real-world complexities like dynamic conveyor line traffic congestion, unexpected mechanical breakdowns (jams), and strict delivery deadlines.
 
 * **Provided Assets:**
     * `evaluator.py`: The master simulation engine that runs the physics, tracking, and fault-injection loops of the conveyor network.
@@ -46,7 +46,7 @@ Located in the [`bhs-simulation/`](/baggage-handling/bhs-simulation/) directory,
 
 ### 2: The Physical Vision-Guided Conveyor Testbed
 
-Located in the [`barcode-conveyor/`](/baggage-handling/barcode-conveyor/) directory, this setup offers a hands-on hardware integration experience leveraging a physical sorting platform. The workspace models an industrial inspection and routing lane using a single conveyor loop, an adjustable mechanical diverter mechanism, and an overhead camera sensor.
+Located in the [`barcode-conveyor/`](/baggage-handling-system/barcode-conveyor/) directory, this setup offers a hands-on hardware integration experience leveraging a physical sorting platform. The workspace models an industrial inspection and routing lane using a single conveyor loop, an adjustable mechanical diverter mechanism, and an overhead camera sensor.
 
 * **Provided Assets:**
     * An NVIDIA Jetson Nano edge computing platform connected directly to the camera and sorting actuators, capable of executing standalone Python scripts.
@@ -58,7 +58,7 @@ Located in the [`barcode-conveyor/`](/baggage-handling/barcode-conveyor/) direct
     * **Logistical Edge Networking:** Design an logging framework that cross-references scanned data against sorting manifests, tracks scanner reliability data, or pipes live field sensor events upstream to an analytical logger.
 
 
-### Avenue 3: Completely Custom & Hybrid Systems
+### 3: Custom or Hybrid Systems
 
 Your team is welcome to step entirely outside the provided templates:
 
@@ -70,47 +70,36 @@ Your team is welcome to step entirely outside the provided templates:
 
 ## Workspace Directory Structure
 
-The repository is organized into distinct project directories containing the baseline tools for your exploration:
+The repository is organized into two project directories containing the baseline solutions you can start from:
 
 ```text
-repository-root/
+baggage-handling-system/
 │
-├── README.md                           # Overview (This Document)
+├── README.md
 │
-├── bhs-simulation/                # Simulation & Dashboard Tools
-│   ├── README.md                   # Simulation Engine & API Specifications
-│   ├── generate_scenario.py                # Seeded Random Scenario Generator
-│   ├── evaluator.py                    # Master Simulation Physics Loop
-│   ├── solution.py                     # Baseline Routing Script
-│   ├── bsd_dashboard.py                # 2D Desktop Playback Application
+├── bhs-simulation/
+│   ├── README.md
+│   ├── generate_scenario.py
+│   ├── evaluator.py
+│   ├── solution.py
+│   ├── bsd_dashboard.py
 │   └── data/
-│       ├── network_layout.json         # Network Geography Configuration
-│       └── simulation_scenario.json    # 3,600-tick Wave and Jam Timeline
+│       ├── network_layout.json
+│       └── simulation_scenario.json
 │
-└── barcode-conveyor/              # Physical Conveyor Tools
-    ├── README.md              # Hardware Tutorial and Setup Specifications
-    ├── barcode_scanner.py              # Code used on Jetson Nano
-    └── Node-Red Guide.docx              # Guide for Node-Red access and usage
+└── barcode-conveyor/
+    ├── README.md
+    ├── barcode_scanner.py
+    └── Node-Red Guide.docx
 
 ```
-## Evaluation
+## Useful Resources
 
-Because this challenge is open-ended, projects are evaluated on a case-by-case basis. Judges will use their professional discretion to evaluate how your team approaches the complexities of industrial systems engineering. 
-
-Use these guiding principles to direct your design and innovation process:
-
-### 1. Ideation & Value Proposition
-* **Relevance & Reasonability:** How effectively does your concept address real-world industrial automation bottlenecks, and how sound is your engineering approach?
-* **Stakeholder Impact:** Does your design offer clear operational advantages? Consider how your solution reduces system friction or assists baggage handlers, airport operators, and maintenance crews.
-
-### 2. Technical Feasibility & System Reliability
-* **Practicality & Factory Integration:** Can your software architecture or hardware integration scale smoothly if deployed in a real-world industrial or factory environment? 
-* **Reliability & Downtime Mitigation:** How resilient is your system? Your solution should be robust against data anomalies, unexpected hardware faults (such as simulated conveyor jams or physical vision lighting issues), and maintain minimum downtime.
-* **Operational ROI:** Does your solution provide a clear return on implementation? (e.g., a massive drop in misrouted assets, a significant increase in sorting speed, or high system efficiency relative to computational/hardware complexity).
-
-### 3. Prototype Execution
-* **Core Functionality:** At the time of judging, how functional is your prototype? Does your code run to completion, process input telemetry seamlessly, or actuate physical components successfully?
-
-### 4. Demo, Pitch, & Technical Depth
-* **Technical Explanation & Depth:** How thoroughly does your team understand the system you built? Be prepared to justify your algorithmic choices, state-tracking designs, data structures, or hardware wiring decisions.
-* **Impact of the Demonstration:** How effectively does your demonstration show off what you accomplished? Use data visualizations, live metrics tracking, or a clear physical run to visibly prove your system's performance.
+- [IATA Baggage Standards](https://www.iata.org/en/programs/ops-infra/baggage/standards/) — Includes baggage-related Resolutions and Recommended Practices, including Resolution 753 on baggage tracking and Resolution 739 on baggage security control.
+- [IATA Baggage Reference Manual (BRM)](https://www.iata.org/en/publications/manuals/baggage-reference-manual/) — The primary industry manual consolidating baggage operations guidance, best practices, and the baggage Resolutions/RPs used across airlines and ground handlers.
+- [IATA Baggage Information eXchange (BIX)](https://www.iata.org/en/programs/ops-infra/baggage/baggage-information-exchange-bix/) — Relevant to the data exchange and interoperability side of baggage handling systems, especially where tracking and automation are involved.
+- [IATA Technical Peripheral Specifications (ITPS)](https://www.iata.org/en/publications/manuals/iata-technical-peripheral-specifications/) — Covers standard device communications for baggage-related airport systems such as baggage tag printers, self-baggage drop, and common-use devices.
+- [ICAO Publications](https://www.icao.int/publications) — Useful for locating ICAO standards and guidance material that shape how airports and aviation stakeholders operate secure, interoperable systems.
+- [IABSC](https://www.iabsc.org/) — Industry association content focused on baggage handling technology, system design, operations, and real-world deployment challenges.
+- [SITA](https://www.sita.aero/) — Useful for understanding how airlines and airports implement baggage tracking, digital operations, and end-to-end baggage visibility.
+- [ACI World](https://aci.aero/) — Provides airport operations context for how baggage systems fit into larger terminal and passenger processing environments.

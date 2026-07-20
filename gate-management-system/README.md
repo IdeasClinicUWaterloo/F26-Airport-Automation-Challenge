@@ -2,9 +2,9 @@
 
 ## Challenge Overview
 
-Airports must assign aircraft to gates while managing timing, aircraft size, passenger needs, security rules, cargo restrictions, and unpredictable disruptions. A gate assignment that looks valid at one moment can become invalid later because of a delayed arrival, a gate outage, an aircraft type change, or a late departure.
+Toronto Pearson International Airport (YYZ) — Canada's busiest airport and the main Air Canada / Star Alliance hub — must assign aircraft to gates across Terminal 1 and Terminal 3 while managing timing, aircraft size, passenger needs, customs/security rules, cargo restrictions, and unpredictable disruptions. A gate assignment that looks valid at one moment can become invalid later because of a delayed transatlantic arrival, a winter de-icing hold, a gate outage, an aircraft type swap, or a late departure.
 
-Your task is to build a system that assigns gates over time, avoiding conflicts and adapting to changing information. It is the core decision logic of a simplified Gate Management System, the kind that sits at the heart of real airport operations software.
+Your task is to build a system that assigns Pearson's gates over time, avoiding conflicts and adapting to changing information. It is the core decision logic of a simplified Gate Management System, the kind that sits at the heart of real airport operations software.
 
 ---
 
@@ -12,7 +12,7 @@ Your task is to build a system that assigns gates over time, avoiding conflicts 
 
 Gate management software sits inside a larger airport tech stack: an **AODB** (Airport Operational Database) holds the shared flight/gate state, a **Resource Management System (RMS)** assigns gates and stands from it, and gate changes flow out to passenger-facing displays, ground handling, and airline systems. Real systems also have to handle **IROPS** (Irregular Operations), the delays, swaps, and outages that make static planning useless.
 
-Brock Solutions, an engineering firm headquartered in Waterloo, Ontario, builds this kind of software today. Their **SmartSuite** platform runs gate and passenger operations at airports including SFO, JFK, Dublin, Sydney, and Toronto. This challenge is a simplified but structurally similar version of the problem they solve.
+Brock Solutions, an engineering firm headquartered in Waterloo, Ontario, builds this kind of software today. Their **SmartSuite** platform runs gate and passenger operations at airports including SFO, JFK, Dublin, Sydney, and Toronto Pearson. This challenge is a simplified but structurally similar version of the problem they solve at Pearson.
 
 | Hackathon Concept           | Industry Analogue                                |
 | ---------------------------- | ------------------------------------------------- |
@@ -113,3 +113,12 @@ If there are no hard failures, your run earns a weighted soft score (lower is be
 - Flights left unassigned at the end of the simulation
 
 Every shipped scenario is guaranteed to be solvable with **zero** hard failures, so a correct solution can always avoid them. The final evaluator may use airport layouts and flight schedules that are different from the examples provided.
+
+---
+
+## Safety & Policy Resources
+
+- [IATA Airport Handling Manual (AHM)](https://www.iata.org/en/publications/manuals/ground-operations/) - the industry rulebook for ground handling
+- [IATA Ground Operations Manual (IGOM)](https://www.iata.org/en/publications/manuals/iata-ground-operations-manual/) - standard procedures for gate, ramp, and jetbridge work
+- [IATA Safety Audit for Ground Operations (ISAGO)](https://www.iata.org/en/programs/ops-infra/ground-operations/isago) - the safety audit ground handlers get certified against
+- ICAO Annex 14 - aerodrome and gate/apron design rules
