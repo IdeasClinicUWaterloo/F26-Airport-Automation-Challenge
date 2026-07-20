@@ -18,7 +18,7 @@ The physical sorting workstation consists of three primary components:
 2. **The Sensor Layer**: A camera mounted directly above the track to inspect passing cargo items.
 3. **The Control Brains**: An NVIDIA Jetson Nano handling the computer vision, connected via the network to an Opto22 Groov RIO PLC that commands the physical sorting hardware.
 
-![Physical Conveyor Testbed Layout](/baggage-handling/assets/conveyor.jpg)
+![Physical Conveyor Testbed Layout](/baggage-handling-system/assets/conveyor.jpg)
 *Figure 1: This is what the conveyor setup should look like when you arrive at it.*
 
 ### Network Architecture and MQTT Broker Specs
@@ -50,7 +50,7 @@ python3 -c "import cv2, pyzbar, paho.mqtt; print('\n[SYSTEM OK] Core tracking de
 
 If your environment is intact, the terminal will print the green-light `[SYSTEM OK]` status confirmation message. You are completely ready to proceed. If the terminal returns an ImportError, inform a teaching assistant or lab instructor to fix the issue.
 
-![NVIDIA Jetson Nano Edge Developer Kit](/baggage-handling/assets/jetson.jpg)
+![NVIDIA Jetson Nano Edge Developer Kit](/baggage-handling-system/assets/jetson.jpg)
 *Figure 3: The NVIDIA Jetson Nano device, responsible for vision and MQTT publishing.*
 
 ### 2. Exploring the Baseline Script (`barcode_scanner.py`)
@@ -72,7 +72,7 @@ The script tokenizes this raw string and maps it into a structured payload dicti
 
 ```
 
-![Overhead Camera Sensor Array](/baggage-handling/assets/camera.jpg)
+![Overhead Camera Sensor Array](/baggage-handling-system/assets/camera.jpg)
 *Figure 2: The camera that will be facing down at the conveyor belt.*
 
 ### 3. Launching the Vision Loop

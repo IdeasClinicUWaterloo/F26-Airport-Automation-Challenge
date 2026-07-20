@@ -1,4 +1,6 @@
-# SmartSort Conveyor Simulation Sandbox
+# SmartSort Conveyor Simulation
+
+![alt text](/baggage-handling-system/assets/smart_suite.png)
 
 ## Introduction
 
@@ -134,8 +136,12 @@ Every simulation run automatically generates a high-frequency event file named `
 python bsd_dashboard.py
 ```
 
+![alt text](/baggage-handling-system/assets/BSD.png)
+
 * **Interactive Scrubbing**: Use the horizontal timeline slider to instantly seek to any specific snapshot across the 3,600 ticks to isolate and inspect bottleneck points.
 * **Visual Status Legend**:
-* **Charcoal Grey Tracks**: Idle, empty conveyor lines.
-* **Safety Orange Tracks**: Active lines with moving baggage streams.
-* **Solid Crimson Red Tracks**: Broken conveyor segments currently experiencing active jams.
+    * **Charcoal Grey Tracks**: Idle, empty conveyor lines.
+    * **Safety Orange Tracks**: Active lines with moving baggage streams.
+    * **Solid Crimson Red Tracks**: Broken conveyor segments currently experiencing active jams.
+
+The current BSD is a very surface level implementation that can be improved extensively to have better UI/UX. This is an area your team can focus on improving.
