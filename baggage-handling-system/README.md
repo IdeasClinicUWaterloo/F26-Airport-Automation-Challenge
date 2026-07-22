@@ -57,8 +57,19 @@ Located in the [`barcode-conveyor/`](/baggage-handling-system/barcode-conveyor/)
     * **Hardware-Software Coordination:** Implement precise state-tracking tracking arrays and timing loops to accurately synchronize the delay window between a camera scan event and the physical firing of the downstream diverter mechanism.
     * **Logistical Edge Networking:** Design an logging framework that cross-references scanned data against sorting manifests, tracks scanner reliability data, or pipes live field sensor events upstream to an analytical logger.
 
+### 3: SecureBag, Luggage Visual Verification System
 
-### 3: Custom or Hybrid Systems
+Located in the [securebag](securebag) directory, this system addresses a documented security vulnerability: luggage tag switching, where tags are swapped between bags to route contraband onto flights through unsuspecting passengers.
+
+**Potential projects:**
+
+- Add bag weight as a third verification signal
+- Connect to a Raspberry Pi camera and barcode scanner to automate photo capture at each checkpoint
+- Build a live alert pipeline that notifies security staff when a bag is flagged
+- Extend the staff dashboard to show bag location across the handling system in real time
+
+
+### 4: Custom or Hybrid Systems
 
 Your team is welcome to step entirely outside the provided templates:
 
