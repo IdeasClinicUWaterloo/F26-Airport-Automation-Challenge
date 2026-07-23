@@ -4,11 +4,11 @@
 
 ## Challenge Overview
 
-Brock Solutions is a global engineering solutions and professional services company that designs, builds, and integrates large-scale automation software for transit, aviation, and industrial logistics. In any high-throughput sorting or material handling environment (such as an airport baggage handling system or a fulfillment center), multiple disciplines must converge: fast-moving mechanical transport, real-time control logic, edge sensor/vision tracking, and human-in-the-loop situational awareness dashboards.
+Brock Solutions is a global engineering solutions and professional services company that designs, builds, and integrates large-scale automation software for transit, aviation, and industrial logistics. In any high-throughput sorting or material handling environment, multiple disciplines must converge: fast-moving mechanical transport, real-time control logic, edge sensing and vision, and human-in-the-loop situational awareness dashboards.
 
-In a real airport terminal, a baggage conveyor system is a dynamic, high-volume logistical network. Sorting thousands of bags per hour requires real-time adaptations to handle distruptions like mechanical conveyor jams, variable line speeds, routing bottlenecks, and shifting flight gates.
+In a real airport terminal, a baggage handling system is a dynamic, high-volume logistical network. Sorting thousands of bags per hour requires coordinated control, reliable tracking, and clear operational visibility across the airport. This challenge provides a few starting points for approaching that space.
 
-This challenge focuses on the workings of **Baggage Handling Systems (BHS)**. You will have the opportunity to learn about the challenges that BHS systems deal with and design a solution to address them. You can use the provided tools to develop your solution or create a completely independent solution that focuses on BHS.
+The primary supported direction for this subproblem is **SecureBag**, which frames baggage handling as a visual identity and verification workflow. The secondary supported direction is the **barcode conveyor** environment, which focuses on physical routing with camera-based barcode capture and edge automation. A separate **BHS simulation** environment is also available for teams that want a more software-focused and algorithmic path.
 
 ---
 
@@ -26,82 +26,63 @@ A failure or inefficiency in any single layer compromises the entire facility. T
 
 ---
 
-## Potential Solutions
+## Supported Solution Paths
 
-To jump-start your project, this repository contains some potential solutions and solution paths that you may use. You are free to modify, expand, strip down, or combine these resources as you see fit.
+This repository includes a small set of starter environments that can be used as the foundation for a BHS project.
 
-### 1: The SmartSort Digital Twin & Simulation Sandbox
+### 1: SecureBag
 
-Located in the [`bhs-simulation/`](bhs-simulation) directory, this toolset provides a fully operational software-driven simulation environment modeling a complex 28-node airport baggage handling system across a multi-phase, 3,600-tick operational stress scenario. The environment simulates real-world complexities like dynamic conveyor line traffic congestion, unexpected mechanical breakdowns (jams), and strict delivery deadlines.
+Located in the [securebag](securebag) directory, this path centers on a visual bag verification workflow. Rather than starting from a conveyor control loop, it focuses on the airport's core operational challenge of confirming that the bag presented at the checkpoint is the same bag that was checked in.
 
-* **Provided Assets:**
-    * `evaluator.py`: The master simulation engine that runs the physics, tracking, and fault-injection loops of the conveyor network.
-    * `solution.py`: A functional, baseline graph-routing controller to guide baggage to destination gates.
-    * `bsd_dashboard.py`: A native 2D desktop application that parses simulation logs to provide smooth, tick-by-tick animated operational playbacks and interactive time scrubbing.
-
-* **Potential Projects:**
-    * **Algorithmic Pathfinding Optimization:** Replace the baseline script with a more intelligent algorithm that monitors live network telemetry to actively guide inventory around active jams and high-traffic bottlenecks to maximize on-time delivery.
-    * **Dashboard UI/UX & Analytical Overhaul:** Fork the pre-built visual dashboard or build an entirely new visual stack (using React, Dash, Pygame, etc.). Design a better dashboard that enhances operator visibility, tracks key performance indicators, predicts systemic wear-and-tear, or optimizes maintenance deployment.
-
-
-### 2: The Physical Vision-Guided Conveyor Testbed
-
-Located in the [`barcode-conveyor/`](barcode-conveyor) directory, this setup offers a hands-on hardware integration experience leveraging a physical sorting platform. The workspace models an industrial inspection and routing lane using a single conveyor loop, an adjustable mechanical diverter mechanism, and an overhead camera sensor.
-
-* **Provided Assets:**
-    * An NVIDIA Jetson Nano edge computing platform connected directly to the camera and sorting actuators, capable of executing standalone Python scripts.
-    * Baseline hardware interface access protocols, setup guides, and operational tutorials.
-
-* **Potential Projects:**
-    * **Computer Vision & Asset Tracking:** Develop real-time edge processing scripts on the Jetson Nano to capture video frames, isolate passing freight, and dynamically decode tracking barcodes or structural labels under varying operational speeds.
-    * **Hardware-Software Coordination:** Implement precise state-tracking tracking arrays and timing loops to accurately synchronize the delay window between a camera scan event and the physical firing of the downstream diverter mechanism.
-    * **Logistical Edge Networking:** Design an logging framework that cross-references scanned data against sorting manifests, tracks scanner reliability data, or pipes live field sensor events upstream to an analytical logger.
-
-### 3: SecureBag, Luggage Visual Verification System
-
-Located in the [securebag](securebag) directory, this system addresses a documented security vulnerability: luggage tag switching, where tags are swapped between bags to route contraband onto flights through unsuspecting passengers.
+SecureBag provides a practical foundation for exploring how visual evidence, bag metadata, and lightweight operational tooling can be combined to flag suspicious activity before a bag reaches the gate.
 
 **Potential projects:**
 
-- Add bag weight as a third verification signal
-- Connect to a Raspberry Pi camera and barcode scanner to automate photo capture at each checkpoint
-- Build a live alert pipeline that notifies security staff when a bag is flagged
-- Extend the staff dashboard to show bag location across the handling system in real time
+- Add a weight-based verification signal
+- Improve automation for checkpoint capture and scanning
+- Add stronger alerting and staff dashboard workflows
+- Expand the system to cover more of the baggage lifecycle
 
+### 2: Barcode Conveyor
 
-### 4: Custom or Hybrid Systems
+Located in the [`barcode-conveyor/`](barcode-conveyor) directory, this path provides a physical hardware and edge-computing setup centered on camera-driven barcode tracking and sorting logic. It is a strong option when a team wants to work more directly with live sensing, industrial hardware, and automation timing.
 
-Your team is welcome to step entirely outside the provided templates:
+This path is well suited to teams that want to build around object identification, conveyor control, and device-to-device communication in a more physical execution environment.
 
-* Build hybrid systems that bridge both environments (e.g., using physical input data streams from the conveyor hardware to drive or influence variables within the broader simulated network map).
-* Integrate alternative software suites, automation platforms, or protocols (such as Node-RED flow architectures, MQTT messaging brokers, or predictive maintenance databases).
-* Engineer a unique Industrial Internet of Things (IIoT), supply chain, or warehouse management prototype tailored around your own vision.   
+**Potential projects:**
+
+- Real-time barcode recognition and validation on the edge
+- Timing and state coordination between camera capture and diverter action
+- Operational dashboarding or logging built around scanner and routing telemetry
+
+## Optional Independent Paths
+
+### BHS Simulation
+
+Located in the [`bhs-simulation/`](bhs-simulation) directory, this environment offers a software-focused simulation of a larger baggage network. It is intended for teams that want to explore routing, algorithmic optimization, flow control, and dashboard-style analysis in a more abstract, data-driven setting.
+
+This path is available for teams who want a more software-heavy and algorithmic solution they can pursue independently.
+
+**Potential projects:**
+
+- More intelligent pathfinding around congestion and failures
+- Performance optimization and network-aware routing strategies
+- Dashboard or analytics improvements for operational visibility
+
+### Custom or Hybrid Systems
+
+You are welcome to step outside the provided templates and adapt the solution in your own direction. You may combine approaches, use live hardware input to influence broader network logic, or build a unique prototype that mixes simulation, sensing, and operational dashboards.
 
 ---
 
 ## Workspace Directory Structure
 
-The repository is organized into three project directories containing the baseline solutions you can start from:
+The repository is organized into a few project directories that represent the supported and some unsupported paths:
 
 ```text
 baggage-handling-system/
 │
 ├── README.md
-│
-└── barcode-conveyor/
-│   ├── README.md
-│   ├── barcode_scanner.py
-│   └── Node-Red Guide.docx
-│
-├── bhs-simulation/
-│   ├── README.md
-│   ├── generate_scenario.py
-│   ├── evaluator.py
-│   ├── solution.py
-│   ├── bsd_dashboard.py
-│   └── data/
-│       ├── network_layout.json
-│       └── simulation_scenario.json
 │
 ├── securebag/
 │   ├── README.md
@@ -109,7 +90,21 @@ baggage-handling-system/
 │   ├── app.py
 │   ├── bag_compare.py
 │   └── bags.json
-
+│
+├── barcode-conveyor/
+│   ├── README.md
+│   ├── barcode_scanner.py
+│   └── Node-Red Guide.docx
+│
+└── bhs-simulation/
+    ├── README.md
+    ├── generate_scenario.py
+    ├── evaluator.py
+    ├── solution.py
+    ├── bsd_dashboard.py
+    └── data/
+        ├── network_layout.json
+        └── simulation_scenario.json
 ```
 ## Useful Resources
 
