@@ -46,6 +46,8 @@ An Air Traffic Control system manages the safe separation and sequencing of airc
 
 Airport systems often communicate through message streams. In a real airport, this may involve queues, event streams, or integration middleware. For this challenge, some subproblems may provide simplified JSON messages or simulator data so that you can focus on the logic of your solution.
 
+BHS, DCS, GMS, and ATC are all message driven operations that exist as peer systems, working together and exchanging messages with each other to maintain safe and reliable operation at airports.
+
 ---
 
 # Subproblems
