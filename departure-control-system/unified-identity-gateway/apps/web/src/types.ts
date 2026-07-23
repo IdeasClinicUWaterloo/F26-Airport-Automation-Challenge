@@ -33,6 +33,8 @@ export interface Document {
   confidenceScore: number;
   issues: string[];
   status: string;
+  faceMatchPassed: boolean;
+  faceMatchScore: number | null;
 }
 
 export interface Bag {

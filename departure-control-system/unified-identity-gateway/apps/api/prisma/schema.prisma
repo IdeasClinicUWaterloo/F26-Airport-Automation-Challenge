@@ -63,6 +63,8 @@ model Document {
   confidenceScore Int
   issues          String[]  @default([])
   status          String
+  faceMatchPassed Boolean   @default(false)
+  faceMatchScore  Float?
   passenger       Passenger @relation(fields: [passengerId], references: [id])
 }
 

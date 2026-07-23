@@ -26,7 +26,8 @@ export function validateDocument(
   bookingFullName: string,
   destination: string,
   departureTimeIso: string,
-  extraCheckDestinations: string[]
+  extraCheckDestinations: string[],
+  faceMatchPassed: boolean
 ): DocumentValidationResult {
   const hardIssues: string[] = [];
   const softIssues: string[] = [];
@@ -39,6 +40,10 @@ export function validateDocument(
   const departure = Date.parse(departureTimeIso);
   if (Number.isNaN(expiry) || expiry <= departure) {
     hardIssues.push('document_expired');
+  }
+
+  if (!faceMatchPassed) {
+    hardIssues.push('face_match_failed');
   }
 
   const confidenceScore = calculateConfidenceScore(doc);

@@ -17,6 +17,8 @@ const documentSchema = z.object({
   dob: isoDateString,
   nationality: z.string(),
   expiryDate: isoDateString,
+  faceMatchPassed: z.boolean(),
+  faceMatchScore: z.number().nullable(),
 });
 
 export async function documentRoutes(app: FastifyInstance) {
@@ -35,7 +37,8 @@ export async function documentRoutes(app: FastifyInstance) {
       `${passenger.firstName} ${passenger.lastName}`,
       passenger.flight.destination,
       passenger.flight.departureTime.toISOString(),
-      EXTRA_CHECK_DESTINATIONS
+      EXTRA_CHECK_DESTINATIONS,
+      parsed.data.faceMatchPassed
     );
 
     await prisma.document.upsert({
@@ -50,6 +53,8 @@ export async function documentRoutes(app: FastifyInstance) {
         confidenceScore: result.confidenceScore,
         issues: result.issues,
         status: result.status,
+        faceMatchPassed: parsed.data.faceMatchPassed,
+        faceMatchScore: parsed.data.faceMatchScore,
       },
       update: {
         passportNumber: parsed.data.passportNumber,
@@ -60,6 +65,8 @@ export async function documentRoutes(app: FastifyInstance) {
         confidenceScore: result.confidenceScore,
         issues: result.issues,
         status: result.status,
+        faceMatchPassed: parsed.data.faceMatchPassed,
+        faceMatchScore: parsed.data.faceMatchScore,
       },
     });
 

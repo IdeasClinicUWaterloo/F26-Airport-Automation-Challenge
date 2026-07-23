@@ -7,6 +7,7 @@ describe('UIG API smoke test', () => {
   let flightId: string;
   let passengerId: string;
   let passengerId2: string;
+  let passengerId3: string;
   let seatId: string;
 
   beforeAll(async () => {
@@ -34,13 +35,18 @@ describe('UIG API smoke test', () => {
       data: { bookingRef: 'SMOKE2', firstName: 'Test', lastName: 'Smoke2', flightId },
     });
     passengerId2 = passenger2.id;
+    const passenger3 = await prisma.passenger.create({
+      data: { bookingRef: 'SMOKE3', firstName: 'Test', lastName: 'Smoke3', flightId },
+    });
+    passengerId3 = passenger3.id;
   });
 
   afterAll(async () => {
-    await prisma.auditLog.deleteMany({ where: { passengerId: { in: [passengerId, passengerId2] } } });
-    await prisma.boardingPass.deleteMany({ where: { passengerId: { in: [passengerId, passengerId2] } } });
-    await prisma.bag.deleteMany({ where: { passengerId: { in: [passengerId, passengerId2] } } });
-    await prisma.document.deleteMany({ where: { passengerId: { in: [passengerId, passengerId2] } } });
+    const allIds = [passengerId, passengerId2, passengerId3];
+    await prisma.auditLog.deleteMany({ where: { passengerId: { in: allIds } } });
+    await prisma.boardingPass.deleteMany({ where: { passengerId: { in: allIds } } });
+    await prisma.bag.deleteMany({ where: { passengerId: { in: allIds } } });
+    await prisma.document.deleteMany({ where: { passengerId: { in: allIds } } });
     await prisma.seat.deleteMany({ where: { flightId } });
     await prisma.passenger.deleteMany({ where: { flightId } });
     await prisma.flight.deleteMany({ where: { id: flightId } });
@@ -58,6 +64,8 @@ describe('UIG API smoke test', () => {
         dob: '1990-01-01',
         nationality: 'US',
         expiryDate: '2035-01-01',
+        faceMatchPassed: true,
+        faceMatchScore: 0.32,
       },
     });
     expect(docRes.statusCode).toBe(200);
@@ -93,6 +101,8 @@ describe('UIG API smoke test', () => {
         dob: '1990-01-01',
         nationality: 'US',
         expiryDate: '2035-01-01',
+        faceMatchPassed: true,
+        faceMatchScore: 0.32,
       },
     });
     expect(docRes.json().checkInStatus).toBe('CLEARED');
@@ -117,6 +127,8 @@ describe('UIG API smoke test', () => {
         dob: '1990-01-01',
         nationality: 'US',
         expiryDate: '2035-01-01',
+        faceMatchPassed: true,
+        faceMatchScore: 0.32,
       },
     });
     expect(docRes.json().checkInStatus).toBe('BLOCKED');
@@ -132,6 +144,25 @@ describe('UIG API smoke test', () => {
 
     const auditRes = await app.inject({ method: 'GET', url: `/passengers/${passengerId2}/audit-log` });
     expect(auditRes.json()).toHaveLength(1);
+  });
+
+  it('blocks a passenger with an otherwise-clean document when face match fails', async () => {
+    const docRes = await app.inject({
+      method: 'POST',
+      url: `/passengers/${passengerId3}/document`,
+      payload: {
+        passportNumber: 'A1234567',
+        fullName: 'Test Smoke3',
+        dob: '1990-01-01',
+        nationality: 'US',
+        expiryDate: '2035-01-01',
+        faceMatchPassed: false,
+        faceMatchScore: 0.91,
+      },
+    });
+    expect(docRes.statusCode).toBe(200);
+    expect(docRes.json().checkInStatus).toBe('BLOCKED');
+    expect(docRes.json().document.issues).toContain('face_match_failed');
   });
 
   it('lists flights including the throwaway test flight', async () => {

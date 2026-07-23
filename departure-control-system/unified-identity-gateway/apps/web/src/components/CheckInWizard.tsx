@@ -3,6 +3,7 @@ import { api, formatApiError } from '../api';
 import { StatusBadge } from './StatusBadge';
 import { BoardingPassCard } from './BoardingPassCard';
 import { SeatMap } from './SeatMap';
+import { DocumentCapture, type DocumentCaptureResult } from './DocumentCapture';
 import type { Passenger, SeatmapSeat } from '../types';
 
 export function CheckInWizard({ passenger: initial, onBack }: { passenger: Passenger; onBack?: () => void }) {
@@ -12,6 +13,7 @@ export function CheckInWizard({ passenger: initial, onBack }: { passenger: Passe
   const [bagWeights, setBagWeights] = useState<number[]>([20]);
   const [error, setError] = useState<string | null>(null);
   const [docSaved, setDocSaved] = useState(false);
+  const [showCapture, setShowCapture] = useState(false);
   const [bagsSaved, setBagsSaved] = useState(false);
   const [doc, setDoc] = useState({
     passportNumber: '',
@@ -30,12 +32,18 @@ export function CheckInWizard({ passenger: initial, onBack }: { passenger: Passe
     }
   }
 
-  async function submitDocument(e: React.FormEvent) {
+  function openDocumentCapture(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     setDocSaved(false);
+    setShowCapture(true);
+  }
+
+  async function completeDocumentCapture(result: DocumentCaptureResult) {
+    setShowCapture(false);
+    setError(null);
     try {
-      const updated = await api.submitDocument(passenger.id, doc);
+      const updated = await api.submitDocument(passenger.id, { ...doc, ...result });
       setPassenger(updated);
       setDocSaved(true);
     } catch (err) {
@@ -116,7 +124,8 @@ export function CheckInWizard({ passenger: initial, onBack }: { passenger: Passe
       {error && <p className="issue-list">{error}</p>}
 
       <h3>1. Document</h3>
-      <form className="step" onSubmit={submitDocument}>
+      {showCapture && <DocumentCapture onComplete={completeDocumentCapture} onCancel={() => setShowCapture(false)} />}
+      <form className="step" onSubmit={openDocumentCapture}>
         <label htmlFor="passportNumber">Passport number</label>
         <input
           id="passportNumber"
