@@ -4,15 +4,15 @@
 
 ## Introduction
 
-The toolkit models an airport baggage handling system (BHS) controlled by a High-Level Control (HLC) framework. The environment presents a realistic sandbox for testing how software reacts to fluid physical constraints: unexpected hardware breakdowns, compounding traffic density delays, and strict delivery windows.
+This toolkit models an airport baggage handling system (BHS) controlled by a High-Level Control (HLC) framework. The environment presents a realistic sandbox for testing how software reacts to fluid physical constraints: unexpected hardware breakdowns, compounding traffic density delays, and strict delivery windows.
 
-You can use these utilities to explore backend algorithmic optimization, engineer advanced predictive metrics, or completely overhaul the operator dashboard to maximize system visibility.
+You can use these utilities to explore backend algorithmic optimization, engineer advanced predictive metrics, or completely overhaul the operator dashboard.
 
 ---
 
 ## System Architecture and Geography
 
-The simulated airport infrastructure is represented as a directed network graph configured within `data/network_layout.json`.
+The simulated airport infrastructure is represented as a directed network graph configured within [`data/network_layout.json`](data/network_layout.json).
 
 ### Graph Topology Configuration
 
@@ -103,6 +103,8 @@ def route_bag(bag_id, current_node, destination_gate, active_faults, edge_occupa
 
 ```
 
+A sample solution has been provided with a basic BFS implementation. This algorithm is highly unoptimized but can still route all bags (though not all on time). You can improve the algorithm within the route_bag function to increase the efficiency of the system.
+
 ### Safety and Exception Rules
 
 The simulator enforces strict system rules. Triggering any of the following boundary conditions results in a **Hard Failure** and immediate simulation termination:
@@ -117,7 +119,7 @@ The simulator enforces strict system rules. Triggering any of the following boun
 
 ### 1. Running the Simulation Loop
 
-To run the evaluation cycle, execute the master engine script. By default, it imports your `solution.py` module and processes the scenario:
+To run the evaluation cycle, execute the master engine script. By default, it imports your `solution.py` module and processes the scenario. From the bhs-simulation folder, simply run the script:
 
 ```bash
 python evaluator.py
