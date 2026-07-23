@@ -16,6 +16,8 @@ Modern airports rely on many connected software systems to keep passengers, airc
 
 In this challenge, your team has been invited to prototype a software or software-adjacent solution for an airport automation problem. Your solution should be realistic enough to connect to airport operations, but focused enough to prototype during the challenge.
 
+The airport of interest is Toronto Pearson International Airport (YYZ). Your solutions can center around problems faced by them.
+
 You are encouraged to think like an airport systems engineer: handle messy data, think about safety and reliability, consider real operational constraints, and design something that could eventually integrate into a larger airport system.
 
 ---
