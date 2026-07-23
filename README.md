@@ -26,25 +26,27 @@ You are encouraged to think like an airport systems engineer: handle messy data,
 
 Before choosing a subproblem, you should understand a few airport system concepts.
 
-## BHS — Baggage Handling System
+## BHS (Baggage Handling System)
 
 A Baggage Handling System tracks, routes, diverts, and sorts bags through conveyors, scanners, carousels, and make-up areas. These systems must be reliable because one wrong routing decision can delay a passenger, flight, or entire baggage pier.
 
-## DCS — Departure Control System
+## DCS (Departure Control System)
 
 A Departure Control System manages passenger check-in, boarding, flight closeout, and aircraft readiness data. DCS-style messages may include flight numbers, aircraft types, departure stations, arrival stations, passenger/cargo context, and timing updates.
 
-## GMS — Gate Management System
+## GMS (Gate Management System)
 
 A Gate Management System helps airports assign aircraft to gates while considering gate availability, aircraft size, passenger convenience, international/domestic rules, cargo restrictions, and disruptions such as delays or outages.
 
-## ATC — Air Traffic Control
+## ATC (Air Traffic Control)
 
 An Air Traffic Control system manages the safe separation and sequencing of aircraft through taxiways, runways, and airspace sectors. ATC data includes aircraft callsigns, positions, altitudes, flight plan routes, speed and heading instructions, and handoff messages between sectors. 
 
 ## Message-Driven Airport Operations
 
 Airport systems often communicate through message streams. In a real airport, this may involve queues, event streams, or integration middleware. For this challenge, some subproblems may provide simplified JSON messages or simulator data so that you can focus on the logic of your solution.
+
+BHS, DCS, GMS, and ATC are all message driven operations that exist as peer systems, working together and exchanging messages with each other to maintain safe and reliable operation at airports.
 
 ---
 
@@ -189,15 +191,44 @@ Your prototype may be:
 
 You will be evaluated on the following categories.
 
-| Category              | What Judges Are Looking For                                                    |
-| --------------------- | ------------------------------------------------------------------------------ |
-| Problem Understanding | Clear connection to airport operations and real constraints                    |
-| Functionality         | Prototype works on the provided scenario or demonstrates the core idea         |
-| Reliability           | Handles missing data, invalid states, edge cases, or failure modes             |
-| Optimization          | Makes thoughtful tradeoffs around time, cost, distance, safety, or efficiency  |
-| Safety and Security   | Considers operational safety, access control, privacy, or security constraints |
-| Creativity            | Uses an interesting or practical approach                                      |
-| Presentation          | Clearly explains the system, decisions, limitations, and next steps            |
+### Ideation
+
+| Category      | What Judges Are Looking For                             | Score |
+| ------------- | --------------------------------------------------------- | ----- |
+| Relevance     | How relevant is the solution to the problem space?         | /3    |
+| Reasonability | How reasonable is the solution?                            | /3    |
+| Impact        | How positively does the idea impact stakeholders?           | /3    |
+
+### Feasibility
+
+| Category     | What Judges Are Looking For                                                  | Score |
+| ------------- | ----------------------------------------------------------------------------- | ----- |
+| Cost          | Is the cost to build and run the solution realistic?                          | /3    |
+| ROI           | Can productivity be increased greatly by building the solution? Is it worth the cost? | /3 |
+| Practicality  | Can this be integrated in a factory setting?                                   | /3    |
+| Reliability   | Does this solution have low downtime?                                          | /3    |
+
+### Prototype Execution
+
+| Category                | What Judges Are Looking For                                | Score |
+| ------------------------ | ------------------------------------------------------------ | ----- |
+| Functionality            | At time of judging, how functional is the prototype?         | /8    |
+| Quality of Manufacturing | At time of judging, how well manufactured is the prototype?  | /3    |
+
+### Safety & Regulations
+
+| Category                     | What Judges Are Looking For                                                                  | Score |
+| ----------------------------- | ----------------------------------------------------------------------------------------------- | ----- |
+| Employee / Operator Safety   | Does the design account for risks to workers/users (ergonomics, exposure, radiation safety)?    | /3    |
+| Regulatory Awareness          | Has the team identified relevant Canadian regulations (Canadian Air Transport Security Authority (CATSA) etc.)? | /3 |
+
+### Demo/Pitch/Presentation
+
+| Category | What Judges Are Looking For                                                                                    | Score |
+| -------- | ------------------------------------------------------------------------------------------------------------- | ----- |
+| Clarity  | How clear was the presentation in terms of explanation?                                                        | /5    |
+| Depth    | Was the extent of the team's knowledge thoroughly expressed?                                                   | /5    |
+| Demo     | How well designed was the demonstration - was it an impactful way to demonstrate what they tried to accomplish? | /5   |
 
 For coding subproblems, hidden test cases may be used to evaluate whether your solution generalizes beyond the sample data.
 
