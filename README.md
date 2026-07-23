@@ -113,6 +113,8 @@ This subproblem emphasizes state management, data interpretation, estimation, fi
 
 ## 4. [Departure Control System](departure-control-system/README.md)
 
+![alt text](images/dcs.png)
+
 A Departure Control System (DCS) runs the departure side of an airline operation: check-in, identity and document verification, baggage acceptance, boarding pass issuance, boarding control, and weight and balance (load control).
 
 Your challenge is to pick a piece of the DCS pipeline - check-in, identity/document verification, baggage tracking, load balancing, boarding control, or the dashboard tying it together - and build a real solution to it. Narrow and complete beats broad and shallow.
