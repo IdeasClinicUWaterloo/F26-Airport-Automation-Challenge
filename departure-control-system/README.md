@@ -20,6 +20,8 @@ Airline departure operations run on systems that must stay in sync - passenger r
 
 A DCS sits at the center: it takes in passenger and booking data, runs check-in, accepts bags, validates documents, issues boarding passes, tracks boarding, and feeds load control, continuously.
 
+A key part of DCS is passenger processing: moving passengers from check-in to the aircraft while ensuring each step is completed correctly. This includes identity and document verification, baggage acceptance, boarding pass issuance, security and boarding status updates, and handling exceptions such as invalid travel documents or passengers requiring manual review. Rather than operating as isolated checkpoints, these processes feed into the Departure Control System, giving airline and airport staff a single, continuously updated view of passenger readiness and flight status.
+
 The industry is shifting from rule-based, manually supervised processing toward predictive, AI-assisted processing: estimating bag counts, spotting group patterns, flagging no-show risk, recommending load adjustments before problems show up at the gate.
 
 **Real systems that solve this problem:** Brock Solutions SmartSuite Enterprise, SITA Horizon DCS, Amadeus Altéa Departure Control. Yours will be much smaller, but the underlying ideas are the same.

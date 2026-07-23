@@ -253,3 +253,50 @@ button:disabled { background: #c6cdd8; border-color: #c6cdd8; cursor: not-allowe
 .bag-tag > div { display: flex; flex-direction: column; gap: 2px; }
 .bag-tag .field-value { font-family: 'SF Mono', 'Roboto Mono', monospace; font-weight: 700; }
 .bag-tag .overweight { color: #a41e1e; font-weight: 700; }
+
+.document-capture-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 22, 40, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+.document-capture-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  max-width: 460px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.document-capture-card h3 { margin-top: 0; }
+.document-capture-video-wrap { margin: 12px 0; }
+.document-capture-video {
+  width: 100%;
+  max-height: 320px;
+  border-radius: 8px;
+  background: var(--navy-950);
+  object-fit: cover;
+}
+.document-capture-thumb {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  margin: 8px 8px 8px 0;
+}
+.document-capture-previews { display: flex; flex-wrap: wrap; }
+.document-capture-cancel {
+  display: block;
+  margin-top: 16px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.document-capture-cancel:hover:not(:disabled) { background: #f6f8fb; color: var(--text); }

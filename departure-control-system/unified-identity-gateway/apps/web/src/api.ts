@@ -44,8 +44,18 @@ export const api = {
   lookupPassenger: (bookingRef: string, lastName: string) =>
     request<Passenger>(`/passengers/lookup?bookingRef=${encodeURIComponent(bookingRef)}&lastName=${encodeURIComponent(lastName)}`),
   getPassenger: (id: string) => request<Passenger>(`/passengers/${id}`),
-  submitDocument: (id: string, doc: { passportNumber: string; fullName: string; dob: string; nationality: string; expiryDate: string }) =>
-    request<Passenger>(`/passengers/${id}/document`, { method: 'POST', body: JSON.stringify(doc) }),
+  submitDocument: (
+    id: string,
+    doc: {
+      passportNumber: string;
+      fullName: string;
+      dob: string;
+      nationality: string;
+      expiryDate: string;
+      faceMatchPassed: boolean;
+      faceMatchScore: number | null;
+    }
+  ) => request<Passenger>(`/passengers/${id}/document`, { method: 'POST', body: JSON.stringify(doc) }),
   confirmSeat: (id: string, seatId: string) =>
     request<Passenger>(`/passengers/${id}/seat`, { method: 'POST', body: JSON.stringify({ seatId }) }),
   declareBags: (id: string, bags: { weightKg: number }[]) =>
