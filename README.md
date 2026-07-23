@@ -127,16 +127,6 @@ Two implemented examples are included to show expected scope and depth:
 
 ---
 
-## 5. [Passenger Monitoring & Processing](passenger-monitoring-and-processing/README.md)
-
-Airports process thousands of passengers and bags per hour across multiple checkpoints - check-in, baggage drop, security, boarding, and carousel collection. Each handoff is a potential point of failure: delays, misrouted bags, congestion, and security gaps all have real operational and safety consequences.
-
-Your challenge is to design a solution addressing passenger flow, asset security, or accessible processing at these checkpoints.
-
-An implemented example, **[SecureBag](passenger-monitoring-and-processing/securebag/)**, addresses luggage tag-switching (a real security vulnerability used to route contraband onto flights through unsuspecting passengers) via visual bag verification. Other directions include passenger flow/congestion monitoring and accessible passenger processing.
-
----
-
 # Provided Materials
 
 Depending on the subproblem, you may be given:
