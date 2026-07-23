@@ -16,6 +16,8 @@ Modern airports rely on many connected software systems to keep passengers, airc
 
 In this challenge, your team has been invited to prototype a software or software-adjacent solution for an airport automation problem. Your solution should be realistic enough to connect to airport operations, but focused enough to prototype during the challenge.
 
+The airport of interest is Toronto Pearson International Airport (YYZ). Your solutions can center around problems faced by them.
+
 You are encouraged to think like an airport systems engineer: handle messy data, think about safety and reliability, consider real operational constraints, and design something that could eventually integrate into a larger airport system.
 
 ---
@@ -124,16 +126,6 @@ Two implemented examples are included to show expected scope and depth:
 
 * **[Unified Identity Gateway](departure-control-system/unified-identity-gateway/)** - identity verification, document checks, and boarding pass issuance as a single check-in flow
 * **[Load Control](departure-control-system/load-control/)** - a MILP-based weight-and-balance optimizer that assigns cargo and passenger load to aircraft zones to hit a target center of gravity within structural limits
-
----
-
-## 5. [Passenger Monitoring & Processing](passenger-monitoring-and-processing/README.md)
-
-Airports process thousands of passengers and bags per hour across multiple checkpoints - check-in, baggage drop, security, boarding, and carousel collection. Each handoff is a potential point of failure: delays, misrouted bags, congestion, and security gaps all have real operational and safety consequences.
-
-Your challenge is to design a solution addressing passenger flow, asset security, or accessible processing at these checkpoints.
-
-An implemented example, **[SecureBag](passenger-monitoring-and-processing/securebag/)**, addresses luggage tag-switching (a real security vulnerability used to route contraband onto flights through unsuspecting passengers) via visual bag verification. Other directions include passenger flow/congestion monitoring and accessible passenger processing.
 
 ---
 
