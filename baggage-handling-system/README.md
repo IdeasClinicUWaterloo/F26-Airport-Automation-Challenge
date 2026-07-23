@@ -32,7 +32,7 @@ To jump-start your project, this repository contains some potential solutions an
 
 ### 1: The SmartSort Digital Twin & Simulation Sandbox
 
-Located in the [`bhs-simulation/`](/baggage-handling-system/bhs-simulation/) directory, this toolset provides a fully operational software-driven simulation environment modeling a complex 28-node airport baggage handling system across a multi-phase, 3,600-tick operational stress scenario. The environment simulates real-world complexities like dynamic conveyor line traffic congestion, unexpected mechanical breakdowns (jams), and strict delivery deadlines.
+Located in the [`bhs-simulation/`](bhs-simulation) directory, this toolset provides a fully operational software-driven simulation environment modeling a complex 28-node airport baggage handling system across a multi-phase, 3,600-tick operational stress scenario. The environment simulates real-world complexities like dynamic conveyor line traffic congestion, unexpected mechanical breakdowns (jams), and strict delivery deadlines.
 
 * **Provided Assets:**
     * `evaluator.py`: The master simulation engine that runs the physics, tracking, and fault-injection loops of the conveyor network.
@@ -46,7 +46,7 @@ Located in the [`bhs-simulation/`](/baggage-handling-system/bhs-simulation/) dir
 
 ### 2: The Physical Vision-Guided Conveyor Testbed
 
-Located in the [`barcode-conveyor/`](/baggage-handling-system/barcode-conveyor/) directory, this setup offers a hands-on hardware integration experience leveraging a physical sorting platform. The workspace models an industrial inspection and routing lane using a single conveyor loop, an adjustable mechanical diverter mechanism, and an overhead camera sensor.
+Located in the [`barcode-conveyor/`](barcode-conveyor) directory, this setup offers a hands-on hardware integration experience leveraging a physical sorting platform. The workspace models an industrial inspection and routing lane using a single conveyor loop, an adjustable mechanical diverter mechanism, and an overhead camera sensor.
 
 * **Provided Assets:**
     * An NVIDIA Jetson Nano edge computing platform connected directly to the camera and sorting actuators, capable of executing standalone Python scripts.
@@ -81,12 +81,17 @@ Your team is welcome to step entirely outside the provided templates:
 
 ## Workspace Directory Structure
 
-The repository is organized into two project directories containing the baseline solutions you can start from:
+The repository is organized into three project directories containing the baseline solutions you can start from:
 
 ```text
 baggage-handling-system/
 │
 ├── README.md
+│
+└── barcode-conveyor/
+│   ├── README.md
+│   ├── barcode_scanner.py
+│   └── Node-Red Guide.docx
 │
 ├── bhs-simulation/
 │   ├── README.md
@@ -98,10 +103,12 @@ baggage-handling-system/
 │       ├── network_layout.json
 │       └── simulation_scenario.json
 │
-└── barcode-conveyor/
-    ├── README.md
-    ├── barcode_scanner.py
-    └── Node-Red Guide.docx
+├── securebag/
+│   ├── README.md
+│   ├── sample_img/
+│   ├── app.py
+│   ├── bag_compare.py
+│   └── bags.json
 
 ```
 ## Useful Resources
