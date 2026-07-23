@@ -26,19 +26,19 @@ You are encouraged to think like an airport systems engineer: handle messy data,
 
 Before choosing a subproblem, you should understand a few airport system concepts.
 
-## BHS — Baggage Handling System
+## BHS (Baggage Handling System)
 
 A Baggage Handling System tracks, routes, diverts, and sorts bags through conveyors, scanners, carousels, and make-up areas. These systems must be reliable because one wrong routing decision can delay a passenger, flight, or entire baggage pier.
 
-## DCS — Departure Control System
+## DCS (Departure Control System)
 
 A Departure Control System manages passenger check-in, boarding, flight closeout, and aircraft readiness data. DCS-style messages may include flight numbers, aircraft types, departure stations, arrival stations, passenger/cargo context, and timing updates.
 
-## GMS — Gate Management System
+## GMS (Gate Management System)
 
 A Gate Management System helps airports assign aircraft to gates while considering gate availability, aircraft size, passenger convenience, international/domestic rules, cargo restrictions, and disruptions such as delays or outages.
 
-## ATC — Air Traffic Control
+## ATC (Air Traffic Control)
 
 An Air Traffic Control system manages the safe separation and sequencing of aircraft through taxiways, runways, and airspace sectors. ATC data includes aircraft callsigns, positions, altitudes, flight plan routes, speed and heading instructions, and handoff messages between sectors. 
 
