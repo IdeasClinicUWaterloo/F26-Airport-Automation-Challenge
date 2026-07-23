@@ -31,7 +31,7 @@ def find_shortest_path(waypoints, start, goal, blocked=None):
 
     nodes = [w for w in waypoints if w not in blocked]
 
-    distances = {node: math_inf() for node in nodes}
+    distances = {node: float("inf") for node in nodes}
     previous = {node: None for node in nodes}
     distances[start] = 0.0
 
@@ -60,7 +60,7 @@ def find_shortest_path(waypoints, start, goal, blocked=None):
                 previous[neighbor] = node
                 heapq.heappush(queue, (candidate, neighbor))
 
-    if distances.get(goal, math_inf()) == math_inf():
+    if distances.get(goal, float("inf")) == float("inf"):
         return None, None
 
     path = []
@@ -71,10 +71,6 @@ def find_shortest_path(waypoints, start, goal, blocked=None):
     path.reverse()
 
     return path, distances[goal]
-
-
-def math_inf():
-    return float("inf")
 
 
 def suggest_reroute(waypoints, current_hypothesis, blocked):
