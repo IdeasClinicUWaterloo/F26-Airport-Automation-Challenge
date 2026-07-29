@@ -2,27 +2,33 @@ import math
 from datetime import datetime
 
 EARTH_RADIUS_M = 6371e3
+KNOTS_TO_MPS = 0.514444
 
 
 def destination_point(lat, lon, bearing_deg, distance_m):
-    """Standard spherical destination-point formula: where do you end up
-    starting at (lat, lon), heading `bearing_deg`, for `distance_m` meters.
-    A free function (rather than a DeadReckoning method) since it doesn't
-    depend on any tracked aircraft state -- used by the simulator to generate
-    ground truth and by the visualizer to draw uncertainty ellipses."""
+    """
+    Answers: if I start here and fly this heading for this far, where do I end up?
+
+    This is a free function rather than a DeadReckoning method because it doesn't
+    need to know anything about a particular aircraft, which makes it reusable
+    by the tracker and the visualizer.
+    """
 
     phi1 = math.radians(lat)
     lambda1 = math.radians(lon)
     theta = math.radians(bearing_deg)
-    delta = distance_m / EARTH_RADIUS_M
+    angular_distance = distance_m / EARTH_RADIUS_M
 
     phi2 = math.asin(
-        math.sin(phi1) * math.cos(delta) + math.cos(phi1) * math.sin(delta) * math.cos(theta)
+        math.sin(phi1) * math.cos(angular_distance)
+        + math.cos(phi1) * math.sin(angular_distance) * math.cos(theta)
     )
+
     lambda2 = lambda1 + math.atan2(
-        math.sin(theta) * math.sin(delta) * math.cos(phi1),
-        math.cos(delta) - math.sin(phi1) * math.sin(phi2),
+        math.sin(theta) * math.sin(angular_distance) * math.cos(phi1),
+        math.cos(angular_distance) - math.sin(phi1) * math.sin(phi2)
     )
+
     return math.degrees(phi2), (math.degrees(lambda2) + 540) % 360 - 180
 
 
@@ -42,12 +48,19 @@ class DeadReckoning:
             "lat": message["lat"],
             "lon": message["lon"]
         }
-        self.current_speed_mps = message["ground_speed"] * 0.514444 # convert from knots to m/s
+        self.current_speed_mps = message["ground_speed"] * KNOTS_TO_MPS
         self.current_heading = message["heading"]
         self.last_timestamp = datetime.fromisoformat(message["timestamp"])
 
     def predict_at(self, timestamp: str):
-        """Predict position at a later timestamp."""
+        """
+        Predict position at a later timestamp.
+
+        Returns None if we have nothing to predict from, or if the timestamp is
+        in the past. Going backwards isn't an error worth crashing over -- late
+        messages are expected in this challenge, and the caller decides what to
+        do about them.
+        """
 
         if self.current_position is None:
             return None
@@ -56,7 +69,7 @@ class DeadReckoning:
         delta_t = (target_time - self.last_timestamp).total_seconds()
 
         if delta_t < 0:
-            raise ValueError("Cannot predict backwards in time")
+            return None
 
         return self.predict(
             self.current_position["lat"],
@@ -66,30 +79,14 @@ class DeadReckoning:
 
     def predict(self, lat1, lon1, delta_t):
         """
-        Predicts the position of the aircraft after delta_t seconds.
+        Predicts the position of the aircraft after delta_t seconds,
+        assuming it holds its current speed and heading.
+        """
 
-        First, it finds the distance, then uses formulas
-        with distance and original lat and lon to find the new position."""
+        distance_m = self.current_speed_mps * delta_t
+        lat, lon = destination_point(lat1, lon1, self.current_heading, distance_m)
 
-        phi1 = math.radians(lat1)
-        lambda1 = math.radians(lon1)
-
-        dist = self.current_speed_mps * delta_t
-        heading = math.radians(self.current_heading)
-        angular_distance = dist/self.earth_radius
-
-        phi2 = math.asin( math.sin(phi1) * math.cos(angular_distance)
-                + math.cos(phi1) * math.sin(angular_distance) * math.cos(heading)
-        )
-
-        lambda2 = lambda1 + math.atan2(math.sin(heading) * math.sin(angular_distance)
-                    * math.cos(phi1) , math.cos(angular_distance)
-                    - math.sin(phi1) * math.sin(phi2))
-
-        return {
-            "lat": math.degrees(phi2),
-            "lon": (math.degrees(lambda2) + 540) % 360 - 180
-        }
+        return {"lat": lat, "lon": lon}
 
     def find_distance(self, lat1, lon1, lat2, lon2):
         """
