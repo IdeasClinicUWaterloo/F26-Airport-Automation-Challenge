@@ -1,38 +1,25 @@
-"""
-Synthetic scenario generator.
-
-Real ATC messages never come with a ground-truth answer key, which makes it
-hard to tell whether the tracker is actually working. This module generates
-a known-correct flight (straight legs between waypoints, climb/descent
-altitude profile) and derives a realistic message stream from it: Gaussian
-sensor noise, dropped messages, a couple delivered out of order, one
-deliberately corrupted message, and one route update that genuinely
-contradicts an already-confirmed waypoint -- so every advanced-tracking
-feature (EKF fusion, innovation-based anomaly flagging, late-message
-correction, multi-hypothesis branching) has something to visibly react to.
-"""
+"""Generate a known flight and a noisy message stream for accuracy testing."""
 
 import json
 import random
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from dead_reckoning import DeadReckoning, destination_point
 
 _dr = DeadReckoning()
 
 DEFAULT_ROUTE = ["YYZ", "WP001", "WP002", "OMAHA", "DEN"]
+DEFAULT_WAYPOINTS = Path(__file__).resolve().parent.parent / "data" / "route.json"
 
 
-def load_waypoints(path="air-traffic-control/data/route.json"):
+def load_waypoints(path=DEFAULT_WAYPOINTS):
     with open(path) as f:
         return json.load(f)["waypoints"]
 
 
 def build_ground_truth(waypoints, route, start_time, cruise_speed_kt=310.0, sample_dt_s=15, cruise_alt_ft=28000):
-    """Sample (timestamp, lat, lon, altitude, ground_speed, heading) along
-    straight legs between consecutive route waypoints at a constant cruise
-    speed, climbing on the first leg and descending on the last so vertical
-    speed isn't always zero. Returns (samples, {waypoint_id: arrival_time})."""
+    """Generate state samples and waypoint arrival times for a route."""
 
     speed_mps = cruise_speed_kt * 0.514444
     samples = []
@@ -80,8 +67,7 @@ def build_ground_truth(waypoints, route, start_time, cruise_speed_kt=310.0, samp
 
 
 def nearest_truth(timestamp, truth_samples):
-    """The ground-truth sample closest in time to `timestamp` -- used to score
-    tracker accuracy, since real messages don't carry an answer key."""
+    """Return the ground-truth sample closest to `timestamp`."""
 
     return min(truth_samples, key=lambda s: abs((s["timestamp"] - timestamp).total_seconds()))
 
@@ -89,7 +75,7 @@ def nearest_truth(timestamp, truth_samples):
 def build_scenario(
     seed=42,
     flight_id="SIM100",
-    waypoints_path="air-traffic-control/data/route.json",
+    waypoints_path=DEFAULT_WAYPOINTS,
     route=None,
     start_time=None,
     cruise_speed_kt=310.0,
@@ -103,10 +89,7 @@ def build_scenario(
     inject_anomaly=True,
     inject_conflicting_route=True,
 ):
-    """Returns (messages, truth_samples, waypoints). `messages` is in
-    *delivery* order (which may differ from timestamp order -- see
-    late_message_shuffles), exactly like a real message feed the tracker has
-    to reorder on its own."""
+    """Return messages in delivery order, truth samples, and waypoint data."""
 
     rng = random.Random(seed)
     waypoints = load_waypoints(waypoints_path)
@@ -162,9 +145,7 @@ def build_scenario(
         })
 
     if inject_conflicting_route and len(route) >= 4:
-        # Proposed after the aircraft has already been confirmed past route[2] --
-        # genuinely contradicts history, so the tracker should branch rather
-        # than blindly overwrite it.
+        # Send a route update that conflicts with a waypoint already passed.
         conflict_route = route[:2] + route[3:]
         conflict_time = waypoint_times[route[2]] + timedelta(minutes=2)
         messages.append({
@@ -183,10 +164,7 @@ def build_scenario(
             target["lat"] = min(90.0, target["lat"] + rng.choice([-1, 1]) * rng.uniform(1.5, 3.0))
             target["_anomalous"] = True
 
-    # Delay a message: take it out of the delivery order and re-insert it later.
-    # Deliberately a displacement rather than a swap of two messages -- swapping
-    # would put everything between them out of sequence as well, which is not
-    # what one late message looks like on a real feed.
+    # Move selected messages later without changing the order of surrounding data.
     for _ in range(late_message_shuffles):
         eligible = [i for i, m in enumerate(messages) if m["type"] == "state"]
         if len(eligible) < 2:

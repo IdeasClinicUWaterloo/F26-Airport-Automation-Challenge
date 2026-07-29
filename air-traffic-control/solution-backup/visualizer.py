@@ -144,13 +144,9 @@ class FlightVisualizer:
         
         folium.LayerControl().add_to(m)
 
-        output_file = Path("air-traffic-control/output/flight_map.html").resolve()
+        output_file = Path(__file__).resolve().parent / "output" / "flight_map.html"
+        output_file.parent.mkdir(parents=True, exist_ok=True)
         m.save(output_file)
         webbrowser.open(output_file.as_uri())
 
         print(f"\nSatellite map saved to: {output_file}")
-        
-
-
-
-        

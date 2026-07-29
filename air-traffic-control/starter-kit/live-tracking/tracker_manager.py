@@ -1,13 +1,4 @@
-"""
-Keeps one tracker per aircraft seen in the polled airspace and routes each
-incoming state message to the right one.
-
-This is the one genuinely new idea in this folder. The main challenge tracks a
-single aircraft, so its state can live in one object. Real airspace doesn't work
-that way: aircraft appear when they enter the bounding box and vanish when they
-leave, and nothing tells you they've gone -- they just stop reporting. So the
-population is keyed by ICAO24 address and swept for anything that's gone quiet.
-"""
+"""Maintain one tracker per aircraft in the live OpenSky feed."""
 
 from datetime import datetime, timezone
 
@@ -15,11 +6,7 @@ STALE_AFTER_SECONDS = 120
 
 
 class AircraftTrack:
-    """One aircraft's tracker, plus the bookkeeping the radar page needs.
-
-    Deliberately thin: everything about estimating position lives in the borrowed
-    tracker (see tracker_source.py). This class only decides *when* to call it.
-    """
+    """Store one aircraft's tracker and radar-display state."""
 
     def __init__(self, tracker_class, aircraft_id, callsign):
         self.aircraft_id = aircraft_id
@@ -47,10 +34,7 @@ class AircraftTrack:
                 message["ground_speed"], message["heading"],
             )
 
-            # Only the *latest* verdict drives the display. Accumulating "has ever
-            # been flagged" would turn the whole scope red within a few minutes,
-            # since over a long enough session almost every aircraft eventually
-            # manoeuvres in a way a constant-heading model didn't see coming.
+            # The display shows whether the latest report was flagged.
             self.last_message_flagged = was_flagged
 
             if was_flagged:
@@ -99,9 +83,7 @@ class TrackerManager:
         track.process_state_message(message)
 
     def active_tracks(self):
-        """Everything still reporting. Aircraft that went quiet are left in
-        self.tracks rather than deleted, so one dropped report doesn't discard a
-        track that's about to come back."""
+        """Return tracks with a report inside the stale-time limit."""
 
         now = datetime.now(timezone.utc)
         return [track for track in self.tracks.values() if not track.is_stale(now)]

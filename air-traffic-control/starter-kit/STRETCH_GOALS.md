@@ -34,8 +34,8 @@ The map may look correct even when the estimate is far from the real position. T
 Run it from the repository root:
 
 ```bash
-pip install -r air-traffic-control/reference-solution/advanced/requirements.txt
-python air-traffic-control/reference-solution/advanced/measure_accuracy.py
+pip install -r air-traffic-control/starter-kit/advanced/requirements.txt
+python air-traffic-control/starter-kit/advanced/measure_accuracy.py
 ```
 
 It reports typical error, overall error, and the worst error. This gives your team something concrete to compare before and after a change.
@@ -131,7 +131,7 @@ Later messages can raise or lower those weights. The route with the highest weig
 Run the accuracy tool with the `--ekf` option:
 
 ```bash
-python air-traffic-control/reference-solution/advanced/measure_accuracy.py --ekf
+python air-traffic-control/starter-kit/advanced/measure_accuracy.py --ekf
 ```
 
 Compare it with the simple tracker:

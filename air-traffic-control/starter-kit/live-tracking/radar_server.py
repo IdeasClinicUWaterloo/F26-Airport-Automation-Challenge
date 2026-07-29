@@ -1,11 +1,4 @@
-"""
-Minimal local HTTP server for the live radar view.
-
-Serves the static page once, then the page's own JS polls /tracks.json on an
-interval -- no full page reload, so aircraft can be animated smoothly between
-updates instead of hard-snapping. Deliberately stdlib-only (no new
-dependency): http.server is enough for a single-machine hackathon demo.
-"""
+"""Serve the radar page and its live `/tracks.json` data endpoint."""
 
 import json
 import threading
@@ -61,7 +54,7 @@ def _make_handler(manager):
 
 
 def start_server(manager, port=8765):
-    """Starts the server on a background thread and returns it (call .shutdown() to stop)."""
+    """Start the server on a background thread and return it."""
 
     server = ThreadingHTTPServer(("127.0.0.1", port), _make_handler(manager))
     thread = threading.Thread(target=server.serve_forever, daemon=True)

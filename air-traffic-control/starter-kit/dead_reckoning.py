@@ -6,13 +6,7 @@ KNOTS_TO_MPS = 0.514444
 
 
 def destination_point(lat, lon, bearing_deg, distance_m):
-    """
-    Answers: if I start here and fly this heading for this far, where do I end up?
-
-    This is a free function rather than a DeadReckoning method because it doesn't
-    need to know anything about a particular aircraft, which makes it reusable
-    by the tracker and the visualizer.
-    """
+    """Return the point reached after travelling along a bearing."""
 
     phi1 = math.radians(lat)
     lambda1 = math.radians(lon)
@@ -33,7 +27,7 @@ def destination_point(lat, lon, bearing_deg, distance_m):
 
 
 class DeadReckoning:
-    earth_radius = EARTH_RADIUS_M # in meters
+    earth_radius = EARTH_RADIUS_M  # metres
 
     def __init__(self):
         self.current_position = None
@@ -53,14 +47,7 @@ class DeadReckoning:
         self.last_timestamp = datetime.fromisoformat(message["timestamp"])
 
     def predict_at(self, timestamp: str):
-        """
-        Predict position at a later timestamp.
-
-        Returns None if we have nothing to predict from, or if the timestamp is
-        in the past. Going backwards isn't an error worth crashing over -- late
-        messages are expected in this challenge, and the caller decides what to
-        do about them.
-        """
+        """Predict at a later timestamp, or return None when prediction is unavailable."""
 
         if self.current_position is None:
             return None
@@ -78,10 +65,7 @@ class DeadReckoning:
         )
 
     def predict(self, lat1, lon1, delta_t):
-        """
-        Predicts the position of the aircraft after delta_t seconds,
-        assuming it holds its current speed and heading.
-        """
+        """Predict position after `delta_t` seconds at constant speed and heading."""
 
         distance_m = self.current_speed_mps * delta_t
         lat, lon = destination_point(lat1, lon1, self.current_heading, distance_m)
@@ -89,10 +73,7 @@ class DeadReckoning:
         return {"lat": lat, "lon": lon}
 
     def find_distance(self, lat1, lon1, lat2, lon2):
-        """
-        Uses Haversine formula to find the minimum Earth dist
-        btwn two points.
-        """
+        """Return great-circle distance between two points in kilometres."""
 
         phi1 = math.radians(lat1)
         lambda1 = math.radians(lon1)
@@ -106,14 +87,10 @@ class DeadReckoning:
 
         dist = self.earth_radius * c
 
-        return dist/1000 #return in km
+        return dist / 1000
 
     def find_bearing(self, lat1, lon1, lat2, lon2):
-        """
-        Finds the bearing, the direction from one point
-        to another using their respective long and lat
-        in radians.
-        """
+        """Return the initial bearing from one point to another in degrees."""
 
         phi1 = math.radians(lat1)
         lambda1 = math.radians(lon1)

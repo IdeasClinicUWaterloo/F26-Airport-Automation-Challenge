@@ -11,8 +11,8 @@ You do not need this folder to complete the hackathon.
 From the repository root:
 
 ```bash
-pip install -r air-traffic-control/opensky-live-tracking/requirements.txt
-python air-traffic-control/opensky-live-tracking/live_tracker.py
+pip install -r air-traffic-control/starter-kit/live-tracking/requirements.txt
+python air-traffic-control/starter-kit/live-tracking/live_tracker.py
 ```
 
 The program opens `http://127.0.0.1:8765/` in your browser. Leave the page open while the program is running. Press `Ctrl+C` in the terminal to stop it.
@@ -25,9 +25,9 @@ This is a new **message source**, not a separate tracker.
 
 | Source | Kind of data | Best use |
 | --- | --- | --- |
-| `scenarios/*.json` | Small, fixed examples | Building and debugging |
-| `reference-solution/advanced/simulator.py` | Generated data with a known correct track | Measuring accuracy |
-| `opensky-live-tracking/` | Live reports from many real aircraft | Demonstrating and testing assumptions |
+| `../scenarios/*.json` | Small, fixed examples | Building and debugging |
+| `../advanced/simulator.py` | Generated data with a known correct track | Measuring accuracy |
+| This folder | Live reports from many real aircraft | Demonstrating and testing assumptions |
 
 All three sources create the same `state` message format. The tracking code does not need to know where a message came from.
 
@@ -65,13 +65,13 @@ Use the scenario files as well if your project includes route features.
 The normal command uses the simple tracker. Add `--ekf` to use the supplied matrix-based Kalman filter:
 
 ```bash
-python air-traffic-control/opensky-live-tracking/live_tracker.py --ekf
+python air-traffic-control/starter-kit/live-tracking/live_tracker.py --ekf
 ```
 
 This option needs `numpy`, which is included in the advanced requirements:
 
 ```bash
-pip install -r air-traffic-control/reference-solution/advanced/requirements.txt
+pip install -r air-traffic-control/starter-kit/advanced/requirements.txt
 ```
 
 Try both versions and compare how closely the estimate follows the aircraft, how it reacts to a surprising report, and how the uncertainty changes.
@@ -85,7 +85,7 @@ In PowerShell:
 ```powershell
 $env:OPENSKY_CLIENT_ID="your-client-id"
 $env:OPENSKY_CLIENT_SECRET="your-client-secret"
-python air-traffic-control/opensky-live-tracking/live_tracker.py
+python air-traffic-control/starter-kit/live-tracking/live_tracker.py
 ```
 
 On macOS or Linux:
@@ -93,7 +93,7 @@ On macOS or Linux:
 ```bash
 export OPENSKY_CLIENT_ID="your-client-id"
 export OPENSKY_CLIENT_SECRET="your-client-secret"
-python air-traffic-control/opensky-live-tracking/live_tracker.py
+python air-traffic-control/starter-kit/live-tracking/live_tracker.py
 ```
 
 Do not commit your client secret. Check the OpenSky documentation for current account steps and limits before depending on the live feed for your final demo.
@@ -115,7 +115,7 @@ Use a reasonably small area so the demo does not request more data than it needs
 | `live_tracker.py` | Starts the server and polls OpenSky |
 | `opensky_client.py` | Requests aircraft reports inside the selected area |
 | `adapter.py` | Converts OpenSky data into a challenge `state` message |
-| `tracker_source.py` | Loads and configures a tracker from the reference solution |
+| `tracker_source.py` | Loads and configures the tracker from the starter kit |
 | `tracker_manager.py` | Keeps one tracker per aircraft and removes stale tracks |
 | `snapshot.py` | Predicts tracks to the current time and prepares browser data |
 | `radar_server.py` | Runs the local web server |

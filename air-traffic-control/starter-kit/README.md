@@ -1,6 +1,6 @@
-# Basic Reference Solution
+# Starter Kit
 
-This folder contains a complete, working example for the challenge. You can run it, change it, or use only the parts that help your team.
+This folder contains everything needed to run and extend the tracker. You can change the working example or use only the parts that help your team.
 
 The code answers four questions:
 
@@ -16,8 +16,8 @@ You do not need to understand every file before you start making changes.
 From the repository root:
 
 ```bash
-pip install -r air-traffic-control/reference-solution/requirements.txt
-python air-traffic-control/reference-solution/stream.py
+pip install -r air-traffic-control/starter-kit/requirements.txt
+python air-traffic-control/starter-kit/stream.py
 ```
 
 The program prints an updated estimate after each message and opens a map at the end.
@@ -25,8 +25,8 @@ The program prints an updated estimate after each message and opens a map at the
 Try a different scenario:
 
 ```bash
-python air-traffic-control/reference-solution/stream.py invalid.json
-python air-traffic-control/reference-solution/stream.py anomalous.json
+python air-traffic-control/starter-kit/stream.py invalid.json
+python air-traffic-control/starter-kit/stream.py anomalous.json
 ```
 
 ## The files at a glance
@@ -38,6 +38,11 @@ python air-traffic-control/reference-solution/stream.py anomalous.json
 | `tracker.py` | Predicts and updates the aircraft state |
 | `dead_reckoning.py` | Contains distance, bearing, and movement calculations |
 | `visualizer.py` | Draws the route, reports, estimate, uncertainty, and alerts on a map |
+| `data/` | Airport and waypoint data used by the tracker |
+| `scenarios/` | Small message streams for running repeatable tests |
+| `advanced/` | Optional additions and the accuracy tool |
+| `advanced/output/` | Generated maps and accuracy charts |
+| `live-tracking/` | Optional tracking with real OpenSky reports |
 
 If you are unsure where to begin, start with `stream.py`, then follow the call to `FlightRoutingSolution.process_message()` in `message_parser.py`.
 
@@ -117,8 +122,8 @@ These are manageable additions for a 12-hour hackathon:
 The advanced folder includes a simulator with a known correct flight. That lets you measure position error instead of judging the map by eye.
 
 ```bash
-pip install -r air-traffic-control/reference-solution/advanced/requirements.txt
-python air-traffic-control/reference-solution/advanced/measure_accuracy.py
+pip install -r air-traffic-control/starter-kit/advanced/requirements.txt
+python air-traffic-control/starter-kit/advanced/measure_accuracy.py
 ```
 
 The current simple tracker has about `1.50 km` median error in the supplied simulation. A few corrupted reports make the worst cases much larger, which is why anomaly handling matters.

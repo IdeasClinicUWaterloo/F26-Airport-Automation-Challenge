@@ -3,28 +3,29 @@ Replays a scenario file through the tracker, one message at a time.
 
 Run from the repository root:
 
-    python air-traffic-control/reference-solution/stream.py
-    python air-traffic-control/reference-solution/stream.py invalid.json
+    python air-traffic-control/starter-kit/stream.py
+    python air-traffic-control/starter-kit/stream.py invalid.json
 """
 
 import json
 import sys
+from pathlib import Path
 
 from message_parser import FlightRoutingSolution
 from visualizer import FlightVisualizer
 
-SCENARIO_DIR = "air-traffic-control/scenarios"
-NAV_DATA = "air-traffic-control/data/route.json"
+STARTER_DIR = Path(__file__).resolve().parent
+SCENARIO_DIR = STARTER_DIR / "scenarios"
+NAV_DATA = STARTER_DIR / "data" / "route.json"
 
 
 def load_scenario(filename="simple_route.json"):
-    with open(f"{SCENARIO_DIR}/{filename}", "r") as file:
+    with open(SCENARIO_DIR / filename, "r") as file:
         return json.load(file)
 
 
 def describe(state):
-    """One readable block per message. Printing the whole state dict is faster to
-    write but harder to scan, and scanning it is the point."""
+    """Print the main state values after one message."""
 
     position = state["estimated_position"]
     uncertainty = state["uncertainty_km"]

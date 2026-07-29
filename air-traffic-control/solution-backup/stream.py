@@ -1,11 +1,17 @@
 import json
 from pprint import pprint
+from pathlib import Path
 
 from visualizer import FlightVisualizer
 from message_parser import FlightRoutingSolution
 
 
-def load_scenario(filepath="air-traffic-control/scenarios/simple_route.json"):
+BACKUP_DIR = Path(__file__).resolve().parent
+DEFAULT_SCENARIO = BACKUP_DIR / "scenarios" / "simple_route.json"
+NAV_DATA = BACKUP_DIR / "data" / "route.json"
+
+
+def load_scenario(filepath=DEFAULT_SCENARIO):
     with open(filepath, "r") as f:
         return json.load(f)
 
@@ -18,9 +24,7 @@ def main():
 
     solution = FlightRoutingSolution()
 
-    visualizer = FlightVisualizer(
-        "air-traffic-control/data/route.json"
-    )
+    visualizer = FlightVisualizer(NAV_DATA)
 
     print(f"Starting demo for flight: {flight_id}")
     print("=" * 50)

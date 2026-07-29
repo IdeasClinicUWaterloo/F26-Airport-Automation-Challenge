@@ -1,21 +1,12 @@
-"""
-Entry point: polls OpenSky for live aircraft states around a bounding box, feeds
-each aircraft's reports through its own tracker, and serves an animated
-radar-style view of the result.
+"""Poll OpenSky, track nearby aircraft, and serve the local radar page.
 
 Run from the repository root:
 
-    pip install -r air-traffic-control/opensky-live-tracking/requirements.txt
-    python air-traffic-control/opensky-live-tracking/live_tracker.py
-    python air-traffic-control/opensky-live-tracking/live_tracker.py --ekf
+    pip install -r air-traffic-control/starter-kit/live-tracking/requirements.txt
+    python air-traffic-control/starter-kit/live-tracking/live_tracker.py
+    python air-traffic-control/starter-kit/live-tracking/live_tracker.py --ekf
 
-Opens http://127.0.0.1:8765/ in your browser. The page polls this process every
-couple of seconds and animates aircraft between updates, so leave the tab open
-rather than reloading it. Ctrl+C to stop.
-
-`--ekf` runs the same live feed through the matrix Kalman filter in
-../reference-solution/advanced/ instead of the simple tracker, which is the
-cheapest way to see the difference between them on real data.
+Use `--ekf` to select the matrix-based tracker. Press Ctrl+C to stop.
 """
 
 import itertools
@@ -32,12 +23,10 @@ from radar_server import start_server
 from tracker_manager import TrackerManager
 from tracker_source import load_tracker
 
-# Roughly the airspace around Toronto Pearson (YYZ). Move or widen this to watch
-# somewhere else -- (lat_min, lon_min, lat_max, lon_max).
+# Bounding box near Toronto Pearson: (lat_min, lon_min, lat_max, lon_max).
 YYZ_BBOX = (43.0, -80.5, 44.5, -78.5)
 
-# OpenSky asks for a gap between queries even when scoped to a bounding box.
-# Conservative default rather than a hard requirement.
+# Avoid polling the service too frequently.
 POLL_INTERVAL_SECONDS = 15
 
 SERVER_PORT = 8765
@@ -68,9 +57,7 @@ def main(use_ekf=False):
 
 
 def _poll_once(client, manager, message_ids):
-    """One fetch-and-ingest cycle. A failed request is reported and skipped rather
-    than fatal -- a rate limit or a dropped connection shouldn't end a live demo,
-    and the trackers coast forward until the next successful poll anyway."""
+    """Fetch one batch. On failure, keep existing tracks until the next poll."""
 
     try:
         states = client.fetch_states(bbox=YYZ_BBOX)

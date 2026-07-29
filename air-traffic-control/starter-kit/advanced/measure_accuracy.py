@@ -1,23 +1,11 @@
-"""
-Answers "is my tracker actually any good?" with a number instead of a feeling.
-
-Real messages don't come with an answer key, so there's no way to score a tracker
-against them. simulator.py invents a flight whose true track we know, then derives
-a realistically messy message stream from it -- noise, dropouts, out-of-order
-delivery, one corrupted message. Run that stream through the tracker, compare
-what it concluded against what was actually true, and you get an error in km.
-
-This drives the *core* solution -- the one in the parent folder. Nothing in here
-replaces it.
+"""Measure tracker error against a simulated flight with known positions.
 
 Run from the repository root:
 
-    python air-traffic-control/reference-solution/advanced/measure_accuracy.py
-    python air-traffic-control/reference-solution/advanced/measure_accuracy.py --ekf
+    python air-traffic-control/starter-kit/advanced/measure_accuracy.py
+    python air-traffic-control/starter-kit/advanced/measure_accuracy.py --ekf
 
-The second form swaps in the matrix EKF from ekf.py, so you can see what those
-extra 250 lines actually buy you. On this scenario, not very much -- which is
-worth knowing before you spend a day on it.
+Use `--ekf` to measure the matrix-based tracker instead.
 """
 
 import math
@@ -26,8 +14,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-# The core solution lives one directory up. Put it on the path so `import
-# message_parser` finds the real thing rather than a copy kept in here.
+# Import the main tracker from the parent directory.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import matplotlib
@@ -39,17 +26,17 @@ import message_parser
 from dead_reckoning import DeadReckoning
 from visualizer import FlightVisualizer
 
-OUTPUT_DIR = "air-traffic-control/reference-solution/output"
-NAV_DATA = "air-traffic-control/data/route.json"
+ADVANCED_DIR = Path(__file__).resolve().parent
+STARTER_DIR = ADVANCED_DIR.parent
+OUTPUT_DIR = ADVANCED_DIR / "output"
+NAV_DATA = STARTER_DIR / "data" / "route.json"
 
 _dr = DeadReckoning()
 
 
 def run(use_ekf=False, seed=42):
     if use_ekf:
-        # A student would do this by editing the import at the top of
-        # message_parser.py, as ekf.py's docstring describes. Reaching in from
-        # out here does the same thing without having to modify the core file.
+        # Swap the tracker class without editing message_parser.py.
         from ekf import AircraftEKF
         message_parser.AircraftTracker = AircraftEKF
 
@@ -66,11 +53,7 @@ def run(use_ekf=False, seed=42):
         state = solution.get_state()
         visualizer.record(message, state)
 
-        # Two different clocks, deliberately. The estimate describes the tracker's
-        # belief at whatever time it has caught up to, while a reported position
-        # describes the aircraft at the message's own timestamp. Scoring both
-        # against the same truth sample would blame the tracker for the gap
-        # between them -- which is exactly the error a late message introduces.
+        # Score estimates at tracker time and reports at their own message time.
         applied_at = solution.tracker.last_timestamp
         reported_at = _parse(message.get("timestamp"))
         reported = message if message["type"] == "state" and "lat" in message else None
@@ -93,10 +76,10 @@ def run(use_ekf=False, seed=42):
     suffix = "ekf" if use_ekf else "tracker"
     visualizer.show(
         "SIM100", solution.get_state(),
-        output_path=f"{OUTPUT_DIR}/accuracy_map_{suffix}.html",
+        output_path=OUTPUT_DIR / f"accuracy_map_{suffix}.html",
         open_browser=False,
     )
-    _plot(history, f"{OUTPUT_DIR}/accuracy_{suffix}.png", label)
+    _plot(history, OUTPUT_DIR / f"accuracy_{suffix}.png", label)
 
     return solution, history
 
@@ -104,8 +87,7 @@ def run(use_ekf=False, seed=42):
 # ---- scoring ----
 
 def _error_km(truth_sample, position):
-    """Distance between a ground-truth sample and an estimate, or None if either
-    is missing."""
+    """Return position error in kilometres, or None for missing data."""
 
     if not truth_sample or not position:
         return None
@@ -115,9 +97,7 @@ def _error_km(truth_sample, position):
 
 
 def _rmse(values):
-    """Root-mean-square error. Squaring before averaging means a few large misses
-    count for more than many small ones, which is the behaviour you want when
-    the question is "can I trust this position?"."""
+    """Return root-mean-square error, which emphasizes large misses."""
 
     if not values:
         return float("nan")
@@ -125,9 +105,7 @@ def _rmse(values):
 
 
 def _median(values):
-    """The typical error, unmoved by a handful of large misses. Worth printing
-    next to the RMSE, because the two disagree sharply here and the gap between
-    them is itself the finding."""
+    """Return median error, which is less affected by large outliers."""
 
     if not values:
         return float("nan")
@@ -204,8 +182,7 @@ def _plot(history, output_path, label):
 
 
 def _plot_position_error(ax, minutes, history):
-    """The one that matters: is the filtered estimate closer to the truth than the
-    raw reports it was built from?"""
+    """Plot raw-report and tracker position errors."""
 
     for key, truth_key, colour, name in (
         ("reported", "true_when_reported", "#22c55e", "raw reported"),
@@ -226,7 +203,7 @@ def _plot_position_error(ax, minutes, history):
 
 
 def _plot_uncertainty(ax, minutes, history):
-    """Should saw-tooth: climbing while coasting, dropping when a message lands."""
+    """Plot the tracker's reported uncertainty over time."""
 
     xs = [m for m, h in zip(minutes, history) if h["uncertainty_km"] is not None]
     ys = [h["uncertainty_km"] for h in history if h["uncertainty_km"] is not None]

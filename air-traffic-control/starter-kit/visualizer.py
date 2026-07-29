@@ -1,21 +1,15 @@
-"""
-Draws what the tracker believes onto a satellite map.
-
-Four things end up on the map, and the point of looking at it is comparing them:
-
-    blue line + pins   the planned route
-    green dots         what the aircraft reported
-    orange X           where the tracker thinks it actually is
-    orange circles     how sure the tracker is -- watch these swell during long
-                       silences and snap shut when a message lands
-    red markers        messages the tracker didn't trust
-"""
+"""Draw the route, reports, estimates, uncertainty, and alerts on a map."""
 
 import json
 import webbrowser
 from pathlib import Path
 
 import folium
+
+
+DEFAULT_OUTPUT = (
+    Path(__file__).resolve().parent / "advanced" / "output" / "flight_map.html"
+)
 
 
 class FlightVisualizer:
@@ -27,8 +21,7 @@ class FlightVisualizer:
         self.estimated_points = []   # (position, uncertainty_radius_m)
         self.anomaly_markers = []    # (position, message_id, reason)
 
-        # Anomalies accumulate in one list that grows over time, so we track how
-        # many we'd already drawn to know which ones are new on this message.
+        # Record only alerts added since the previous message.
         self._anomalies_drawn = 0
 
     def record(self, message, state):
@@ -54,15 +47,9 @@ class FlightVisualizer:
         self._anomalies_drawn = len(anomalies)
 
     def show(self, flight_id, state,
-             output_path="air-traffic-control/reference-solution/output/flight_map.html",
+             output_path=DEFAULT_OUTPUT,
              open_browser=True):
-        """
-        Build the map and open it.
-
-        Takes the whole state dict rather than just the route, so callers can't
-        accidentally pass the wrong piece -- a mismatch there fails silently,
-        drawing an empty map instead of raising.
-        """
+        """Build the map, save it, and optionally open it in a browser."""
 
         route = state.get("route", []) if isinstance(state, dict) else state
 
@@ -118,9 +105,7 @@ class FlightVisualizer:
     # ---- layers ----
 
     def _draw_route(self, flight_map, route, state, bounds):
-        """Planned route as a line, with a pin per waypoint. The waypoint the
-        aircraft is heading for is called out, since that's the one the ETA
-        refers to."""
+        """Draw the planned route and highlight the next waypoint."""
 
         next_waypoint = state.get("next_waypoint") if isinstance(state, dict) else None
         eta = state.get("eta") if isinstance(state, dict) else None
@@ -168,7 +153,7 @@ class FlightVisualizer:
             ).add_to(flight_map)
 
     def _draw_reported(self, flight_map, bounds):
-        """Raw reported positions, exactly as the messages gave them."""
+        """Draw raw positions from state reports."""
 
         for index, position in enumerate(self.reported_points, start=1):
             location = [position["lat"], position["lon"]]
@@ -190,11 +175,7 @@ class FlightVisualizer:
             ).add_to(flight_map)
 
     def _draw_estimated(self, flight_map, bounds):
-        """The tracker's own estimate, plus a circle for how sure it is.
-
-        Every estimate gets a circle, faint, so the growing-and-shrinking
-        pattern is visible across the whole flight rather than just at the end.
-        """
+        """Draw estimated positions and their uncertainty circles."""
 
         for index, (position, radius_m) in enumerate(self.estimated_points, start=1):
             location = [position["lat"], position["lon"]]
@@ -232,7 +213,7 @@ class FlightVisualizer:
             ).add_to(flight_map)
 
     def _draw_anomalies(self, flight_map, bounds):
-        """Messages the tracker flagged, pinned where the aircraft was at the time."""
+        """Draw alerts at the estimated position where they occurred."""
 
         for position, message_id, reason in self.anomaly_markers:
             location = [position["lat"], position["lon"]]

@@ -1,6 +1,6 @@
 # Optional Advanced Add-Ons
 
-This folder contains optional examples that connect to the basic reference solution in the parent folder.
+This folder contains optional additions that connect to the main tracker in the parent folder.
 
 Get the basic tracker running first. Then choose at most one add-on if your team has time and interest. None of these are required for a strong project.
 
@@ -21,14 +21,14 @@ Maps can look convincing even when a tracker is wrong. `measure_accuracy.py` tes
 Run it from the repository root:
 
 ```bash
-pip install -r air-traffic-control/reference-solution/advanced/requirements.txt
-python air-traffic-control/reference-solution/advanced/measure_accuracy.py
+pip install -r air-traffic-control/starter-kit/advanced/requirements.txt
+python air-traffic-control/starter-kit/advanced/measure_accuracy.py
 ```
 
 To test the supplied Extended Kalman Filter:
 
 ```bash
-python air-traffic-control/reference-solution/advanced/measure_accuracy.py --ekf
+python air-traffic-control/starter-kit/advanced/measure_accuracy.py --ekf
 ```
 
 The tool reports:

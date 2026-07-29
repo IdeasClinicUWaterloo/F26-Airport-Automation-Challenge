@@ -1,16 +1,4 @@
-"""
-Builds the JSON payload served to the radar page.
-
-The interesting part: every active track is predicted forward to *now* before
-being read out, not just to its last real OpenSky message. OpenSky reports every
-~15 seconds but the page polls every 2, so without this, aircraft would sit still
-and then jump. Predicting on demand means they coast smoothly along their last
-known heading in between.
-
-That's dead reckoning doing visible work -- the same idea as `predict_at()` in the
-reference solution's dead_reckoning.py, just called continuously instead of once
-per message.
-"""
+"""Build radar data and predict each active track to the current time."""
 
 from datetime import datetime, timezone
 

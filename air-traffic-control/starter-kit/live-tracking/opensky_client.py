@@ -1,14 +1,6 @@
-"""
-Thin wrapper around the OpenSky Network REST API's /states/all endpoint.
-https://openskynetwork.github.io/opensky-api/rest.html
+"""Fetch aircraft state vectors from the OpenSky Network REST API.
 
-Anonymous access works with no credentials but is heavily rate-limited (the
-API asks for roughly 10s between whole-world queries, less if you scope to a
-bounding box). Set OPENSKY_CLIENT_ID / OPENSKY_CLIENT_SECRET (create an API
-client under a free OpenSky account) to authenticate via OAuth2
-client-credentials and get a much higher quota. Check the docs above for the
-current rate limit numbers before relying on this for anything time-critical
--- OpenSky has changed its auth flow and quotas before.
+Set `OPENSKY_CLIENT_ID` and `OPENSKY_CLIENT_SECRET` to use OAuth authentication.
 """
 
 import os
@@ -58,14 +50,7 @@ class OpenSkyClient:
         return self._token
 
     def fetch_states(self, bbox=None):
-        """
-        bbox: optional (lamin, lomin, lamax, lomax) tuple restricting the
-        query to a region -- cheaper on your quota, and the only practical
-        way to watch traffic around a single airport instead of the world.
-
-        Returns a list of state dicts (STATE_FIELDS keys), skipping entries
-        OpenSky reported without a position (incomplete report).
-        """
+        """Fetch positioned aircraft inside an optional bounding box."""
 
         params = {}
         if bbox is not None:

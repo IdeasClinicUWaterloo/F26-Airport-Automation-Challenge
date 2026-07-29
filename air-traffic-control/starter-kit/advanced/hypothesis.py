@@ -1,14 +1,4 @@
-"""
-A single route explanation tracked by multi-hypothesis routing.
-
-Physical kinematics (position/speed/heading/uncertainty) are estimated once by
-a shared AircraftEKF -- the aircraft only has one true position. What's
-genuinely ambiguous is *route interpretation*: which waypoint sequence best
-explains the current/next-waypoint and route-update messages received so far.
-That's what a RouteHypothesis tracks: a route candidate, a weight, a
-consistency score, and the history of messages that supported or conflicted
-with it.
-"""
+"""Represent and score one possible aircraft route."""
 
 # Multiplicative weight adjustments applied when a message supports or
 # conflicts with a hypothesis's route.
@@ -67,8 +57,7 @@ class RouteHypothesis:
             self._support(message_id)
             return True
 
-        # The report may be describing the *next* leg already (we were slow to
-        # advance) -- still consistent with this route, just catching up.
+        # Allow reports to advance beyond the currently stored route index.
         if current_wp in self.route:
             idx = self.route.index(current_wp)
             if idx >= self._index:
@@ -80,9 +69,7 @@ class RouteHypothesis:
         return False
 
     def matches_route_update(self, new_route):
-        """A new route is compatible with this hypothesis if it agrees with the
-        waypoints already visited (everything up to and including the current
-        waypoint) -- i.e. it only revises the *future* part of the route."""
+        """Return True when an update keeps every waypoint already visited."""
 
         visited = self.route[: self._index + 1]
         return new_route[: len(visited)] == visited

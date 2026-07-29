@@ -3,5 +3,5 @@
 requests
 
 # Only needed for --ekf, which borrows the matrix filter from
-# ../reference-solution/advanced/. Uncomment if you want to run that.
+# ../advanced/. Uncomment if you want to run that.
 # numpy

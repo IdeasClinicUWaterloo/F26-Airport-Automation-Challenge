@@ -1,39 +1,25 @@
-"""
-Turns a stream of aircraft messages into an answer to four questions:
-
-    Where is it now?  Where is it going next?  When does it get there?
-    Which messages shouldn't we trust?
-
-Each message type gets its own handler, and everything they learn feeds one
-shared AircraftTracker (see tracker.py) that holds the current best guess.
-"""
+"""Process flight messages into a route, state estimate, ETA, and alert list."""
 
 import json
 from datetime import datetime, timedelta
+from pathlib import Path
 
 from dead_reckoning import DeadReckoning
 from tracker import AircraftTracker
 
 
-# ---------------------------------------------------------------------------
-# Tuning knobs. See tracker.py for the ones that govern the estimate itself.
-# ---------------------------------------------------------------------------
-
-# How close, in km, counts as having reached a waypoint. Waypoints are just
-# points in the sky, so an aircraft never passes exactly through one.
-# RAISE IT if the tracker seems slow to admit it has passed a waypoint.
+# Distance from a waypoint that counts as reaching it.
 WAYPOINT_REACHED_KM = 30.0
 
-# The fastest a large aircraft could plausibly be going, in knots. A position
-# that would need more than this to explain isn't a fast aircraft, it's a bad
-# message -- wrong units, a typo, or a corrupted field.
+# Reports that imply a faster speed are treated as invalid.
 MAX_PLAUSIBLE_SPEED_KT = 700.0
 
 KM_PER_NAUTICAL_MILE = 1.852
+DEFAULT_NAV_DATA = Path(__file__).resolve().parent / "data" / "route.json"
 
 
 class FlightRoutingSolution:
-    def __init__(self, nav_data_path="air-traffic-control/data/route.json"):
+    def __init__(self, nav_data_path=DEFAULT_NAV_DATA):
         self.waypoints = self._load_waypoints(nav_data_path)
 
         self.tracker = AircraftTracker()
@@ -45,22 +31,18 @@ class FlightRoutingSolution:
         self.eta = None
         self.anomalies = []
 
-        # How far along self.route we think we are.
         self._route_index = 0
 
-        # Every message we've been handed, so that a late arrival can be
-        # slotted into the right place and the stream replayed in order.
+        # Keep the full history so late messages can be replayed in time order.
         self._message_log = []
         self._last_timestamp = None
 
-        # Which messages turned up late. Kept outside the replay reset, since a
-        # second late arrival would otherwise wipe the record of the first.
+        # This list is not reset during replay, so earlier late arrivals remain flagged.
         self._late_arrivals = []
 
     @staticmethod
     def _load_waypoints(path):
-        """Load the waypoint database. Missing file just means no route geometry,
-        which is survivable -- position tracking still works without it."""
+        """Load waypoint data. Position tracking can run without route geometry."""
 
         try:
             with open(path, "r") as file:
@@ -71,15 +53,7 @@ class FlightRoutingSolution:
     # ---- entry point ----
 
     def process_message(self, message: dict):
-        """
-        Hand a message to the right handler.
-
-        A message that's older than one we've already processed can't just be
-        applied on top -- our estimate has already moved past it. So we log
-        every message, and when a late one shows up we throw the estimate away
-        and rebuild it with the whole stream in timestamp order. Slower than
-        patching it up, but it's obviously correct, which matters more here.
-        """
+        """Process one message, replaying the history if it arrived late."""
 
         timestamp = self._parse_timestamp(message.get("timestamp"))
         self._message_log.append((timestamp, len(self._message_log), message))
@@ -132,8 +106,7 @@ class FlightRoutingSolution:
     # ---- replay ----
 
     def _replay(self):
-        """Rebuild the estimate from scratch with the log sorted by time. The index
-        in each log entry keeps messages that share a timestamp in arrival order."""
+        """Rebuild the estimate in timestamp order after a late message."""
 
         self.tracker = AircraftTracker()
         self.route = []
@@ -147,7 +120,7 @@ class FlightRoutingSolution:
         for timestamp, _, message in sorted(self._message_log, key=self._sort_key):
             self._apply(message, timestamp)
 
-        # Re-flag the late arrivals, since the loop above just cleared the list.
+        # Replay resets alerts, so add the late-arrival alerts again.
         for message in self._late_arrivals:
             self.add_anomaly(
                 message,
@@ -157,25 +130,19 @@ class FlightRoutingSolution:
 
     @staticmethod
     def _sort_key(log_entry):
-        """Order the log by timestamp, falling back to arrival order for ties.
-
-        A message with no usable timestamp can't be placed in time at all, so it
-        sorts to the front rather than crashing the comparison.
-        """
+        """Sort by timestamp, then by arrival order. Missing timestamps sort first."""
 
         timestamp, arrival_index, _ = log_entry
         return (timestamp or datetime.min, arrival_index)
 
     def _apply(self, message, timestamp):
-        """Coast the estimate up to this message's time, then let the right handler
-        fold the message in."""
+        """Predict to the message time, then apply the message."""
 
         if timestamp is not None:
             self.tracker.predict(timestamp)
             self._last_timestamp = timestamp
 
-        # Snapshot rather than alias, so this keeps saying where we thought the
-        # aircraft was *before* the message below gets folded in.
+        # Copy the prediction before the message updates the tracker.
         self.predicted_position = dict(self.tracker.position) if self.tracker.position else None
 
         msg_type = message.get("type")
@@ -195,14 +162,7 @@ class FlightRoutingSolution:
     # ---- message handlers ----
 
     def process_state_message(self, message):
-        """
-        Fold a reported position, altitude, speed and heading into the estimate.
-
-        Two different checks run here, and they catch different things. The field
-        check rejects values that are impossible on their own (a latitude of 95).
-        The tracker's gap check rejects values that are individually fine but
-        don't square with where the aircraft just was.
-        """
+        """Validate a state report, then use it to update the tracker."""
 
         if not self.check_state_message(message):
             return
@@ -233,14 +193,7 @@ class FlightRoutingSolution:
         self.latest_reported_position = {"lat": lat, "lon": lon}
 
     def process_route_update(self, message):
-        """
-        Replace the planned route.
-
-        A reroute is normal and expected -- but a new route that disagrees about
-        waypoints we've already flown past is not a reroute, it's a contradiction,
-        so it gets flagged. We still accept it, because refusing to would leave
-        us tracking a route nobody is flying.
-        """
+        """Apply a new route and flag changes to waypoints already passed."""
 
         new_route = message.get("route", [])
         if not new_route:
@@ -254,8 +207,7 @@ class FlightRoutingSolution:
                 f"({' -> '.join(already_flown)})"
             )
 
-        # Read the current waypoint off the old route before replacing it, since
-        # the same index means something different on the new one.
+        # Preserve route progress by waypoint name, not by list index.
         waypoint_we_were_at = self.current_waypoint
 
         self.route = list(new_route)
@@ -266,12 +218,10 @@ class FlightRoutingSolution:
             self._route_index = 0
 
     def process_waypoint_report(self, message):
-        """
-        Take the aircraft's word for which waypoint it's at.
+        """Update route progress from a waypoint report.
 
-        The reported ETA is deliberately not stored. We recompute ETA ourselves
-        from where we think the aircraft is and how fast it's going, because
-        that stays honest when the aircraft's own estimate goes stale.
+        The ETA is calculated from the tracked position instead of copied from
+        the report.
         """
 
         current_wp = message.get("current_waypoint")
@@ -287,14 +237,7 @@ class FlightRoutingSolution:
     # ---- checks ----
 
     def check_state_message(self, message):
-        """
-        Sanity check for the aircraft's state.
-        Ensures position present, and other states
-        are not unreasonable.
-
-        If they are, function calls helper which attaches an
-        anomaly message to the report.
-        """
+        """Check that a state report has usable, physically valid fields."""
 
         valid = True
 
@@ -308,9 +251,7 @@ class FlightRoutingSolution:
             self.add_anomaly(message, "Missing latitude or longitude")
             valid = False
 
-        # Everything downstream is time-based -- coasting forward, ETAs, deciding
-        # whether a jump was possible. A position with no time attached can't
-        # feed any of it, so it's rejected here rather than breaking them later.
+        # Prediction, ETA, and movement checks all require a timestamp.
         if self._parse_timestamp(message.get("timestamp")) is None:
             self.add_anomaly(message, "Missing or unreadable timestamp")
             valid = False
@@ -338,17 +279,10 @@ class FlightRoutingSolution:
         return valid
 
     def check_position_jump(self, message, lat, lon):
-        """
-        Reject a position no aircraft could have reached in the time available.
+        """Reject a position that requires an impossible travel speed.
 
-        This is a blunter check than the tracker's, and it's here to catch the
-        genuinely broken rather than the merely surprising -- swapped lat/lon,
-        a decimal point in the wrong place. Returns True if the message is usable.
-
-        It measures from the last position we actually believed, not from our
-        current prediction. That distinction matters: if we rejected the previous
-        message, our prediction is stale, and measuring against it would make the
-        next perfectly good message look impossible too.
+        Distance is measured from the last accepted report. Measuring from a
+        rejected report could cause the next valid report to be rejected too.
         """
 
         anchor = self.tracker.last_accepted_position
@@ -379,12 +313,7 @@ class FlightRoutingSolution:
     # ---- derived answers ----
 
     def _advance_route_progress(self):
-        """
-        Walk our route index forward past every waypoint we've now left behind.
-
-        A loop rather than a single step, because one long gap between messages
-        can carry the aircraft past more than one waypoint.
-        """
+        """Advance past every waypoint crossed since the previous message."""
 
         if not self.route or not self.tracker.position:
             return
@@ -397,18 +326,9 @@ class FlightRoutingSolution:
             self._route_index += 1
 
     def _has_passed(self, waypoint):
-        """
-        Have we left this waypoint behind?
+        """Return True when a waypoint is close enough or behind the aircraft.
 
-        Two ways to say yes. Either we're close enough to call it reached -- a
-        waypoint is just a point in the sky, so nothing flies exactly through
-        one. Or it's behind us: we'd have to turn more than a right angle to fly
-        back to it.
-
-        The second test is what stops route progress from getting stuck. Messages
-        here can be tens of minutes apart, so a single gap can easily carry the
-        aircraft from well before a waypoint to well past it without ever
-        reporting a position near it.
+        The heading check handles message gaps that skip over a waypoint.
         """
 
         distance_km = self.dead_reckoning.find_distance(
@@ -430,13 +350,7 @@ class FlightRoutingSolution:
         return angle_off_the_nose > 90
 
     def _estimate_eta(self):
-        """
-        When we'd reach the next waypoint if we carried on as we are.
-
-        Straight-line distance over current speed. It ignores the fact that the
-        aircraft has to turn, so it runs slightly optimistic -- good enough to
-        be useful, and simple enough to check by hand.
-        """
+        """Estimate arrival at the next waypoint using distance divided by speed."""
 
         waypoint = self.waypoints.get(self.next_waypoint)
         if not waypoint or not self.tracker.started or self.tracker.ground_speed is None:
@@ -468,10 +382,6 @@ class FlightRoutingSolution:
             return None
 
     def add_anomaly(self, message, reason):
-        """
-        Function adds an anomaly message to the report.
-        """
-
         self.anomalies.append({
             "message_id": message.get("message_id"),
             "reason": reason

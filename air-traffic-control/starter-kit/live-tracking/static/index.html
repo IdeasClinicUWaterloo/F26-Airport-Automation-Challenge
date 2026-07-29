@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>YYZ Approach Radar - Live ADS-B</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  html, body { height: 100%; margin: 0; background: #000; }
+  #map { position: absolute; inset: 0; background: #000; }
+  body, .leaflet-container { font-family: "Consolas", "Courier New", monospace; }
+
+  /* Slight darkening so the green scope overlay/HUD stay legible over real imagery. */
+  .leaflet-tile-pane { filter: brightness(0.8) saturate(1.05); }
+  .leaflet-container { background: #000; }
+
+  /* Decorative overlay: fixed to the screen, not the map, like a real scope.
+     Kept low-opacity now that real satellite imagery is the background --
+     it's an accent, not the whole picture. */
+  #scope {
+    position: absolute; inset: 0; pointer-events: none; z-index: 450;
+  }
+  .ring {
+    position: absolute; top: 50%; left: 50%; border-radius: 50%;
+    border: 1px solid rgba(57, 255, 106, 0.28);
+    transform: translate(-50%, -50%);
+  }
+  .crosshair {
+    position: absolute; background: rgba(57, 255, 106, 0.2);
+  }
+  .crosshair.h { top: 50%; left: 0; right: 0; height: 1px; }
+  .crosshair.v { left: 50%; top: 0; bottom: 0; width: 1px; }
+
+  #sweep {
+    position: absolute; top: 50%; left: 50%; width: 220vmax; height: 220vmax;
+    transform: translate(-50%, -50%) rotate(0deg);
+    background: conic-gradient(from 0deg, rgba(57,255,106,0.18) 0deg, rgba(57,255,106,0.0) 40deg, transparent 360deg);
+    animation: sweep 4s linear infinite;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+  }
+  @keyframes sweep { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+  #hud {
+    position: absolute; top: 14px; left: 14px; z-index: 1000;
+    color: #39ff6a; text-shadow: 0 0 6px rgba(57,255,106,0.6);
+    font-size: 13px; line-height: 1.5; letter-spacing: 0.5px;
+    background: rgba(0, 10, 0, 0.45); border: 1px solid rgba(57,255,106,0.35);
+    padding: 10px 14px; pointer-events: none;
+  }
+  #hud .title { font-size: 15px; font-weight: bold; }
+  #hud .blink { animation: blink 1.4s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0.25; } }
+
+  .plane-icon { color: #39ff6a; text-shadow: 0 0 6px #39ff6a, 0 0 2px #000; font-size: 20px; line-height: 20px; }
+  .plane-icon.anomalous { color: #ff3b3b; text-shadow: 0 0 8px #ff3b3b, 0 0 2px #000; }
+  .plane-tag {
+    color: #39ff6a; font-size: 10px; white-space: nowrap; text-shadow: 0 0 4px #000;
+    margin-top: 2px;
+  }
+  .plane-tag.anomalous { color: #ff6b6b; }
+
+  .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: #001a05; color: #39ff6a; border: 1px solid rgba(57,255,106,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+<div id="scope">
+  <div class="crosshair h"></div>
+  <div class="crosshair v"></div>
+  <div class="ring" style="width: 20vmin; height: 20vmin;"></div>
+  <div class="ring" style="width: 45vmin; height: 45vmin;"></div>
+  <div class="ring" style="width: 75vmin; height: 75vmin;"></div>
+  <div id="sweep"></div>
+</div>
+<div id="hud">
+  <div class="title">YYZ APPROACH RADAR</div>
+  <div>TRACKS: <span id="hud-count">0</span></div>
+  <div>LAST UPDATE: <span id="hud-time">--:--:--</span></div>
+  <div class="blink">SCANNING...</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const POLL_MS = 2000;
+const TRAIL_LENGTH = 15;
+
+const map = L.map('map', { zoomControl: true, attributionControl: false, worldCopyJump: true }).setView([43.68, -79.63], 9);
+
+// Real satellite imagery so you can see actual terrain/cities under the traffic,
+// plus a labels layer on top since imagery alone has no place names.
+L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  { maxZoom: 19 }
+).addTo(map);
+
+L.tileLayer(
+  'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+  { maxZoom: 19 }
+).addTo(map);
+
+// aircraft id -> { marker, trail: L.Polyline, points: [[lat,lon], ...], anim }
+const tracks = new Map();
+
+function planeIcon(heading, anomalous) {
+  const cls = anomalous ? 'plane-icon anomalous' : 'plane-icon';
+  return L.divIcon({
+    className: '',
+    html: `<div style="transform: rotate(${heading}deg);" class="${cls}">&#9650;</div>`,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+  });
+}
+
+function tagIcon(text, anomalous) {
+  const cls = anomalous ? 'plane-tag anomalous' : 'plane-tag';
+  return L.divIcon({
+    className: '',
+    html: `<div class="${cls}">${text}</div>`,
+    iconSize: [90, 14],
+    iconAnchor: [-14, 4],
+  });
+}
+
+function animateTo(marker, from, to, durationMs) {
+  const start = performance.now();
+  const token = Symbol();
+  marker._animToken = token;
+
+  function step(now) {
+    if (marker._animToken !== token) return; // superseded by a newer poll
+    const t = Math.min((now - start) / durationMs, 1);
+    marker.setLatLng([
+      from[0] + (to[0] - from[0]) * t,
+      from[1] + (to[1] - from[1]) * t,
+    ]);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function upsertTrack(a) {
+  const latlng = [a.lat, a.lon];
+  let t = tracks.get(a.id);
+
+  if (!t) {
+    const marker = L.marker(latlng, { icon: planeIcon(a.heading, a.anomalous) }).addTo(map);
+    const tag = L.marker(latlng, { icon: tagIcon(tagText(a), a.anomalous), interactive: false }).addTo(map);
+    const trail = L.polyline([latlng], { color: '#39ff6a', weight: 1, opacity: 0.35 }).addTo(map);
+    marker.bindPopup(popupText(a));
+    t = { marker, tag, trail, points: [latlng] };
+    tracks.set(a.id, t);
+    return;
+  }
+
+  const from = t.marker.getLatLng();
+  animateTo(t.marker, [from.lat, from.lng], latlng, POLL_MS);
+  t.tag.setLatLng(latlng);
+  t.tag.setIcon(tagIcon(tagText(a), a.anomalous));
+  t.marker.setIcon(planeIcon(a.heading, a.anomalous));
+  t.marker.setPopupContent(popupText(a));
+
+  t.points.push(latlng);
+  if (t.points.length > TRAIL_LENGTH) t.points.shift();
+  t.trail.setLatLngs(t.points);
+  t.trail.setStyle({ color: a.anomalous ? '#ff3b3b' : '#39ff6a' });
+}
+
+function tagText(a) {
+  return `${a.callsign} · FL${Math.round(a.altitude / 100)}`;
+}
+
+function popupText(a) {
+  // Uncertainty is the tracker's own estimate of how wrong it might be. Watch it
+  // creep up between OpenSky updates and drop when a fresh report lands.
+  const unc = a.uncertainty_km == null ? 'n/a' : `${a.uncertainty_km.toFixed(2)} km`;
+  const seen = a.anomaly_count
+    ? `<br><span style="opacity:.7">${a.anomaly_count} report(s) rejected so far</span>`
+    : '';
+
+  return `<b>${a.callsign}</b><br>` +
+    `Altitude: ${Math.round(a.altitude)} ft<br>` +
+    `Speed: ${Math.round(a.ground_speed)} kt<br>` +
+    `Heading: ${Math.round(a.heading)} deg<br>` +
+    `Uncertainty: ${unc}<br>` +
+    `${a.anomalous ? '<b style="color:#ff6b6b">LAST REPORT REJECTED</b>' : 'Tracking normally'}` +
+    seen;
+}
+
+function removeStale(currentIds) {
+  for (const [id, t] of tracks) {
+    if (!currentIds.has(id)) {
+      map.removeLayer(t.marker);
+      map.removeLayer(t.tag);
+      map.removeLayer(t.trail);
+      tracks.delete(id);
+    }
+  }
+}
+
+async function poll() {
+  try {
+    const res = await fetch('/tracks.json', { cache: 'no-store' });
+    const data = await res.json();
+
+    const currentIds = new Set(data.aircraft.map(a => a.id));
+    data.aircraft.forEach(upsertTrack);
+    removeStale(currentIds);
+
+    document.getElementById('hud-count').textContent = data.aircraft.length;
+    document.getElementById('hud-time').textContent = new Date(data.generated_at).toLocaleTimeString();
+  } catch (err) {
+    document.getElementById('hud-time').textContent = 'connection lost';
+  }
+}
+
+poll();
+setInterval(poll, POLL_MS);
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "flight_id": "AC101",
+  "messages": [
+    {
+      "message_id": "m1",
+      "type": "route_update",
+      "timestamp": "2026-06-05T10:00:00",
+      "route": ["YYZ", "WP001", "WP002", "DEN"]
+    },
+    {
+      "message_id": "m2",
+      "type": "state",
+      "timestamp": "2026-06-05T10:05:00",
+      "lat": 43.50,
+      "lon": -82.00,
+      "altitude": 8000,
+      "ground_speed": 310,
+      "heading": 270
+    },
+    {
+      "message_id": "m3",
+      "type": "waypoint_report",
+      "timestamp": "2026-06-05T10:51:00",
+      "current_waypoint": "WP001",
+      "next_waypoint": "WP002",
+      "eta": "2026-06-05T12:06:00"
+    },
+    {
+      "message_id": "m4",
+      "type": "state",
+      "timestamp": "2026-06-05T11:15:00",
+      "lat": 42.9273,
+      "lon": -90.2565,
+      "altitude": 12000,
+      "ground_speed": 310,
+      "heading": 258
+    },
+    {
+      "message_id": "m5",
+      "type": "waypoint_report",
+      "timestamp": "2026-06-05T12:06:00",
+      "current_waypoint": "WP002",
+      "next_waypoint": "DEN",
+      "eta": "2026-06-05T13:30:00"
+    },
+    {
+      "message_id": "m6",
+      "type": "route_update",
+      "timestamp": "2026-06-05T12:11:00",
+      "route": ["YYZ", "WP001", "WP002", "OMAHA", "DEN"]
+    },
+    {
+      "message_id": "m7",
+      "type": "state",
+      "timestamp": "2026-06-05T12:35:00",
+      "lat": 40.9003,
+      "lon": -98.6333,
+      "altitude": 28000,
+      "ground_speed": 310,
+      "heading": 261
+    }
+  ]
+}

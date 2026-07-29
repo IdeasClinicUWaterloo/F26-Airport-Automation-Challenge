@@ -1,12 +1,7 @@
-"""
-Autonomous reroute suggestion (stretch goal).
+"""Find a short waypoint route while avoiding blocked waypoints.
 
-The provided nav data only lists waypoints, not an airway network between
-them, so this treats the waypoint set as a complete graph weighted by
-great-circle distance and runs Dijkstra to find the shortest path from a
-start waypoint to a destination, optionally avoiding a set of blocked/
-restricted waypoints (e.g. a storm cell or a waypoint an anomalous message
-implicated).
+The supplied data has no airway connections, so every waypoint is treated as
+connected to every other waypoint.
 """
 
 import heapq
@@ -17,11 +12,7 @@ _dr = DeadReckoning()
 
 
 def find_shortest_path(waypoints, start, goal, blocked=None):
-    """
-    waypoints: dict of waypoint_id -> {"lat":, "lon":, ...} (as in data/route.json)
-    Returns (path: list of waypoint ids, total_distance_km) or (None, None) if
-    no feasible path exists.
-    """
+    """Return `(path, distance_km)`, or `(None, None)` when no path exists."""
 
     blocked = set(blocked or ())
     if start in blocked or goal in blocked:
@@ -74,9 +65,7 @@ def find_shortest_path(waypoints, start, goal, blocked=None):
 
 
 def suggest_reroute(waypoints, current_hypothesis, blocked):
-    """Given a hypothesis whose remaining route is blocked (or an anomaly implicated
-    a waypoint on it), find an alternate path from the current waypoint to the
-    route's final destination that avoids `blocked` waypoints."""
+    """Suggest a replacement for a route containing a blocked waypoint."""
 
     remaining = current_hypothesis.remaining_route()
     if not remaining:
@@ -84,6 +73,6 @@ def suggest_reroute(waypoints, current_hypothesis, blocked):
 
     start, goal = remaining[0], remaining[-1]
     if not any(wp in blocked for wp in remaining):
-        return None, None  # nothing to avoid, current route is still fine
+        return None, None
 
     return find_shortest_path(waypoints, start, goal, blocked=blocked)

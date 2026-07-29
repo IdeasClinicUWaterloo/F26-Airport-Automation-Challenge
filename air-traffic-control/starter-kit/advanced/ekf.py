@@ -1,27 +1,8 @@
-"""
-Extended Kalman Filter -- a drop-in replacement for the core tracker.py.
+"""Extended Kalman Filter with the same interface as `AircraftTracker`.
 
-Same job, same interface, much more machinery. Where tracker.py holds confidence
-as one radius in kilometres, this holds a 6x6 covariance matrix over
-
-    [east_m, north_m, altitude_ft, speed_mps, heading_rad, vertical_speed_ftps]
-
-tracked in a flat local frame centred on the first reported position. Carrying a
-whole matrix instead of one number buys you the cross-terms: it can represent
-"we're unsure about heading, therefore we'll soon be unsure about position in
-this particular direction", which a single radius cannot say.
-
-The motion model is nonlinear -- position depends on speed * sin/cos(heading) --
-which is the "Extended" part: predict() linearizes it with its Jacobian in order
-to propagate the covariance through it.
-
-TO SWAP IT IN, change one line in message_parser.py:
-
-    from tracker import AircraftTracker              # before
-    from ekf import AircraftEKF as AircraftTracker   # after
-
-Nothing else in the core needs to change. Read advanced/README.md first -- this
-file needs numpy, and it is considerably harder to debug than what it replaces.
+The state vector contains east, north, altitude, speed, heading, and vertical
+speed. A 6x6 covariance matrix tracks uncertainty and relationships between
+those values. See `advanced/README.md` before changing its noise settings.
 """
 
 import math
@@ -32,42 +13,26 @@ EARTH_RADIUS_M = 6371e3
 KNOTS_TO_MPS = 0.514444
 
 STATE_DIM = 6
-MEAS_DIM = 5  # east, north, alt, speed, heading (vertical speed is never measured directly)
+MEAS_DIM = 5  # east, north, altitude, speed, and heading
 
 
-# ---------------------------------------------------------------------------
-# Tuning knobs, in the same spirit as tracker.py's -- but note these are
-# variances, not distances, so they are far less intuitive to adjust. That is
-# the main practical cost of the upgrade.
-# ---------------------------------------------------------------------------
-
-# Chi-square 95th percentile for 5 degrees of freedom: the point past which a
-# measurement is more surprising than our own uncertainty can account for.
-# The matrix-based equivalent of the core's ANOMALY_SIGMA.
-# RAISE IT to flag fewer messages.
+# Chi-square 95th percentile for five measured values. Higher flags fewer reports.
 NIS_THRESHOLD = 11.07
 
-# Past this multiple of the threshold, a message is discarded outright rather
-# than merely down-weighted -- the equivalent of the core's ANOMALY_TRUST, but
-# graded: mild surprises are softened, wild ones are dropped.
-# RAISE IT to keep believing increasingly implausible messages.
+# Reports beyond this multiple of the threshold are rejected.
 HARD_GATE_MULTIPLE = 5.0
 
-# Process noise per second: how much we let each quantity wander on its own
-# between messages. Position and altitude drift slowly; speed, heading and
-# vertical speed are free to change, because the aircraft manoeuvres.
-# The equivalent of DRIFT_PER_MINUTE_KM, spread over six terms.
+# Process-noise variances added per second for the six state values.
 PROCESS_NOISE = np.array([4.0, 4.0, 9.0, 1.0, math.radians(1.5) ** 2, 4.0])
 
-# Measurement noise: how wrong we expect each reported field to be, squared.
-# Roughly ADS-B accuracy. The equivalent of MEASUREMENT_ERROR_KM.
+# Measurement-error variances for position, altitude, speed, and heading.
 MEASUREMENT_NOISE = np.array([2500.0, 2500.0, 900.0, 1.0, math.radians(2.0) ** 2])
 
 
 class AircraftEKF:
     def __init__(self):
         self.x = np.zeros(STATE_DIM)
-        # Enormous initial uncertainty, until the first measurement anchors us.
+        # The first report replaces this intentionally broad prior uncertainty.
         self.P = np.diag([1e6, 1e6, 1e6, 1e4, 10.0, 1e4])
 
         self.last_timestamp = None
@@ -76,8 +41,7 @@ class AircraftEKF:
         self.last_gap_km = None
         self.last_nis = None
 
-        # Interface parity with tracker.py -- see its comments for why these are
-        # tracked separately from `position` and `last_timestamp`.
+        # These only change after an accepted report, not after prediction.
         self.last_accepted_position = None
         self.last_accepted_timestamp = None
 
@@ -123,9 +87,7 @@ class AircraftEKF:
 
     @property
     def uncertainty_km(self):
-        """The covariance boiled back down to one number, so the rest of the core
-        (and the map) can treat this exactly like tracker.py. The full ellipse is
-        still available via uncertainty_ellipse()."""
+        """Return the ellipse's major radius in kilometres for API compatibility."""
 
         ellipse = self.uncertainty_ellipse()
         return ellipse[0] / 1000 if ellipse else None
@@ -148,8 +110,7 @@ class AircraftEKF:
         self.last_accepted_timestamp = timestamp
 
     def predict(self, timestamp):
-        """Advance the estimate to `timestamp`, growing the covariance. No-op if
-        we're already caught up."""
+        """Predict forward to `timestamp` and grow the covariance."""
 
         if not self.started or self.last_timestamp is None or timestamp is None:
             return
@@ -170,8 +131,7 @@ class AircraftEKF:
             vertical_speed,
         ])
 
-        # Jacobian of the motion model above: how each new state term responds to
-        # each old one. This is what lets the covariance follow a nonlinear model.
+        # Linearize the motion model so the covariance can be propagated.
         F = np.eye(STATE_DIM)
         F[0, 3] = sin_h * dt
         F[0, 4] = speed * cos_h * dt
@@ -183,15 +143,7 @@ class AircraftEKF:
         self.last_timestamp = timestamp
 
     def update(self, lat, lon, altitude, ground_speed, heading):
-        """
-        Fold a reported state in. Returns (gap_km, was_flagged), matching
-        tracker.update() so the core parser can't tell the difference.
-
-        Where tracker.py compares one distance against one radius, this compares
-        the whole innovation vector against the whole covariance -- which is what
-        lets it notice "the position is fine, but the heading needed to get there
-        isn't".
-        """
+        """Apply a report and return `(gap_km, was_flagged)` like the simple tracker."""
 
         east, north = self._to_local(lat, lon)
         z = np.array([
@@ -203,10 +155,9 @@ class AircraftEKF:
         for i in range(MEAS_DIM):
             H[i, i] = 1.0
 
-        # The innovation: what the message said, minus what we predicted it'd say.
+        # Innovation: reported values minus predicted values.
         y = z - H @ self.x
-        # Wrap the heading residual into [-pi, pi], so a 359 -> 1 degree turn reads
-        # as 2 degrees rather than 358. Same reason tracker.py has blend_headings().
+        # Wrap heading error so 359 to 1 degrees is treated as a 2-degree change.
         y[4] = math.atan2(math.sin(y[4]), math.cos(y[4]))
 
         R = np.diag(MEASUREMENT_NOISE)
@@ -220,15 +171,11 @@ class AircraftEKF:
         self.last_gap_km = gap_km
 
         if was_flagged and nis > NIS_THRESHOLD * HARD_GATE_MULTIPLE:
-            # Beyond any reasonable gate. Keep the prediction and wait for
-            # corroboration rather than letting one bad message drag us to it.
-            # Inflating R wouldn't be enough here: if P is already large, a big
-            # enough error still moves the estimate.
+            # A hard-gated report does not change the estimate.
             return gap_km, was_flagged
 
         if was_flagged:
-            # Mild conflict: still use it, but treat it as noisier than usual, in
-            # proportion to how far past the gate it landed.
+            # Down-weight a mild conflict by increasing its measurement noise.
             R = R * (nis / NIS_THRESHOLD)
 
         S = H @ self.P @ H.T + R
@@ -243,8 +190,7 @@ class AircraftEKF:
         return gap_km, was_flagged
 
     def state(self):
-        """Same shape as tracker.state(), plus the two things only this version
-        knows: vertical speed, and how surprising the last message was."""
+        """Return the current estimate and EKF-specific diagnostics."""
 
         if not self.started:
             return None
@@ -263,14 +209,7 @@ class AircraftEKF:
     # ---- the part a single radius can't express ----
 
     def uncertainty_ellipse(self, n_std=2.0):
-        """
-        Position uncertainty as (semi_major_m, semi_minor_m, rotation_deg_from_north).
-
-        The east/north block of the covariance describes an ellipse, and its
-        eigenvectors are that ellipse's axes. Being more uncertain along track
-        than across it is normal and useful -- and it's exactly the information
-        the core tracker's single radius throws away.
-        """
+        """Return position uncertainty as major radius, minor radius, and rotation."""
 
         if not self.started:
             return None
