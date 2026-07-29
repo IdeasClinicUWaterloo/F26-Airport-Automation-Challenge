@@ -1,10 +1,18 @@
 """
-Converts a raw OpenSky state dict (see opensky_client.STATE_FIELDS) into the
-same "state" message shape air-traffic-control/message_parser.py already
-consumes, so the EKF-based tracking logic works on real data unmodified.
+Translates a raw OpenSky state vector into the challenge's own message format.
 
-OpenSky has no flight-plan, route, or waypoint data -- there is no equivalent
-of "route_update" or "waypoint_report" here, only continuous state reports.
+This is the whole trick behind the add-on, and it's 15 lines. Because the message
+shape matches what `../scenarios/*.json` contains, real live aircraft become just
+another message source -- no tracking code has to know the difference between a
+canned scenario, the simulator, and Toronto's actual airspace.
+
+Two fields need care. OpenSky reports speed in m/s where the challenge uses knots,
+and barometric altitude is sometimes absent, in which case the GPS-derived figure
+is the fallback.
+
+What OpenSky cannot give us is any notion of *intent*: there's no flight plan,
+route, or waypoint data behind ADS-B, so nothing here maps to "route_update" or
+"waypoint_report". See this folder's README for what that rules out.
 """
 
 from datetime import datetime, timezone

@@ -1,10 +1,4 @@
-# Reference Solution
-
-A complete, working answer to the ATC challenge, sized for the time you actually
-have. Roughly 700 lines across five files, and the hardest maths in it is the
-spherical trigonometry already in `dead_reckoning.py`.
-
-This is here to compare against, not to build on. Write your own — then come look.
+# Basic Reference Solution
 
 ## What it does
 
@@ -12,9 +6,9 @@ Feed it a stream of messages and it answers the four questions the challenge ask
 
 | Question | Where |
 | --- | --- |
-| Where is the aircraft now? | `tracker.py` — predict/update cycle with an uncertainty radius |
-| Where is it going next? | `message_parser.py` — `_advance_route_progress()` |
-| When does it get there? | `message_parser.py` — `_estimate_eta()` |
+| Where is the aircraft now? | `tracker.py` : predict/update cycle with an uncertainty radius |
+| Where is it going next? | `message_parser.py` : `_advance_route_progress()` |
+| When does it get there? | `message_parser.py` : `_estimate_eta()` |
 | Which messages shouldn't we trust? | four checks, listed below |
 
 ```
@@ -49,9 +43,9 @@ python air-traffic-control/reference-solution/stream.py anomalous.json
 
 Two operations, alternating forever:
 
-- **predict** — no new information, so coast forward on the last known speed and
+- **predict**: no new information, so coast forward on the last known speed and
   heading, and get less sure.
-- **update** — a message arrived, so move the estimate toward it and get more sure.
+- **update**: a message arrived, so move the estimate toward it and get more sure.
 
 How far it moves is the only real idea in the file:
 
