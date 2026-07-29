@@ -53,7 +53,7 @@ ATC automation isn't just engineered for correctness, it's built to satisfy spec
 Two concrete gaps between this prototype and a regulation-grounded system, worth keeping in mind:
 
 - **Field validation vs. separation-minima validation.** `check_state_message()` in `reference-solution/message_parser.py` checks that lat/lon/heading/altitude/speed are physically plausible numbers (e.g. heading in `[0, 360]`). Real conflict-alert logic checks against the actual separation minima in 7110.65 (3/5 nm lateral, 1,000 ft vertical) between aircraft pairs, a different (and harder) problem than what this problem is doing.
-- **No staleness/track-timeout logic.** `predict()` in `reference-solution/tracker.py` will happily coast a track forward indefinitely between updates. Real systems bound how long a track can be "coasted" before it's flagged as stale, tied to expected radar/ADS-B update rates. This is a natural safety-relevant addition, and a cheap one — it's written up in `reference-solution/STRETCH_GOALS.md`.
+- **No staleness/track-timeout logic.** `predict()` in `reference-solution/tracker.py` will happily coast a track forward indefinitely between updates. Real systems bound how long a track can be "coasted" before it's flagged as stale, tied to expected radar/ADS-B update rates. This is a natural safety-relevant addition, and a manageable one. It is written up in `reference-solution/STRETCH_GOALS.md`.
 
 ---
 
@@ -209,59 +209,99 @@ Your solution should output an updated route and tracking estimate after process
 
 ## Running the Code
 
-You will write your own solution, but there is a complete worked one in `reference-solution/` you can run first to see what the finished thing does. Install its one dependency (used for the map) and run it from the repository root — not from inside `air-traffic-control/`, since scenario and output paths are relative to the root:
+You do not need to start from scratch. There is a complete example in `reference-solution/` that you can run, explore, and build on. You are also welcome to create your own solution using the same input files.
+
+From the repository root, run:
 
 ```bash
 pip install -r air-traffic-control/reference-solution/requirements.txt
 python air-traffic-control/reference-solution/stream.py
 ```
 
-This replays `scenarios/simple_route.json` message-by-message through `FlightRoutingSolution`, printing the estimated position, uncertainty, next waypoint and ETA after each message, then opens a satellite map showing the planned route, the raw reported positions, the tracker's own estimate, and how sure it is of it.
+Run these commands from the repository root, not from inside `air-traffic-control/`. The scenario and output paths are relative to the root.
 
-Pass a scenario name to try another, or drop your own file into `scenarios/` in the same format:
+### What happens when you run it
+
+The program reads `scenarios/simple_route.json` one message at a time. After each message, it prints:
+
+- the estimated aircraft position
+- the current uncertainty
+- the next waypoint
+- the estimated arrival time
+- any warnings about suspicious data
+
+When the scenario finishes, a map opens showing the planned route, reported positions, estimated track, and uncertainty.
+
+### Try another scenario
+
+Pass a scenario filename to the program:
 
 ```bash
 python air-traffic-control/reference-solution/stream.py invalid.json
 python air-traffic-control/reference-solution/stream.py anomalous.json
 ```
 
+You can also copy one of the files in `scenarios/` and create your own small test case.
+
 | Scenario | What it shows |
 | --- | --- |
-| `simple_route.json` | A clean flight with one mid-flight reroute. Nothing gets flagged, which is the correct answer. |
-| `invalid.json` | Field-level rubbish: out-of-range latitude, negative altitude, missing longitude, unknown message type. |
-| `anomalous.json` | One of each interesting failure: a corrupted position, a genuine off-route deviation, a waypoint that doesn't exist, a route update contradicting history, and a message delivered out of order. |
+| `simple_route.json` | A normal flight with one mid-flight reroute. Nothing should be flagged. |
+| `invalid.json` | Missing fields and impossible values, such as an invalid latitude or negative altitude. |
+| `anomalous.json` | A corrupted position, an off-route movement, an unknown waypoint, a conflicting route update, and a late message. |
 
-`reference-solution/README.md` explains how it works and which knobs to turn; `reference-solution/STRETCH_GOALS.md` lists what was deliberately left out and roughly what each addition costs.
+Want to understand or change the example?
+
+- `reference-solution/README.md` explains the main files and settings.
+- `reference-solution/STRETCH_GOALS.md` suggests optional additions and gives rough time estimates.
 
 ---
 
-## Alternate: Live Aircraft Instead of Scenario Files
+## Optional: Track Live Aircraft
 
-`opensky-live-tracking/` is an optional add-on that feeds your tracker **real ADS-B reports from aircraft that are airborne right now**, pulled from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/index.html#), and draws them on a radar scope. It's a different message *source*, not a different solution — the tracking is done by the same code.
+The `opensky-live-tracking/` folder lets you try the tracker with real ADS-B reports from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/index.html#). It displays nearby aircraft on a radar-style page.
 
-That's the point worth taking from it: once the message format is settled, where messages come from stops mattering. There are three sources in this challenge and the tracker can't tell them apart.
+This is still the same tracker. Only the source of the messages changes.
 
-| Source | Messages | Ground truth? | Good for |
+The live demo is completely optional. The supplied scenarios are the best place to build and debug because they are small, predictable, and repeatable.
+
+### Three ways to feed the tracker
+
+| Source | Type of data | Correct answer available? | Best for |
 | --- | --- | --- | --- |
-| `scenarios/*.json` | Canned, fixed | No, but hand-checkable | Building and debugging. Repeatable, so a change either fixed something or didn't. |
-| `reference-solution/advanced/simulator.py` | Synthetic, generated | **Yes** — the true track is known | Measuring accuracy. The only way to say "within 1.5 km" instead of "it works". |
-| `opensky-live-tracking/` | Real, live, many aircraft | No | Demoing, and finding out what real data does to your assumptions. |
+| `scenarios/*.json` | Fixed, hand-written messages | No, but easy to check by hand | Building and debugging |
+| `reference-solution/advanced/simulator.py` | Generated messages | Yes | Measuring position accuracy |
+| `opensky-live-tracking/` | Live reports from many aircraft | No | Demos and testing assumptions with real data |
 
-The translation layer that makes this work is `opensky-live-tracking/adapter.py`, and it is fifteen lines long. Worth reading even if you never run the thing.
+All three sources create the same `state` message format, so the tracker does not need to know where a message came from.
 
-### What it exercises, and what it doesn't
+The translation happens in `opensky-live-tracking/adapter.py`. It is only about fifteen lines long and is worth reading, even if you do not run the live demo.
 
-ADS-B broadcasts aircraft **state** — position, altitude, speed, heading. There is no flight plan, route, or waypoint data behind it, so nothing in the live feed maps to `route_update` or `waypoint_report`. Concretely, that means the live feed covers dead reckoning, filtering, uncertainty, and anomaly detection (across many aircraft at once, which the scenarios never ask for) — and cannot touch next-waypoint prediction, ETA, route reconstruction, or multi-hypothesis routing.
+### What the live feed can test
 
-**So it's a complement, not a substitute.** Roughly half the judging criteria in this README have nothing to point at in a live demo. If you show this, show a scenario run alongside it.
+ADS-B reports include position, altitude, speed, and heading. This makes the live feed useful for testing:
 
-### One genuinely useful thing it teaches
+- position prediction
+- filtering and uncertainty
+- suspicious position reports
+- several aircraft at once
 
-The scenarios deliver messages minutes apart; OpenSky reports every ~15 seconds. The same filter needs *different tuning* at those two rates, and one knob flips outright — `ANOMALY_TRUST` is `0.3` for the scenarios and `0.0` for the live feed.
+ADS-B reports do not include the planned route or next waypoint. The live feed cannot test route reconstruction, next-waypoint prediction, ETA, route consistency, or multiple route hypotheses.
 
-The reason is worth thinking through. Over five minutes an aircraft can turn a long way, so a report that lands far from your prediction is probably a real manoeuvre you failed to anticipate, and refusing to believe it loses the aircraft entirely. Over fifteen seconds an aircraft barely turns, so the same surprise is far more likely to be bad data — and rejecting it is safe, because your uncertainty grows fast enough to re-acquire within a poll or two.
+If your project includes route features, show a scenario run alongside the live view.
 
-Same code, opposite correct answer, and the deciding factor is the sampling rate rather than anything about the filter. Noticing that is a better answer to "did you understand the problem?" than any feature you could add.
+### Why the live tracker uses different settings
+
+Scenario messages may be several minutes apart. OpenSky reports often arrive about 15 seconds apart.
+
+Over five minutes, an aircraft can make a real turn and end up far from a simple straight-line prediction. The tracker should still give that new report some trust.
+
+Over 15 seconds, the aircraft should not move very far from its prediction. A large jump is more likely to be bad data, so the live tracker can reject more of it.
+
+That is why `ANOMALY_TRUST` is `0.3` for the scenarios and `0.0` for the live feed. The code stays the same, but a useful setting changes with the message rate.
+
+That is a useful result to explain in a demo: algorithms need to be tested with the kind of data they will actually receive.
+
+See `opensky-live-tracking/README.md` for setup instructions and limitations.
 
 ---
 

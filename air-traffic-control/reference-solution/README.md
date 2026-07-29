@@ -1,141 +1,149 @@
 # Basic Reference Solution
 
-## What it does
+This folder contains a complete, working example for the challenge. You can run it, change it, or use only the parts that help your team.
 
-Feed it a stream of messages and it answers the four questions the challenge asks:
+The code answers four questions:
 
-| Question | Where |
-| --- | --- |
-| Where is the aircraft now? | `tracker.py` : predict/update cycle with an uncertainty radius |
-| Where is it going next? | `message_parser.py` : `_advance_route_progress()` |
-| When does it get there? | `message_parser.py` : `_estimate_eta()` |
-| Which messages shouldn't we trust? | four checks, listed below |
+1. Where is the aircraft now?
+2. Where is it going next?
+3. When might it arrive?
+4. Does an incoming message look suspicious?
 
-```
-dead_reckoning.py   distance, bearing, and "fly this heading for this far"
-tracker.py          the running estimate and how sure we are of it
-message_parser.py   message handling, route progress, ETA, anomaly checks
-visualizer.py       satellite map of route, reports, estimate, uncertainty, alerts
-stream.py           replays a scenario file through the above
-```
+You do not need to understand every file before you start making changes.
 
-## Running it
+## Run it
+
+From the repository root:
 
 ```bash
 pip install -r air-traffic-control/reference-solution/requirements.txt
 python air-traffic-control/reference-solution/stream.py
 ```
 
-From the repository root, not from inside `air-traffic-control/` — the scenario and
-nav-data paths are relative to the root. Pass a scenario name to try another:
+The program prints an updated estimate after each message and opens a map at the end.
+
+Try a different scenario:
 
 ```bash
+python air-traffic-control/reference-solution/stream.py invalid.json
 python air-traffic-control/reference-solution/stream.py anomalous.json
 ```
 
-| Scenario | What it shows |
+## The files at a glance
+
+| File | Purpose |
 | --- | --- |
-| `simple_route.json` | A clean flight with one mid-flight reroute. Nothing gets flagged, which is the correct answer. |
-| `invalid.json` | Field-level rubbish: out-of-range latitude, negative altitude, missing longitude, unknown message type. |
-| `anomalous.json` | One of each interesting failure: a corrupted position, a genuine off-route deviation, a waypoint that doesn't exist, a route update contradicting history, and a message delivered out of order. |
+| `stream.py` | Loads a scenario and sends each message into the solution |
+| `message_parser.py` | Validates messages, updates the route, estimates arrival time, and reports alerts |
+| `tracker.py` | Predicts and updates the aircraft state |
+| `dead_reckoning.py` | Contains distance, bearing, and movement calculations |
+| `visualizer.py` | Draws the route, reports, estimate, uncertainty, and alerts on a map |
+
+If you are unsure where to begin, start with `stream.py`, then follow the call to `FlightRoutingSolution.process_message()` in `message_parser.py`.
 
 ## How the tracker works
 
-Two operations, alternating forever:
+The tracker repeats two operations.
 
-- **predict**: no new information, so coast forward on the last known speed and
-  heading, and get less sure.
-- **update**: a message arrived, so move the estimate toward it and get more sure.
+### Predict
 
-How far it moves is the only real idea in the file:
+Between messages, it moves the aircraft forward using the last known speed and heading. Its uncertainty grows because the aircraft may have changed direction or speed.
 
+### Update
+
+When a position report arrives, it moves the estimate toward that report. The amount it moves depends on how confident the tracker was and how noisy the report might be.
+
+The basic idea is:
+
+```text
+update_fraction = current_uncertainty / (current_uncertainty + expected_message_error)
 ```
-fraction = our_uncertainty / (our_uncertainty + expected_message_error)
-```
 
-Unsure and the message looks reliable, that's near 1, so jump to it. Confident and
-the message could be noisy, that's near 0, so hold your ground. That is a Kalman
-filter with the linear algebra taken out — a real one tracks uncertainty as a matrix
-so it can model how being wrong about heading makes you wrong about position later.
+If the tracker is unsure, the fraction is larger and it follows the new report more closely. If the tracker is confident, the fraction is smaller and the change is gentler.
 
-You can watch this happening in the printed output. Early on, messages land within a
-kilometre or two of the prediction and uncertainty settles around 2 km. After a long
-silence the circle swells, and the next message snaps it shut again.
+This is a beginner-friendly version of the idea behind a Kalman filter. It uses one uncertainty radius instead of a matrix.
 
-### The knobs
+## What gets flagged
 
-All of them live at the top of `tracker.py` and `message_parser.py`, and each one
-says what raising it does. Change them and re-run — that is the intended way to
-build intuition about this, rather than deriving values on paper.
+The solution uses separate, readable checks:
 
-| Knob | Default | Governs |
+1. **Invalid fields:** A value is missing or impossible, such as latitude 95 or a negative speed.
+2. **Impossible movement:** The aircraft appears to travel farther than its speed and elapsed time allow.
+3. **Unexpected position:** The report is much farther from the prediction than the current uncertainty allows.
+4. **Route conflict:** A waypoint is not on the route, or a new route disagrees with waypoints already passed.
+
+Keeping these checks separate makes it easier to see why a message was flagged.
+
+## Useful settings to experiment with
+
+The main settings are near the top of `tracker.py` and `message_parser.py`.
+
+| Setting | Default | What it controls |
 | --- | --- | --- |
-| `MEASUREMENT_ERROR_KM` | 3.0 | How much to trust reported positions |
-| `DRIFT_PER_MINUTE_KM` | 1.0 | How fast confidence decays while coasting |
-| `INITIAL_UNCERTAINTY_KM` | 5.0 | Confidence at the first message |
-| `ANOMALY_SIGMA` | 3.0 | How surprising a message must be to get flagged |
-| `ANOMALY_TRUST` | 0.3 | How much of a flagged message to believe anyway |
-| `WAYPOINT_REACHED_KM` | 30.0 | How close counts as reaching a waypoint |
-| `MAX_PLAUSIBLE_SPEED_KT` | 700.0 | Above this, it's a bad message, not a fast aircraft |
+| `MEASUREMENT_ERROR_KM` | `3.0` | How accurate a position report is expected to be |
+| `DRIFT_PER_MINUTE_KM` | `1.0` | How quickly uncertainty grows without new data |
+| `INITIAL_UNCERTAINTY_KM` | `5.0` | Confidence when the first message arrives |
+| `ANOMALY_SIGMA` | `3.0` | How surprising a report must be before it is flagged |
+| `ANOMALY_TRUST` | `0.3` | How much a flagged position still affects the estimate |
+| `WAYPOINT_REACHED_KM` | `30.0` | How close the aircraft must be to count as reaching a waypoint |
+| `MAX_PLAUSIBLE_SPEED_KT` | `700.0` | The maximum believable aircraft speed |
 
-`ANOMALY_TRUST` is the interesting one, and it's worth understanding why it isn't
-`0.0`. Ignoring flagged messages outright is the obvious first guess and it's wrong:
-a sharp turn at a waypoint puts the next report tens of km from our straight-line
-prediction, so it gets flagged — and if we then ignore it, we keep flying the old
-heading and the report after that is further off still. The gap grows at cruise
-speed while the tolerance only widens at `DRIFT_PER_MINUTE_KM`, so it never catches
-up and the aircraft is lost.
+Change one setting at a time, run the same scenario again, and compare the output. That is often the fastest way to understand what a setting does.
 
-Setting it to `0.0` measurably doubles the tracker's error on the accuracy harness in
-`advanced/`. Try it and watch. That harness exists precisely so claims like this one
-are checkable rather than asserted — it's how the default got picked.
+`ANOMALY_TRUST` is kept above zero because a surprising report is not always bad data. It might be the first report after a real turn. Ignoring every surprising report can leave the tracker continuing in the old direction.
 
-## The four anomaly checks
+## Supplied scenarios
 
-Deliberately four separate checks rather than one clever one, because they catch
-different things and it should be obvious which one fired.
+| Scenario | What it shows |
+| --- | --- |
+| `simple_route.json` | A clean flight with one reroute. Nothing should be flagged. |
+| `invalid.json` | Missing fields and impossible values. |
+| `anomalous.json` | A corrupted position, an off-route movement, a route conflict, and a late message. |
 
-1. **Field validation** (`check_state_message`) — values impossible on their own: a
-   latitude of 95, a negative speed.
-2. **Physical plausibility** (`check_position_jump`) — a position no aircraft could
-   have reached in the time available. Catches swapped coordinates and misplaced
-   decimal points. Measured from the last position we actually believed, not from
-   our current prediction, so rejecting one message doesn't cascade into rejecting
-   the next good one.
-3. **Disagreement with the estimate** (in `tracker.update`) — individually plausible
-   values that don't square with where the aircraft just was. This is the one that
-   scales with confidence: the same 50 km surprise is an alarm after a confident fix
-   and unremarkable after twenty minutes of silence.
-4. **Route consistency** — a reported waypoint that isn't on the route, or a route
-   update that disagrees about waypoints already flown past.
+## Good first changes
 
-## How good is it?
+These are manageable additions for a 12-hour hackathon:
 
-Measured against a synthetic flight with a known true track (`advanced/measure_accuracy.py`):
+- Add a stale warning after a long gap between messages.
+- Compare heading with the direction of the next waypoint.
+- Check whether a reported arrival time looks realistic.
+- Add clearer explanations to anomaly alerts.
+- Improve the map or add a summary panel.
+- Write a small scenario for a bug you find.
+- Run the accuracy tool and show whether your change helped.
 
-```
-  error vs ground truth     median      RMSE     worst   (km)
-  raw reported                0.03     42.72    263.35
-  tracker estimate            1.50     12.15     53.28
+## Measure the result
+
+The advanced folder includes a simulator with a known correct flight. That lets you measure position error instead of judging the map by eye.
+
+```bash
+pip install -r air-traffic-control/reference-solution/advanced/requirements.txt
+python air-traffic-control/reference-solution/advanced/measure_accuracy.py
 ```
 
-The reports themselves are near-perfect most of the time — median error 30 m — so the
-tracker's job isn't to improve on a good report, it's to survive a bad one. It gives
-up 1.5 km of typical accuracy to smoothing lag and in exchange cuts the worst case
-from 263 km to 53 km.
+The current simple tracker has about `1.50 km` median error in the supplied simulation. A few corrupted reports make the worst cases much larger, which is why anomaly handling matters.
 
-Being able to say that with numbers is worth more than any extra feature. If you add
-one thing from `advanced/`, add the harness.
+Do not worry if your result is not the lowest possible number. Explain the trade-off your team chose and test it consistently.
 
-## What's deliberately not here
+## Optional advanced code
 
-Not because it doesn't matter, but because it doesn't fit in two days, and a
-half-finished Kalman filter demos worse than a working simple one:
+The [`advanced/`](advanced/) folder contains examples of:
 
-- a matrix-based Extended Kalman Filter with a real covariance
-- multi-hypothesis route tracking
-- graph-search rerouting
+- accuracy measurement
+- graph-based rerouting
+- multiple route hypotheses
+- a matrix-based Extended Kalman Filter
 
-All three are written up in `STRETCH_GOALS.md` with honest time estimates, and
-`advanced/` holds a working implementation of each — as add-ons that plug into this
-code, not as a second copy of it. Read that folder's README first.
+Read [`advanced/README.md`](advanced/README.md) before choosing one. For most teams, one focused extension is plenty.
+
+## Important limitations
+
+This solution is intentionally simplified. For example:
+
+- One number represents position uncertainty.
+- The movement model assumes the aircraft keeps roughly the same speed and heading between reports.
+- A track can keep predicting forward even when no new message has arrived.
+- The route data is much simpler than real aviation route data.
+- The code has not been tested or certified for real operations.
+
+These limitations are useful project ideas. They are also worth mentioning in your demo.
