@@ -1,165 +1,171 @@
-# Stretch Goals
+# Optional Project Ideas
 
-Pick these up **only once the core solution runs end to end and puts something on a
-map**. A working simple tracker demos far better than a half-built sophisticated one,
-and every item here is optional.
+The basic tracker is already a complete hackathon project. Everything in this file is optional.
 
-Times assume you already have the core working and are a first- or second-year
-student who hasn't seen the material before. They're honest, not encouraging.
+Before choosing an idea, make sure your project can:
 
-Each tier is self-contained — you don't need Tier 1 to attempt Tier 2.
+- read a scenario
+- process each message
+- show or print a useful result
+- handle at least one bad message
 
----
+Once that works, pick **one** improvement your team can finish and explain. A small feature with a clear test makes a strong demo.
 
-## Tier 1 — an hour or two each, no new maths
+## Choose an idea
 
-These need nothing you don't already have. Good value: each one visibly improves the
-demo, and any of them is a real answer to a judging criterion.
+| If your team wants to... | Try this |
+| --- | --- |
+| Prove the tracker works | Measure its accuracy |
+| Add a practical safety feature | Detect stale tracks |
+| Add another useful warning | Check heading or reported ETA |
+| Improve the tracking model | Track uncertainty separately |
+| Add route planning | Reroute around a blocked waypoint |
+| Explore uncertain routes | Keep several route hypotheses |
+| Compare a more advanced filter | Run the supplied Extended Kalman Filter |
 
-### Measure your accuracy — do this one first
+The times are rough guides for first- and second-year students. Choose based on what your team already knows and how much time remains.
 
-`advanced/measure_accuracy.py` runs your tracker against a flight whose true track
-is known and prints how far off it was. It needs no wiring; point it at your code
-and run it.
+## Good first choices
 
-*Why it matters:* it converts "our tracker works" into "our tracker holds 1.5 km
-typical error and rejects position spikes above 50 km". It's also how you tell
-whether any other item on this list actually helped, rather than guessing.
+### Measure the tracker's accuracy
 
-*Effort:* an hour to understand, zero to wire in.
+The map may look correct even when the estimate is far from the real position. The supplied accuracy tool tests the tracker against a simulated flight where the correct position is known.
 
-### Grade the anomaly trust instead of using one constant
+Run it from the repository root:
 
-`ANOMALY_TRUST` is already wired through `tracker.update()`, but it's a flat number:
-every flagged message is discounted by the same amount. Make it scale with how far
-over the line the message landed, so one barely past the threshold is nudged down
-slightly while a wild one is dropped entirely.
+```bash
+pip install -r air-traffic-control/reference-solution/advanced/requirements.txt
+python air-traffic-control/reference-solution/advanced/measure_accuracy.py
+```
 
-*Why it matters:* right now a 40 km surprise and a 400 km surprise are treated
-identically, and only one of those is plausibly a real manoeuvre.
+It reports typical error, overall error, and the worst error. This gives your team something concrete to compare before and after a change.
 
-*Where to look:* `advanced/ekf.py`, in `update()` — it does this with two tiers, a
-soft one and a hard gate.
+**A finished version:** Run the same test before and after your improvement, then explain what changed and why.
 
-### Track staleness
+### Detect stale tracks
 
-`tracker.predict()` will coast forward forever. Real systems refuse to: past some
-number of minutes with no message, the track is stale and should say so rather than
-quietly reporting a confident-looking position that's an extrapolation.
+The current tracker can keep predicting forever after messages stop arriving. Add a warning when the most recent message is too old.
 
-*Why it matters:* it's a genuine safety property, and it's the gap called out in the
-main challenge README's regulatory section. Cheap to build, easy to explain to a judge.
+You could add:
 
-*What you need:* one more knob and one more field in `get_state()`.
+- a setting such as `STALE_AFTER_MINUTES`
+- the time of the latest trusted message
+- an `is_stale` field in `get_state()`
+- a visible warning in the output or map
 
-### Heading versus route geometry
+**A finished version:** A normal scenario stays active, while a scenario with a long gap becomes stale.
 
-Compare reported heading against the bearing to the next waypoint. If an aircraft
-claims to be heading for a waypoint that's 90° off its nose, one of the two is wrong.
+### Compare heading with the next waypoint
 
-*Why it matters:* catches a class of error the position checks miss entirely — the
-position is fine, the intent doesn't match it.
+An aircraft may report a valid position but point away from its next waypoint. Compare its heading with the bearing to that waypoint and flag a large disagreement.
 
-*What you need:* `find_bearing()` is already in `dead_reckoning.py`, and
-`_has_passed()` in `message_parser.py` already does the "is it behind us" angle
-comparison you'd reuse. Add a check alongside the other four.
+Start with:
 
-### Sanity-check the reported ETA
+- `find_bearing()` in `dead_reckoning.py`
+- `_has_passed()` in `message_parser.py`, which already compares angles
 
-`waypoint_report` messages carry an ETA that the core solution deliberately ignores
-in favour of computing its own. Compare the two: if the reported ETA implies a speed
-wildly different from the tracked one, flag it.
+Choose a clear tolerance and test a normal turn as well as a suspicious heading.
 
-*What you need:* `_estimate_eta()` in `message_parser.py` already computes the
-distance and speed you'd compare against. Work out the speed the reported ETA
-implies, and flag it if the two differ by more than about a factor of two.
+**A finished version:** The tracker explains how far the reported heading differs from the expected direction.
 
----
+### Check the reported ETA
 
-## Tier 2 — half a day each, some new ideas
+A `waypoint_report` message includes an ETA. The basic solution calculates its own ETA but does not compare the two.
 
-Real scope. Attempt one, not several.
+Use the distance to the waypoint and the reported ETA to work out the speed the aircraft would need. Flag the message if that speed is very different from the tracked speed.
 
-### Separate uncertainty per quantity
+Start with `_estimate_eta()` in `message_parser.py`, which already contains most of the distance and time calculations.
 
-Right now one number covers position, and altitude/speed/heading are blended with
-that same fraction. Give each its own uncertainty and its own drift rate. Altitude
-during a climb is much less predictable than ground speed at cruise, and a single
-number can't express that.
+**A finished version:** A believable ETA passes, while an impossible ETA produces a helpful warning.
 
-*Time:* 2–3 hours. *New maths:* none, just four copies of what's there.
+### Trust suspicious reports by different amounts
 
-*Why it's worth it:* it's the honest halfway house to a real filter, and it makes the
-next item much less of a leap.
+The basic tracker uses one `ANOMALY_TRUST` value for every suspicious position. A report that is slightly outside the expected area is treated the same as one hundreds of kilometres away.
 
-### Multi-hypothesis route tracking
+Change the trust value based on how surprising the report is. For example:
 
-When a route update contradicts history, the core solution accepts it and flags the
-contradiction. The alternative is to keep both explanations alive with weights,
-adjust the weights as messages support or contradict each one, and report the
-strongest.
+- slightly unusual: trust some of it
+- clearly suspicious: trust very little
+- physically impossible: reject it
 
-*Time:* 3–5 hours. *New ideas:* weights and normalization; not hard individually, but
-there's a lot of bookkeeping and it's fiddly to debug.
+The `update()` method in `advanced/ekf.py` contains an example with a softer limit and a harder limit.
 
-*Where to look:* `advanced/hypothesis.py` gives you the `RouteHypothesis` class (92
-lines, self-contained). The wiring is deliberately not provided — `advanced/README.md`
-lists the five steps.
+**A finished version:** Test several position jumps and show that larger errors have less influence.
 
-*Warning:* this changes the shape of your state everywhere, since "the route"
-becomes "the current best route" — `get_state`, the ETA, the map, the waypoint
-progress. That ripple is most of the work, not the new file.
+## Larger additions
 
-### Reroute suggestion with graph search
+### Track uncertainty separately
 
-Treat the waypoints as a graph weighted by distance and run Dijkstra or A\* to find a
-path around a blocked waypoint (a storm cell, a restricted zone).
+The basic tracker uses one uncertainty value when updating position, altitude, speed, and heading. In reality, these values do not become uncertain at the same rate.
 
-*Time:* 2–4 hours if you've seen Dijkstra, considerably more if not.
+Give each value its own uncertainty and drift setting. You can build this with the same weighted-update idea already used by the simple tracker. No new matrix mathematics is required.
 
-*Where to look:* `advanced/path_planning.py` — 93 lines and the most self-contained
-thing in that folder. It doesn't touch the tracker at all, which makes it a safe
-addition late on.
+**A finished version:** After a gap, each measurement has its own uncertainty, and a new report updates each value by a sensible amount.
 
-*Note:* the supplied nav data lists waypoints but no airways between them, so
-`advanced/path_planning.py` treats every waypoint as connected to every other. Real
-routing is constrained to published airways. Saying so out loud is worth marks.
+### Suggest a route around a blocked waypoint
 
----
+Treat the waypoints as a graph and use Dijkstra's algorithm or A* to find a route that avoids a blocked waypoint.
 
-## Tier 3 — read, don't build
+`advanced/path_planning.py` provides a small starting point and does not require changes to the aircraft tracker.
 
-### A real Extended Kalman Filter
+The supplied navigation data does not contain real airway connections, so the example treats every waypoint as connected. Mention this limitation in your demo.
 
-Uncertainty as a 6×6 covariance matrix instead of one number, propagated through the
-motion model's Jacobian, with chi-square gating on the innovation.
+**A finished version:** Block one waypoint, display the suggested replacement route, and compare its distance with the original.
 
-*Prerequisites, honestly:* covariance matrices, Jacobian linearization, chi-square
-distributions with degrees of freedom, and eigendecomposition for the confidence
-ellipse. Third-year material and up.
+### Keep several possible routes
 
-*The real obstacle isn't writing it, it's debugging it.* `PROCESS_NOISE` and
-`MEASUREMENT_NOISE` are variances, not distances, so when the filter diverges you
-can't reason about them the way you can about `DRIFT_PER_MINUTE_KM = 1.0` meaning
-"a kilometre a minute". Knowing which of the six terms is wrong is intuition that
-takes weeks. Teams that start here typically have no working demo at the end.
+The basic solution stores one route. When messages disagree, another approach is to keep several possible routes and assign each one a weight.
 
-*It does work, though.* `advanced/ekf.py` is a drop-in replacement for `tracker.py`
-— one changed import — and on the accuracy harness its median error is 0.02 km
-against the simple tracker's 1.50 km. Swap it in and compare before deciding whether
-that difference is worth a day of your hackathon.
+Later messages can raise or lower those weights. The route with the highest weight becomes the current best guess.
 
-### Build your own simulator
+`advanced/hypothesis.py` provides a `RouteHypothesis` class. Connecting it to `message_parser.py` is the main challenge. You will need to update route progress, ETA, output, and visualization to use the best hypothesis.
 
-`advanced/simulator.py` already generates a known-truth flight for the accuracy
-harness, so you don't need to write one. But if you want to understand the technique,
-it's the most reusable thing in this challenge: any system that estimates something
-can be tested by simulating a case where you know the answer.
+**A finished version:** Show two possible routes, process a message that supports one of them, and display how their weights change.
 
-*A cheap version worth writing yourself:* fly a straight line between two waypoints
-at constant speed, sample it every few minutes, add a little random noise to each
-sample, and feed those in as `state` messages. Maybe 40 lines, and you'll have built
-your own answer key.
+## Explore and compare
 
-*Where to look:* `advanced/simulator.py` for the full version, and
-`advanced/measure_accuracy.py` for how the scoring is done.
+### Try the supplied Extended Kalman Filter
+
+`advanced/ekf.py` is a more advanced replacement for the simple tracker. You are not expected to build it from scratch.
+
+Run the accuracy tool with the `--ekf` option:
+
+```bash
+python air-traffic-control/reference-solution/advanced/measure_accuracy.py --ekf
+```
+
+Compare it with the simple tracker:
+
+- Which has lower typical error?
+- Which handles bad reports better?
+- How does uncertainty change after a long gap?
+- Is the extra complexity useful for your project?
+
+The Extended Kalman Filter uses covariance matrices and other mathematics that may be unfamiliar. It is completely fine to treat it as an example, run it, and explain what you observed.
+
+### Change the simulator
+
+`advanced/simulator.py` creates a flight where the correct route and position are known. It then adds noise and bad data to create test messages.
+
+Try changing one part of the generated flight:
+
+- increase the position noise
+- add a longer message gap
+- create a sharper turn
+- add more corrupted reports
+- change the reporting interval
+
+Then compare how the tracker behaves before and after the change.
+
+**A finished version:** Explain what you changed in the simulated data and show how it affected the results.
+
+## Keep the scope manageable
+
+Before committing to an idea, ask:
+
+1. Can we build a basic version in the time remaining?
+2. Do we know how we will test it?
+3. Will the improvement be visible in our demo?
+4. Can every teammate explain what it does?
+
+If the answer is no, choose a smaller version of the idea. Finishing early gives you time to test, improve the presentation, and enjoy the demo.

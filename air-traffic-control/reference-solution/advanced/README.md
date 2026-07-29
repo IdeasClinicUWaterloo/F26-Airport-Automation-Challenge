@@ -6,13 +6,13 @@ Get the basic tracker running first. Then choose at most one add-on if your team
 
 ## Quick guide
 
-| File | What it adds | Suggested level | Approximate time |
-| --- | --- | --- | --- |
-| `measure_accuracy.py` | Measures tracking error against a known flight | Good first choice | About 1 hour to explore |
-| `path_planning.py` | Finds a route around blocked waypoints | Approachable if you know graphs | 2 to 4 hours |
-| `hypothesis.py` | Keeps and scores several possible routes | More involved | 3 to 5 hours |
-| `ekf.py` | Replaces the simple tracker with a matrix Kalman filter | Read and compare | Not recommended to build during the event |
-| `simulator.py` | Creates the known flight used for accuracy testing | Supporting code | No setup needed |
+| File | What it adds | Suggested level |
+| --- | --- | --- |
+| `measure_accuracy.py` | Measures tracking error against a known flight | Good first choice |
+| `path_planning.py` | Finds a route around blocked waypoints | Approachable if you know graphs |
+| `hypothesis.py` | Keeps and scores several possible routes | More involved |
+| `ekf.py` | Replaces the simple tracker with a matrix Kalman filter | Read and compare |
+| `simulator.py` | Creates the known flight used for accuracy testing | Supporting code |
 
 ## Best first option: measure accuracy
 
