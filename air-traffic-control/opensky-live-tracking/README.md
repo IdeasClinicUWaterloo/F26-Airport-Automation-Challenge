@@ -1,132 +1,134 @@
-# OpenSky Live Tracking (Optional Alternate)
+# OpenSky Live Tracking
 
-Runs the tracker against **real aircraft, right now**, instead of a scenario file.
-It pulls live ADS-B reports from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/index.html#)
-for everything currently in a bounding box (default: around Toronto Pearson) and
-draws them on a radar scope.
+This optional demo shows real aircraft that are currently flying near Toronto Pearson Airport.
 
-## What this actually is
+It downloads public ADS-B reports from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/index.html#), sends them through the same tracker used by the scenario files, and displays the results on a radar-style page.
 
-A **message source**, not a tracker. That's the whole design:
+You do not need this folder to complete the hackathon.
 
-```
-../scenarios/*.json                 canned messages, fixed and repeatable
-../reference-solution/advanced/      synthetic messages with a known true track
-    simulator.py
-this folder                          real messages, live, many aircraft at once
-```
+## Run it
 
-All three produce the same `state` message shape, so none of the tracking code
-knows the difference. [adapter.py](adapter.py) is where that happens, and it's 15
-lines — the interesting part of this folder is how little translation real data
-needs once the message format is settled.
-
-There is deliberately **no filter in here**. The tracking is done by
-`../reference-solution/`, borrowed at startup by [tracker_source.py](tracker_source.py).
-Earlier versions of this folder carried their own copy of the EKF; it drifted out
-of date the moment the reference version was refactored, which is exactly why it's
-gone.
-
-## Running it
+From the repository root:
 
 ```bash
 pip install -r air-traffic-control/opensky-live-tracking/requirements.txt
 python air-traffic-control/opensky-live-tracking/live_tracker.py
 ```
 
-Opens `http://127.0.0.1:8765/` automatically. Leave the tab open — it polls this
-process and animates, so reloading isn't needed. Ctrl+C to stop.
+The program opens `http://127.0.0.1:8765/` in your browser. Leave the page open while the program is running. Press `Ctrl+C` in the terminal to stop it.
 
-The only dependency is `requests`. The radar page is served by the standard
-library and the default tracker is pure Python.
+You need an internet connection. Anonymous OpenSky access may be slow or rate-limited.
 
-### Comparing the two trackers on real data
+## What this folder does
+
+This is a new **message source**, not a separate tracker.
+
+| Source | Kind of data | Best use |
+| --- | --- | --- |
+| `scenarios/*.json` | Small, fixed examples | Building and debugging |
+| `reference-solution/advanced/simulator.py` | Generated data with a known correct track | Measuring accuracy |
+| `opensky-live-tracking/` | Live reports from many real aircraft | Demonstrating and testing assumptions |
+
+All three sources create the same `state` message format. The tracking code does not need to know where a message came from.
+
+[`adapter.py`](adapter.py) converts an OpenSky report into the challenge format. It is short and is a good example of why a clear data format is useful.
+
+## What you can learn from it
+
+The live feed is useful for exploring:
+
+- tracking several aircraft at once
+- predicting movement between reports
+- showing uncertainty
+- handling noisy or surprising positions
+- removing tracks that have stopped reporting
+- building a live visualization
+
+The browser asks for a new snapshot every two seconds. OpenSky reports arrive less often, so [`snapshot.py`](snapshot.py) predicts each aircraft forward between real updates. This makes the aircraft move smoothly instead of sitting still and jumping to each new position.
+
+## What it cannot show
+
+ADS-B state reports include position, altitude, speed, and heading. They do not include the challenge's planned route, next waypoint, or arrival time.
+
+That means the live demo does not test:
+
+- route reconstruction
+- next-waypoint prediction
+- arrival-time prediction
+- route consistency
+- multiple route hypotheses
+
+Use the scenario files as well if your project includes route features.
+
+## Compare the two supplied trackers
+
+The normal command uses the simple tracker. Add `--ekf` to use the supplied matrix-based Kalman filter:
 
 ```bash
 python air-traffic-control/opensky-live-tracking/live_tracker.py --ekf
 ```
 
-This swaps in the matrix Kalman filter from `../reference-solution/advanced/`
-(needs `numpy`). Same feed, same everything else — the cheapest way to see what
-the extra machinery buys you on data nobody staged for you.
-
-### Authentication (optional)
-
-Anonymous access works with no setup but is heavily rate-limited. For a smoother
-demo, create a free OpenSky account, add an API client under your account
-settings, then:
+This option needs `numpy`, which is included in the advanced requirements:
 
 ```bash
-export OPENSKY_CLIENT_ID=...
-export OPENSKY_CLIENT_SECRET=...
+pip install -r air-traffic-control/reference-solution/advanced/requirements.txt
 ```
 
-Check OpenSky's docs for current limits before relying on this live — they've
-changed both the quotas and the auth flow before.
+Try both versions and compare how closely the estimate follows the aircraft, how it reacts to a surprising report, and how the uncertainty changes.
 
-### Watching somewhere else
+## Optional OpenSky account
 
-Edit `YYZ_BBOX = (lat_min, lon_min, lat_max, lon_max)` in
-[live_tracker.py](live_tracker.py).
+The demo can use anonymous access, but OpenSky may apply stricter limits to it. For a smoother demo, you can create an OpenSky account and API client.
 
-## What's in here
+In PowerShell:
 
-| File | Role |
+```powershell
+$env:OPENSKY_CLIENT_ID="your-client-id"
+$env:OPENSKY_CLIENT_SECRET="your-client-secret"
+python air-traffic-control/opensky-live-tracking/live_tracker.py
+```
+
+On macOS or Linux:
+
+```bash
+export OPENSKY_CLIENT_ID="your-client-id"
+export OPENSKY_CLIENT_SECRET="your-client-secret"
+python air-traffic-control/opensky-live-tracking/live_tracker.py
+```
+
+Do not commit your client secret. Check the OpenSky documentation for current account steps and limits before depending on the live feed for your final demo.
+
+## Watch a different area
+
+The default area is set near Toronto Pearson. To change it, edit `YYZ_BBOX` in [`live_tracker.py`](live_tracker.py):
+
+```python
+YYZ_BBOX = (lat_min, lon_min, lat_max, lon_max)
+```
+
+Use a reasonably small area so the demo does not request more data than it needs.
+
+## Folder guide
+
+| File | Purpose |
 | --- | --- |
-| `adapter.py` | Turns an OpenSky state vector into a challenge `state` message |
-| `opensky_client.py` | Wraps `GET /api/states/all`, scoped to a bounding box |
-| `tracker_source.py` | Borrows a tracker from `../reference-solution/` and retunes it for this data rate |
-| `tracker_manager.py` | One tracker per aircraft, with stale tracks swept when they leave the box |
-| `snapshot.py` | Predicts every track forward to *now* and builds the JSON the page polls |
-| `radar_server.py` | Stdlib-only local HTTP server |
-| `static/index.html` | The radar scope: Leaflet, sweep, range rings, animated aircraft |
-| `live_tracker.py` | Entry point: starts the server, polls OpenSky on a loop |
+| `live_tracker.py` | Starts the server and polls OpenSky |
+| `opensky_client.py` | Requests aircraft reports inside the selected area |
+| `adapter.py` | Converts OpenSky data into a challenge `state` message |
+| `tracker_source.py` | Loads and configures a tracker from the reference solution |
+| `tracker_manager.py` | Keeps one tracker per aircraft and removes stale tracks |
+| `snapshot.py` | Predicts tracks to the current time and prepares browser data |
+| `radar_server.py` | Runs the local web server |
+| `static/index.html` | Draws the radar page and aircraft |
 
-## The two things worth learning here
+## Why the settings are different
 
-### Tuning depends on the data rate
+The scenario messages may be several minutes apart. Live OpenSky messages are often much closer together. A tracker that works well for one update rate may need different settings for the other.
 
-The reference tracker's defaults assume messages minutes apart. OpenSky reports
-every ~15 seconds, and the same numbers are wrong at that rate — left alone, the
-gain works out around 0.08 and the estimate crawls along permanently behind the
-aircraft. `SIMPLE_TRACKER_TUNING` in [tracker_source.py](tracker_source.py)
-overrides four knobs, and one of them flips outright:
+`SIMPLE_TRACKER_TUNING` in [`tracker_source.py`](tracker_source.py) adjusts the simple tracker for the live feed. In particular, it trusts a surprising live position less because an aircraft normally cannot change very much in a short time.
 
-`ANOMALY_TRUST` is `0.3` in the reference solution and `0.0` here. In the
-scenarios, a surprising report is usually a real turn the constant-heading model
-couldn't anticipate, and refusing to believe it loses the aircraft. Over 15
-seconds an aircraft barely turns, so a report far from the prediction is bad data
-instead — and coasting uncertainty grows fast enough that a rejected track
-re-acquires within a poll or two anyway. Set it to `0.3` here and one corrupted
-position drags the estimate ~30 km off and keeps it flagged for several polls.
+This is a useful lesson for a demo: an algorithm's settings depend on the data it receives. Testing with both prepared scenarios and live data can reveal assumptions that were hard to notice before.
 
-Notably the matrix EKF needs **no** retuning at all: its noise is specified per
-second and scaled by elapsed time internally, so it adapts to the sampling rate
-on its own. That robustness is a better argument for the extra machinery than raw
-accuracy is.
+## Demo tip
 
-### Dead reckoning becomes visible
-
-OpenSky updates every ~15 s; the page polls every 2 s. [snapshot.py](snapshot.py)
-predicts each track forward to *now* on every poll, so aircraft coast smoothly
-along their last known heading between real reports rather than sitting still and
-then jumping. That's the same `predict()` from the main challenge, just called
-continuously — and it's the clearest demonstration in the whole project of why
-prediction matters at all.
-
-## What this can't do
-
-OpenSky reports aircraft **state** only — position, altitude, speed, heading.
-There is no flight plan, route, or waypoint data behind ADS-B, so nothing here
-maps to the challenge's `route_update` or `waypoint_report` messages. That rules
-out:
-
-- next-waypoint prediction and ETA
-- route reconstruction and route-consistency checks
-- multi-hypothesis routing
-
-So this exercises the **state-estimation half** of the challenge (dead reckoning,
-filtering, anomaly detection — now across many aircraft at once) and none of the
-**route-reasoning half**. It's a complement to the scenario-based challenge, not a
-replacement for it. If you demo this, demo `../reference-solution/stream.py` too,
-or half the judging criteria have nothing to point at.
+Live services can be slow, unavailable, or show no aircraft in a small area. Keep a scenario-based demo ready as a backup. The scenario run is also the better way to show route features and repeat a result exactly.
