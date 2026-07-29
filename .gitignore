@@ -42,5 +42,5 @@ playwright-report/
 # Generated visualizer output
 *.html
 
-# Personal backup/reference copy
-air-traffic-control/reference-solution/
+# Generated reference-solution output
+air-traffic-control/reference-solution/output/
