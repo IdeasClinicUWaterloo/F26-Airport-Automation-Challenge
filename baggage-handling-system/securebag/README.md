@@ -1,4 +1,4 @@
-**SecureBag: Visual Baggage Verification**
+# SecureBag: Visual Baggage Verification
 
 Airport baggage systems must preserve a clear connection between a bag, its tag, and its journey through the terminal. A barcode or tag identifies the record, but it does not independently confirm that the physical bag at a later checkpoint is the same bag that was presented at check-in.
 
@@ -8,14 +8,23 @@ The current challenge is to turn this prototype into a more useful, reliable, an
 
 Brock Solutions designs and integrates large-scale automation systems for aviation, transit, and industrial environments. Relevant stakeholders include airport operators, baggage-handling staff, airlines, security personnel, and passengers. For this Innovation Challenge, teams should consider how a prototype could fit into operations at Toronto Pearson International Airport, whose airport code is YYZ.
 
-**Table of Contents**
+## Table of Contents
 
 - [Challenge](#challenge)
 - [Potential Solutions](#potential-solutions)
 - [Resources](#resources)
+  - [Background Information](#background-information)
+  - [Technical Resources](#technical-resources)
+  - [Starter Workflow](#starter-workflow)
+  - [Comparison pipeline](#comparison-pipeline)
+  - [Application Programming Interface Routes](#application-programming-interface-routes)
+  - [Run the Starter Application](#run-the-starter-application)
+  - [Data Sources](#data-sources)
+  - [Additional References](#additional-references)
+  - [Abbreviation Reference](#abbreviation-reference)
+  - [Important Prototype Limitations](#important-prototype-limitations)
 
-<a id="challenge"></a>
-**Challenge**
+## Challenge
 
 Your goal is to extend SecureBag with a meaningful feature that improves baggage verification, tracking, staff decision-making, safety, or reliability.
 
@@ -56,8 +65,7 @@ Solutions should consider:
 - Sustainability
 - Technical implementation
 
-<a id="potential-solutions"></a>
-**Potential Solutions**
+## Potential Solutions
 
 The ideas below are examples to help teams explore possible directions. They are not the only possible solutions.
 
@@ -72,19 +80,18 @@ Teams are encouraged to combine ideas, explore new approaches, and develop creat
 | **Comparison evaluation tool** | Run labelled image pairs through the backend, report false passes and false flags, and help users explore threshold changes. | [`bag_compare.py`](bag_compare.py), [`sample_img/`](sample_img/) |
 | **Mobile checkpoint experience** | Improve phone capture, accessibility, loading feedback, retry behaviour, and QR-code scanning for staff working beside a conveyor or checkpoint. | [`checkin.html`](templates/checkin.html), [`verify.html`](templates/verify.html) |
 
-<a id="resources"></a>
-**Resources**
+## Resources
 
 The following resources may help teams understand the problem, run the starter application, and develop a solution.
 
-**Background Information**
+### Background Information
 
 - [International Air Transport Association (IATA) baggage standards](https://www.iata.org/en/programs/ops-infra/baggage/standards/) — baggage tracking and security-control context
 - [IATA Baggage Reference Manual](https://www.iata.org/en/publications/manuals/baggage-reference-manual/) — industry practices and baggage-related resolutions
 - [International Civil Aviation Organization (ICAO) publications](https://www.icao.int/publications) — aviation standards and guidance
 - [Airports Council International](https://aci.aero/) — airport operations and industry context
 
-**Technical Resources**
+### Technical Resources
 
 | Resource | Purpose |
 |---|---|
@@ -99,7 +106,7 @@ The following resources may help teams understand the problem, run the starter a
 
 The interface uses HyperText Markup Language (HTML), Cascading Style Sheets (CSS), and JavaScript. The backend uses Flask, Pillow, the Open Source Computer Vision Library (OpenCV), PyTorch, torchvision, NumPy, `qrcode`, and TinyDB.
 
-**Starter Workflow**
+### Starter Workflow
 
 1. **Check-in:** Staff enter the passenger name, passport number, flight, destination, gate, and bag weight, then take a photo.
 2. **Bag record:** The application stores the information and base64-encoded image in `bags.json`. It generates a short bag identifier such as `AC123-YYZ-8F2A3C`.
@@ -122,7 +129,7 @@ Colour and ORB scores are combined and compared with `PASS_THRESHOLD` and `FLAG_
 
 The pipeline is heuristic: lighting, camera angle, background, image quality, and bag type can all affect the result.
 
-**Application Programming Interface Routes**
+### Application Programming Interface Routes
 
 The application programming interface (API) uses Hypertext Transfer Protocol (HTTP) methods. `GET` retrieves a page or resource, while `POST` submits data or changes application state.
 
@@ -145,7 +152,7 @@ Example action request using JavaScript Object Notation (JSON):
 }
 ```
 
-**Run the Starter Application**
+### Run the Starter Application
 
 The source uses Python 3.9 or newer. Python 3.10 or 3.11 is recommended for package compatibility.
 
@@ -169,18 +176,18 @@ python app.py
 
 Open `http://localhost:5001` for check-in or `http://localhost:5001/bags` for the staff dashboard. The first image comparison may download pretrained model weights and can take longer than later comparisons.
 
-**Data Sources**
+### Data Sources
 
 - [`sample_img/`](sample_img/) contains sample image pairs for manual testing.
 - [`bags.json`](bags.json) is the TinyDB runtime data file. It contains encoded bag images and passenger fields, so teams must use fictional passenger information only.
 - The sample images are demonstration inputs, not a complete or statistically valid evaluation dataset.
 
-**Additional References**
+### Additional References
 
 - [IATA Baggage Information Exchange](https://www.iata.org/en/programs/ops-infra/baggage/baggage-information-exchange-bix/) — baggage data exchange and interoperability
 - [IATA Technical Peripheral Specifications](https://www.iata.org/en/publications/manuals/iata-technical-peripheral-specifications/) — context for baggage-related devices and common-use systems
 
-**Abbreviation Reference**
+### Abbreviation Reference
 
 | Short form | Meaning |
 |---|---|
@@ -210,7 +217,7 @@ Open `http://localhost:5001` for check-in or `http://localhost:5001/bags` for th
 | UDP | User Datagram Protocol |
 | YYZ | Airport code for Toronto Pearson International Airport |
 
-**Important Prototype Limitations**
+### Important Prototype Limitations
 
 - **No authentication or authorization:** Anyone who can reach the server can view passenger data, register bags, verify them, change their status, or clear the database.
 - **Plaintext passenger information:** `bags.json` stores personally identifiable information (PII), including passenger names and passport numbers, together with full bag images without encryption. Use fictional information only.
