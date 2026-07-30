@@ -107,7 +107,7 @@ Change one setting at a time, run the same scenario again, and compare the outpu
 
 ## Good first changes
 
-These are manageable additions for a 12-hour hackathon:
+These are some good possible additions to try in addition to the advanced path:
 
 - Add a stale warning after a long gap between messages.
 - Compare heading with the direction of the next waypoint.

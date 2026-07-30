@@ -1,9 +1,6 @@
 # SecureBag
 
 SecureBag is a prototype airport bag check-in and re-identification system. It helps staff check whether a bag photographed later in its journey appears to be the same bag that the passenger originally checked in—not one that was swapped or mixed up.
-
-> **Important:** SecureBag is a learning and hackathon prototype. It is not a certified aviation-security or passenger-identification system.
-
 ## How it works
 
 1. **Check-in:** Staff enter the passenger's name, passport number, flight, destination, gate, and bag weight, then take a photo of the bag.
@@ -107,7 +104,7 @@ The current `get_local_ip()` helper determines the address by opening a UDP sock
 - **Visual features:** ORB keypoints look for matching details such as logos, patterns, corners, and scuffs. RANSAC checks whether those matches align geometrically.
 - **Surface texture:** An FFT-based orientation comparison helps distinguish similarly coloured bags with different surface patterns or materials.
 
-For the main colour and ORB comparison, each image is cropped with a texture-based foreground detector and normalized to a fixed canvas. For the surface-texture check, a pretrained COCO Faster R-CNN model attempts to locate a `suitcase`, `handbag`, or `backpack`; if it cannot find one, the code falls back to the foreground detector.
+Before scoring, a pretrained COCO Faster R-CNN model attempts to locate a `suitcase`, `handbag`, or `backpack`. If it cannot find one, the code falls back to a texture-based foreground detector.
 
 Colour and ORB scores are combined and compared with `PASS_THRESHOLD` and `FLAG_THRESHOLD`. A strong mismatch in colour, ORB features, or texture can reduce an apparent pass to `review`. Tuning constants are near the top of `bag_compare.py`.
 
@@ -162,6 +159,3 @@ Do not enter real passport information or expose this application to the public 
 - Store sensitive data in an encrypted production database
 - Make LAN-address detection work on restricted or offline networks
 
-## Disclaimer
-
-SecureBag is an experimental teaching prototype. It must not replace approved baggage-screening procedures, trained staff, or certified aviation-security systems.
