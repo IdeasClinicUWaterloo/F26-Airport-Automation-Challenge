@@ -20,6 +20,8 @@ The airport of interest is Toronto Pearson International Airport (YYZ). Your sol
 
 You are encouraged to think like an airport systems engineer: handle messy data, think about safety and reliability, consider real operational constraints, and design something that could eventually integrate into a larger airport system.
 
+You will be evaluated against the rubric at the bottom of this page. Your solution can be any combination of the subproblems below or even a new idea. Whatever you build, the judges will evaluate you against the rubric, so build with that in mind.
+
 ---
 
 # Airport Systems Orientation
