@@ -52,8 +52,8 @@ ATC automation isn't just engineered for correctness, it's built to satisfy spec
 
 Two concrete gaps between this prototype and a regulation-grounded system, worth keeping in mind:
 
-- **Field validation vs. separation-minima validation.** `check_state_message()` in `starter-kit/message_parser.py` checks that lat/lon/heading/altitude/speed are physically plausible numbers (e.g. heading in `[0, 360]`). Real conflict-alert logic checks against the actual separation minima in 7110.65 (3/5 nm lateral, 1,000 ft vertical) between aircraft pairs, a different (and harder) problem than what this problem is doing.
-- **No staleness/track-timeout logic.** `predict()` in `starter-kit/tracker.py` will happily coast a track forward indefinitely between updates. Real systems bound how long a track can be "coasted" before it's flagged as stale, tied to expected radar/ADS-B update rates. This is a natural safety-relevant addition, and a manageable one. It is written up in `starter-kit/STRETCH_GOALS.md`.
+- **Field validation vs. separation-minima validation.** `check_state_message()` in [`starter-kit/message_parser.py`](starter-kit/message_parser.py) checks that lat/lon/heading/altitude/speed are physically plausible numbers (e.g. heading in `[0, 360]`). Real conflict-alert logic checks against the actual separation minima in 7110.65 (3/5 nm lateral, 1,000 ft vertical) between aircraft pairs, a different (and harder) problem than what this problem is doing.
+- **No staleness/track-timeout logic.** `predict()` in [`starter-kit/tracker.py`](starter-kit/tracker.py) will happily coast a track forward indefinitely between updates. Real systems bound how long a track can be "coasted" before it's flagged as stale, tied to expected radar/ADS-B update rates. This is a natural safety-relevant addition, and a manageable one. It is written up in [`starter-kit/STRETCH_GOALS.md`](starter-kit/STRETCH_GOALS.md).
 
 ---
 
@@ -209,9 +209,9 @@ Your solution should output an updated route and tracking estimate after process
 
 ## Running the Code
 
-Everything you need to begin is in `starter-kit/`. It contains the tracker, scenario files, route data, advanced options, and live-tracking add-on in one place.
+Everything you need to begin is in [`starter-kit/`](starter-kit). It contains the tracker, scenario files, route data, advanced options, and live-tracking add-on in one place.
 
-The earlier implementation is preserved separately in `solution-backup/`. It has its own data and scenarios, so changes to the starter kit will not break it.
+The earlier implementation is preserved separately in [`solution-backup/`](solution-backup). It has its own data and scenarios, so changes to the starter kit will not break it.
 
 You can build on the starter kit or create your own solution using the same inputs.
 
@@ -219,13 +219,13 @@ You can build on the starter kit or create your own solution using the same inpu
 
 | Location | What it contains |
 | --- | --- |
-| `starter-kit/` | The main tracker and the best place to begin |
-| `starter-kit/data/` | Airport and waypoint data |
-| `starter-kit/scenarios/` | The supplied message streams |
-| `starter-kit/advanced/` | Optional accuracy, routing, and filtering additions |
-| `starter-kit/advanced/output/` | Generated maps and accuracy charts |
-| `starter-kit/live-tracking/` | The optional OpenSky live-aircraft demo |
-| `solution-backup/` | A preserved earlier version with its own data and scenarios |
+| [`starter-kit/`](starter-kit) | The main tracker and the best place to begin |
+| [`starter-kit/data/`](starter-kit/data/) | Airport and waypoint data |
+| [`starter-kit/scenarios/`](starter-kit/scenarios/) | The supplied message streams |
+| [`starter-kit/advanced/`](starter-kit/advanced/) | Optional accuracy, routing, and filtering additions |
+| [`starter-kit/advanced/output/`](starter-kit/advanced/output/) | Generated maps and accuracy charts |
+| [`starter-kit/live-tracking/`](starter-kit/live-tracking/) | The optional OpenSky live-aircraft demo |
+| [`solution-backup/`](solution-backup/) | A preserved earlier version with its own data and scenarios |
 
 From the repository root, run:
 
@@ -238,7 +238,7 @@ These commands assume you are at the repository root. The scripts locate their d
 
 ### What happens when you run it
 
-The program reads `starter-kit/scenarios/simple_route.json` one message at a time. After each message, it prints:
+The program reads [`starter-kit/scenarios/simple_route.json`](starter-kit/scenarios/simple_route.json) one message at a time. After each message, it prints:
 
 - the estimated aircraft position
 - the current uncertainty
@@ -257,24 +257,24 @@ python air-traffic-control/starter-kit/stream.py invalid.json
 python air-traffic-control/starter-kit/stream.py anomalous.json
 ```
 
-You can also copy one of the files in `starter-kit/scenarios/` and create your own small test case.
+You can also copy one of the files in [`starter-kit/scenarios/`](starter-kit/scenarios/) and create your own small test case.
 
 | Scenario | What it shows |
 | --- | --- |
-| `simple_route.json` | A normal flight with one mid-flight reroute. Nothing should be flagged. |
-| `invalid.json` | Missing fields and impossible values, such as an invalid latitude or negative altitude. |
-| `anomalous.json` | A corrupted position, an off-route movement, an unknown waypoint, a conflicting route update, and a late message. |
+| [`simple_route.json`](starter-kit/scenarios/simple_route.json) | A normal flight with one mid-flight reroute. Nothing should be flagged. |
+| [`invalid.json`](starter-kit/scenarios/invalid.json) | Missing fields and impossible values, such as an invalid latitude or negative altitude. |
+| [`anomalous.json`](starter-kit/scenarios/anomalous.json) | A corrupted position, an off-route movement, an unknown waypoint, a conflicting route update, and a late message. |
 
 Want to understand or change the example?
 
-- `starter-kit/README.md` explains the main files and settings.
-- `starter-kit/STRETCH_GOALS.md` suggests optional additions and gives rough time estimates.
+- [`starter-kit/README.md`](starter-kit/README.md) explains the main files and settings.
+- [`starter-kit/STRETCH_GOALS.md`](starter-kit/STRETCH_GOALS.md) suggests optional additions and gives rough time estimates.
 
 ---
 
 ## Optional: Track Live Aircraft
 
-The `starter-kit/live-tracking/` folder lets you try the tracker with real ADS-B reports from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/index.html#). It displays nearby aircraft on a radar-style page.
+The [`starter-kit/live-tracking/`](starter-kit/live-tracking/) folder lets you try the tracker with real ADS-B reports from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/index.html#). It displays nearby aircraft on a radar-style page.
 
 This is still the same tracker. Only the source of the messages changes.
 
@@ -284,13 +284,13 @@ The live demo is completely optional. The supplied scenarios are the best place 
 
 | Source | Type of data | Correct answer available? | Best for |
 | --- | --- | --- | --- |
-| `starter-kit/scenarios/*.json` | Fixed, hand-written messages | No, but easy to check by hand | Building and debugging |
-| `starter-kit/advanced/simulator.py` | Generated messages | Yes | Measuring position accuracy |
-| `starter-kit/live-tracking/` | Live reports from many aircraft | No | Demos and testing assumptions with real data |
+| [`starter-kit/scenarios/*.json`](starter-kit/scenarios/) | Fixed, hand-written messages | No, but easy to check by hand | Building and debugging |
+| [`starter-kit/advanced/simulator.py`](starter-kit/advanced/simulator.py) | Generated messages | Yes | Measuring position accuracy |
+| [`starter-kit/live-tracking/`](starter-kit/live-tracking/) | Live reports from many aircraft | No | Demos and testing assumptions with real data |
 
 All three sources create the same `state` message format, so the tracker does not need to know where a message came from.
 
-The translation happens in `starter-kit/live-tracking/adapter.py`. It is only about fifteen lines long and is worth reading, even if you do not run the live demo.
+The translation happens in [`starter-kit/live-tracking/adapter.py`](starter-kit/live-tracking/adapter.py). It is only about fifteen lines long and is worth reading, even if you do not run the live demo.
 
 ### What the live feed can test
 
@@ -317,7 +317,7 @@ That is why `ANOMALY_TRUST` is `0.3` for the scenarios and `0.0` for the live fe
 
 That is a useful result to explain in a demo: algorithms need to be tested with the kind of data they will actually receive.
 
-See `starter-kit/live-tracking/README.md` for setup instructions and limitations.
+See [`starter-kit/live-tracking/README.md`](starter-kit/live-tracking/README.md) for setup instructions and limitations.
 
 ---
 
