@@ -21,7 +21,7 @@ A passenger looks up their booking by reference + last name, then works through 
 
 At every step the passenger's overall status (`NOT_STARTED` → `IN_PROGRESS` → `CLEARED` / `BLOCKED` / `NEEDS_REVIEW`) is recomputed from document + seat + bag state — it isn't a flag you set directly, it's derived.
 
-https://github.com/user-attachments/assets/eedf8dd8-e2ce-4810-ae7a-5ad2735c157f
+https://github.com/user-attachments/assets/d017b474-5400-4cbd-ab1d-dfd5042acbbf
 <p><sub><em>Passenger self-check-in flow</em></sub></p>
 
 ### Agent view
@@ -32,7 +32,7 @@ An agent picks a flight, sees every passenger's live status in a table, and can 
 
 An admin can add a new flight (flight number, route, departure time, aircraft type, max bag weight) — this also generates that flight's seat map (3 zones × 3 rows × 3 seats, same layout the seed data uses). An admin can also add a passenger booking to any existing flight (booking reference, name, optional group ID), which immediately becomes look-up-able from the passenger view.
 
-https://github.com/user-attachments/assets/d017b474-5400-4cbd-ab1d-dfd5042acbbf
+https://github.com/user-attachments/assets/eedf8dd8-e2ce-4810-ae7a-5ad2735c157f
 <p><sub><em>Admin view: adding a flight and passenger, with real-time updates on the agent side</em></sub></p>
 
 ### Rules engine
