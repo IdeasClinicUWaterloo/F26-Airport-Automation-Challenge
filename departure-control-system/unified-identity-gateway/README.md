@@ -1,5 +1,8 @@
 # Unified Identity Gateway
-<img width="328" height="65" alt="image" src="https://github.com/user-attachments/assets/94cde17a-04b2-47f6-bf4e-9e7f6566ccbb" />
+
+<div align="center">
+  <img width="328" height="65" alt="image" src="https://github.com/user-attachments/assets/94cde17a-04b2-47f6-bf4e-9e7f6566ccbb" />
+</div>
 
 A working implementation of the **Unified Identity Gateway** module from the [Departure Control System Automation challenge](docs/challenge-spec.md): passenger lookup, document verification, seat selection, bag declaration, and boarding pass issuance in a single check-in flow, plus an agent-facing view with override and audit logging.
 
