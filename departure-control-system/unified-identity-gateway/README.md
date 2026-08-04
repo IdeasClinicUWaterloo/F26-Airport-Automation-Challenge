@@ -37,7 +37,7 @@ An admin can add a new flight (flight number, route, departure time, aircraft ty
 
 - **API**: Fastify 4 + TypeScript, Prisma 5 over Postgres, Zod for request validation, Vitest for tests.
 - **Web**: React 19 + TypeScript (Vite), no UI framework — hand-rolled components and CSS.
-- **DB**: Postgres. No Docker required — works against a local Postgres install (see below).
+- **DB**: Postgres. No Docker required — works against a local Postgres install (see below). If on mac, ensure you have docker installed and implement using docker.
 
 ## Project structure
 
