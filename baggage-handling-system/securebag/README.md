@@ -1,4 +1,7 @@
 # SecureBag: Visual Baggage Verification
+<p align="center">
+  <img width="148" height="50" alt="image" src="https://github.com/user-attachments/assets/8df151a1-a5fe-46b5-afdd-82e414e62380" />
+</p>
 
 Airport baggage systems rely on baggage tags and barcodes to track luggage as it moves through the terminal. However, these identifiers are attached to a bag—they do not independently verify that the physical bag later entering the baggage system is the same one originally presented at check-in. If a bag is accidentally switched or deliberately substituted, such as in an attempt to introduce contraband, the tag alone may not reveal the change.
 
