@@ -4,7 +4,7 @@ Airport baggage systems rely on baggage tags and barcodes to track luggage as it
 
 SecureBag explores visual re-identification as an additional verification step. At check-in, staff photograph each bag and generate a Quick Response (QR) code linked to its baggage record. When the bag is photographed again at a later checkpoint, the system compares the new image with the original and returns pass, review, or flag. This provides staff with an additional operational signal to help confirm that the same physical bag has continued through the baggage-handling process.
 
-<video controls src="Securebag Demo.mp4" title="Title"></video>
+https://github.com/user-attachments/assets/377e4fff-01ec-411c-b1f3-7e2aa4cb946f
 <p><sub><em>Baggage Comparasion Flow</em></sub></p>
 
 The current challenge is to transform this prototype into a practical, reliable, and understandable airport workflow. Improvements could reduce bag-handling errors, help staff investigate potential mismatches or substitutions, and provide clearer evidence of where and when a bag was processed. Because factors such as lighting, camera angle, background, and similar-looking luggage can affect image matching, visual re-identification should remain decision support rather than proof of identity.
