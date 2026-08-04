@@ -1,3 +1,58 @@
+# ============================================================
+# BACKEND COMPONENT — DO NOT MODIFY
+#
+# This file implements the computer-vision comparison pipeline
+# for SecureBag. It is provided as a working black box: call
+# verify_bags() with two images and use the returned verdict
+# ('pass', 'review', or 'flag').
+#
+# You are not expected to edit or experiment with this file.
+# Treat it as backend infrastructure — focus your work on
+# app.py, the templates, or other parts of the application.
+# ============================================================
+
+# ------------------------------------------------------------
+# GLOSSARY
+#
+# ORB (Oriented FAST and Rotated BRIEF)
+#   A fast, license-free algorithm for finding and describing distinctive
+#   "keypoints" in an image (corners, edges, textured spots). FAST finds the
+#   keypoints; BRIEF describes each one as a compact binary code so two
+#   keypoints from different photos can be compared quickly. Used here to
+#   match visual details — logos, scuffs, hardware, corners — between the
+#   check-in photo and the scan photo.
+#
+# RANSAC (Random Sample Consensus)
+#   A method for fitting a model (here, a geometric transform between two
+#   photos) while ignoring outliers. It repeatedly picks a small random
+#   subset of matched points, fits a transform to just those, and checks how
+#   many of the *other* matches agree with it. The transform with the most
+#   agreement wins, and its supporters are the "inliers" — matches that are
+#   geometrically consistent with each other, as opposed to matches that
+#   only looked similar by coincidence.
+#
+# COCO (Common Objects in Context)
+#   A large, publicly available image dataset with 80 labeled everyday
+#   object categories (including suitcase, handbag, backpack). "Pretrained
+#   on COCO" means the bag-detector model below already knows how to spot
+#   those 80 object types out of the box — no extra training was needed for
+#   this project.
+#
+# Faster R-CNN (Region-based Convolutional Neural Network)
+#   A two-stage object-detection neural network: it first proposes regions
+#   of an image likely to contain an object, then classifies what's in each
+#   region. The pretrained COCO detector used here is a lightweight
+#   ("MobileNetV3") version of this architecture, used only to locate the
+#   bag in the frame — not to identify anything about it.
+#
+# FFT (Fast Fourier Transform)
+#   An algorithm that converts an image patch from pixel space into
+#   frequency/orientation space. A repeating surface pattern (ribbing,
+#   weave, faceting) shows up as energy concentrated at a specific
+#   orientation, which is what the surface-texture check compares between
+#   the two photos.
+# ------------------------------------------------------------
+
 import base64
 from typing import Optional, TypedDict
 

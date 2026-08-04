@@ -95,7 +95,13 @@ The following resources may help teams understand the problem, run the starter a
 
 | Resource | Purpose |
 |---|---|
-| [`app.py`](app.py) | Flask routes, application workflow, and TinyDB integration |
+| [`app.py`](app.py) | Flask app creation and blueprint registration |
+| [`routes_checkin.py`](routes_checkin.py) | Check-in routes: check-in form, bag creation, QR code |
+| [`routes_verify.py`](routes_verify.py) | Verification routes: verification page, image comparison |
+| [`routes_staff.py`](routes_staff.py) | Staff routes: bag actions, dashboard, clearing records |
+| [`db.py`](db.py) | Shared TinyDB instance and query object |
+| [`config.py`](config.py) | Shared configuration constants (e.g. `PORT`) |
+| [`utils.py`](utils.py) | Shared helpers (e.g. local IP lookup for QR codes) |
 | [`templates/checkin.html`](templates/checkin.html) | Bag check-in interface |
 | [`templates/bags.html`](templates/bags.html) | Staff dashboard |
 | [`templates/verify.html`](templates/verify.html) | Bag verification interface |
