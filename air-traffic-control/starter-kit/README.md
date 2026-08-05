@@ -13,14 +13,35 @@ You do not need to understand every file before you start making changes.
 
 ## Run it
 
-From the repository root:
+From the repository root, create and activate a virtual environment first.
+
+On Windows PowerShell:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r air-traffic-control/starter-kit/requirements.txt
+```
+
+On macOS or Linux:
 
 ```bash
-pip install -r air-traffic-control/starter-kit/requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r air-traffic-control/starter-kit/requirements.txt
+```
+
+Then run the starter scenario:
+
+```bash
 python air-traffic-control/starter-kit/stream.py
 ```
 
 The program prints an updated estimate after each message and opens a map at the end.
+
+Run `deactivate` when you are finished. On later visits, activate `.venv` again before running the code; there is no need to recreate it.
 
 Try a different scenario:
 

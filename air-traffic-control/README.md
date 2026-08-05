@@ -1,5 +1,9 @@
 # Air Traffic Control System
 
+![Basic Solution](assets/basic-sol.png)
+
+*An illustration of the basic ATC flight routing solution, with flight path, reported and estimated locations, and uncertainty.
+
 ## Challenge Overview
 
 In real aviation systems, aircraft tracking is not just about drawing a line between reported points. Automation software must answer questions such as:
@@ -227,14 +231,43 @@ You can build on the starter kit or create your own solution using the same inpu
 | [`starter-kit/live-tracking/`](starter-kit/live-tracking/) | The optional OpenSky live-aircraft demo |
 | [`solution-backup/`](solution-backup/) | A preserved earlier version with its own data and scenarios |
 
-From the repository root, run:
+### Set up a virtual environment
+
+From the repository root, create and activate a project-local virtual environment before installing the dependencies.
+
+On Windows PowerShell:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r air-traffic-control/starter-kit/requirements.txt
+```
+
+On macOS or Linux:
 
 ```bash
-pip install -r air-traffic-control/starter-kit/requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r air-traffic-control/starter-kit/requirements.txt
+```
+
+When the environment is active, its name usually appears at the beginning of your terminal prompt. Run the starter scenario with:
+
+```bash
 python air-traffic-control/starter-kit/stream.py
 ```
 
 These commands assume you are at the repository root. The scripts locate their data and output folders automatically.
+
+When you are finished, leave the virtual environment with:
+
+```bash
+deactivate
+```
+
+The next time you work on the project, activate `.venv` again before running the code; you do not need to recreate it or reinstall the dependencies each time.
 
 ### What happens when you run it
 
