@@ -60,6 +60,8 @@ Brock Solutions develops an array of software solutions for airports known as th
 
 Your challenge is to design a BHS that can identify, track, route baggage through a simplified baggage handling environment, and detect anomalies or foreign objects on conveyor systems to ensure operational safety.
 
+![alt text](images/conveyor_system.webp)
+
 Potential solution directions:
 
 * Barcode, RFID, or simulated tag-based bag identification
