@@ -1,96 +1,128 @@
 # Unified Identity Gateway
 
 <div align="center">
-  <img width="328" height="65" alt="image" src="https://github.com/user-attachments/assets/94cde17a-04b2-47f6-bf4e-9e7f6566ccbb" />
+  <img width="328" height="65" alt="Unified Identity Gateway project banner" src="https://github.com/user-attachments/assets/94cde17a-04b2-47f6-bf4e-9e7f6566ccbb" />
 </div>
 
-A working implementation of the **Unified Identity Gateway** module from the [Departure Control System Automation challenge](docs/challenge-spec.md): passenger lookup, document verification, seat selection, bag declaration, and boarding pass issuance in a single check-in flow, plus an agent-facing view with override and audit logging.
+The Unified Identity Gateway is a working example for the [Departure Control System challenge](../README.md). It combines booking lookup, document checks, seat selection, bag declaration, boarding-pass issuance, agent review, and audit logging in one check-in flow.
 
-There's no real authentication — a role switcher in the header toggles between the passenger self-service view, the agent view, and an admin view, standing in for "logged in as a passenger" vs. "logged in as a gate agent" vs. "logged in as ops staff." Switching roles doesn't reset whatever you were doing in the other views — each stays mounted in the background.
+The project demonstrates how several small decisions contribute to one passenger status: `NOT_STARTED`, `IN_PROGRESS`, `CLEARED`, `BLOCKED`, or `NEEDS_REVIEW`. That status is derived from the underlying document, seat, bag, and boarding-pass state.
 
-## How it works
+This is a learning prototype. The role switcher is not real authentication, and the identity checks are not suitable for production use.
 
-### Check-in flow
+## Table of Contents
 
-A passenger looks up their booking by reference + last name, then works through four steps:
+- [Challenge](#challenge)
+- [Potential Solutions](#potential-solutions)
+- [Getting Started](#getting-started)
+- [Resources](#resources)
 
-1. **Document** — passport number, name, date of birth, nationality, expiry date. A rules engine (`apps/api/src/rules/`) scores a confidence value and flags issues: empty passport number, expired document, name mismatch against the booking, etc. Some issues hard-block check-in; others just flag the passenger for manual review.
-2. **Seat** — an actual seat map (`apps/web/src/components/SeatMap.tsx`), grouped by cabin zone (front/mid/rear), rendered from the flight's real seat inventory. Occupied seats are visibly disabled; picking an available seat books it atomically (no double-booking race).
-3. **Bags** — declare a bag count and a weight per bag. Any bag over the flight's configured max weight flags the passenger for review instead of hard-blocking.
-4. **Boarding pass** — once cleared, issue a boarding pass with a QR code (and one QR-coded bag tag per declared bag).
+## Challenge
 
-At every step the passenger's overall status (`NOT_STARTED` → `IN_PROGRESS` → `CLEARED` / `BLOCKED` / `NEEDS_REVIEW`) is recomputed from document + seat + bag state — it isn't a flag you set directly, it's derived.
+Build or extend a check-in experience that makes passenger readiness clear to passengers and staff.
 
-https://github.com/user-attachments/assets/d017b474-5400-4cbd-ab1d-dfd5042acbbf
-<p><sub><em>Passenger self-check-in flow</em></sub></p>
+The supplied implementation supports three views:
 
-### Agent view
+- **Passenger:** Look up a booking, submit document information, choose a seat, declare bags, and receive a boarding pass when cleared.
+- **Agent:** View passengers by status, help complete check-in, override a blocked or review status with a reason, and inspect the audit log.
+- **Admin:** Add flights and passenger bookings for testing.
 
-An agent picks a flight, sees every passenger's live status in a table, and can filter to `BLOCKED` / `NEEDS_REVIEW`. Selecting a passenger opens the same check-in wizard (so an agent can walk someone through check-in in person) plus an **override panel**: if a passenger is blocked or flagged, an agent can clear them with a typed reason, which is written to an audit log. The audit log for a passenger (who overrode what, when, and why) is viewable from the same panel.
+The role switcher in the header stands in for signing in as a passenger, agent, or operations administrator. Each view stays mounted when you switch roles, so work in one view is not reset when you inspect another.
 
-### Admin view
+Successful improvements should consider:
 
-An admin can add a new flight (flight number, route, departure time, aircraft type, max bag weight) — this also generates that flight's seat map (3 zones × 3 rows × 3 seats, same layout the seed data uses). An admin can also add a passenger booking to any existing flight (booking reference, name, optional group ID), which immediately becomes look-up-able from the passenger view.
+- clear reasons for blocked and review states
+- safe manual overrides with an audit trail
+- atomic seat assignment so two passengers cannot book the same seat
+- passenger privacy and minimal data collection
+- accessible forms, status messages, and error feedback
+- normal, blocked, and exceptional test cases
 
-https://github.com/user-attachments/assets/eedf8dd8-e2ce-4810-ae7a-5ad2735c157f
-<p><sub><em>Admin view: adding a flight and passenger, with real-time updates on the agent side</em></sub></p>
+### How It Works
 
-### Rules engine
+#### Passenger Check-In Flow
 
-`apps/api/src/rules/` is pure, dependency-free logic, unit-tested in isolation:
+A passenger looks up a booking using a booking reference and last name, then completes four steps:
 
-- `confidenceScore.ts` — scores a submitted document 0–100 based on field completeness and format validity.
-- `validateDocument.ts` — turns document fields into a list of issues (some hard-blocking, some soft).
-- `status.ts` — derives a passenger's overall `CheckInStatus` from their document, seat, and bag state, plus whether a boarding pass already exists (issuance is sticky — resubmitting a document or bags after a pass is issued doesn't silently revoke it).
+1. **Document:** Enter passport number, name, date of birth, nationality, and expiry date. The rules engine calculates a confidence score and identifies missing or inconsistent information. Some issues block check-in, while others require manual review.
+2. **Seat:** Choose from the flight's actual seat inventory, grouped into front, middle, and rear cabin zones. Occupied seats are disabled, and booking is handled atomically to prevent two passengers from receiving the same seat.
+3. **Bags:** Declare the bag count and weight of each bag. A bag above the flight's configured maximum weight sends the passenger to review rather than blocking the entire process automatically.
+4. **Boarding pass:** Once cleared, issue a QR-coded boarding pass and one QR-coded tag for each declared bag.
 
-## Tech stack
+The overall status is derived from document, seat, bag, and boarding-pass state. It moves through `NOT_STARTED`, `IN_PROGRESS`, `CLEARED`, `BLOCKED`, or `NEEDS_REVIEW`; it is not a value set independently of the underlying records.
 
-- **API**: Fastify 4 + TypeScript, Prisma 5 over Postgres, Zod for request validation, Vitest for tests.
-- **Web**: React 19 + TypeScript (Vite), no UI framework — hand-rolled components and CSS.
-- **DB**: Postgres. No Docker required — works against a local Postgres install (see below). If on mac, ensure you have docker installed and implement using docker.
+[Watch the passenger self-check-in flow](https://github.com/user-attachments/assets/d017b474-5400-4cbd-ab1d-dfd5042acbbf).
 
-## Project structure
+#### Agent View
 
-```
-apps/
-  api/
-    src/
-      routes/     one file per resource (passengers, document, seat, bags, boardingPass, override, flights)
-      rules/       pure check-in rules engine (confidence scoring, validation, status derivation)
-    prisma/
-      schema.prisma  data model (Flight, Seat, Passenger, Document, Bag, BoardingPass, AuditLog)
-      seed.ts         seeds two flights, a seat map each, and ~8 passengers covering every status
-    tests/
-      api.smoke.test.ts   end-to-end flow through the live API
-      rules/               unit tests for the rules engine
-  web/
-    src/
-      components/  CheckInWizard, SeatMap, AgentView, PassengerView, AdminView, OverridePanel, BoardingPassCard, ...
-      api.ts       typed fetch client
-      types.ts     shared frontend types
-docs/
-  challenge-spec.md   the original hackathon brief this module was built from
-```
+An agent selects a flight and sees every passenger's current status. The table can be filtered to passengers who are `BLOCKED` or `NEEDS_REVIEW`. Selecting a passenger opens the same check-in wizard so an agent can help in person.
 
-## Running locally
+The override panel lets an agent clear a blocked or review status only after entering a reason. The system records who performed the override, when it happened, the previous status, the new status, and the reason. That history is available from the same panel.
+
+#### Admin View
+
+An administrator can add a flight with its flight number, route, departure time, aircraft type, and maximum bag weight. The application also generates the flight's seat map using the same three-zone layout as the seed data.
+
+An administrator can add a passenger booking to an existing flight with a booking reference, name, and optional group ID. The new booking becomes available immediately in the passenger and agent views.
+
+[Watch the admin flow and live agent update](https://github.com/user-attachments/assets/eedf8dd8-e2ce-4810-ae7a-5ad2735c157f).
+
+#### Rules Engine
+
+The logic in [`apps/api/src/rules/`](apps/api/src/rules/) is dependency-free and tested separately from the API:
+
+- `confidenceScore.ts` scores document completeness and format from 0 to 100.
+- `validateDocument.ts` turns document fields into blocking and review issues.
+- `status.ts` derives the overall check-in status from document, seat, bag, override, and boarding-pass state.
+
+Boarding-pass issuance is sticky. Resubmitting a document or bag record after a pass is issued does not silently revoke it.
+
+## Potential Solutions
+
+The working application can be used as a base for several focused projects.
+
+| Potential solution | Description | Starting point |
+| --- | --- | --- |
+| Better document checks | Add clear validation rules and tests without pretending uncertain checks are definitive. | [`apps/api/src/rules/`](apps/api/src/rules/) |
+| Accessible check-in | Improve keyboard navigation, labels, focus handling, status announcements, and readable error messages. | [`apps/web/src/components/CheckInWizard.tsx`](apps/web/src/components/CheckInWizard.tsx) |
+| Agent decision support | Prioritize passengers needing review and explain the next useful action. | [`apps/web/src/components/AgentView.tsx`](apps/web/src/components/AgentView.tsx) |
+| Stronger audit history | Make overrides easier to review by passenger, agent, flight, or reason. | [`apps/api/src/routes/override.ts`](apps/api/src/routes/override.ts) |
+| Bag exception handling | Add configurable limits, clearer review reasons, or links to bag-tracking events. | [`apps/api/src/routes/bags.ts`](apps/api/src/routes/bags.ts) |
+| Privacy controls | Add retention, redaction, consent, or role-based data visibility. | [`apps/api/prisma/schema.prisma`](apps/api/prisma/schema.prisma) |
+| Operations summary | Show check-in completion, blocked passengers, review queues, and flight readiness in one view. | [`apps/web/src/components/AgentView.tsx`](apps/web/src/components/AgentView.tsx) |
+
+## Getting Started
+
+Run commands from the `departure-control-system/unified-identity-gateway` folder.
+
+You need Node.js, npm, and either Docker or a local PostgreSQL 16 installation.
+
+### 1. Start PostgreSQL
+
+With Docker:
 
 ```bash
-docker compose up -d postgres   # or `brew services start postgresql@16` if you're not using Docker
-cd apps/api && cp .env.example .env && npm install && npx prisma migrate deploy && npx tsx prisma/seed.ts && npm run dev
-# in a second terminal
-cd apps/web && cp .env.example .env && npm install && npm run dev
+docker compose up -d postgres
 ```
 
-API on `http://localhost:3001`, web UI on the Vite dev URL printed in the terminal (typically `http://localhost:5173`).
+### 2. Start the API
 
-Run API tests: `cd apps/api && npx vitest run` (requires Postgres running and migrated).
+On macOS or Linux:
 
-### Windows (PowerShell)
+```bash
+cd apps/api
+cp .env.example .env
+npm install
+npx prisma migrate deploy
+npx tsx prisma/seed.ts
+npm run dev
+```
 
-Windows PowerShell 5.1 (VS Code's default terminal) doesn't support `&&` chaining, so run each line separately:
+On Windows PowerShell:
+
+Windows PowerShell 5.1 does not support `&&` command chaining, so run each command on its own line.
 
 ```powershell
-docker compose up -d postgres
 cd apps\api
 copy .env.example .env
 npm install
@@ -99,25 +131,121 @@ npx tsx prisma/seed.ts
 npm run dev
 ```
 
+The API runs on `http://localhost:3001`.
+
+Check it before starting the web app:
+
 ```powershell
-# in a second terminal
+Invoke-WebRequest http://localhost:3001/health
+```
+
+The response should contain `{"status":"ok"}`.
+
+If the request hangs or is refused, the API is not listening. Check the terminal running `npm run dev` before debugging a "failed to fetch" message in the browser.
+
+### 3. Start the Web App
+
+Open a second terminal in the Unified Identity Gateway folder.
+
+On macOS or Linux:
+
+```bash
+cd apps/web
+cp .env.example .env
+npm install
+npm run dev
+```
+
+On Windows PowerShell:
+
+```powershell
 cd apps\web
 copy .env.example .env
 npm install
 npm run dev
 ```
 
-Before moving to the web UI, confirm the API actually started by hitting the health check — a silently hung/crashed API is what produces "failed to fetch" in the browser with no other clue:
+Open the Vite address printed in the terminal, usually `http://localhost:5173`.
 
-```powershell
-Invoke-WebRequest http://localhost:3001/health
+### 4. Try the Seeded Examples
+
+| Booking | Last name | Expected case |
+| --- | --- | --- |
+| `CLEAN1` | `Doe` | Clean check-in flow |
+| `NOPASS` | `Lee` | Missing passport number and blocked status |
+| `EXPIRD` | `Khan` | Expired document and blocked status |
+| `NAMEMM` | `Smith` | Name mismatch and blocked status |
+| `OVRWGT` | `Patel` | Overweight bag and manual review |
+| `GROUP1` | `Nguyen` | Passenger in a shared booking group |
+| `GROUP2` | `Nguyen` | Second passenger in the same booking group |
+| `XCHECK` | `Chen` | Passenger on the second seeded flight |
+
+Switch to the agent view to review a blocked passenger, enter an override reason, and inspect the audit history.
+
+All examples except `XCHECK` are on flight `DC101` from JFK to LHR. `XCHECK` is on flight `DC202` from JFK to DXB.
+
+### 5. Run Tests
+
+With PostgreSQL running and migrated:
+
+```bash
+cd apps/api
+npx vitest run
 ```
 
-It should return `{"status":"ok"}`. If it hangs or refuses, the API process isn't listening — check the terminal running `npm run dev` for errors before debugging the frontend.
+## Resources
 
-### Demo walkthrough
+### Project Structure
 
-- **Passenger view**: look up booking `CLEAN1` / last name `Doe`, walk through document → seat → bags → boarding pass. Try `NOPASS` / `Lee` with an empty passport number to see a blocked status with an explanation.
-- **Agent view**: pick a flight, click a passenger with a `BLOCKED` or `NEEDS_REVIEW` status, use the override panel to clear them with a reason, then load the audit log to see the recorded override.
+| Location | Purpose |
+| --- | --- |
+| [`apps/api/src/routes/`](apps/api/src/routes/) | Fastify API routes for passengers, documents, seats, bags, boarding passes, overrides, and flights |
+| [`apps/api/src/rules/`](apps/api/src/rules/) | Dependency-free confidence, validation, and status logic |
+| [`apps/api/prisma/`](apps/api/prisma/) | PostgreSQL data model, migrations, and seed data |
+| [`apps/api/tests/`](apps/api/tests/) | Rule tests and end-to-end API smoke test |
+| [`apps/web/src/components/`](apps/web/src/components/) | Passenger, agent, admin, seat, override, and boarding-pass interfaces |
+| [`apps/web/src/api.ts`](apps/web/src/api.ts) | Typed web client for the API |
+| [`docs/challenge-spec.md`](docs/challenge-spec.md) | Original challenge specification |
 
-Seeded bookings (all on flight `DC101` JFK→LHR unless noted): `CLEAN1`/Doe (clean), `NOPASS`/Lee (missing passport number → blocked), `EXPIRD`/Khan (expired document → blocked), `NAMEMM`/Smith (name mismatch → blocked), `OVRWGT`/Patel (overweight bag once declared → needs review), `GROUP1`/Nguyen and `GROUP2`/Nguyen (same `groupId`), `XCHECK`/Chen (on flight `DC202` JFK→DXB).
+The main source tree is organized as follows:
+
+```text
+apps/
+  api/
+    src/
+      routes/       passengers, documents, seats, bags, passes, overrides, and flights
+      rules/        confidence scoring, validation, and status derivation
+    prisma/
+      schema.prisma PostgreSQL data model
+      seed.ts       flights, seat maps, and passengers covering each status
+    tests/
+      rules/        isolated rules-engine tests
+      api.smoke.test.ts
+  web/
+    src/
+      components/   passenger, agent, admin, seat, override, and pass interfaces
+      api.ts        typed API client
+      types.ts      shared frontend types
+docs/
+  challenge-spec.md
+```
+
+### Technology
+
+- **API:** Fastify 4 with TypeScript, Prisma 5, Zod validation, and Vitest tests
+- **Web:** React 19 with TypeScript and Vite, using project-specific components and CSS
+- **Database:** PostgreSQL, run through Docker or a compatible local installation
+
+- [Fastify documentation](https://fastify.dev/docs/latest/)
+- [Prisma documentation](https://www.prisma.io/docs)
+- [React documentation](https://react.dev/)
+- [Vite documentation](https://vite.dev/guide/)
+- [Vitest documentation](https://vitest.dev/guide/)
+
+### Safety and Privacy
+
+- [Secure Air Travel Regulations](https://laws-lois.justice.gc.ca/eng/regulations/SOR-2015-181/FullText.html)
+- [Personal Information Protection and Electronic Documents Act](https://laws-lois.justice.gc.ca/eng/acts/P-8.6/index.html)
+- [Accessible Transportation for Persons with Disabilities Regulations](https://laws-lois.justice.gc.ca/eng/regulations/SOR-2019-244/index.html)
+
+Do not use real passenger, passport, biometric, or medical information in this prototype.

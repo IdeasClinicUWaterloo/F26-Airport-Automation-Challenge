@@ -1,396 +1,323 @@
 # Air Traffic Control System
 
-![Basic Solution](assets/basic-sol.png)
+![A map showing an aircraft route, reported positions, estimated positions, and uncertainty](assets/basic-sol.png)
 
-*An illustration of the basic ATC flight routing solution, with flight path, reported and estimated locations, and uncertainty.
+Aircraft do not always send perfect updates. This challenge asks you to turn delayed, incomplete, noisy, or contradictory flight messages into a useful estimate of where an aircraft is now and where it is going next.
 
-## Challenge Overview
+You do not need aviation experience to begin. The starter kit provides a working tracker, sample messages, a simulator, advanced examples, and a visual map. You can extend this system or build another solution that consumes the same messages.
 
-In real aviation systems, aircraft tracking is not just about drawing a line between reported points. Automation software must answer questions such as:
+## Table of Contents
 
-- Where is the aircraft likely to be right now?
-- Which route hypothesis best explains the messages received so far?
-- How uncertain is the current estimate?
-- Which waypoint is the aircraft most likely heading toward?
-- What is the estimated arrival time?
-- Did a new message confirm the current route, modify it, or contradict it?
-- Is a message suspicious enough to flag for review?
+- [Challenge](#challenge)
+  - [Industry Context](#industry-context)
+  - [Regulatory and Safety Context](#regulatory-and-safety-context)
+  - [Inputs](#inputs)
+  - [Expected Outputs](#expected-outputs)
+- [Potential Solutions](#potential-solutions)
+  - [Basic Solution Path](#basic-solution-path)
+  - [State Estimation](#state-estimation)
+  - [Multi-Hypothesis Routing](#multi-hypothesis-routing)
+  - [Anomaly Detection](#anomaly-detection)
+  - [Path Planning](#path-planning)
+  - [Visualization](#visualization)
+- [Getting Started](#getting-started)
+- [Evaluation](#evaluation)
+- [Resources](#resources)
 
-This challenge captures the core software ideas behind those questions without requiring students to build a full production-grade ATC system.
+## Challenge
 
-**Note: In real world scenarios, flight messages are received in a much greater quantity within a short period of time. For this challenge, you will be given spaced out, delayed, and incomplete messages to encourage and build skills in state estimation.**
+Air traffic control automation combines surveillance reports, flight plans, route updates, and controller inputs to maintain a best estimate of each aircraft. The information can arrive from different systems, at different times, and with different levels of reliability.
 
----
+Your system should help answer these questions:
 
-## Industry Context
+- Where is the aircraft most likely to be right now?
+- How uncertain is that estimate?
+- Which route best explains the messages received so far?
+- Which waypoint is the aircraft heading toward?
+- When is it expected to arrive?
+- Did a new message confirm, modify, or contradict the current route?
+- Is a message suspicious enough to require review?
 
-Real ATC systems (FAA ERAM/STARS, EUROCONTROL ARTAS, NAV CANADA's flight data systems) don't just display an aircraft's last known position. They pull in multiple imperfect, disagreeing data sources: radar, ADS-B, flight plans, controller updates, and fuse them into a best estimate of where the aircraft actually is and where it's headed, flagging anything that looks wrong. That's the same kind of problem behind autonomous vehicle perception and space object tracking, and it's the upstream data source that airport operations platforms (gates, baggage, ground handling) ultimately depend on.
+The supplied scenarios space messages farther apart than a normal live surveillance feed. This makes prediction, uncertainty, delayed information, and route reconstruction easier to explore.
 
-### How the Hackathon Maps to Real Systems
+### Industry Context
 
-| Hackathon Concept          | Industry Analogue                                    |
-| -------------------------- | ---------------------------------------------------- |
-| Message parsing            | Surveillance and flight message normalization        |
-| Route reconstruction       | Flight data processing and trajectory management     |
-| Dead reckoning             | Track prediction between radar updates               |
-| Extended Kalman Filter     | Probabilistic state estimation (used in ARTAS, etc.) |  
-| Multi-hypothesis routing   | Track ambiguity and route ambiguity management       |
-| Innovation monitoring      | Anomaly and spoofing detection                       |
-| ETA prediction             | Trajectory prediction                                |
-| Map visualization          | Controller and operations display systems            |
+Operational air traffic systems do more than display the last reported position. Systems such as NAV CANADA's surveillance and flight-data platforms, the FAA's ERAM and STARS systems, and EUROCONTROL's ARTAS tracker combine several imperfect sources into a continuously updated picture of the aircraft and its likely trajectory.
 
----
+That same pattern appears in autonomous vehicles, robotics, weather tracking, and space-object tracking: predict what should happen, compare that prediction with new observations, update the estimate, and communicate how confident the system is.
 
-## Regulatory & Safety Context
+Reliable flight information also supports other airport operations. Gate planning, baggage handling, ground crews, and departure systems all make better decisions when arrival estimates and route information can be trusted.
 
-ATC automation isn't just engineered for correctness, it's built to satisfy specific FAA (and international equivalent) regulations, because a bad state estimate or a missed conflict is a safety critical issue. Knowing the real regulations behind this challenge's concepts is useful both for design decisions and for the "Safety and Security" judging category:
-
-| Regulation / Standard | What it governs | Where it shows up in this challenge |
-| --- | --- | --- |
-| FAA Order 7110.65 (the controllers' handbook) | Separation minima: typically 3 nm lateral in terminal airspace, 5 nm en route, 1,000 ft vertical, plus conflict-alert and MSAW (Minimum Safe Altitude Warning) procedures | The real-world reference point for "conflict detection" and "anomaly flagging", actual separation-loss checks, not just field sanity checks |
-| 14 CFR 91.225 (ADS-B Out mandate) | Aircraft in controlled airspace must broadcast position, altitude, ground speed, and heading at defined rates | This is the message schema `state` messages in `message_parser.py` are modeling |
-| RTCA DO-260B / ICAO Annex 10 | Defines Navigation Accuracy Category (NACp/NACv): how much confidence to place in a given position report | The real-world analogue of "uncertainty," which an EKF-based advanced solution is expected to track |
-| RTCA DO-278A | Software assurance levels for ground-based ATC automation (DO-178C is the airborne-avionics equivalent), tying verification rigor to failure severity | The reason a prototype like this would need far more testing/traceability before any real operational use |
-| 14 CFR 91.180 (RVSM) | Reduced Vertical Separation Minimum: 1,000 ft above FL290, requiring tighter altimetry accuracy | Relevant if extending altitude-based anomaly thresholds, tolerance for "how far off is too far" should tighten at higher altitudes |
-| 14 CFR 91.183 | Mandatory position reporting over compulsory points under IFR | Background for `waypoint_report` messages |
-
-Two concrete gaps between this prototype and a regulation-grounded system, worth keeping in mind:
-
-- **Field validation vs. separation-minima validation.** `check_state_message()` in [`starter-kit/message_parser.py`](starter-kit/message_parser.py) checks that lat/lon/heading/altitude/speed are physically plausible numbers (e.g. heading in `[0, 360)`). Real conflict-alert logic checks against the actual separation minima in 7110.65 (3/5 nm lateral, 1,000 ft vertical) between aircraft pairs, a different (and harder) problem than what this problem is doing.
-- **No staleness/track-timeout logic.** `predict()` in [`starter-kit/tracker.py`](starter-kit/tracker.py) will happily coast a track forward indefinitely between updates. Real systems bound how long a track can be "coasted" before it's flagged as stale, tied to expected radar/ADS-B update rates. This is a natural safety-relevant addition, and a manageable one.
-
----
-
-## Challenge Summary
-
-You will build a flight routing and tracking module that consumes a stream of simulated aircraft messages and outputs a continuously updated route estimate.
-
-Your system should:
-
-- Parse and interpret aircraft messages
-- Maintain an ordered route state
-- Estimate the aircraft's current position and movement state
-- Predict future position, next waypoint, and ETA
-- Handle delayed and out-of-order messages
-- Detect conflicts between messages
-- Maintain multiple possible route hypotheses when the correct route is ambiguous
-- Flag suspicious or inconsistent messages
-- Optionally visualize the estimated route and uncertainty
-
----
-
-## Basic Solution Path
-
-A basic solution can treat this as a deterministic reconstruction problem.
-
-Students can:
-
-- Parse each incoming message
-- Extract reported position, altitude, speed, heading, waypoint, and ETA fields
-- Update a route object when new waypoints are reported
-- Compare new messages against the current route
-- Flag obvious conflicts
-- Estimate the next waypoint using the most recent known route
-- Estimate arrival time using simple distance and speed calculations
-
-This approach is easier to implement and gives students a working baseline. A basic solution might be called a Message Parser and Route Reconstructor. It rewards clean parsing, good data structures, consistency checks, and reasonable route updates.
-
----
-
-## Advanced Solution Path
-
-An advanced solution treats the problem as probabilistic aircraft tracking, the approach used in real ATC systems like ARTAS and ERAM.
-
-Instead of assuming every message is perfectly correct, the system maintains an estimated aircraft state and uncertainty. As new messages arrive, the estimate is updated. When messages are missing, the system predicts forward. When messages conflict, the system compares different possible explanations.
-
-Advanced techniques may include:
-
-- Extended Kalman Filtering
-- Multi-hypothesis tracking
-- Innovation-based anomaly detection
-- Late-message correction
-- Probabilistic route scoring
-- Weather-aware or constraint-aware path planning
-
-This version more closely resembles the sensor fusion and state estimation logic used in operational ATC, autonomous vehicles, radar tracking, and defense systems.
-
----
-
-## State Estimation
-
-The aircraft state includes:
-
-- Latitude and longitude
-- Altitude
-- Ground speed
-- Vertical speed
-- Heading
-
-The tracker should perform two core operations.
-
-**Predict:** When no new message has arrived, the tracker predicts the aircraft's next state using a simplified flight dynamics model, estimating how far the aircraft has traveled, whether altitude should have changed, how much closer it should be to the next waypoint, and how uncertainty has grown.
-
-**Update:** When a new message arrives, the tracker updates its state estimate, pulling the estimated position toward the reported position, reducing uncertainty after a reliable message, increasing uncertainty if the message conflicts with prior data, recalculating the next waypoint and ETA, and flagging the message if the mismatch is too large.
-
-A strong implementation should show uncertainty increasing when messages are sparse and decreasing when reliable messages arrive.
-
----
-
-## Multi-Hypothesis Routing
-
-Sometimes one route explanation is not enough. A message may suggest the aircraft is proceeding to waypoint A, while a later message implies a reroute to waypoint B, and a delayed message appears to support the original route. A weather constraint may make one hypothesis less plausible. A reported ETA may only be consistent with one of the candidates.
-
-Instead of immediately discarding one explanation, the system can maintain multiple route hypotheses. Each hypothesis should carry a route candidate, a current aircraft state, a probability or weight, a consistency score, and a history of supporting and conflicting messages. As more messages arrive, the system updates the weights, prunes unlikely hypotheses, and selects the most likely current route.
-
----
-
-## Anomaly Detection
-
-The system should flag messages that are inconsistent with the current estimate. Examples of suspicious messages include:
-
-- A position jump that is physically unrealistic given elapsed time
-- An altitude change too large for the time interval
-- A heading that conflicts with the route geometry
-- A reported waypoint inconsistent with the aircraft's trajectory
-- An ETA that is impossible given current speed and distance
-- A route update that contradicts several recent reliable messages
-- A delayed message that would have been plausible earlier but no longer matches the current state
-
-Advanced solutions may use innovation-based anomaly detection: comparing the predicted state to the observed message and flagging the message if the difference exceeds what the current uncertainty would expect. This is the approach used in operational multi-sensor trackers like ARTAS.
-
-A note on the term "innovation": In estimation theory and Kalman filter literature, innovation is the difference between what the filter predicted a message would report and what the message actually reports. For example, if your filter predicted the aircraft would be at a certain position and altitude, and the incoming message reports something significantly different, that gap is the innovation. If the gap is larger than what your current uncertainty estimate considers plausible, the message is flagged as suspicious. The word has nothing to do with creativity, it is standard terminology used in real multi-sensor tracking systems like EUROCONTROL ARTAS.
-
----
-
-## Autonomous Mapping and Path Planning (Stretch Goal)
-
-Teams may optionally add autonomous route planning. In this version, the system does not only reconstruct the route, it can also reason about better or safer routes.
-
-For example, the system may:
-
-- Avoid storm cells or restricted areas
-- Infer the likely destination from partial route data
-- Use A*, Dijkstra's algorithm, or another graph-search method to find a feasible path
-- Score candidate routes by distance, fuel cost, delay, safety margin, or weather risk
-- Suggest a reroute when the current route appears inconsistent or blocked
-
----
-
-## Front-End Visualization
-
-A useful visualization could include:
-
-- A map of the current estimated route
-- The aircraft's latest reported position and the tracker's estimated current position
-- The next predicted waypoint and ETA
-- Route alternatives
-- Uncertainty ellipses or confidence regions
-- Alerts for suspicious messages
-- A timeline of received messages and delayed corrections
-
----
-
-## Inputs
-
-The evaluator provides a stream of simulated aircraft messages. Messages may include aircraft identifier, timestamp, latitude and longitude, altitude, speed, heading, fuel estimate, current and next waypoints, ETA, route update, and weather or constraint indicators.
-
-Messages may arrive in order, out of order, late, with noise, with missing fields, or in conflict with earlier messages.
-
----
-
-## Expected Outputs
-
-Your solution should output an updated route and tracking estimate after processing the message stream. Expected outputs may include:
-
-- Current estimated position, altitude, speed, and heading
-- Current route hypothesis
-- Next waypoint and estimated arrival time
-- Uncertainty estimate
-- List of detected conflicts and anomaly alerts
-- Final reconstructed route
-
----
-
-## Running the Code
-
-Everything you need to begin is in [`starter-kit/`](starter-kit). It contains the tracker, scenario files, route data, advanced options, and live-tracking add-on in one place.
-
-You can build on the starter kit or create your own solution using the same inputs.
-
-### Folder guide
-
-| Location | What it contains |
+| Challenge concept | Industry analogue |
 | --- | --- |
-| [`starter-kit/`](starter-kit) | The main tracker and the best place to begin |
-| [`starter-kit/data/`](starter-kit/data/) | Airport and waypoint data |
-| [`starter-kit/scenarios/`](starter-kit/scenarios/) | The supplied message streams |
-| [`starter-kit/advanced/`](starter-kit/advanced/) | Optional accuracy, routing, and filtering additions |
-| [`starter-kit/advanced/output/`](starter-kit/advanced/output/) | Generated maps and accuracy charts |
-| [`starter-kit/live-tracking/`](starter-kit/live-tracking/) | The optional OpenSky live-aircraft demo |
+| Message parsing | Normalizing surveillance and flight messages from different sources |
+| Route reconstruction | Flight-data processing and trajectory management |
+| Dead reckoning | Predicting a track between surveillance updates |
+| State estimation | Combining a prediction with new measurements |
+| Multi-hypothesis routing | Managing several plausible tracks or route explanations |
+| Innovation monitoring | Comparing an observation with what the tracker predicted |
+| ETA prediction | Predicting the aircraft's future trajectory and arrival time |
+| Map visualization | Supporting controller and airport-operations displays |
 
-### Set up a virtual environment
+This challenge models the tracking and reasoning ideas behind those systems. It does not reproduce a certified controller tool or provide real aircraft-separation services.
 
-From the repository root, create and activate a project-local virtual environment before installing the dependencies.
+### Regulatory and Safety Context
 
-On Windows PowerShell:
+Air traffic systems are safety-critical. A production system must follow operating rules, separation standards, safety-management processes, and software-assurance practices that go far beyond a hackathon prototype.
+
+The challenge is set in Canada, so the Canadian material is the most relevant starting point. International and FAA references are included because air navigation systems must exchange information across regions and many tracking concepts are shared.
+
+| Regulation or standard | What it covers | Connection to this challenge |
+| --- | --- | --- |
+| [Canadian Aviation Regulations, Part VIII](https://tc.canada.ca/en/corporate-services/acts-regulations/list-regulations/canadian-aviation-regulations-sor-96-433) | Canadian air navigation services, including air traffic services and safety management | Explains why operational tracking software needs controlled procedures, validation, and evidence that it behaves safely |
+| [Standard 821: Canadian Domestic Air Traffic Control Separation Standards](https://tc.canada.ca/en/corporate-services/acts-regulations/list-regulations/canadian-aviation-regulations-sor-96-433/standards/standard-821-canadian-domestic-air-traffic-control-separation-standards-canadian-aviation-regulations-cars) | Separation, conflict resolution, and protected airspace in Canada | Provides real-world context for conflict detection; the starter kit only checks one aircraft's messages and does not enforce separation |
+| [Transport Canada aviation advisory circulars](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars) | Guidance on applying aviation regulations, including ADS-B and air navigation services | Shows that surveillance data quality, system operation, and maintenance all affect whether a report should be trusted |
+| [ICAO Annex 10](https://store.icao.int/en/annexes/annex-10) | International standards for aeronautical communications, navigation, and surveillance | Provides the wider context for exchanging surveillance information between compatible systems |
+| [FAA Order JO 7110.65](https://www.faa.gov/air_traffic/publications/atpubs/atc_html/index.html) | Procedures and phraseology used when providing air traffic control services in the United States | Offers a comparable view of how tracking, alerts, and controller procedures support safe operations |
+
+The starter kit deliberately leaves several safety problems open:
+
+- `message_parser.py` checks whether individual values are physically plausible, but it does not check separation between aircraft.
+- `tracker.py` can keep predicting a track indefinitely. An operational system would decide when an old track has become stale or unsafe to use.
+- A warning threshold that works for reports several minutes apart may be wrong for a live feed reporting every few seconds.
+- An operator needs to understand why a report was rejected and how uncertain the replacement estimate is.
+
+These are useful design considerations, but any result from this repository remains an educational prototype.
+
+### Inputs
+
+The evaluator provides a stream of simulated aircraft messages. Messages may arrive in order, late, out of order, with missing fields, or in conflict with earlier messages.
+
+| Message | What it tells you |
+| --- | --- |
+| `route_update` | The planned route or a later change to that route |
+| `state` | Reported latitude, longitude, altitude, speed, and heading |
+| `waypoint_report` | A report that the aircraft reached a waypoint |
+
+Each scenario identifies the flight and supplies timestamps with its messages. Waypoint reports can also include the current waypoint, next waypoint, and ETA. You may extend the message format if your solution needs another data source or constraint.
+
+### Expected Outputs
+
+After processing each message, your system should produce an updated route and tracking estimate. Useful outputs include:
+
+- estimated position, altitude, speed, and heading;
+- current route or route hypothesis;
+- next waypoint and estimated arrival time;
+- uncertainty or confidence information;
+- detected conflicts, invalid fields, and anomaly alerts;
+- a final reconstructed route;
+- an optional visual display of the route, estimates, and warnings.
+
+## Potential Solutions
+
+There is no single required algorithm. The same message stream can support a direct route reconstructor, a probabilistic tracker, a planning tool, an operator interface, or a combination of these ideas.
+
+### Basic Solution Path
+
+A basic solution can treat the challenge as a deterministic reconstruction problem:
+
+- parse each incoming message;
+- store position, altitude, speed, heading, waypoint, and ETA information;
+- update the route when waypoint or route messages arrive;
+- compare new messages with the current route;
+- flag impossible fields or obvious conflicts;
+- estimate the next waypoint from the latest route;
+- calculate ETA from distance and speed.
+
+This path emphasizes clean parsing, sensible data structures, consistency checks, and route updates. The supplied tracker already demonstrates this flow and gives you a working system to inspect or replace.
+
+### State Estimation
+
+A more advanced solution treats the aircraft state as an estimate rather than a collection of exact values. The state may include:
+
+- latitude and longitude;
+- altitude;
+- ground speed and vertical speed;
+- heading;
+- uncertainty for some or all of those values.
+
+The tracker performs two main operations:
+
+**Predict:** Move the estimated state forward using elapsed time, speed, heading, and a simplified flight model. Uncertainty should normally grow while no reliable observation is available.
+
+**Update:** Compare a new report with the prediction, decide how much to trust it, adjust the state, and update uncertainty. A reliable observation can reduce uncertainty, while a conflicting or incomplete report may increase it or trigger a warning.
+
+Possible techniques include weighted updates, alpha-beta filters, Kalman filters, Extended Kalman Filters, particle filters, or another approach your team can explain and test.
+
+### Multi-Hypothesis Routing
+
+Sometimes more than one route explains the available messages. A route update may suggest waypoint B while a delayed report still supports waypoint A. Instead of immediately discarding one explanation, a system can maintain several hypotheses.
+
+Each hypothesis can contain:
+
+- a candidate route;
+- an estimated aircraft state;
+- a probability, weight, or consistency score;
+- supporting and conflicting messages;
+- a history of how the route changed.
+
+As messages arrive, the system can update the scores, remove unlikely explanations, and identify the most likely current route.
+
+### Anomaly Detection
+
+Suspicious messages can include:
+
+- a position jump that is unrealistic for the elapsed time;
+- an altitude change that the aircraft could not reasonably make;
+- a heading that conflicts with the route geometry;
+- an unknown or inconsistent waypoint;
+- an impossible ETA;
+- a route update that contradicts reliable history;
+- a delayed message that made sense earlier but no longer describes the current state.
+
+Probabilistic trackers often use the **innovation**, which is the difference between the predicted observation and the actual observation. If that difference is much larger than the tracker's uncertainty would normally allow, the message may be anomalous. In estimation theory, "innovation" refers to this prediction error, not to creativity.
+
+A useful detector should also consider false alarms. Rejecting every surprising report can cause the tracker to miss a real turn or route change.
+
+### Path Planning
+
+A system can go beyond reconstructing a supplied route and reason about another feasible path. For example, it could:
+
+- route around a blocked waypoint, storm cell, or restricted area;
+- infer a destination from partial route information;
+- use A*, Dijkstra's algorithm, or another graph search;
+- score routes by distance, delay, fuel, or safety margin;
+- recommend a reroute when the current plan becomes inconsistent.
+
+The [`starter-kit/advanced/`](starter-kit/advanced/) folder includes a blocked-waypoint routing example.
+
+### Visualization
+
+An operator-facing display could show:
+
+- the planned route and alternative hypotheses;
+- reported positions and the estimated track;
+- the next waypoint and ETA;
+- uncertainty regions;
+- warnings and the evidence behind them;
+- a message timeline, including late corrections;
+- several aircraft at once.
+
+The supplied Folium map shows the route, raw reports, estimated positions, and uncertainty. It can be extended or replaced with another interface.
+
+## Getting Started
+
+Run these commands from the `air-traffic-control/` folder so the paths work as written.
+
+### 1. Create a Virtual Environment
+
+Windows PowerShell:
 
 ```powershell
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r air-traffic-control/requirements.txt
 ```
 
-On macOS or Linux:
+macOS or Linux:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r air-traffic-control/requirements.txt
 ```
 
-When the environment is active, its name usually appears at the beginning of your terminal prompt. Run the starter scenario with:
+### 2. Install the Dependencies
 
 ```bash
-python air-traffic-control/starter-kit/stream.py
+python -m pip install -r requirements.txt
 ```
 
-These commands assume you are at the repository root. The scripts locate their data and output folders automatically.
+The one requirements file covers the starter tracker, advanced examples, and live tracking.
 
-When you are finished, leave the virtual environment with:
+### 3. Run the Starter Tracker
 
 ```bash
-deactivate
+python starter-kit/stream.py
 ```
 
-The next time you work on the project, activate `.venv` again before running the code; you do not need to recreate it or reinstall the dependencies each time.
+The program sends `starter-kit/scenarios/simple_route.json` through the tracker one message at a time. After each message, the terminal prints the estimated position, uncertainty, next waypoint, ETA, and any warnings. A browser map then shows the route and track.
 
-### What happens when you run it
-
-The program reads [`starter-kit/scenarios/simple_route.json`](starter-kit/scenarios/simple_route.json) one message at a time. After each message, it prints:
-
-- the estimated aircraft position
-- the current uncertainty
-- the next waypoint
-- the estimated arrival time
-- any warnings about suspicious data
-
-When the scenario finishes, a map opens showing the planned route, reported positions, estimated track, and uncertainty.
-
-### Try another scenario
-
-Pass a scenario filename to the program:
+Try the other scenarios:
 
 ```bash
-python air-traffic-control/starter-kit/stream.py invalid.json
-python air-traffic-control/starter-kit/stream.py anomalous.json
+python starter-kit/stream.py invalid.json
+python starter-kit/stream.py anomalous.json
 ```
 
-You can also copy one of the files in [`starter-kit/scenarios/`](starter-kit/scenarios/) and create your own small test case.
-
-| Scenario | What it shows |
+| Scenario | What it demonstrates |
 | --- | --- |
-| [`simple_route.json`](starter-kit/scenarios/simple_route.json) | A normal flight with one mid-flight reroute. Nothing should be flagged. |
-| [`invalid.json`](starter-kit/scenarios/invalid.json) | Missing fields and impossible values, such as an invalid latitude or negative altitude. |
-| [`anomalous.json`](starter-kit/scenarios/anomalous.json) | A corrupted position, an off-route movement, an unknown waypoint, a conflicting route update, and a late message. |
+| [`simple_route.json`](starter-kit/scenarios/simple_route.json) | A normal flight with one route change. Nothing should be flagged. |
+| [`invalid.json`](starter-kit/scenarios/invalid.json) | Missing fields, unknown message types, and impossible values |
+| [`anomalous.json`](starter-kit/scenarios/anomalous.json) | A corrupted position, route deviation, unknown waypoint, conflicting update, and late message |
 
-Want to understand or change the example?
+You can copy a scenario, edit its messages, and run it as a repeatable test.
 
-- [`starter-kit/README.md`](starter-kit/README.md) explains the main files and settings.
-- [`starter-kit/advanced/README.md`](starter-kit/advanced/README.md) explains the optional additions and how much background they require.
+### 4. Explore the Code
 
----
+| Folder or file | What it contains |
+| --- | --- |
+| [`starter-kit/tracker.py`](starter-kit/tracker.py) | Position estimation, uncertainty, ETA, and anomaly logic |
+| [`starter-kit/message_parser.py`](starter-kit/message_parser.py) | Message validation and normalization |
+| [`starter-kit/dead_reckoning.py`](starter-kit/dead_reckoning.py) | Position prediction from speed, heading, and time |
+| [`starter-kit/visualizer.py`](starter-kit/visualizer.py) | The route and tracking map |
+| [`starter-kit/data/`](starter-kit/data/) | Airport and waypoint data |
+| [`starter-kit/scenarios/`](starter-kit/scenarios/) | Fixed message streams for building and debugging |
+| [`starter-kit/advanced/`](starter-kit/advanced/) | Accuracy measurement, rerouting, route hypotheses, and filtering examples |
+| [`starter-kit/live-tracking/`](starter-kit/live-tracking/) | An OpenSky adapter and live multi-aircraft display |
 
-## Optional: Track Live Aircraft
+The [starter kit guide](starter-kit/README.md) explains the main files, settings, and limitations.
 
-The [`starter-kit/live-tracking/`](starter-kit/live-tracking/) folder lets you try the tracker with real ADS-B reports from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/index.html#). It displays nearby aircraft on a radar-style page.
+### 5. Optional: Track Live Aircraft
 
-This is still the same tracker. Only the source of the messages changes.
+The [`starter-kit/live-tracking/`](starter-kit/live-tracking/) folder converts real ADS-B reports from the OpenSky Network into the same state-message format used by the scenarios. The tracking code does not need to know where a message came from.
 
-The live demo is completely optional. The supplied scenarios are the best place to build and debug because they are small, predictable, and repeatable.
+Live reports provide position, altitude, speed, and heading. They are useful for testing prediction, filtering, uncertainty, anomaly handling, and several aircraft at once. They do not contain a flight plan or waypoint route, so they cannot evaluate route reconstruction, next-waypoint prediction, ETA, or route hypotheses by themselves.
 
-### Three ways to feed the tracker
+See the [live tracking guide](starter-kit/live-tracking/README.md) for setup, limitations, and the optional OpenSky account configuration.
 
-| Source | Type of data | Correct answer available? | Best for |
+## Evaluation
+
+Use the data source that matches what you want to evaluate:
+
+| Source | Messages | Ground truth available? | Best used for |
 | --- | --- | --- | --- |
-| [`starter-kit/scenarios/*.json`](starter-kit/scenarios/) | Fixed, hand-written messages | No, but easy to check by hand | Building and debugging |
-| [`starter-kit/advanced/simulator.py`](starter-kit/advanced/simulator.py) | Generated messages | Yes | Measuring position accuracy |
-| [`starter-kit/live-tracking/`](starter-kit/live-tracking/) | Live reports from many aircraft | No | Demos and testing assumptions with real data |
+| [`starter-kit/scenarios/`](starter-kit/scenarios/) | Fixed, hand-written cases | No, but easy to inspect | Repeatable debugging and edge cases |
+| [`starter-kit/advanced/simulator.py`](starter-kit/advanced/simulator.py) | Generated flight messages | Yes | Measuring position and ETA accuracy |
+| [`starter-kit/live-tracking/`](starter-kit/live-tracking/) | Real reports from many aircraft | No | Live demonstrations and testing assumptions against real data |
 
-All three sources create the same `state` message format, so the tracker does not need to know where a message came from.
+Relevant measures include:
 
-The translation happens in [`starter-kit/live-tracking/adapter.py`](starter-kit/live-tracking/adapter.py). It is only about fifteen lines long and is worth reading, even if you do not run the live demo.
+- route reconstruction accuracy;
+- position, altitude, speed, and heading error;
+- ETA error;
+- correct handling of route changes and delayed messages;
+- useful anomaly alerts compared with false alarms;
+- selection of the correct route hypothesis;
+- uncertainty that grows and shrinks in a believable way;
+- runtime and behaviour when tracking several aircraft;
+- clarity of the display and warning explanations.
 
-### What the live feed can test
+The message rate matters when interpreting these results. Scenario reports may be minutes apart, while OpenSky reports can arrive seconds apart. A large prediction error after several minutes may represent a normal turn. The same error after a few seconds is more suspicious.
 
-ADS-B reports include position, altitude, speed, and heading. This makes the live feed useful for testing:
+The supplied settings reflect that difference: `ANOMALY_TRUST` is `0.3` for scenarios and `0.0` for the live feed. This is an example of why an algorithm should be tested with data that resembles its intended use.
 
-- position prediction
-- filtering and uncertainty
-- suspicious position reports
-- several aircraft at once
+When presenting your result, explain what the system assumes, how it reacts to unreliable data, how you evaluated it, and where it can still fail.
 
-ADS-B reports do not include the planned route or next waypoint. The live feed cannot test route reconstruction, next-waypoint prediction, ETA, route consistency, or multiple route hypotheses.
+## Resources
 
-If your project includes route features, show a scenario run alongside the live view.
+### Challenge Resources
 
-### Why the live tracker uses different settings
+- [Starter kit guide](starter-kit/README.md)
+- [Advanced examples](starter-kit/advanced/README.md)
+- [Live aircraft tracking](starter-kit/live-tracking/README.md)
+- [Sample scenarios](starter-kit/scenarios/)
+- [Shared Python requirements](requirements.txt)
 
-Scenario messages may be several minutes apart. OpenSky reports often arrive about 15 seconds apart.
+### Industry and Technical Resources
 
-Over five minutes, an aircraft can make a real turn and end up far from a simple straight-line prediction. The tracker should still give that new report some trust.
-
-Over 15 seconds, the aircraft should not move very far from its prediction. A large jump is more likely to be bad data, so the live tracker can reject more of it.
-
-That is why `ANOMALY_TRUST` is `0.3` for the scenarios and `0.0` for the live feed. The code stays the same, but a useful setting changes with the message rate.
-
-That is a useful result to explain in a demo: algorithms need to be tested with the kind of data they will actually receive.
-
-See [`starter-kit/live-tracking/README.md`](starter-kit/live-tracking/README.md) for setup instructions and limitations.
-
----
-
-## Things to keep in mind
-
-As you are working through your solution, keep the following questions in mind:
-
-- **Route Reconstruction Accuracy** - how close is the reconstructed route to the true route?
-- **State Estimation Accuracy** - how close are estimated position, altitude, speed, and heading to the true simulated state?
-- **ETA Accuracy** - how close are predicted arrival times to ground truth?
-- **Conflict Handling** - does the solution correctly identify contradictory messages?
-- **Late Message Handling** - can the solution incorporate delayed or out-of-order messages correctly?
-- **Hypothesis Management** - does the solution maintain and select the correct route hypothesis when ambiguous?
-- **Anomaly Detection** - does the solution flag suspicious messages without too many false alarms?
-- **Code Quality** - is the solution modular, readable, and maintainable?
-- **Optional Visualization** - does the solution clearly display route, uncertainty, and alerts?
-
----
-
-## Suggested Student Milestones
-
-**Milestone 1 - Working Parser:** Parse all message types into structured Python objects.
-
-**Milestone 2 - Deterministic Route State:** Maintain a route and update it when new waypoint messages arrive.
-
-**Milestone 3 - Basic Prediction:** Estimate current position and ETA using speed, heading, and waypoint distance.
-
-**Milestone 4 - Consistency Checks:** Detect impossible jumps, conflicting waypoints, and invalid ETAs.
-
-**Milestone 5 - EKF or other Filter:** Add probabilistic state estimation with uncertainty.
-
-**Milestone 6 - Multi-Hypothesis Tracking:** Maintain several possible route explanations and select the most likely one.
-
-**Milestone 7 - Anomaly Detection:** Use prediction error or innovation magnitude to flag suspicious messages.
-
-**Milestone 8 - Visualization:** Display the route, aircraft state, uncertainty, and alerts on a map.
-
----
-
-## Final Goal
-
-By the end of the challenge, your system should be able to read a messy stream of aircraft messages and answer:
-
-> "Where is this aircraft most likely going, where is it now, when will it arrive, and which messages should we not fully trust?"
-
-This is the same question that systems like ARTAS, ERAM, and STARS answer thousands of times per minute, for every aircraft in controlled airspace.
+- [NAV CANADA: Air Traffic Services](https://www.navcanada.ca/en/air-traffic-services.aspx)
+- [Transport Canada: Air Navigation Services](https://tc.canada.ca/en/aviation/air-navigation-services)
+- [Canadian Aviation Regulations](https://tc.canada.ca/en/corporate-services/acts-regulations/list-regulations/canadian-aviation-regulations-sor-96-433)
+- [OpenSky Network API documentation](https://openskynetwork.github.io/opensky-api/)
+- [EUROCONTROL ARTAS](https://www.eurocontrol.int/product/artas)
+- [Folium documentation](https://python-visualization.github.io/folium/latest/)
+- [NumPy documentation](https://numpy.org/doc/)

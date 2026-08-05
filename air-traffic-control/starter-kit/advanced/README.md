@@ -1,43 +1,48 @@
-# Optional Advanced Add-Ons
+# Advanced Air Traffic Control Tools
 
-This folder contains optional additions that connect to the main tracker in the parent folder.
+This folder contains optional experiments for the [Air Traffic Control starter kit](../README.md). They demonstrate ways to measure accuracy, plan around blocked waypoints, keep several possible routes, and compare a more advanced tracker.
 
-Get the basic tracker running first. Then choose at most one add-on if your team has time and interest. None of these are required for a strong project.
+Get the basic scenario running first. Choose at most one advanced addition unless your team already understands the code it uses.
 
-## Quick guide
+## Table of Contents
 
-| File | What it adds | Suggested level |
+- [Challenge](#challenge)
+- [Potential Solutions](#potential-solutions)
+- [Getting Started](#getting-started)
+- [Resources](#resources)
+
+## Challenge
+
+Choose one focused extension, connect it to the main tracker where needed, and show whether it improved the result.
+
+A successful advanced addition should:
+
+- solve a clear limitation of the basic tracker
+- use the same scenarios or measurements before and after the change
+- expose important assumptions instead of hiding them
+- remain understandable enough for the team to explain during judging
+
+None of these files is required for a strong project.
+
+## Potential Solutions
+
+| Potential solution | Description | Suggested level |
 | --- | --- | --- |
-| `measure_accuracy.py` | Measures tracking error against a known flight | Good first choice |
-| `path_planning.py` | Finds a route around blocked waypoints | Approachable if you know graphs |
-| `hypothesis.py` | Keeps and scores several possible routes | More involved |
-| `ekf.py` | Replaces the simple tracker with a matrix Kalman filter | Read and compare |
-| `simulator.py` | Creates the known flight used for accuracy testing | Supporting code |
+| Accuracy measurement | Compare raw reports and tracker estimates with a simulated flight whose true positions are known. | Best first choice |
+| Blocked-waypoint rerouting | Use Dijkstra's algorithm and the supplied training connections to avoid a blocked waypoint. | Approachable with graph basics |
+| Route hypotheses | Keep and score several possible routes when messages disagree. | More involved |
+| Extended Kalman Filter (EKF) | Compare the simple uncertainty model with a matrix-based state estimator. | Advanced mathematics |
 
-## Best first option: measure accuracy
+### Accuracy Measurement
 
-Maps can look convincing even when a tracker is wrong. `measure_accuracy.py` tests the tracker against a simulated flight where the correct position is known.
-
-Run it from the repository root:
+Run from the repository root:
 
 ```bash
 python -m pip install -r air-traffic-control/requirements.txt
 python air-traffic-control/starter-kit/advanced/measure_accuracy.py
 ```
 
-To test the supplied Extended Kalman Filter:
-
-```bash
-python air-traffic-control/starter-kit/advanced/measure_accuracy.py --ekf
-```
-
-The tool reports:
-
-- **Median error:** A good picture of a typical result.
-- **RMSE:** An average that gives extra weight to large errors.
-- **Worst error:** The largest mistake in the run.
-
-The supplied simulation currently gives results similar to:
+The tool reports median error, root-mean-square error (RMSE), and worst error. The supplied simulation currently gives results similar to:
 
 ```text
 error vs ground truth     median      RMSE     worst   (km)
@@ -45,13 +50,11 @@ raw reported                0.03     42.72    263.35
 simple tracker              1.50     12.15     53.28
 ```
 
-Most raw reports are very accurate, but one corrupted report can be far away. The tracker accepts a little delay in normal cases so that one bad message causes less damage.
+The raw reports are usually accurate, but one deliberately corrupted report creates a large error. The tracker reduces that worst spike while introducing a small amount of normal tracking delay.
 
-A useful demo statement would be: "Our typical error is about 1.5 km, and our tracker reduces the worst position spikes in this simulation."
+### Blocked-Waypoint Rerouting
 
-## Option 2: route around a blocked waypoint
-
-`path_planning.py` uses Dijkstra's algorithm to find a short path that avoids blocked waypoints.
+[`path_planning.py`](path_planning.py) finds a short route through the training connections in [`../data/route.json`](../data/route.json).
 
 ```python
 from advanced.path_planning import find_shortest_path
@@ -65,54 +68,57 @@ route, distance_km = find_shortest_path(
 )
 ```
 
-This is a good extension because it does not require changes to the aircraft tracker.
+The connections are made for this challenge and are not real airways. A useful extension could add weather, restricted areas, fuel, or route-cost information.
 
-The supplied navigation data contains a small set of training connections. They make the example useful, but they are not real airways. Real flight planning has many more routes and constraints.
+### Route Hypotheses
 
-## Option 3: keep several possible routes
+[`hypothesis.py`](hypothesis.py) provides a `RouteHypothesis` class with:
 
-The basic solution stores one current route. When messages disagree, `hypothesis.py` lets you keep several possible routes and give each one a weight.
+- an ordered route
+- a weight and consistency score
+- a current route position
+- message IDs that support or conflict with the route
 
-Later messages can raise or lower those weights. The route with the highest weight becomes the current best guess.
+Connecting it to the main solution is left as a team challenge. You will need to choose the strongest hypothesis when calculating route progress, ETA, output, and visualization.
 
-`RouteHypothesis` stores:
+### Extended Kalman Filter
 
-- a route
-- a weight
-- a consistency score
-- the message IDs that support or conflict with it
+Run the accuracy tool with the supplied matrix-based tracker:
 
-The class is provided, but connecting it to the basic solution is left as a team challenge. A possible plan is:
+```bash
+python air-traffic-control/starter-kit/advanced/measure_accuracy.py --ekf
+```
 
-1. Store a list of hypotheses instead of one route.
-2. Apply compatible route updates to existing hypotheses.
-3. Create a new hypothesis when an update does not fit any existing one.
-4. Adjust weights when waypoint reports arrive.
-5. Keep only the strongest few hypotheses and show the best one.
+The EKF in [`ekf.py`](ekf.py) tracks relationships between position, speed, heading, altitude, and uncertainty. Building one from scratch is not expected for most first- or second-year students. Treat it as code to run, inspect, test, and compare.
 
-This change affects arrival time, route progress, output, and the map. Budget time for those connections.
+Useful questions include:
 
-## Option 4: compare the Extended Kalman Filter
+- Does it improve typical error or only some situations?
+- How many normal messages does it flag?
+- How does it behave after a long gap or sharp turn?
+- Is the extra complexity worthwhile for your project?
 
-`ekf.py` is a more advanced replacement for `tracker.py`. It has the same main interface, so the accuracy script can run either version.
+## Getting Started
 
-The simple tracker stores uncertainty as one radius. The Extended Kalman Filter stores relationships between position, speed, and heading in a matrix. This can produce a more useful uncertainty shape and a more accurate estimate.
+### Try an Advanced Tool
 
-The supplied filter is useful to run, inspect, and compare. Building one from scratch is not a realistic expectation for most first- or second-year students during a 12-hour event. It normally requires comfort with covariance matrices, derivatives, and matrix operations.
+1. Run the basic tracker and record its result.
+2. Choose one optional addition.
+3. Change or connect the smallest useful part.
+4. Run the same test again.
+5. Keep the change only if you can explain what improved or what you learned.
 
-If you explore it, focus on questions such as:
+One tested improvement is stronger than several unfinished features.
 
-- Does it improve median and worst-case error?
-- Does it behave differently after a long gap?
-- Is the extra complexity worth it for your project?
-- Can your team explain its limitations clearly?
+## Resources
 
-## A simple way to work with an add-on
+| File | Purpose |
+| --- | --- |
+| [`measure_accuracy.py`](measure_accuracy.py) | Runs the simulator, measures error, and creates charts |
+| [`simulator.py`](simulator.py) | Generates messages and known ground-truth positions |
+| [`path_planning.py`](path_planning.py) | Finds a route through known waypoint connections |
+| [`hypothesis.py`](hypothesis.py) | Represents and scores one possible route |
+| [`ekf.py`](ekf.py) | Implements the optional matrix-based tracker |
+| `output/` | Stores generated maps and accuracy charts |
 
-1. Run the basic solution and record a result.
-2. Choose one change.
-3. Test the same scenario before and after.
-4. Keep the change only if you can explain what improved.
-5. Leave enough time to prepare the demo.
-
-One tested improvement is a better hackathon result than several unfinished features.
+Also read the [main starter-kit guide](../README.md) and [challenge overview](../../README.md).

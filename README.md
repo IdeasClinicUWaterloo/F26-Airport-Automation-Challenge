@@ -14,10 +14,10 @@ This README uses descriptive headings, meaningful link names, short sections, an
 - [Quick Links](#quick-links)
 - [Your Mission](#your-mission)
 - [Sub-Problems](#sub-problems)
-  - [Baggage Handling System](#1-baggage-handling-system)
-  - [Gate Management System](#2-gate-management-system)
-  - [Air Traffic Control System](#3-air-traffic-control-system)
-  - [Departure Control System](#4-departure-control-system)
+  - [Baggage Handling System](#baggage-handling-system)
+  - [Gate Management System](#gate-management-system)
+  - [Air Traffic Control System](#air-traffic-control-system)
+  - [Departure Control System](#departure-control-system)
 - [Development Approach](#development-approach)
 - [Submission](#submission)
 - [Judging Criteria](#judging-criteria)
@@ -54,13 +54,17 @@ Whatever you build, use the [judging criteria](#judging-criteria) to guide your 
 
 ## Sub-Problems
 
-### 1. Baggage Handling System
+### [Baggage Handling System](baggage-handling-system/README.md)
 
 A Baggage Handling System (BHS) identifies, tracks, routes, and sorts bags through scanners, conveyors, diverters, make-up areas, and carousels. A bad routing decision can delay a passenger, a flight, or an entire baggage pier.
 
+#### Challenge
+
 Your challenge is to design a BHS that can identify, track, route baggage through a simplified baggage handling environment, and detect anomalies or foreign objects on conveyor systems to ensure operational safety.
 
-![alt text](images/conveyor_system.webp)
+![Baggage moving through an airport conveyor system](images/conveyor_system.webp)
+
+#### Potential Directions
 
 Potential solution directions:
 
@@ -76,37 +80,49 @@ Potential solution directions:
 
 Your solution may be software-only, hardware-assisted, simulation-based, or a mix of all three.
 
----
+[Open the Baggage Handling System challenge](baggage-handling-system/README.md).
 
-## 2. Gate Management System
+### [Gate Management System](gate-management-system/README.md)
 
 ![Example of aircraft being assigned to airport gates](images/gate_assgt.png)
 
 A Gate Management System (GMS) assigns aircraft to gates while considering timing, aircraft size, passenger needs, customs rules, cargo restrictions, outages, and delays. A gate plan must remain valid as the day changes.
 
+#### Challenge
+
 Your challenge is to produce a conflict-free gate plan and update it when disruption messages arrive. The supplied evaluator checks aircraft-gate compatibility, overlapping occupancy, gate outages, reassignment costs, and other operational rules.
+
+#### Starting Point
 
 This is the most structured coding subproblem. You may write your own assignment algorithm or build a larger tool around the supplied baseline.
 
 [Open the Gate Management System challenge](gate-management-system/README.md).
 
-### 3. Air Traffic Control System
+### [Air Traffic Control System](air-traffic-control/README.md)
 
 ![Air traffic controller monitoring aircraft](images/air-traffic-controller.jpg)
 
 Air Traffic Control (ATC) automation combines surveillance reports, flight-plan updates, route information, and controller inputs to estimate where an aircraft is and where it is going. Those messages can be noisy, delayed, incomplete, or contradictory.
 
+#### Challenge
+
 Your challenge is to process a simulated aircraft message stream, reconstruct the likely route, estimate the aircraft state, predict its next waypoint and arrival time, and flag information that should not be trusted without review.
+
+#### Starting Point
 
 The starter kit includes repeatable scenarios, a working tracker, a simulator with known ground truth, optional advanced tools, and a live-aircraft demo.
 
 [Open the Air Traffic Control challenge](air-traffic-control/README.md).
 
-### 4. Departure Control System
+### [Departure Control System](departure-control-system/README.md)
 
 A Departure Control System (DCS) manages the departure side of an airline operation, including check-in, identity and document verification, baggage acceptance, boarding passes, boarding status, and aircraft load control.
 
+#### Challenge
+
 Your challenge is to choose one part of that pipeline and make its state and decisions clear. A strong project might help an operator understand whether a passenger, bag, or flight is ready, what needs attention, and why.
+
+#### Starting Points
 
 Two working examples show an appropriate scope:
 
