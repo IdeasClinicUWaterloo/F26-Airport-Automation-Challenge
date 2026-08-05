@@ -1,7 +1,0 @@
-# The radar page is served by the standard library, and the default tracker is
-# pure Python, so this is the only hard requirement.
-requests
-
-# Only needed for --ekf, which borrows the matrix filter from
-# ../advanced/. Uncomment if you want to run that.
-# numpy

@@ -60,7 +60,9 @@ class RouteHypothesis:
         # Allow reports to advance beyond the currently stored route index.
         if current_wp in self.route:
             idx = self.route.index(current_wp)
-            if idx >= self._index:
+            route_next = self.route[idx + 1] if idx + 1 < len(self.route) else None
+            next_matches = next_wp is None or next_wp == route_next
+            if idx >= self._index and next_matches:
                 self._index = idx
                 self._support(message_id)
                 return True

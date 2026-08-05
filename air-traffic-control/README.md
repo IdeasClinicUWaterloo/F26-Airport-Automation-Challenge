@@ -56,8 +56,8 @@ ATC automation isn't just engineered for correctness, it's built to satisfy spec
 
 Two concrete gaps between this prototype and a regulation-grounded system, worth keeping in mind:
 
-- **Field validation vs. separation-minima validation.** `check_state_message()` in [`starter-kit/message_parser.py`](starter-kit/message_parser.py) checks that lat/lon/heading/altitude/speed are physically plausible numbers (e.g. heading in `[0, 360]`). Real conflict-alert logic checks against the actual separation minima in 7110.65 (3/5 nm lateral, 1,000 ft vertical) between aircraft pairs, a different (and harder) problem than what this problem is doing.
-- **No staleness/track-timeout logic.** `predict()` in [`starter-kit/tracker.py`](starter-kit/tracker.py) will happily coast a track forward indefinitely between updates. Real systems bound how long a track can be "coasted" before it's flagged as stale, tied to expected radar/ADS-B update rates. This is a natural safety-relevant addition, and a manageable one. It is written up in [`starter-kit/STRETCH_GOALS.md`](starter-kit/STRETCH_GOALS.md).
+- **Field validation vs. separation-minima validation.** `check_state_message()` in [`starter-kit/message_parser.py`](starter-kit/message_parser.py) checks that lat/lon/heading/altitude/speed are physically plausible numbers (e.g. heading in `[0, 360)`). Real conflict-alert logic checks against the actual separation minima in 7110.65 (3/5 nm lateral, 1,000 ft vertical) between aircraft pairs, a different (and harder) problem than what this problem is doing.
+- **No staleness/track-timeout logic.** `predict()` in [`starter-kit/tracker.py`](starter-kit/tracker.py) will happily coast a track forward indefinitely between updates. Real systems bound how long a track can be "coasted" before it's flagged as stale, tied to expected radar/ADS-B update rates. This is a natural safety-relevant addition, and a manageable one.
 
 ---
 
@@ -215,8 +215,6 @@ Your solution should output an updated route and tracking estimate after process
 
 Everything you need to begin is in [`starter-kit/`](starter-kit). It contains the tracker, scenario files, route data, advanced options, and live-tracking add-on in one place.
 
-The earlier implementation is preserved separately in [`solution-backup/`](solution-backup). It has its own data and scenarios, so changes to the starter kit will not break it.
-
 You can build on the starter kit or create your own solution using the same inputs.
 
 ### Folder guide
@@ -229,7 +227,6 @@ You can build on the starter kit or create your own solution using the same inpu
 | [`starter-kit/advanced/`](starter-kit/advanced/) | Optional accuracy, routing, and filtering additions |
 | [`starter-kit/advanced/output/`](starter-kit/advanced/output/) | Generated maps and accuracy charts |
 | [`starter-kit/live-tracking/`](starter-kit/live-tracking/) | The optional OpenSky live-aircraft demo |
-| [`solution-backup/`](solution-backup/) | A preserved earlier version with its own data and scenarios |
 
 ### Set up a virtual environment
 
@@ -241,7 +238,7 @@ On Windows PowerShell:
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install -r air-traffic-control/starter-kit/requirements.txt
+python -m pip install -r air-traffic-control/requirements.txt
 ```
 
 On macOS or Linux:
@@ -250,7 +247,7 @@ On macOS or Linux:
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -r air-traffic-control/starter-kit/requirements.txt
+python -m pip install -r air-traffic-control/requirements.txt
 ```
 
 When the environment is active, its name usually appears at the beginning of your terminal prompt. Run the starter scenario with:
@@ -301,7 +298,7 @@ You can also copy one of the files in [`starter-kit/scenarios/`](starter-kit/sce
 Want to understand or change the example?
 
 - [`starter-kit/README.md`](starter-kit/README.md) explains the main files and settings.
-- [`starter-kit/STRETCH_GOALS.md`](starter-kit/STRETCH_GOALS.md) suggests optional additions and gives rough time estimates.
+- [`starter-kit/advanced/README.md`](starter-kit/advanced/README.md) explains the optional additions and how much background they require.
 
 ---
 

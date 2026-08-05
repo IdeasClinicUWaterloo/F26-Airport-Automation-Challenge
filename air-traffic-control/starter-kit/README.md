@@ -21,7 +21,7 @@ On Windows PowerShell:
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
-python -m pip install -r air-traffic-control/starter-kit/requirements.txt
+python -m pip install -r air-traffic-control/requirements.txt
 ```
 
 On macOS or Linux:
@@ -30,7 +30,7 @@ On macOS or Linux:
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -r air-traffic-control/starter-kit/requirements.txt
+python -m pip install -r air-traffic-control/requirements.txt
 ```
 
 Then run the starter scenario:
@@ -143,7 +143,7 @@ These are some good possible additions to try in addition to the advanced path:
 The advanced folder includes a simulator with a known correct flight. That lets you measure position error instead of judging the map by eye.
 
 ```bash
-pip install -r air-traffic-control/starter-kit/advanced/requirements.txt
+python -m pip install -r air-traffic-control/requirements.txt
 python air-traffic-control/starter-kit/advanced/measure_accuracy.py
 ```
 

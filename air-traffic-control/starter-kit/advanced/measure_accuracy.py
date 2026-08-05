@@ -22,8 +22,9 @@ matplotlib.use("Agg")  # headless-safe: charts are written to disk, not popped u
 import matplotlib.pyplot as plt
 
 import simulator
-import message_parser
-from dead_reckoning import DeadReckoning
+from dead_reckoning import distance_km
+from message_parser import FlightRoutingSolution
+from tracker import AircraftTracker
 from visualizer import FlightVisualizer
 
 ADVANCED_DIR = Path(__file__).resolve().parent
@@ -31,19 +32,17 @@ STARTER_DIR = ADVANCED_DIR.parent
 OUTPUT_DIR = ADVANCED_DIR / "output"
 NAV_DATA = STARTER_DIR / "data" / "route.json"
 
-_dr = DeadReckoning()
-
-
 def run(use_ekf=False, seed=42):
     if use_ekf:
-        # Swap the tracker class without editing message_parser.py.
         from ekf import AircraftEKF
-        message_parser.AircraftTracker = AircraftEKF
+        tracker_class = AircraftEKF
+    else:
+        tracker_class = AircraftTracker
 
     label = "matrix EKF (ekf.py)" if use_ekf else "simple tracker (tracker.py)"
     messages, truth, _ = simulator.build_scenario(seed=seed)
 
-    solution = message_parser.FlightRoutingSolution(NAV_DATA)
+    solution = FlightRoutingSolution(NAV_DATA, tracker_class=tracker_class)
     visualizer = FlightVisualizer(NAV_DATA)
 
     history = []
@@ -91,7 +90,7 @@ def _error_km(truth_sample, position):
 
     if not truth_sample or not position:
         return None
-    return _dr.find_distance(
+    return distance_km(
         truth_sample["lat"], truth_sample["lon"], position["lat"], position["lon"]
     )
 

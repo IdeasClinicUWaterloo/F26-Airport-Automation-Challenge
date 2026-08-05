@@ -1,6 +1,7 @@
 """Draw the route, reports, estimates, uncertainty, and alerts on a map."""
 
 import json
+import math
 import webbrowser
 from pathlib import Path
 
@@ -27,8 +28,20 @@ class FlightVisualizer:
     def record(self, message, state):
         """Snapshot the current estimate. Call once per message, after processing it."""
 
-        if message.get("type") == "state" and state.get("latest_position"):
-            self.reported_points.append(dict(state["latest_position"]))
+        lat = message.get("lat")
+        lon = message.get("lon")
+        has_position = (
+            isinstance(lat, (int, float))
+            and not isinstance(lat, bool)
+            and math.isfinite(lat)
+            and -90 <= lat <= 90
+            and isinstance(lon, (int, float))
+            and not isinstance(lon, bool)
+            and math.isfinite(lon)
+            and -180 <= lon <= 180
+        )
+        if message.get("type") == "state" and has_position:
+            self.reported_points.append({"lat": lat, "lon": lon})
 
         if state.get("estimated_position"):
             uncertainty_km = state.get("uncertainty_km")

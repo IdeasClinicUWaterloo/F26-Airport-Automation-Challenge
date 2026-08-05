@@ -4,7 +4,12 @@ The tracker predicts movement between reports and blends each new report into
 the estimate. One uncertainty radius controls how strongly reports are weighted.
 """
 
-from dead_reckoning import DeadReckoning, destination_point, KNOTS_TO_MPS
+from dead_reckoning import (
+    KNOTS_TO_MPS,
+    destination_point,
+    distance_km,
+    initial_bearing,
+)
 
 
 # Expected position-report error. Higher values trust reports less.
@@ -45,8 +50,6 @@ class AircraftTracker:
         self.last_accepted_position = None
         self.last_accepted_timestamp = None
 
-        self.dead_reckoning = DeadReckoning()
-
     def start(self, lat, lon, altitude, ground_speed, heading, timestamp):
         """Initialize the tracker from the first valid report."""
 
@@ -83,7 +86,7 @@ class AircraftTracker:
     def update(self, lat, lon, altitude, ground_speed, heading):
         """Blend a report into the estimate and return `(gap_km, was_flagged)`."""
 
-        gap_km = self.dead_reckoning.find_distance(
+        gap_km = distance_km(
             self.position["lat"], self.position["lon"], lat, lon
         )
 
@@ -102,7 +105,7 @@ class AircraftTracker:
         if fraction <= 0:
             return gap_km, was_flagged
 
-        bearing = self.dead_reckoning.find_bearing(
+        bearing = initial_bearing(
             self.position["lat"], self.position["lon"], lat, lon
         )
         moved_lat, moved_lon = destination_point(
@@ -119,12 +122,6 @@ class AircraftTracker:
 
         self.last_accepted_position = {"lat": lat, "lon": lon}
         self.last_accepted_timestamp = self.last_timestamp
-
-        # Future predictions must start from the corrected estimate.
-        self.dead_reckoning.current_position = dict(self.position)
-        self.dead_reckoning.current_speed_mps = self.ground_speed * KNOTS_TO_MPS
-        self.dead_reckoning.current_heading = self.heading
-        self.dead_reckoning.last_timestamp = self.last_timestamp
 
         return gap_km, was_flagged
 

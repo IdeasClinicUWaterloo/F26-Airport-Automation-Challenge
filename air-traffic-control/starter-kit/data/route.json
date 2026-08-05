@@ -36,5 +36,12 @@
       "name": "Toronto to Denver",
       "waypoints": ["YYZ", "WP001", "WP002", "DEN"]
     }
-  }
+  },
+  "connections": [
+    ["YYZ", "WP001"],
+    ["WP001", "WP002"],
+    ["WP001", "OMAHA"],
+    ["WP002", "DEN"],
+    ["OMAHA", "DEN"]
+  ]
 }

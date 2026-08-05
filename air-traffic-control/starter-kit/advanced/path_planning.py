@@ -1,17 +1,15 @@
-"""Find a short waypoint route while avoiding blocked waypoints.
-
-The supplied data has no airway connections, so every waypoint is treated as
-connected to every other waypoint.
-"""
+"""Find a short route through known waypoint connections."""
 
 import heapq
+import sys
+from pathlib import Path
 
-from dead_reckoning import DeadReckoning
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-_dr = DeadReckoning()
+from dead_reckoning import distance_km
 
 
-def find_shortest_path(waypoints, start, goal, blocked=None):
+def find_shortest_path(waypoints, start, goal, blocked=None, connections=None):
     """Return `(path, distance_km)`, or `(None, None)` when no path exists."""
 
     blocked = set(blocked or ())
@@ -19,8 +17,19 @@ def find_shortest_path(waypoints, start, goal, blocked=None):
         return None, None
     if start not in waypoints or goal not in waypoints:
         return None, None
+    if connections is None:
+        raise ValueError("Pass the navigation data's connections list")
 
     nodes = [w for w in waypoints if w not in blocked]
+    neighbors = {node: set() for node in nodes}
+
+    for connection in connections:
+        if not isinstance(connection, (list, tuple)) or len(connection) != 2:
+            continue
+        first, second = connection
+        if first in neighbors and second in neighbors:
+            neighbors[first].add(second)
+            neighbors[second].add(first)
 
     distances = {node: float("inf") for node in nodes}
     previous = {node: None for node in nodes}
@@ -38,10 +47,10 @@ def find_shortest_path(waypoints, start, goal, blocked=None):
         if node == goal:
             break
 
-        for neighbor in nodes:
-            if neighbor == node or neighbor in visited:
+        for neighbor in neighbors[node]:
+            if neighbor in visited:
                 continue
-            edge = _dr.find_distance(
+            edge = distance_km(
                 waypoints[node]["lat"], waypoints[node]["lon"],
                 waypoints[neighbor]["lat"], waypoints[neighbor]["lon"],
             )
@@ -64,7 +73,7 @@ def find_shortest_path(waypoints, start, goal, blocked=None):
     return path, distances[goal]
 
 
-def suggest_reroute(waypoints, current_hypothesis, blocked):
+def suggest_reroute(waypoints, current_hypothesis, blocked, connections=None):
     """Suggest a replacement for a route containing a blocked waypoint."""
 
     remaining = current_hypothesis.remaining_route()
@@ -75,4 +84,10 @@ def suggest_reroute(waypoints, current_hypothesis, blocked):
     if not any(wp in blocked for wp in remaining):
         return None, None
 
-    return find_shortest_path(waypoints, start, goal, blocked=blocked)
+    return find_shortest_path(
+        waypoints,
+        start,
+        goal,
+        blocked=blocked,
+        connections=connections,
+    )

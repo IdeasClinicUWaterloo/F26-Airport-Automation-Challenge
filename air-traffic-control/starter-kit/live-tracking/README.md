@@ -11,7 +11,7 @@ You do not need this folder to complete the hackathon.
 From the repository root:
 
 ```bash
-pip install -r air-traffic-control/starter-kit/live-tracking/requirements.txt
+python -m pip install -r air-traffic-control/requirements.txt
 python air-traffic-control/starter-kit/live-tracking/live_tracker.py
 ```
 
@@ -68,11 +68,7 @@ The normal command uses the simple tracker. Add `--ekf` to use the supplied matr
 python air-traffic-control/starter-kit/live-tracking/live_tracker.py --ekf
 ```
 
-This option needs `numpy`, which is included in the advanced requirements:
-
-```bash
-pip install -r air-traffic-control/starter-kit/advanced/requirements.txt
-```
+This option needs `numpy`, which is already included in the top-level requirements file.
 
 Try both versions and compare how closely the estimate follows the aircraft, how it reacts to a surprising report, and how the uncertainty changes.
 

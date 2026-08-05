@@ -1,10 +1,11 @@
 """Process flight messages into a route, state estimate, ETA, and alert list."""
 
 import json
-from datetime import datetime, timedelta
+import math
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from dead_reckoning import DeadReckoning
+from dead_reckoning import distance_km, initial_bearing
 from tracker import AircraftTracker
 
 
@@ -19,11 +20,13 @@ DEFAULT_NAV_DATA = Path(__file__).resolve().parent / "data" / "route.json"
 
 
 class FlightRoutingSolution:
-    def __init__(self, nav_data_path=DEFAULT_NAV_DATA):
-        self.waypoints = self._load_waypoints(nav_data_path)
+    def __init__(self, nav_data_path=DEFAULT_NAV_DATA, tracker_class=AircraftTracker):
+        nav_data = self._load_nav_data(nav_data_path)
+        self.waypoints = nav_data.get("waypoints", {})
+        self.connections = nav_data.get("connections", [])
 
-        self.tracker = AircraftTracker()
-        self.dead_reckoning = DeadReckoning()
+        self._tracker_class = tracker_class
+        self.tracker = tracker_class()
 
         self.route = []
         self.latest_reported_position = None
@@ -32,6 +35,7 @@ class FlightRoutingSolution:
         self.anomalies = []
 
         self._route_index = 0
+        self._previous_progress_position = None
 
         # Keep the full history so late messages can be replayed in time order.
         self._message_log = []
@@ -41,13 +45,14 @@ class FlightRoutingSolution:
         self._late_arrivals = []
 
     @staticmethod
-    def _load_waypoints(path):
-        """Load waypoint data. Position tracking can run without route geometry."""
+    def _load_nav_data(path):
+        """Load navigation data. Position tracking can run without it."""
 
         try:
             with open(path, "r") as file:
-                return json.load(file)["waypoints"]
-        except (FileNotFoundError, KeyError):
+                data = json.load(file)
+            return data if isinstance(data, dict) else {}
+        except (FileNotFoundError, json.JSONDecodeError):
             return {}
 
     # ---- entry point ----
@@ -108,13 +113,14 @@ class FlightRoutingSolution:
     def _replay(self):
         """Rebuild the estimate in timestamp order after a late message."""
 
-        self.tracker = AircraftTracker()
+        self.tracker = self._tracker_class()
         self.route = []
         self.latest_reported_position = None
         self.predicted_position = None
         self.eta = None
         self.anomalies = []
         self._route_index = 0
+        self._previous_progress_position = None
         self._last_timestamp = None
 
         for timestamp, _, message in sorted(self._message_log, key=self._sort_key):
@@ -195,8 +201,21 @@ class FlightRoutingSolution:
     def process_route_update(self, message):
         """Apply a new route and flag changes to waypoints already passed."""
 
-        new_route = message.get("route", [])
-        if not new_route:
+        new_route = message.get("route")
+        if not isinstance(new_route, list) or not new_route:
+            self.add_anomaly(message, "Route must be a non-empty list of waypoint IDs")
+            return
+
+        if any(not isinstance(waypoint, str) or not waypoint for waypoint in new_route):
+            self.add_anomaly(message, "Every route entry must be a waypoint ID")
+            return
+
+        unknown = [waypoint for waypoint in new_route if waypoint not in self.waypoints]
+        if unknown:
+            self.add_anomaly(
+                message,
+                f"Route contains unknown waypoint(s): {', '.join(unknown)}",
+            )
             return
 
         already_flown = self.route[: self._route_index + 1]
@@ -225,9 +244,35 @@ class FlightRoutingSolution:
         """
 
         current_wp = message.get("current_waypoint")
+        reported_next = message.get("next_waypoint")
+
+        if not isinstance(current_wp, str) or not current_wp:
+            self.add_anomaly(message, "Waypoint report is missing a current waypoint")
+            return
 
         if current_wp in self.route:
-            self._route_index = self.route.index(current_wp)
+            reported_index = self.route.index(current_wp)
+            if reported_index < self._route_index:
+                self.add_anomaly(
+                    message,
+                    f"Waypoint report moves backwards from {self.current_waypoint} to {current_wp}",
+                )
+                return
+
+            expected_next = (
+                self.route[reported_index + 1]
+                if reported_index + 1 < len(self.route)
+                else None
+            )
+            if reported_next is not None and reported_next != expected_next:
+                self.add_anomaly(
+                    message,
+                    f"Waypoint report says {reported_next} is next, but the route says "
+                    f"{expected_next or 'the flight is at its destination'}",
+                )
+                return
+
+            self._route_index = reported_index
         elif current_wp is not None and self.route:
             self.add_anomaly(
                 message,
@@ -241,38 +286,54 @@ class FlightRoutingSolution:
 
         valid = True
 
-        lat = message.get("lat")
-        lon = message.get("lon")
-        altitude = message.get("altitude")
-        speed = message.get("ground_speed")
-        heading = message.get("heading")
+        fields = {
+            "latitude": message.get("lat"),
+            "longitude": message.get("lon"),
+            "altitude": message.get("altitude"),
+            "ground speed": message.get("ground_speed"),
+            "heading": message.get("heading"),
+        }
 
-        if lat is None or lon is None:
-            self.add_anomaly(message, "Missing latitude or longitude")
-            valid = False
+        for name, value in fields.items():
+            if value is None:
+                self.add_anomaly(message, f"Missing {name}")
+                valid = False
+            elif not self._is_finite_number(value):
+                self.add_anomaly(message, f"{name.capitalize()} must be a finite number")
+                valid = False
 
         # Prediction, ETA, and movement checks all require a timestamp.
         if self._parse_timestamp(message.get("timestamp")) is None:
             self.add_anomaly(message, "Missing or unreadable timestamp")
             valid = False
 
-        if lat is not None and not (-90 <= lat <= 90):
+        lat = fields["latitude"]
+        lon = fields["longitude"]
+        altitude = fields["altitude"]
+        speed = fields["ground speed"]
+        heading = fields["heading"]
+
+        if self._is_finite_number(lat) and not (-90 <= lat <= 90):
             self.add_anomaly(message, "Latitude out of range")
             valid = False
 
-        if lon is not None and not (-180 <= lon <= 180):
+        if self._is_finite_number(lon) and not (-180 <= lon <= 180):
             self.add_anomaly(message, "Longitude out of range")
             valid = False
 
-        if altitude is not None and altitude < 0:
+        if self._is_finite_number(altitude) and altitude < 0:
             self.add_anomaly(message, "Altitude cannot be negative")
             valid = False
 
-        if speed is not None and speed < 0:
+        if self._is_finite_number(speed) and speed < 0:
             self.add_anomaly(message, "Ground speed cannot be negative")
             valid = False
 
-        if heading is not None and not (0 <= heading <= 360):
+        if self._is_finite_number(speed) and speed > MAX_PLAUSIBLE_SPEED_KT:
+            self.add_anomaly(message, "Ground speed exceeds the plausible limit")
+            valid = False
+
+        if self._is_finite_number(heading) and not (0 <= heading < 360):
             self.add_anomaly(message, "Heading out of range")
             valid = False
 
@@ -295,7 +356,7 @@ class FlightRoutingSolution:
         if seconds <= 0:
             return True
 
-        travelled_km = self.dead_reckoning.find_distance(
+        travelled_km = distance_km(
             anchor["lat"], anchor["lon"], lat, lon
         )
         furthest_possible_km = MAX_PLAUSIBLE_SPEED_KT * KM_PER_NAUTICAL_MILE * (seconds / 3600)
@@ -313,41 +374,78 @@ class FlightRoutingSolution:
     # ---- derived answers ----
 
     def _advance_route_progress(self):
-        """Advance past every waypoint crossed since the previous message."""
+        """Advance when the estimate reaches or crosses the next waypoint."""
 
-        if not self.route or not self.tracker.position:
+        if not self.tracker.position:
+            return
+
+        current_position = dict(self.tracker.position)
+        previous_position = self._previous_progress_position
+        self._previous_progress_position = current_position
+
+        if not self.route:
             return
 
         while self._route_index + 1 < len(self.route):
             waypoint = self.waypoints.get(self.route[self._route_index + 1])
-            if not waypoint or not self._has_passed(waypoint):
+            if not waypoint or not self._has_passed(
+                waypoint, previous_position, current_position
+            ):
                 break
 
             self._route_index += 1
 
-    def _has_passed(self, waypoint):
-        """Return True when a waypoint is close enough or behind the aircraft.
+    def _has_passed(self, waypoint, previous_position, current_position):
+        """Return True when a waypoint was reached or crossed between updates."""
 
-        The heading check handles message gaps that skip over a waypoint.
-        """
-
-        distance_km = self.dead_reckoning.find_distance(
-            self.tracker.position["lat"], self.tracker.position["lon"],
-            waypoint["lat"], waypoint["lon"]
+        current_distance = distance_km(
+            current_position["lat"], current_position["lon"],
+            waypoint["lat"], waypoint["lon"],
         )
-        if distance_km <= WAYPOINT_REACHED_KM:
+        if current_distance <= WAYPOINT_REACHED_KM:
             return True
 
-        if self.tracker.heading is None:
+        if previous_position is None:
             return False
 
-        bearing_to_waypoint = self.dead_reckoning.find_bearing(
-            self.tracker.position["lat"], self.tracker.position["lon"],
-            waypoint["lat"], waypoint["lon"]
+        travelled = distance_km(
+            previous_position["lat"], previous_position["lon"],
+            current_position["lat"], current_position["lon"],
         )
-        angle_off_the_nose = abs((bearing_to_waypoint - self.tracker.heading + 180) % 360 - 180)
+        if travelled <= 0:
+            return False
 
-        return angle_off_the_nose > 90
+        previous_distance = distance_km(
+            previous_position["lat"], previous_position["lon"],
+            waypoint["lat"], waypoint["lon"],
+        )
+
+        # If the waypoint lies near the segment between the two estimates, the
+        # two waypoint distances add up to roughly the distance travelled.
+        crossed_between_updates = (
+            previous_distance <= travelled + WAYPOINT_REACHED_KM
+            and current_distance <= travelled + WAYPOINT_REACHED_KM
+            and previous_distance + current_distance
+            <= travelled + 2 * WAYPOINT_REACHED_KM
+        )
+        if crossed_between_updates:
+            return True
+
+        # A route update can add a waypoint just after the aircraft has passed
+        # it. Only advance in that case if the aircraft recently came nearby,
+        # is now moving away, and the waypoint is behind its current heading.
+        bearing_to_waypoint = initial_bearing(
+            current_position["lat"], current_position["lon"],
+            waypoint["lat"], waypoint["lon"],
+        )
+        angle_off_the_nose = abs(
+            (bearing_to_waypoint - self.tracker.heading + 180) % 360 - 180
+        )
+        return (
+            previous_distance <= 3 * WAYPOINT_REACHED_KM
+            and current_distance > previous_distance
+            and angle_off_the_nose > 90
+        )
 
     def _estimate_eta(self):
         """Estimate arrival at the next waypoint using distance divided by speed."""
@@ -360,11 +458,11 @@ class FlightRoutingSolution:
         if speed_kmh < 1:
             return None
 
-        distance_km = self.dead_reckoning.find_distance(
+        remaining_km = distance_km(
             self.tracker.position["lat"], self.tracker.position["lon"],
             waypoint["lat"], waypoint["lon"]
         )
-        arrival = self.tracker.last_timestamp + timedelta(hours=distance_km / speed_kmh)
+        arrival = self.tracker.last_timestamp + timedelta(hours=remaining_km / speed_kmh)
 
         return arrival.isoformat()
 
@@ -374,12 +472,24 @@ class FlightRoutingSolution:
     def _parse_timestamp(value):
         """Parse an ISO timestamp, or return None if it's missing or malformed."""
 
-        if not value:
+        if not isinstance(value, str) or not value:
             return None
         try:
-            return datetime.fromisoformat(value)
-        except ValueError:
+            parsed = datetime.fromisoformat(value)
+        except (TypeError, ValueError):
             return None
+
+        if parsed.tzinfo is not None:
+            parsed = parsed.astimezone(timezone.utc).replace(tzinfo=None)
+        return parsed
+
+    @staticmethod
+    def _is_finite_number(value):
+        return (
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(value)
+        )
 
     def add_anomaly(self, message, reason):
         self.anomalies.append({

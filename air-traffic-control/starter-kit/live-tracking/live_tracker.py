@@ -2,7 +2,7 @@
 
 Run from the repository root:
 
-    pip install -r air-traffic-control/starter-kit/live-tracking/requirements.txt
+    python -m pip install -r air-traffic-control/requirements.txt
     python air-traffic-control/starter-kit/live-tracking/live_tracker.py
     python air-traffic-control/starter-kit/live-tracking/live_tracker.py --ekf
 

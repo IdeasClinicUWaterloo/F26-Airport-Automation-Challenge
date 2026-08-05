@@ -21,7 +21,7 @@ Maps can look convincing even when a tracker is wrong. `measure_accuracy.py` tes
 Run it from the repository root:
 
 ```bash
-pip install -r air-traffic-control/starter-kit/advanced/requirements.txt
+python -m pip install -r air-traffic-control/requirements.txt
 python air-traffic-control/starter-kit/advanced/measure_accuracy.py
 ```
 
@@ -54,19 +54,20 @@ A useful demo statement would be: "Our typical error is about 1.5 km, and our tr
 `path_planning.py` uses Dijkstra's algorithm to find a short path that avoids blocked waypoints.
 
 ```python
-from path_planning import find_shortest_path
+from advanced.path_planning import find_shortest_path
 
 route, distance_km = find_shortest_path(
     solution.waypoints,
     "YYZ",
     "DEN",
     blocked={"WP002"},
+    connections=solution.connections,
 )
 ```
 
 This is a good extension because it does not require changes to the aircraft tracker.
 
-One limitation is important: the supplied data lists waypoints but does not list real airways between them. This example treats every waypoint as connected to every other waypoint. Real flight planning has many more constraints.
+The supplied navigation data contains a small set of training connections. They make the example useful, but they are not real airways. Real flight planning has many more routes and constraints.
 
 ## Option 3: keep several possible routes
 
