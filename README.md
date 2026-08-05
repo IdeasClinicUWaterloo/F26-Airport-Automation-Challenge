@@ -58,13 +58,27 @@ Whatever you build, use the [judging criteria](#judging-criteria) to guide your 
 
 A Baggage Handling System (BHS) identifies, tracks, routes, and sorts bags through scanners, conveyors, diverters, make-up areas, and carousels. A bad routing decision can delay a passenger, a flight, or an entire baggage pier.
 
-Your challenge is to improve the safety, visibility, or reliability of a simplified baggage operation. Possible directions include bag identification, routing logic, live tracking, foreign-object detection, exception handling, and conveyor simulation.
+Your challenge is to design a BHS that can identify, track, route baggage through a simplified baggage handling environment, and detect anomalies or foreign objects on conveyor systems to ensure operational safety.
 
-Solutions may be software-only, hardware-assisted, simulation-based, or a combination.
+![alt text](images/conveyor_system.webp)
 
-[Open the Baggage Handling System challenge](baggage-handling-system/README.md).
+Potential solution directions:
 
-### 2. Gate Management System
+* Barcode, RFID, or simulated tag-based bag identification
+* Real-time bag state tracking dashboard
+* Routing logic for conveyors and carousels
+* Error handling for unreadable, oversized, overweight, fragile, or untagged bags
+* Foreign object or anomaly detection on conveyor tracks
+* Zone-based detection alerts for baggage systems
+* Emergency stop, slowdown, or warning signals for conveyor operations
+* Simulation of bag movement through a simplified conveyor network
+* Privacy-conscious tracking that avoids unnecessary passenger personal information
+
+Your solution may be software-only, hardware-assisted, simulation-based, or a mix of all three.
+
+---
+
+## 2. Gate Management System
 
 ![Example of aircraft being assigned to airport gates](images/gate_assgt.png)
 

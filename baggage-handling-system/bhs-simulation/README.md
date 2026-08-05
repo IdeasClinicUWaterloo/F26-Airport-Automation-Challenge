@@ -1,7 +1,5 @@
 # SmartSort Conveyor Simulation
 
-![alt text](/baggage-handling-system/assets/smart_suite.png)
-
 ## Introduction
 
 This toolkit models an airport baggage handling system (BHS) controlled by a High-Level Control (HLC) framework. The environment presents a realistic sandbox for testing how software reacts to fluid physical constraints: unexpected hardware breakdowns, compounding traffic density delays, and strict delivery windows.
