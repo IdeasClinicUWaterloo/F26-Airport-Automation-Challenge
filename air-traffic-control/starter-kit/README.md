@@ -86,6 +86,8 @@ The example uses separate checks for:
 
 Keeping the checks separate makes each warning easier to understand and modify.
 
+The difference between a predicted position and a reported position is called the **innovation**. A large innovation compared with the tracker's uncertainty can indicate bad data, but it can also be a real turn or route change. This is why the tracker should not reject every surprising report automatically.
+
 #### Settings Worth Exploring
 
 | Setting | Default | Purpose |
