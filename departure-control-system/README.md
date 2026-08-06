@@ -10,8 +10,6 @@ This subproblem asks you to build a useful solution somewhere in that pipeline. 
 
 - [Challenge](#challenge)
 - [Potential Solutions](#potential-solutions)
-- [Getting Started](#getting-started)
-- [Evaluation](#evaluation)
 - [Resources](#resources)
 
 ## Challenge
@@ -35,16 +33,6 @@ Successful solutions should consider:
 - useful explanations when an item is blocked or flagged
 - privacy, accessibility, and staff override workflows
 - a scope that can be completed and demonstrated clearly
-
-### Industry Context
-
-Airline departure operations rely on passenger records, schedules, seat maps, aircraft configuration, baggage data, document checks, boarding status, and load constraints. All of that information can change until the aircraft departs.
-
-A DCS sits at the centre of this operation. It takes in passenger and booking data, runs check-in, accepts bags, validates documents, issues boarding passes, tracks boarding, and feeds aircraft load control.
-
-Passenger processing is not a set of isolated checkpoints. Identity verification, baggage acceptance, security status, boarding, and manual-review decisions all update the same view of passenger and flight readiness. Real systems in this area include Brock Solutions SmartSuite Enterprise, SITA Horizon DCS, and Amadeus Altéa Departure Control.
-
-The industry is also moving from manually supervised, rule-based workflows toward decision-support tools that estimate bag counts, identify group behaviour, flag no-show risk, and recommend load or staffing actions before a problem reaches the gate.
 
 ### Typical Data Flow
 
@@ -115,27 +103,39 @@ An advanced approach might predict baggage volume, detect passenger groups, esti
 
 You can extend any approach with richer data, predictions, a stronger operator interface, accessible passenger support, or an audit log for staff overrides.
 
-## Getting Started
+## Resources
+
+### Industry Context
+
+Airline departure operations rely on passenger records, schedules, seat maps, aircraft configuration, baggage data, document checks, boarding status, and load constraints. All of that information can change until the aircraft departs.
+
+A DCS sits at the centre of this operation. It takes in passenger and booking data, runs check-in, accepts bags, validates documents, issues boarding passes, tracks boarding, and feeds aircraft load control.
+
+Passenger processing is not a set of isolated checkpoints. Identity verification, baggage acceptance, security status, boarding, and manual-review decisions all update the same view of passenger and flight readiness. Real systems in this area include Brock Solutions SmartSuite Enterprise, SITA Horizon DCS, and Amadeus Altéa Departure Control.
+
+The industry is also moving from manually supervised, rule-based workflows toward decision-support tools that estimate bag counts, identify group behaviour, flag no-show risk, and recommend load or staffing actions before a problem reaches the gate.
+
+### Getting Started
 
 Choose one of these paths:
 
-### Explore a Working Check-In System
+#### Explore a Working Check-In System
 
 The [Unified Identity Gateway](unified-identity-gateway/README.md) is a full-stack example with a React web app, Fastify API, PostgreSQL database, and rule-based status engine.
 
 Use it when your team wants to improve identity checks, passenger experience, agent workflows, accessibility, or auditability.
 
-### Explore Aircraft Load Control
+#### Explore Aircraft Load Control
 
 The [`load-control/`](load-control/) example contains a mixed-integer linear programming optimizer in `load.py`. It assigns passenger and cargo load to aircraft bays and cabin zones, aims for a target centre of gravity, and respects structural and zero-fuel-weight limits. The `weight_balancer_app/` folder exposes the optimizer through a small Flask interface.
 
 Use it when your team is interested in optimization, structural limits, center of gravity, or visual decision support.
 
-### Design an Independent Prototype
+#### Design an Independent Prototype
 
 The [passenger-processing guide](passenger-processing/README.md) lists projects that can be built with mock data, simulations, dashboards, or simple rules. A paper prototype or focused front end is acceptable when it clearly demonstrates the decision or workflow.
 
-### Suggested Milestones
+#### Suggested Milestones
 
 1. **Mock data and core models:** Define the passengers, bags, flights, aircraft zones, or other entities your solution needs.
 2. **Core flow:** Make the main workflow run from input to result.
@@ -144,7 +144,7 @@ The [passenger-processing guide](passenger-processing/README.md) lists projects 
 5. **Operational view:** Make the current state and outstanding work visible in one place.
 6. **Polish:** Improve test data, edge cases, accessibility, and the demonstration flow.
 
-## Evaluation
+### Evaluation
 
 When reviewing your solution, consider:
 
@@ -160,8 +160,6 @@ When reviewing your solution, consider:
 | Demonstration | Does the demo make the value and limitations clear? |
 
 The final goal is to make three things clear: the current state of the problem, what needs attention, and why. That is the same question real DCS platforms answer before an aircraft pushes back.
-
-## Resources
 
 ### Challenge Resources
 

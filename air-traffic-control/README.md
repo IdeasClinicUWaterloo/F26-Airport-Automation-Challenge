@@ -9,19 +9,9 @@ You do not need aviation experience to begin. The starter kit provides a working
 ## Table of Contents
 
 - [Challenge](#challenge)
-  - [Industry Context](#industry-context)
-  - [Regulatory and Safety Context](#regulatory-and-safety-context)
   - [Inputs](#inputs)
   - [Expected Outputs](#expected-outputs)
 - [Potential Solutions](#potential-solutions)
-  - [Basic Solution Path](#basic-solution-path)
-  - [State Estimation](#state-estimation)
-  - [Multi-Hypothesis Routing](#multi-hypothesis-routing)
-  - [Anomaly Detection](#anomaly-detection)
-  - [Path Planning](#path-planning)
-  - [Visualization](#visualization)
-- [Getting Started](#getting-started)
-- [Evaluation](#evaluation)
 - [Resources](#resources)
 
 ## Challenge
@@ -39,6 +29,45 @@ Your system should help answer these questions:
 - Is a message suspicious enough to require review?
 
 The supplied scenarios space messages farther apart than a normal live surveillance feed. This makes prediction, uncertainty, delayed information, and route reconstruction easier to explore.
+
+### Inputs
+
+The evaluator provides a stream of simulated aircraft messages. Messages may arrive in order, late, out of order, with missing fields, or in conflict with earlier messages.
+
+| Message | What it tells you |
+| --- | --- |
+| `route_update` | The planned route or a later change to that route |
+| `state` | Reported latitude, longitude, altitude, speed, and heading |
+| `waypoint_report` | A report that the aircraft reached a waypoint |
+
+Each scenario identifies the flight and supplies timestamps with its messages. Waypoint reports can also include the current waypoint, next waypoint, and ETA. You may extend the message format if your solution needs another data source or constraint.
+
+### Expected Outputs
+
+After processing each message, your system should produce an updated route and tracking estimate. Useful outputs include:
+
+- estimated position, altitude, speed, and heading;
+- current route or route hypothesis;
+- next waypoint and estimated arrival time;
+- uncertainty or confidence information;
+- detected conflicts, invalid fields, and anomaly alerts;
+- a final reconstructed route;
+- an optional visual display of the route, estimates, and warnings.
+
+## Potential Solutions
+
+There is no single required algorithm. The same message stream can support a direct route reconstructor, a probabilistic tracker, a planning tool, an operator interface, or a combination of these ideas.
+
+| Potential Solution | Description | Resources |
+| --- | --- | --- |
+| **Route Reconstruction** | Parse the message stream, maintain an ordered route, check consistency, predict the next waypoint, and calculate ETA. | [`message_parser.py`](starter-kit/message_parser.py) and [`scenarios/`](starter-kit/scenarios/) |
+| **State Estimation** | Treat position and motion as uncertain estimates that are predicted between reports and corrected when new observations arrive. | [`tracker.py`](starter-kit/tracker.py) and [`ekf.py`](starter-kit/advanced/ekf.py) |
+| **Multi-Hypothesis Routing** | Keep several possible route explanations, score them as messages arrive, and select the most likely route. | [`hypothesis.py`](starter-kit/advanced/hypothesis.py) |
+| **Anomaly Detection** | Detect impossible values, unrealistic movement, route conflicts, suspicious prediction errors, and delayed reports. | [`message_parser.py`](starter-kit/message_parser.py) and [`anomalous.json`](starter-kit/scenarios/anomalous.json) |
+| **Path Planning** | Find or recommend another route around blocked waypoints, weather, restricted areas, or other constraints. | [`path_planning.py`](starter-kit/advanced/path_planning.py) |
+| **Operator Visualization** | Display routes, reports, estimates, uncertainty, alerts, timelines, alternatives, or multiple aircraft. | [`visualizer.py`](starter-kit/visualizer.py) and [`live-tracking/`](starter-kit/live-tracking/) |
+
+## Resources
 
 ### Industry Context
 
@@ -84,35 +113,9 @@ The starter kit deliberately leaves several safety problems open:
 
 These are useful design considerations, but any result from this repository remains an educational prototype.
 
-### Inputs
+### Potential Solution Details
 
-The evaluator provides a stream of simulated aircraft messages. Messages may arrive in order, late, out of order, with missing fields, or in conflict with earlier messages.
-
-| Message | What it tells you |
-| --- | --- |
-| `route_update` | The planned route or a later change to that route |
-| `state` | Reported latitude, longitude, altitude, speed, and heading |
-| `waypoint_report` | A report that the aircraft reached a waypoint |
-
-Each scenario identifies the flight and supplies timestamps with its messages. Waypoint reports can also include the current waypoint, next waypoint, and ETA. You may extend the message format if your solution needs another data source or constraint.
-
-### Expected Outputs
-
-After processing each message, your system should produce an updated route and tracking estimate. Useful outputs include:
-
-- estimated position, altitude, speed, and heading;
-- current route or route hypothesis;
-- next waypoint and estimated arrival time;
-- uncertainty or confidence information;
-- detected conflicts, invalid fields, and anomaly alerts;
-- a final reconstructed route;
-- an optional visual display of the route, estimates, and warnings.
-
-## Potential Solutions
-
-There is no single required algorithm. The same message stream can support a direct route reconstructor, a probabilistic tracker, a planning tool, an operator interface, or a combination of these ideas.
-
-### Basic Solution Path
+#### Route Reconstruction
 
 A basic solution can treat the challenge as a deterministic reconstruction problem:
 
@@ -126,7 +129,7 @@ A basic solution can treat the challenge as a deterministic reconstruction probl
 
 This path emphasizes clean parsing, sensible data structures, consistency checks, and route updates. The supplied tracker already demonstrates this flow and gives you a working system to inspect or replace.
 
-### State Estimation
+#### State Estimation
 
 A more advanced solution treats the aircraft state as an estimate rather than a collection of exact values. The state may include:
 
@@ -144,7 +147,7 @@ The tracker performs two main operations:
 
 Possible techniques include weighted updates, alpha-beta filters, Kalman filters, Extended Kalman Filters, particle filters, or another approach your team can explain and test.
 
-### Multi-Hypothesis Routing
+#### Multi-Hypothesis Routing
 
 Sometimes more than one route explains the available messages. A route update may suggest waypoint B while a delayed report still supports waypoint A. Instead of immediately discarding one explanation, a system can maintain several hypotheses.
 
@@ -158,7 +161,7 @@ Each hypothesis can contain:
 
 As messages arrive, the system can update the scores, remove unlikely explanations, and identify the most likely current route.
 
-### Anomaly Detection
+#### Anomaly Detection
 
 Suspicious messages can include:
 
@@ -174,7 +177,7 @@ Probabilistic trackers often use the **innovation**, which is the difference bet
 
 A useful detector should also consider false alarms. Rejecting every surprising report can cause the tracker to miss a real turn or route change.
 
-### Path Planning
+#### Path Planning
 
 A system can go beyond reconstructing a supplied route and reason about another feasible path. For example, it could:
 
@@ -186,7 +189,7 @@ A system can go beyond reconstructing a supplied route and reason about another 
 
 The [`starter-kit/advanced/`](starter-kit/advanced/) folder includes a blocked-waypoint routing example.
 
-### Visualization
+#### Visualization
 
 An operator-facing display could show:
 
@@ -200,11 +203,11 @@ An operator-facing display could show:
 
 The supplied Folium map shows the route, raw reports, estimated positions, and uncertainty. It can be extended or replaced with another interface.
 
-## Getting Started
+### Getting Started
 
 Run these commands from the `air-traffic-control/` folder so the paths work as written.
 
-### 1. Create a Virtual Environment
+#### 1. Create a Virtual Environment
 
 Windows PowerShell:
 
@@ -220,7 +223,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 2. Install the Dependencies
+#### 2. Install the Dependencies
 
 ```bash
 python -m pip install -r requirements.txt
@@ -228,7 +231,7 @@ python -m pip install -r requirements.txt
 
 The one requirements file covers the starter tracker, advanced examples, and live tracking.
 
-### 3. Run the Starter Tracker
+#### 3. Run the Starter Tracker
 
 ```bash
 python starter-kit/stream.py
@@ -251,7 +254,7 @@ python starter-kit/stream.py anomalous.json
 
 You can copy a scenario, edit its messages, and run it as a repeatable test.
 
-### 4. Explore the Code
+#### 4. Explore the Code
 
 | Folder or file | What it contains |
 | --- | --- |
@@ -266,7 +269,7 @@ You can copy a scenario, edit its messages, and run it as a repeatable test.
 
 The [starter kit guide](starter-kit/README.md) explains the main files, settings, and limitations.
 
-### 5. Optional: Track Live Aircraft
+#### 5. Optional: Track Live Aircraft
 
 The [`starter-kit/live-tracking/`](starter-kit/live-tracking/) folder converts real ADS-B reports from the OpenSky Network into the same state-message format used by the scenarios. The tracking code does not need to know where a message came from.
 
@@ -274,7 +277,7 @@ Live reports provide position, altitude, speed, and heading. They are useful for
 
 See the [live tracking guide](starter-kit/live-tracking/README.md) for setup, limitations, and the optional OpenSky account configuration.
 
-## Evaluation
+### Evaluation
 
 Use the data source that matches what you want to evaluate:
 
@@ -301,8 +304,6 @@ The message rate matters when interpreting these results. Scenario reports may b
 The supplied settings reflect that difference: `ANOMALY_TRUST` is `0.3` for scenarios and `0.0` for the live feed. This is an example of why an algorithm should be tested with data that resembles its intended use.
 
 When presenting your result, explain what the system assumes, how it reacts to unreliable data, how you evaluated it, and where it can still fail.
-
-## Resources
 
 ### Challenge Resources
 

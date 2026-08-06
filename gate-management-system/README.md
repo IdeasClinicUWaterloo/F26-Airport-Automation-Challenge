@@ -10,8 +10,6 @@ Toronto Pearson International Airport (YYZ) is the setting. Your solution will b
 
 - [Challenge](#challenge)
 - [Potential Solutions](#potential-solutions)
-- [Getting Started](#getting-started)
-- [Evaluation](#evaluation)
 - [Resources](#resources)
 
 ## Challenge
@@ -39,25 +37,6 @@ Successful solutions should:
 - handle unassigned or malformed cases without crashing
 - minimize reassignments and passenger walking distance
 - work on schedules beyond the visible examples
-
-### Industry Context
-
-Gate management software sits inside a larger airport technology stack. An **Airport Operational Database (AODB)** holds shared flight and resource information. A **Resource Management System (RMS)** uses that information to assign gates and stands. Changes then flow to passenger displays, airline systems, ground handlers, and airport staff.
-
-Real systems must also handle **Irregular Operations (IROPS)**, including delays, equipment swaps, weather, gate outages, and other events that make a static gate plan obsolete. [Brock Solutions](https://www.brocksolutions.com/airports-and-airlines/), an engineering firm headquartered in Waterloo, builds this type of airport software through its SmartSuite platform for airports including SFO, JFK, Dublin, Sydney, and Toronto Pearson. This challenge is a simplified version of the same resource-planning problem.
-
-| Challenge concept | Industry analogue |
-| --- | --- |
-| Static gate data | Airport resource inventory in an RMS or AODB |
-| Flight schedule JSON | AODB flight schedule data |
-| Flight update messages | Live operational updates |
-| Gate outage messages | Resource availability updates |
-| Aircraft-gate compatibility | Stand and gate planning rules |
-| Occupancy conflicts | Gate and stand collision detection |
-| Delay handling | IROPS recovery |
-| Reassignment cost | Operational stability and passenger experience |
-| Walking distance | Passenger service optimization |
-| Hidden scenarios | Robustness against operational variability |
 
 ### Input and Output
 
@@ -117,11 +96,32 @@ The supplied algorithms are examples, not the only acceptable approach.
 
 ![Flowchart showing one possible gate-assignment algorithm](flowcharts/GateAssignmentAlg.png)
 
-## Getting Started
+## Resources
+
+### Industry Context
+
+Gate management software sits inside a larger airport technology stack. An **Airport Operational Database (AODB)** holds shared flight and resource information. A **Resource Management System (RMS)** uses that information to assign gates and stands. Changes then flow to passenger displays, airline systems, ground handlers, and airport staff.
+
+Real systems must also handle **Irregular Operations (IROPS)**, including delays, equipment swaps, weather, gate outages, and other events that make a static gate plan obsolete. [Brock Solutions](https://www.brocksolutions.com/airports-and-airlines/), an engineering firm headquartered in Waterloo, builds this type of airport software through its SmartSuite platform for airports including SFO, JFK, Dublin, Sydney, and Toronto Pearson. This challenge is a simplified version of the same resource-planning problem.
+
+| Challenge concept | Industry analogue |
+| --- | --- |
+| Static gate data | Airport resource inventory in an RMS or AODB |
+| Flight schedule JSON | AODB flight schedule data |
+| Flight update messages | Live operational updates |
+| Gate outage messages | Resource availability updates |
+| Aircraft-gate compatibility | Stand and gate planning rules |
+| Occupancy conflicts | Gate and stand collision detection |
+| Delay handling | IROPS recovery |
+| Reassignment cost | Operational stability and passenger experience |
+| Walking distance | Passenger service optimization |
+| Hidden scenarios | Robustness against operational variability |
+
+### Getting Started
 
 Run commands from the `gate-management-system` folder.
 
-### Starter Files
+#### Starter Files
 
 | Location | Purpose |
 | --- | --- |
@@ -134,19 +134,19 @@ Run commands from the `gate-management-system` folder.
 | [`static_info.json`](static_info.json) | Gate inventory, aircraft information, and station data |
 | [`JsonFlightMessageSpecification.md`](JsonFlightMessageSpecification.md) | The input message format |
 
-### 1. Run the Baseline
+#### 1. Run the Baseline
 
 ```bash
 python evaluator.py --scenario flight_data/simple.json --solution solution
 ```
 
-### 2. Compare the More Optimized Example
+#### 2. Compare the More Optimized Example
 
 ```bash
 python evaluator.py --scenario flight_data/simple.json --solution solution_kd
 ```
 
-### 3. Open the Visualizer
+#### 3. Open the Visualizer
 
 ```bash
 python visualize.py --serve
@@ -154,7 +154,7 @@ python visualize.py --serve
 
 Open the local address printed in the terminal. On Windows, you can also double-click `launch_visualizer.bat`.
 
-### 4. Try Disruption Scenarios
+#### 4. Try Disruption Scenarios
 
 Useful starting scenarios include:
 
@@ -169,9 +169,9 @@ Useful starting scenarios include:
 
 Do not modify `evaluator.py` or the `gms/` package unless challenge staff asks you to. Put your decision logic in your own solution module.
 
-## Evaluation
+### Evaluation
 
-### Hard Failures
+#### Hard Failures
 
 A run fails when the solution produces an invalid plan, including:
 
@@ -183,7 +183,7 @@ A run fails when the solution produces an invalid plan, including:
 - invalid output format
 - a changed flight left in an invalid gate
 
-### Soft Score
+#### Soft Score
 
 Valid runs receive a score where lower is better. The score considers:
 
@@ -193,8 +193,6 @@ Valid runs receive a score where lower is better. The score considers:
 - flights left unassigned at the end
 
 Every supplied scenario is designed to allow a solution with zero hard failures. Hidden scenarios may use different schedules and airport layouts.
-
-## Resources
 
 ### Challenge Resources
 

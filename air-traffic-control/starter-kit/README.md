@@ -7,9 +7,6 @@ You may extend the example, replace one part of it, or use only the pieces that 
 ## Table of Contents
 
 - [Challenge](#challenge)
-- [Getting Started](#getting-started)
-- [Potential Solutions](#potential-solutions)
-- [How the Tracker Works](#how-the-tracker-works)
 - [Resources](#resources)
 
 ## Challenge
@@ -23,11 +20,13 @@ Use the starter kit to build a tracker that can answer:
 
 A successful change should be small enough to finish, tested with repeatable inputs, and easy for your team to explain.
 
-## Getting Started
+## Resources
+
+### Getting Started
 
 Run these commands from the repository root.
 
-### Windows PowerShell
+#### Windows PowerShell
 
 ```powershell
 py -m venv .venv
@@ -37,7 +36,7 @@ python -m pip install -r air-traffic-control/requirements.txt
 python air-traffic-control/starter-kit/stream.py
 ```
 
-### macOS or Linux
+#### macOS or Linux
 
 ```bash
 python3 -m venv .venv
@@ -58,31 +57,15 @@ python air-traffic-control/starter-kit/stream.py anomalous.json
 
 Run `deactivate` when you are finished. On later visits, activate `.venv` again; you do not need to recreate it.
 
-## Potential Solutions
-
-The ideas below are approachable additions to the working example.
-
-| Potential solution | What you could add | Useful file |
-| --- | --- | --- |
-| Stale-track warning | Flag an aircraft after a long gap without a reliable report. | [`tracker.py`](tracker.py) |
-| Heading check | Compare the aircraft heading with the bearing to its next waypoint. | [`message_parser.py`](message_parser.py) |
-| ETA check | Compare the reported ETA with the distance and tracked speed. | [`message_parser.py`](message_parser.py) |
-| Clearer alerts | Include the measured value, expected range, and reason in each warning. | [`message_parser.py`](message_parser.py) |
-| Better map | Add a summary panel, message timeline, or clearer alert markers. | [`visualizer.py`](visualizer.py) |
-| Regression scenario | Write a small message stream that proves a bug is fixed. | [`scenarios/`](scenarios/) |
-| Accuracy comparison | Measure a change against a simulated flight with known positions. | [`advanced/measure_accuracy.py`](advanced/measure_accuracy.py) |
-
-The [advanced guide](advanced/README.md) includes graph-based rerouting, route hypotheses, and a matrix-based tracker. These are optional.
-
-## How the Tracker Works
+### How the Tracker Works
 
 The tracker repeats two operations.
 
-### Predict
+#### Predict
 
 Between messages, it moves the aircraft forward using its current position, speed, and heading. Uncertainty grows because the aircraft may have changed direction or speed.
 
-### Update
+#### Update
 
 When a new position report arrives, the tracker compares it with the prediction and moves the estimate toward the report.
 
@@ -92,7 +75,7 @@ update_fraction = current_uncertainty / (current_uncertainty + expected_message_
 
 If the tracker is uncertain, it follows the report more closely. If it is confident, the change is smaller. This is a beginner-friendly version of the predict-and-update idea used by a Kalman filter.
 
-### What Gets Flagged
+#### What Gets Flagged
 
 The example uses separate checks for:
 
@@ -103,7 +86,7 @@ The example uses separate checks for:
 
 Keeping the checks separate makes each warning easier to understand and modify.
 
-### Settings Worth Exploring
+#### Settings Worth Exploring
 
 | Setting | Default | Purpose |
 | --- | --- | --- |
@@ -116,8 +99,6 @@ Keeping the checks separate makes each warning easier to understand and modify.
 | `MAX_PLAUSIBLE_SPEED_KT` | `700.0` | Maximum believable aircraft speed |
 
 Change one setting at a time and rerun the same scenario so you can explain its effect.
-
-## Resources
 
 ### File Guide
 
