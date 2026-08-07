@@ -1,12 +1,20 @@
 # SecureBag: Visual Baggage Verification
+<p align="center">
+  <img width="148" height="50" alt="image" src="https://github.com/user-attachments/assets/8df151a1-a5fe-46b5-afdd-82e414e62380" />
+</p>
 
-Airport baggage systems must preserve a clear connection between a bag, its tag, and its journey through the terminal. A barcode or tag identifies the record, but it does not independently confirm that the physical bag at a later checkpoint is the same bag that was presented at check-in.
+Airport baggage systems rely on baggage tags and barcodes to track luggage as it moves through the terminal. However, these identifiers are attached to a bag—they do not independently verify that the physical bag later entering the baggage system is the same one originally presented at check-in. If a bag is accidentally switched or deliberately substituted, such as in an attempt to introduce contraband, the tag alone may not reveal the change.
 
-SecureBag explores visual re-identification as an additional operational signal. Staff photograph a bag at check-in, generate a Quick Response (QR) code for its record, and compare a later photo with the original. The prototype returns `pass`, `review`, or `flag` so that uncertain results can be checked by a person.
+SecureBag explores visual re-identification as an additional verification step. At check-in, staff photograph each bag and generate a Quick Response (QR) code linked to its baggage record. When the bag is photographed again at a later checkpoint, the system compares the new image with the original and returns pass, review, or flag. This provides staff with an additional operational signal to help confirm that the same physical bag has continued through the baggage-handling process.
 
-The current challenge is to turn this prototype into a more useful, reliable, and understandable airport workflow. Improvements could reduce bag-handling errors, help staff investigate mismatches, and create clearer evidence about where and when a bag was checked. Visual matching must remain decision support rather than proof of identity because lighting, camera angle, background, and bag similarity can affect the result.
+https://github.com/user-attachments/assets/377e4fff-01ec-411c-b1f3-7e2aa4cb946f
+<p><sub><em>Baggage Comparasion Flow</em></sub></p>
 
-Brock Solutions designs and integrates large-scale automation systems for aviation, transit, and industrial environments. Relevant stakeholders include airport operators, baggage-handling staff, airlines, security personnel, and passengers. For this Innovation Challenge, teams should consider how a prototype could fit into operations at Toronto Pearson International Airport, whose airport code is YYZ.
+The current challenge is to transform this prototype into a practical, reliable, and understandable airport workflow. Improvements could reduce bag-handling errors, help staff investigate potential mismatches or substitutions, and provide clearer evidence of where and when a bag was processed. Because factors such as lighting, camera angle, background, and similar-looking luggage can affect image matching, visual re-identification should remain decision support rather than proof of identity.
+
+![Screenshot of the SecureBag app 'All Bags' dashboard showing 6 active bags in a table with columns for Photo, Passenger, Flight, Colour, Weight, and Status. Two bags are flagged (red 'Flagged' status with a 'Resolve flag' button): a grey bag for passenger 'safgew' on flight brfdgrs at 24.5kg, and a grey bag labeled 'Carrie On' on flight AC871 at 23.1kg. The remaining four bags show a green 'Active' status. Each row has a 'Verify' link, and the page header includes 'Refresh' and 'Check in' buttons.](image-1.png)
+ 
+Brock Solutions designs and integrates large-scale automation systems for aviation, transit, and industrial environments. Relevant stakeholders include airport operators, baggage-handling staff, airlines, security personnel, and passengers. For this Innovation Challenge, teams should consider how a prototype could be integrated into operations at Toronto Pearson International Airport (YYZ).
 
 ## Table of Contents
 
@@ -95,7 +103,13 @@ The following resources may help teams understand the problem, run the starter a
 
 | Resource | Purpose |
 |---|---|
-| [`app.py`](app.py) | Flask routes, application workflow, and TinyDB integration |
+| [`app.py`](app.py) | Flask app creation and blueprint registration |
+| [`routes_checkin.py`](routes_checkin.py) | Check-in routes: check-in form, bag creation, QR code |
+| [`routes_verify.py`](routes_verify.py) | Verification routes: verification page, image comparison |
+| [`routes_staff.py`](routes_staff.py) | Staff routes: bag actions, dashboard, clearing records |
+| [`db.py`](db.py) | Shared TinyDB instance and query object |
+| [`config.py`](config.py) | Shared configuration constants (e.g. `PORT`) |
+| [`utils.py`](utils.py) | Shared helpers (e.g. local IP lookup for QR codes) |
 | [`templates/checkin.html`](templates/checkin.html) | Bag check-in interface |
 | [`templates/bags.html`](templates/bags.html) | Staff dashboard |
 | [`templates/verify.html`](templates/verify.html) | Bag verification interface |

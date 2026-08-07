@@ -1,5 +1,6 @@
 """Build radar data and predict each active track to the current time."""
 
+from copy import deepcopy
 from datetime import datetime, timezone
 
 
@@ -8,11 +9,14 @@ def build_snapshot(manager):
     aircraft = []
 
     for track in manager.active_tracks():
-        if track.tracker.started:
-            track.tracker.predict(now)
+        # Predict a copy for display so a browser refresh cannot move the real
+        # tracker ahead of the next OpenSky report.
+        display_tracker = deepcopy(track.tracker)
+        if display_tracker.started:
+            display_tracker.predict(now)
 
-        position = track.tracker.position
-        state = track.tracker.state()
+        position = display_tracker.position
+        state = display_tracker.state()
         if position is None or state is None:
             continue
 

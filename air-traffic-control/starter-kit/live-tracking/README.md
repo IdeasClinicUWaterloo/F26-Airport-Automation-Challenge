@@ -1,86 +1,72 @@
-# OpenSky Live Tracking
+# OpenSky Live Aircraft Tracking
 
-This optional demo shows real aircraft that are currently flying near Toronto Pearson Airport.
+This optional add-on sends public aircraft reports from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/) through the same tracker used by the prepared scenarios. It displays aircraft near Toronto Pearson on a local radar-style page.
 
-It downloads public ADS-B reports from the [OpenSky Network](https://openskynetwork.github.io/opensky-api/index.html#), sends them through the same tracker used by the scenario files, and displays the results on a radar-style page.
+The live feed is useful for demonstrations and for discovering assumptions that were hard to notice in prepared data. It is not required for the Air Traffic Control challenge, and it should not be your only demo because internet services can be slow or unavailable.
 
-You do not need this folder to complete the hackathon.
+## Table of Contents
 
-## Run it
+- [Challenge](#challenge)
+- [Potential Solutions](#potential-solutions)
+- [Getting Started](#getting-started)
+- [Resources](#resources)
 
-From the repository root:
+## Challenge
+
+Use live aircraft state reports to explore how a tracker behaves with many aircraft and frequent updates.
+
+The live feed can help you test:
+
+- one tracker per aircraft
+- prediction between reports
+- uncertainty growth and correction
+- surprising or noisy positions
+- stale-track removal
+- a continuously updating visualization
+
+OpenSky state reports include position, altitude, speed, and heading. They do not include the challenge's planned route, next waypoint, or ETA. Use the prepared scenarios when demonstrating route reconstruction, route consistency, or multiple route hypotheses.
+
+## Potential Solutions
+
+| Potential solution | Description | Starting point |
+| --- | --- | --- |
+| Live radar display | Improve labels, trails, uncertainty circles, or alert presentation. | [`static/index.html`](static/index.html) |
+| Tracker comparison | Compare the simple tracker and the Extended Kalman Filter on the same aircraft. | [`tracker_source.py`](tracker_source.py) |
+| Multi-aircraft alerts | Summarize stale or suspicious tracks across the selected area. | [`tracker_manager.py`](tracker_manager.py) |
+| Message adapter | Add another data source that produces the same challenge `state` message. | [`adapter.py`](adapter.py) |
+| Replay recorder | Save a live session and replay it later without internet access. | [`live_tracker.py`](live_tracker.py) |
+| Different operating area | Make the bounding box configurable instead of editing the source file. | [`live_tracker.py`](live_tracker.py) |
+
+## Getting Started
+
+### Run the Live Tracker
+
+Run from the repository root:
 
 ```bash
-pip install -r air-traffic-control/starter-kit/live-tracking/requirements.txt
+python -m pip install -r air-traffic-control/requirements.txt
 python air-traffic-control/starter-kit/live-tracking/live_tracker.py
 ```
 
-The program opens `http://127.0.0.1:8765/` in your browser. Leave the page open while the program is running. Press `Ctrl+C` in the terminal to stop it.
+The program opens `http://127.0.0.1:8765/` in your browser. Leave the terminal running and press `Ctrl+C` to stop it.
 
-You need an internet connection. Anonymous OpenSky access may be slow or rate-limited.
+You need an internet connection. Anonymous OpenSky access may be rate-limited or temporarily unavailable.
 
-## What this folder does
+### Compare the Two Trackers
 
-This is a new **message source**, not a separate tracker.
-
-| Source | Kind of data | Best use |
-| --- | --- | --- |
-| `../scenarios/*.json` | Small, fixed examples | Building and debugging |
-| `../advanced/simulator.py` | Generated data with a known correct track | Measuring accuracy |
-| This folder | Live reports from many real aircraft | Demonstrating and testing assumptions |
-
-All three sources create the same `state` message format. The tracking code does not need to know where a message came from.
-
-[`adapter.py`](adapter.py) converts an OpenSky report into the challenge format. It is short and is a good example of why a clear data format is useful.
-
-## What you can learn from it
-
-The live feed is useful for exploring:
-
-- tracking several aircraft at once
-- predicting movement between reports
-- showing uncertainty
-- handling noisy or surprising positions
-- removing tracks that have stopped reporting
-- building a live visualization
-
-The browser asks for a new snapshot every two seconds. OpenSky reports arrive less often, so [`snapshot.py`](snapshot.py) predicts each aircraft forward between real updates. This makes the aircraft move smoothly instead of sitting still and jumping to each new position.
-
-## What it cannot show
-
-ADS-B state reports include position, altitude, speed, and heading. They do not include the challenge's planned route, next waypoint, or arrival time.
-
-That means the live demo does not test:
-
-- route reconstruction
-- next-waypoint prediction
-- arrival-time prediction
-- route consistency
-- multiple route hypotheses
-
-Use the scenario files as well if your project includes route features.
-
-## Compare the two supplied trackers
-
-The normal command uses the simple tracker. Add `--ekf` to use the supplied matrix-based Kalman filter:
+The normal command uses the simple tracker. Add `--ekf` to use the supplied matrix-based tracker:
 
 ```bash
 python air-traffic-control/starter-kit/live-tracking/live_tracker.py --ekf
 ```
 
-This option needs `numpy`, which is included in the advanced requirements:
+Compare how each tracker follows turns, reacts to a surprising report, and represents uncertainty.
 
-```bash
-pip install -r air-traffic-control/starter-kit/advanced/requirements.txt
-```
+### Optional OpenSky Account
 
-Try both versions and compare how closely the estimate follows the aircraft, how it reacts to a surprising report, and how the uncertainty changes.
+The demo supports OpenSky OAuth client credentials.
 
-## Optional OpenSky account
-
-The demo can use anonymous access, but OpenSky may apply stricter limits to it. For a smoother demo, you can create an OpenSky account and API client.
-
-In PowerShell:
+On Windows PowerShell:
 
 ```powershell
 $env:OPENSKY_CLIENT_ID="your-client-id"
@@ -96,39 +82,45 @@ export OPENSKY_CLIENT_SECRET="your-client-secret"
 python air-traffic-control/starter-kit/live-tracking/live_tracker.py
 ```
 
-Do not commit your client secret. Check the OpenSky documentation for current account steps and limits before depending on the live feed for your final demo.
+Do not commit client secrets. Check the [OpenSky API documentation](https://openskynetwork.github.io/opensky-api/rest.html) for current account and rate-limit information.
 
-## Watch a different area
+### Watch a Different Area
 
-The default area is set near Toronto Pearson. To change it, edit `YYZ_BBOX` in [`live_tracker.py`](live_tracker.py):
+The default bounding box is near Toronto Pearson. Edit `YYZ_BBOX` in [`live_tracker.py`](live_tracker.py) to use another small area:
 
 ```python
 YYZ_BBOX = (lat_min, lon_min, lat_max, lon_max)
 ```
 
-Use a reasonably small area so the demo does not request more data than it needs.
+### Why Live Settings Differ
 
-## Folder guide
+Prepared scenario messages may be several minutes apart, while live reports may be only seconds apart. A large surprise after several minutes could be a real turn. The same surprise after a few seconds is more likely to be bad data.
+
+[`tracker_source.py`](tracker_source.py) therefore uses different settings for live data. This is a useful result to discuss: an algorithm must be tuned and tested for the data rate it will actually receive.
+
+## Resources
+
+### Folder Guide
 
 | File | Purpose |
 | --- | --- |
-| `live_tracker.py` | Starts the server and polls OpenSky |
-| `opensky_client.py` | Requests aircraft reports inside the selected area |
-| `adapter.py` | Converts OpenSky data into a challenge `state` message |
-| `tracker_source.py` | Loads and configures the tracker from the starter kit |
-| `tracker_manager.py` | Keeps one tracker per aircraft and removes stale tracks |
-| `snapshot.py` | Predicts tracks to the current time and prepares browser data |
-| `radar_server.py` | Runs the local web server |
-| `static/index.html` | Draws the radar page and aircraft |
+| [`live_tracker.py`](live_tracker.py) | Starts the server and polls OpenSky |
+| [`opensky_client.py`](opensky_client.py) | Requests positioned aircraft inside the selected area |
+| [`adapter.py`](adapter.py) | Converts OpenSky units and fields into challenge messages |
+| [`tracker_source.py`](tracker_source.py) | Loads and configures a tracker from the starter kit |
+| [`tracker_manager.py`](tracker_manager.py) | Maintains one track per aircraft and removes stale tracks |
+| [`snapshot.py`](snapshot.py) | Predicts a display copy of each track to the current time |
+| [`radar_server.py`](radar_server.py) | Serves the local radar page and JSON snapshots |
+| [`static/index.html`](static/index.html) | Draws the radar interface |
 
-## Why the settings are different
+### Compare the Data Sources
 
-The scenario messages may be several minutes apart. Live OpenSky messages are often much closer together. A tracker that works well for one update rate may need different settings for the other.
+| Source | Data | Best use |
+| --- | --- | --- |
+| [`../scenarios/`](../scenarios/) | Small fixed examples | Building and debugging |
+| [`../advanced/simulator.py`](../advanced/simulator.py) | Generated flight with known positions | Measuring accuracy |
+| OpenSky live feed | Current reports from many aircraft | Demonstrations and assumption testing |
 
-`SIMPLE_TRACKER_TUNING` in [`tracker_source.py`](tracker_source.py) adjusts the simple tracker for the live feed. In particular, it trusts a surprising live position less because an aircraft normally cannot change very much in a short time.
+All three sources produce the same `state` message format. The tracker does not need to know where a message came from.
 
-This is a useful lesson for a demo: an algorithm's settings depend on the data it receives. Testing with both prepared scenarios and live data can reveal assumptions that were hard to notice before.
-
-## Demo tip
-
-Live services can be slow, unavailable, or show no aircraft in a small area. Keep a scenario-based demo ready as a backup. The scenario run is also the better way to show route features and repeat a result exactly.
+Keep a scenario-based demonstration ready as a backup. It is repeatable and can show route features that the live feed does not provide.

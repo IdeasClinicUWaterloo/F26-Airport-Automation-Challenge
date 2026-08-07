@@ -1,64 +1,70 @@
 # Brock Solutions Airport Automation Challenge
 
-![Toronto Pearson Airport](images/yyz.jpg)
+![Aerial view of Toronto Pearson International Airport](images/yyz.jpg)
 
-Created by: Engineering IDEAs Clinic Co-op Students
+Created by Engineering IDEAs Clinic co-op students.
+
+## Accessibility
+
+This README uses descriptive headings, meaningful link names, short sections, and alt text for images so it is easier to navigate with screen readers and other assistive technologies. The challenge also welcomes accessible solutions that work for people with different needs and levels of technical experience.
+
+## Table of Contents
+
+- [Accessibility](#accessibility)
+- [Quick Links](#quick-links)
+- [Your Mission](#your-mission)
+- [Sub-Problems](#sub-problems)
+  - [Baggage Handling System](#baggage-handling-system)
+  - [Gate Management System](#gate-management-system)
+  - [Air Traffic Control System](#air-traffic-control-system)
+  - [Departure Control System](#departure-control-system)
+- [Development Approach](#development-approach)
+- [Submission](#submission)
+- [Judging Criteria](#judging-criteria)
+- [General Resources](#general-resources)
 
 ## Quick Links
 
+> **Navigation tip:** Use the headings in this document to move quickly between sections. Screen reader users can navigate by heading level.
 
+- [Baggage Handling System challenge](baggage-handling-system/README.md)
+- [Gate Management System challenge](gate-management-system/README.md)
+- [Air Traffic Control challenge](air-traffic-control/README.md)
+- [Departure Control System challenge](departure-control-system/README.md)
+- [Submission expectations](#submission)
+- [Judging rubric](#judging-criteria)
 
----
+## Your Mission
 
-# Your Mission
+Modern airports rely on connected systems to move passengers, aircraft, baggage, and staff safely and efficiently. Brock Solutions builds and integrates software for these real airport operations.
 
-Modern airports rely on many connected software systems to keep passengers, aircraft, baggage, and staff moving safely and efficiently. Brock Solutions works with airport clients to integrate systems that support real-world airport operations.
+In this challenge, your team has been invited to prototype a software or software-adjacent solution for an airport automation problem. You may extend the supplied code, combine ideas from several sub-problems, or create a related solution of your own. Your solution should be realistic enough to connect to airport operations, but focused enough to prototype during the challenge.
 
-In this challenge, your team has been invited to prototype a software or software-adjacent solution for an airport automation problem. Your solution should be realistic enough to connect to airport operations, but focused enough to prototype during the challenge.
+Toronto Pearson International Airport (YYZ) is the setting for this challenge. Think like an airport systems engineer:
 
-The airport of interest is Toronto Pearson International Airport (YYZ). Your solutions can center around problems faced by them.
+- expect incomplete, late, or conflicting data
+- consider safety, privacy, accessibility, and operational constraints
+- build a simple working version before adding complexity
+- explain the decisions and trade-offs behind your design
+- show how your idea could connect to a larger airport system
 
-You are encouraged to think like an airport systems engineer: handle messy data, think about safety and reliability, consider real operational constraints, and design something that could eventually integrate into a larger airport system.
+Airport systems are message driven and closely connected. A passenger update in a Departure Control System can affect baggage handling, aircraft readiness, gate planning, and the operational information used by other teams. Your prototype does not need to model the whole airport, but it should understand where it fits.
 
-You will be evaluated against the rubric at the bottom of this page. Your solution can be any combination of the subproblems below or even a new idea. Whatever you build, the judges will evaluate you against the rubric, so build with that in mind.
+Whatever you build, use the [judging criteria](#judging-criteria) to guide your decisions and demonstration.
 
----
+## Sub-Problems
 
-# Airport Systems Orientation
+### [Baggage Handling System](baggage-handling-system/README.md)
 
-Before choosing a subproblem, you should understand a few airport system concepts.
+A Baggage Handling System (BHS) identifies, tracks, routes, and sorts bags through scanners, conveyors, diverters, make-up areas, and carousels. A bad routing decision can delay a passenger, a flight, or an entire baggage pier.
 
-## BHS (Baggage Handling System)
-
-A Baggage Handling System tracks, routes, diverts, and sorts bags through conveyors, scanners, carousels, and make-up areas. These systems must be reliable because one wrong routing decision can delay a passenger, flight, or entire baggage pier.
-
-## DCS (Departure Control System)
-
-A Departure Control System manages passenger check-in, boarding, flight closeout, and aircraft readiness data. DCS-style messages may include flight numbers, aircraft types, departure stations, arrival stations, passenger/cargo context, and timing updates.
-
-## GMS (Gate Management System)
-
-A Gate Management System helps airports assign aircraft to gates while considering gate availability, aircraft size, passenger convenience, international/domestic rules, cargo restrictions, and disruptions such as delays or outages.
-
-## ATC (Air Traffic Control)
-
-An Air Traffic Control system manages the safe separation and sequencing of aircraft through taxiways, runways, and airspace sectors. ATC data includes aircraft callsigns, positions, altitudes, flight plan routes, speed and heading instructions, and handoff messages between sectors. 
-
-## Message-Driven Airport Operations
-
-Airport systems often communicate through message streams. In a real airport, this may involve queues, event streams, or integration middleware. For this challenge, some subproblems may provide simplified JSON messages or simulator data so that you can focus on the logic of your solution.
-
-BHS, DCS, GMS, and ATC are all message driven operations that exist as peer systems, working together and exchanging messages with each other to maintain safe and reliable operation at airports.
-
----
-
-# Subproblems
-
-## 1. Baggage Handling System
-
-Brock Solutions develops an array of software solutions for airports known as the SmartSuite. One of the primary focuses of the SmartSuite is tracking and processing huge volumes of baggage every day through networks of conveyors, scanners, diverters, and carousels. A harmonized system that manages these parts is known as a Baggage Handling System (BHS).
+#### Challenge
 
 Your challenge is to design a BHS that can identify, track, route baggage through a simplified baggage handling environment, and detect anomalies or foreign objects on conveyor systems to ensure operational safety.
+
+![Baggage moving through an airport conveyor system](images/conveyor_system.webp)
+
+#### Potential Directions
 
 Potential solution directions:
 
@@ -74,195 +80,137 @@ Potential solution directions:
 
 Your solution may be software-only, hardware-assisted, simulation-based, or a mix of all three.
 
----
+[Open the Baggage Handling System challenge](baggage-handling-system/README.md).
 
-## 2. Gate Management System
+### [Gate Management System](gate-management-system/README.md)
 
-Airports must dynamically assign gates to aircraft while balancing efficiency, passenger experience, safety, airline preferences, and unpredictable disruptions.
+![Example of aircraft being assigned to airport gates](images/gate_assgt.png)
 
-Your challenge is to design a system that assigns airport gates to arriving and departing flights over time.
+A Gate Management System (GMS) assigns aircraft to gates while considering timing, aircraft size, passenger needs, customs rules, cargo restrictions, outages, and delays. A gate plan must remain valid as the day changes.
 
-![alt text](images/gate_assgt.png)
+#### Challenge
 
-Your solution should:
+Your challenge is to produce a conflict-free gate plan and update it when disruption messages arrive. The supplied evaluator checks aircraft-gate compatibility, overlapping occupancy, gate outages, reassignment costs, and other operational rules.
 
-* Respect aircraft-gate compatibility
-* Avoid gate occupancy conflicts
-* Handle domestic, international, cargo, and security constraints
-* Adapt to delays, gate outages, emergencies, and cascading schedule changes
-* Minimize delays, reassignments, passenger walking distance, and wasted gate time
+#### Starting Point
 
-This is the primary coding-focused subproblem. Teams will write their logic in `solution.py`, and their solution will be evaluated against visible and hidden test scenarios.
+This is the most structured coding subproblem. You may write your own assignment algorithm or build a larger tool around the supplied baseline.
 
-Learn more: [gate-assignment/README.md](gate-assignment/README.md)
+[Open the Gate Management System challenge](gate-management-system/README.md).
 
----
+### [Air Traffic Control System](air-traffic-control/README.md)
 
-## 3. [Air Traffic Control System](air-traffic-control/README.md)
+![Air traffic controller monitoring aircraft](images/air-traffic-controller.jpg)
 
-Modern Air Traffic Control systems maintain a live operational picture of aircraft moving through controlled airspace. Controllers do not rely on a single perfect source of truth. Instead, ATC automation software receives surveillance reports, flight-plan updates, route information, altitude and speed reports, weather constraints, and controller inputs. These data sources may be noisy, delayed, incomplete, or occasionally contradictory.
+Air Traffic Control (ATC) automation combines surveillance reports, flight-plan updates, route information, and controller inputs to estimate where an aircraft is and where it is going. Those messages can be noisy, delayed, incomplete, or contradictory.
 
-This subproblem is a simplified version of that real-world software challenge.
+#### Challenge
 
-![alt text](images/air-traffic-controller.jpg)
+Your challenge is to process a simulated aircraft message stream, reconstruct the likely route, estimate the aircraft state, predict its next waypoint and arrival time, and flag information that should not be trusted without review.
 
-You are given a stream of simulated aircraft messages. Some messages report position, altitude, speed, and heading. Others report waypoints, estimated arrival times, or route updates. Messages may arrive late, contain noise, or conflict with previous information. The goal is to reconstruct the most likely aircraft route, estimate the aircraft’s current state, predict the next waypoint and ETA, and flag inconsistent or suspicious messages.
+#### Starting Point
 
-In real ATC systems, this general class of problem appears in surveillance data processing, flight data processing, trajectory prediction, safety-net monitoring, and controller display systems. This hackathon version focuses on the core software ideas behind those systems:
+The starter kit includes repeatable scenarios, a working tracker, a simulator with known ground truth, optional advanced tools, and a live-aircraft demo.
 
+[Open the Air Traffic Control challenge](air-traffic-control/README.md).
 
-Potential solution directions:
+### [Departure Control System](departure-control-system/README.md)
 
+A Departure Control System (DCS) manages the departure side of an airline operation, including check-in, identity and document verification, baggage acceptance, boarding passes, boarding status, and aircraft load control.
 
-This subproblem emphasizes state management, data interpretation, estimation, filtering noise for messages, considering the physics of the flight, etc.
+#### Challenge
 
----
+Your challenge is to choose one part of that pipeline and make its state and decisions clear. A strong project might help an operator understand whether a passenger, bag, or flight is ready, what needs attention, and why.
 
-## 4. [Departure Control System](departure-control-system/README.md)
+#### Starting Points
 
-A Departure Control System (DCS) runs the departure side of an airline operation: check-in, identity and document verification, baggage acceptance, boarding pass issuance, boarding control, and weight and balance (load control).
+Two working examples show an appropriate scope:
 
-![alt text](images/dcs.png)
+- [Unified Identity Gateway](departure-control-system/unified-identity-gateway/README.md), covering identity checks, seat selection, baggage declaration, boarding passes, and agent review
+- [Load Control](departure-control-system/load-control/), covering aircraft weight-and-balance optimization
 
-Your challenge is to pick a piece of the DCS pipeline - check-in, identity/document verification, baggage tracking, load balancing, boarding control, or the dashboard tying it together - and build a real solution to it. Narrow and complete beats broad and shallow.
+![Departure control system workflow](images/dcs.png)
 
-Two implemented examples are included to show expected scope and depth:
+[Open the Departure Control System challenge](departure-control-system/README.md).
 
-* **[Unified Identity Gateway](departure-control-system/unified-identity-gateway/)** - identity verification, document checks, and boarding pass issuance as a single check-in flow
-* **[Load Control](departure-control-system/load-control/)** - a MILP-based weight-and-balance optimizer that assigns cargo and passenger load to aircraft zones to hit a target center of gravity within structural limits
+## Development Approach
 
----
+1. Choose one clear operational problem.
+2. Run or inspect the supplied example before changing it.
+3. Build the smallest complete version of your idea.
+4. Add validation and handle a few meaningful edge cases.
+5. Test the same inputs before and after each change.
+6. Add one distinctive feature if time allows.
+7. Prepare a short demonstration and explain your trade-offs.
 
-# Provided Materials
+A reliable, understandable prototype is stronger than several unfinished features.
 
-Depending on the subproblem, you may be given:
+## Submission
 
-* Starter Python code
-* Example JSON messages
-* Flight schedule and airport layout data
-* Demo scripts
-* Sample solution files
-* Evaluator scripts
-* Simulator documentation
-* Reference resources and academic papers
+Teams will give a short presentation of about 3 to 5 minutes. Include:
 
-Do not assume the visible sample data covers every case. Final evaluation may include additional layouts, disruptions, corrupted data, and edge cases.
+- the problem you chose and who it affects
+- how your solution works
+- the prototype, simulation, dashboard, or hardware demonstration
+- the constraints and edge cases you considered
+- the result you achieved
+- what you would improve with more time
 
----
+Your submission may include code, a dashboard, a simulation, a hardware and software demonstration, a design with partial implementation, or a combination of these.
 
-# Recommended Development Approach
-
-1. Understand the airport operation you are modeling.
-2. Build a simple working solution first.
-3. Add validation and error handling.
-4. Test obvious edge cases.
-5. Test unrealistic but possible edge cases.
-6. Optimize only after the solution is correct.
-7.	Innovate! Add interesting and unique ideas that you have, if you find that the original problem is too easy.
-8. Prepare a clear explanation of your design decisions.
-
-A simple, reliable, well-explained prototype is better than a complex system that only works on the sample input.
-
----
-
-# Submission
-
-Teams will present a short 3–5 minute explanation of their solution to the judging panel.
-
-Your presentation should include:
-
-* The problem you chose
-* Your system design
-* Your prototype or simulation
-* Key constraints you considered
-* Edge cases you handled
-* What you would improve with more time
-
-Your prototype may be:
-
-* Code
-* A dashboard
-* A simulation
-* A hardware/software demonstration
-* A design with partial implementation
-* Any combination of the above
-
----
-
-# Judging Criteria
-
-You will be evaluated on the following categories.
+## Judging Criteria
 
 ### Ideation
 
-| Category      | What Judges Are Looking For                             | Score |
-| ------------- | --------------------------------------------------------- | ----- |
-| Relevance     | How relevant is the solution to the problem space?         | /3    |
-| Reasonability | How reasonable is the solution?                            | /3    |
-| Impact        | How positively does the idea impact stakeholders?           | /3    |
+| Category | What judges are looking for | Score |
+| --- | --- | --- |
+| Relevance | The solution addresses a meaningful airport problem. | /3 |
+| Reasonability | The idea and assumptions are sensible. | /3 |
+| Impact | The solution could help its intended users or stakeholders. | /3 |
 
 ### Feasibility
 
-| Category     | What Judges Are Looking For                                                  | Score |
-| ------------- | ----------------------------------------------------------------------------- | ----- |
-| Cost          | Is the cost to build and run the solution realistic?                          | /3    |
-| ROI           | Can productivity be increased greatly by building the solution? Is it worth the cost? | /3 |
-| Practicality  | Can this be integrated in a factory setting?                                   | /3    |
-| Reliability   | Does this solution have low downtime?                                          | /3    |
+| Category | What judges are looking for | Score |
+| --- | --- | --- |
+| Cost | The cost to build and operate the solution is realistic. | /3 |
+| Return on investment | The expected benefit is worth the effort and cost. | /3 |
+| Practicality | The solution could fit into a real operational environment. | /3 |
+| Reliability | The design considers failures, recovery, and downtime. | /3 |
 
 ### Prototype Execution
 
-| Category                | What Judges Are Looking For                                | Score |
-| ------------------------ | ------------------------------------------------------------ | ----- |
-| Functionality            | At time of judging, how functional is the prototype?         | /8    |
-| Quality of Manufacturing | At time of judging, how well manufactured is the prototype?  | /3    |
+| Category | What judges are looking for | Score |
+| --- | --- | --- |
+| Functionality | The prototype works during judging. | /8 |
+| Build quality | The implementation or physical prototype is well made. | /3 |
 
-### Safety & Regulations
+### Safety and Regulations
 
-| Category                     | What Judges Are Looking For                                                                  | Score |
-| ----------------------------- | ----------------------------------------------------------------------------------------------- | ----- |
-| Employee / Operator Safety   | Does the design account for risks to workers/users (ergonomics, exposure, radiation safety)?    | /3    |
-| Regulatory Awareness          | Has the team identified relevant Canadian regulations (Canadian Air Transport Security Authority (CATSA) etc.)? | /3 |
+| Category | What judges are looking for | Score |
+| --- | --- | --- |
+| Employee and operator safety | The design accounts for risks to workers and users. | /3 |
+| Regulatory awareness | The team identifies relevant Canadian or international requirements. | /3 |
 
-### Demo/Pitch/Presentation
+### Demo and Presentation
 
-| Category | What Judges Are Looking For                                                                                    | Score |
-| -------- | ------------------------------------------------------------------------------------------------------------- | ----- |
-| Clarity  | How clear was the presentation in terms of explanation?                                                        | /5    |
-| Depth    | Was the extent of the team's knowledge thoroughly expressed?                                                   | /5    |
-| Demo     | How well designed was the demonstration - was it an impactful way to demonstrate what they tried to accomplish? | /5   |
+| Category | What judges are looking for | Score |
+| --- | --- | --- |
+| Clarity | The team explains the problem and solution clearly. | /5 |
+| Depth | The team shows meaningful understanding of the problem. | /5 |
+| Demo | The demonstration makes the result easy to understand. | /5 |
 
-For coding subproblems, hidden test cases may be used to evaluate whether your solution generalizes beyond the sample data.
+Coding subproblems may also use hidden test cases to check whether solutions work beyond the visible examples.
 
----
+## General Resources
 
-# Resources
+Depending on the subproblem, the repository includes starter code, JSON messages, schedules, airport data, demo scripts, evaluators, simulations, and reference implementations. Do not assume the visible examples cover every case.
 
-Suggested resource areas:
+Useful topics and tools include:
 
-* Airport systems integration
-* Baggage Handling Systems
-* Departure Control Systems
-* Gate Management Systems
-* Airport common-use systems
-* Message queues and event-driven software
-* Optimization algorithms
-* Simulation and visualization tools
+- airport systems integration and event-driven software
+- optimization, simulation, and visualization
+- `numpy`, `pandas`, `matplotlib`, `scipy`, `networkx`, `simpy`, and `pulp`
+- Canadian Aviation Security Regulations and Canadian accessibility requirements
+- International Air Transport Association (IATA) and International Civil Aviation Organization (ICAO) guidance
 
-Useful Python libraries may include:
-
-* `numpy`
-* `pandas`
-* `matplotlib`
-* `scipy`
-* `networkx`
-* `simpy`
-* `pulp`
-
-You may use other tools if they are appropriate for your solution.
-
----
-
-# Final Note
-
-This challenge is not only about building the most complete prototype. It is about showing that you can think through a real operational system, identify constraints, make tradeoffs, and design something that could eventually scale into an airport environment.
+You may use other tools when they are appropriate for your solution. Reference external data, libraries, and research clearly in your final documentation.

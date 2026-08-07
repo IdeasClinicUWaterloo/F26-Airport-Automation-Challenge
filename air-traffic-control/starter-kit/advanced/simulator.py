@@ -2,12 +2,15 @@
 
 import json
 import random
+import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from dead_reckoning import DeadReckoning, destination_point
+# Allow this file to be imported or run directly from the repository root.
+STARTER_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(STARTER_DIR))
 
-_dr = DeadReckoning()
+from dead_reckoning import destination_point, distance_km, initial_bearing
 
 DEFAULT_ROUTE = ["YYZ", "WP001", "WP002", "OMAHA", "DEN"]
 DEFAULT_WAYPOINTS = Path(__file__).resolve().parent.parent / "data" / "route.json"
@@ -33,14 +36,16 @@ def build_ground_truth(waypoints, route, start_time, cruise_speed_kt=310.0, samp
         waypoint_times[wp_a] = t
         a, b = waypoints[wp_a], waypoints[wp_b]
 
-        distance_km = _dr.find_distance(a["lat"], a["lon"], b["lat"], b["lon"])
-        bearing = _dr.find_bearing(a["lat"], a["lon"], b["lat"], b["lon"])
-        leg_duration_s = (distance_km * 1000) / speed_mps
+        leg_distance_km = distance_km(a["lat"], a["lon"], b["lat"], b["lon"])
+        bearing = initial_bearing(a["lat"], a["lon"], b["lat"], b["lon"])
+        leg_duration_s = (leg_distance_km * 1000) / speed_mps
         steps = max(1, round(leg_duration_s / sample_dt_s))
 
         for step in range(steps):
             frac = step / steps
-            lat, lon = destination_point(a["lat"], a["lon"], bearing, frac * distance_km * 1000)
+            lat, lon = destination_point(
+                a["lat"], a["lon"], bearing, frac * leg_distance_km * 1000
+            )
 
             if leg_index == 0:
                 altitude = cruise_alt_ft * frac
