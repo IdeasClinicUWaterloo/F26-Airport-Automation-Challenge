@@ -110,7 +110,9 @@ When the login console appears, input the following credentials:
 
 ### 3. Launching the Node-RED Editor
 
-From the primary landing homepage dashboard, click on the **Open Node-RED Editor** link option. This will load your team's visual canvas environment, featuring a palette of hardware and logic nodes along the left side menu bar.
+From the primary landing homepage dashboard, click on the **Node-RED** button. Inside it, click the **Open Node-RED Editor** link option. This should load your team's visual canvas environment, featuring a palette of hardware and logic nodes along the left side menu bar.
+
+*Note: You may need to verify that you are in the correct flow. The top banner over the flow grid should show which flow you are in. The correct flow for this sub problem is the **Barcode Scanner** flow. If you are in another flow, switch to that flow. If there are additional or other issues, please ask the teaching team for assistance.*
 
 ---
 
