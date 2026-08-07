@@ -141,16 +141,16 @@ Your control logic must listen to incoming JSON payloads on `Conveyor3/baggage_r
 
 ### Basic Flow Structure
 
-To build this pipeline, wire the following baseline components together on your Node-RED canvas:
+The Barcode Scanner flow should already have a basic flow configuration that can successfully meet Condition A. You may create your custom flow based on this flow or you can build an entirely different flow that meets the requirements (and potentially may be more effective). The following provides a starting point for how to set up the flow. You may also check **Node-Red Guide.docx** in this folder for more detailed information:
 
 1. **An MQTT Input Node**: Double-click it to modify its settings. Set the server property to `129.97.228.106:1883` and set the target subscription topic to `Conveyor3/baggage_routing`.
 2. **A JSON Parser Node**: Connect the output of the MQTT node into a standard `json` node to automatically convert the incoming string packet back into an accessible JavaScript object.
-3. **A Function Node**: Write a clean JavaScript block to evaluate the parsed properties against your `Active Conveyor` context filter and output appropriate boolean signals to your physical PLC output channels (`Diverter Relay` or `Motor Power Relay`).
+3. **A Function Node**: Write a clean JavaScript block to evaluate the parsed properties against your `Active Conveyor` context filter and output appropriate boolean signals to your physical PLC output channels (`groov i/o write`).
 4. **Deploying the Changes**: Click the bright red **Deploy** button at the top-right of your screen to compile and flash your logic changes live onto the physical hardware controller.
 
 ---
 
-## Open-Ended Avenues for Innovation
+## Avenues for Innovation/Extension
 
 Once your baseline setup is running and passing test barcodes successfully, your project will be evaluated based on how creatively and robustly your team scales this architecture. Consider the following engineering exploration routes:
 
