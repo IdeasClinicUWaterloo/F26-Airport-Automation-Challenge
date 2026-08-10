@@ -148,6 +148,8 @@ The Barcode Scanner flow should already have a basic flow configuration that can
 3. **A Function Node**: Write a clean JavaScript block to evaluate the parsed properties against your `Active Conveyor` context filter and output appropriate boolean signals to your physical PLC output channels (`groov i/o write`).
 4. **Deploying the Changes**: Click the bright red **Deploy** button at the top-right of your screen to compile and flash your logic changes live onto the physical hardware controller.
 
+*Note: Any changes you make to the original flow should be done in a new flow so that the original flow remains unchanged. Do this by pressing the plus symbol next to the flows and copy pasting the original flow as needed. Before running your modified flow, remember the diable the original flow. If you accidentally change the original flow, use the [`flows.json`](flows.json) file to import it back.*
+
 ---
 
 ## Avenues for Innovation/Extension
