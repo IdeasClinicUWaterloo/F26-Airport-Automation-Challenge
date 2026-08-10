@@ -51,7 +51,7 @@ python3 -c "import cv2, pyzbar, paho.mqtt; print('\n[SYSTEM OK] Core tracking de
 If your environment is intact, the terminal will print the green-light `[SYSTEM OK]` status confirmation message. You are completely ready to proceed. If the terminal returns an ImportError, inform a teaching assistant or lab instructor to fix the issue.
 
 ![NVIDIA Jetson Nano Edge Developer Kit](/baggage-handling-system/assets/jetson.jpg)
-*Figure 3: The NVIDIA Jetson Nano device, responsible for vision and MQTT publishing.*
+*Figure 2: The NVIDIA Jetson Nano device, responsible for vision and MQTT publishing.*
 
 ### 2. Exploring the Baseline Script (`barcode_scanner.py`)
 
@@ -73,7 +73,7 @@ The script tokenizes this raw string and maps it into a structured payload dicti
 ```
 
 ![Overhead Camera Sensor Array](/baggage-handling-system/assets/camera.jpg)
-*Figure 2: The camera that will be facing down at the conveyor belt.*
+*Figure 3: The camera that will be facing down at the conveyor belt.*
 
 ### 3. Launching the Vision Loop
 
@@ -110,7 +110,9 @@ When the login console appears, input the following credentials:
 
 ### 3. Launching the Node-RED Editor
 
-From the primary landing homepage dashboard, click on the **Open Node-RED Editor** link option. This will load your team's visual canvas environment, featuring a palette of hardware and logic nodes along the left side menu bar.
+From the primary landing homepage dashboard, click on the **Node-RED** button. Inside it, click the **Open Node-RED Editor** link option. This should load your team's visual canvas environment, featuring a palette of hardware and logic nodes along the left side menu bar.
+
+*Note: You may need to verify that you are in the correct flow. The top banner over the flow grid should show which flow you are in. The correct flow for this sub problem is the **Barcode Scanner** flow. If you are in another flow, switch to that flow. If there are additional or other issues, please ask the teaching team for assistance.*
 
 ---
 
@@ -139,16 +141,18 @@ Your control logic must listen to incoming JSON payloads on `Conveyor3/baggage_r
 
 ### Basic Flow Structure
 
-To build this pipeline, wire the following baseline components together on your Node-RED canvas:
+The Barcode Scanner flow should already have a basic flow configuration that can successfully meet all conditions. You may create your custom flow based on this flow or you can build an entirely different flow that meets the requirements (and potentially may be more effective). The following provides a starting point for how to set up the flow. You may also check **Node-Red Guide.docx** in this folder for more detailed information:
 
 1. **An MQTT Input Node**: Double-click it to modify its settings. Set the server property to `129.97.228.106:1883` and set the target subscription topic to `Conveyor3/baggage_routing`.
 2. **A JSON Parser Node**: Connect the output of the MQTT node into a standard `json` node to automatically convert the incoming string packet back into an accessible JavaScript object.
-3. **A Function Node**: Write a clean JavaScript block to evaluate the parsed properties against your `Active Conveyor` context filter and output appropriate boolean signals to your physical PLC output channels (`Diverter Relay` or `Motor Power Relay`).
+3. **A Function Node**: Write a clean JavaScript block to evaluate the parsed properties against your `Active Conveyor` context filter and output appropriate boolean signals to your physical PLC output channels (`groov i/o write`).
 4. **Deploying the Changes**: Click the bright red **Deploy** button at the top-right of your screen to compile and flash your logic changes live onto the physical hardware controller.
+
+*Note: Any changes you make to the original flow should be done in a new flow so that the original flow remains unchanged. Do this by pressing the plus symbol next to the flows and copy pasting the original flow as needed. Before running your modified flow, remember the diable the original flow. If you accidentally change the original flow, use the [`flows.json`](flows.json) file to import it back.*
 
 ---
 
-## Open-Ended Avenues for Innovation
+## Avenues for Innovation/Extension
 
 Once your baseline setup is running and passing test barcodes successfully, your project will be evaluated based on how creatively and robustly your team scales this architecture. Consider the following engineering exploration routes:
 
