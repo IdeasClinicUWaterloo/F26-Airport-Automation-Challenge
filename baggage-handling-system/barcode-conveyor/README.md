@@ -51,7 +51,7 @@ python3 -c "import cv2, pyzbar, paho.mqtt; print('\n[SYSTEM OK] Core tracking de
 If your environment is intact, the terminal will print the green-light `[SYSTEM OK]` status confirmation message. You are completely ready to proceed. If the terminal returns an ImportError, inform a teaching assistant or lab instructor to fix the issue.
 
 ![NVIDIA Jetson Nano Edge Developer Kit](/baggage-handling-system/assets/jetson.jpg)
-*Figure 3: The NVIDIA Jetson Nano device, responsible for vision and MQTT publishing.*
+*Figure 2: The NVIDIA Jetson Nano device, responsible for vision and MQTT publishing.*
 
 ### 2. Exploring the Baseline Script (`barcode_scanner.py`)
 
@@ -73,7 +73,7 @@ The script tokenizes this raw string and maps it into a structured payload dicti
 ```
 
 ![Overhead Camera Sensor Array](/baggage-handling-system/assets/camera.jpg)
-*Figure 2: The camera that will be facing down at the conveyor belt.*
+*Figure 3: The camera that will be facing down at the conveyor belt.*
 
 ### 3. Launching the Vision Loop
 
