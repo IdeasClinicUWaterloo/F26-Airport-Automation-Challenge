@@ -1,4 +1,5 @@
 folium
 matplotlib
 numpy
+pyModeS>=3
 requests

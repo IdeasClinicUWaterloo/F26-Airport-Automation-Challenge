@@ -121,22 +121,21 @@ Air Traffic Control (ATC) automation combines surveillance reports, flight-plan 
 
 Your challenge is to process a simulated aircraft message stream, reconstruct the likely route, estimate the aircraft state, predict its next waypoint and arrival time, and flag information that should not be trusted without review.
 
-### Potential Directions
+#### Potential Solutions
 
- Potential solution directions:
+##### Supported Solution
 
-  * Route reconstruction from parsed message stream [Supported]
-  * State estimation w/ predict-update tracker + EKF [Supported]
-  * Multi-hypothesis routing across competing route explanations [Supported]
-  * Anomaly detection for impossible values, unrealistic movement, conflicts [Supported]
-  * Path planning around blocked waypoints or restricted areas [Supported]
-  * Operator visualization of routes, estimates, alerts [Supported]
-  * Multi-aircraft conflict/separation detection 
-  * Track staleness detection + confidence decay when reports stop
-  * Adaptive anomaly thresholds tuned to message cadence (scenario vs live feed)
-  * Sensor fusion across multiple noisy/live sources
-  * Post-incident replay/explainability narrative generator
-  * ML-based route-hypothesis scoring trained on simulator ground truth
+* ATC message-stream tracking starter kit [[Supported]](air-traffic-control/starter-kit/README.md) — reconstruct routes, estimate aircraft state, detect anomalous reports, compare route hypotheses, plan around blocked waypoints, and visualize results.
+
+##### Additional Possibilities
+
+* Multi-aircraft conflict and separation-risk detection
+* Arrival sequencing and runway scheduling
+* Airport-surface tracking and taxi-route conflict monitoring
+* Weather-aware rerouting decision support
+* Airspace-sector congestion and controller-workload forecasting
+* Emergency, diversion, and lost-communication response planning
+* Raw ADS-B/Mode S message ingestion using the Python `pyModeS` decoder, following [The 1090 Megahertz Riddle](https://mode-s.org/1090mhz/), and adapting the decoded aircraft state for the starter tracker. `pyModeS` is already included in the ATC requirements.
 
 #### Starting Point
 

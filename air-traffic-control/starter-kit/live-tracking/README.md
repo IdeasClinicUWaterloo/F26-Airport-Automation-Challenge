@@ -34,6 +34,7 @@ OpenSky state reports include position, altitude, speed, and heading. They do no
 | Tracker comparison | Compare the simple tracker and the Extended Kalman Filter on the same aircraft. | [`tracker_source.py`](tracker_source.py) |
 | Multi-aircraft alerts | Summarize stale or suspicious tracks across the selected area. | [`tracker_manager.py`](tracker_manager.py) |
 | Message adapter | Add another data source that produces the same challenge `state` message. | [`adapter.py`](adapter.py) |
+| Raw ADS-B/Mode S adapter | Use the Python `pyModeS` decoder to turn raw receiver messages into challenge `state` messages. The standard requirements installation already installs `pyModeS`. | [*The 1090 Megahertz Riddle*](https://mode-s.org/1090mhz/) |
 | Replay recorder | Save a live session and replay it later without internet access. | [`live_tracker.py`](live_tracker.py) |
 | Different operating area | Make the bounding box configurable instead of editing the source file. | [`live_tracker.py`](live_tracker.py) |
 

@@ -56,18 +56,25 @@ After processing each message, your system should produce an updated route and t
 
 ## Potential Solutions
 
-There is no single required algorithm. The same message stream can support a direct route reconstructor, a probabilistic tracker, a planning tool, an operator interface, or a combination of these ideas.
+The provided starter kit is one supported solution path. Teams may extend it, combine it with another idea, or build a distinct ATC project.
 
-[Supported solution: ATC starter kit](starter-kit/README.md)
+### Supported Solution
 
-| Potential Solution | Description | Resources |
+| Supported Solution | Included Capabilities | Resources |
 | --- | --- | --- |
-| **Route Reconstruction** | Parse the message stream, maintain an ordered route, check consistency, predict the next waypoint, and calculate ETA. | [`message_parser.py`](starter-kit/message_parser.py) and [`scenarios/`](starter-kit/scenarios/) |
-| **State Estimation** | Treat position and motion as uncertain estimates that are predicted between reports and corrected when new observations arrive. | [`tracker.py`](starter-kit/tracker.py) and [`ekf.py`](starter-kit/advanced/ekf.py) |
-| **Multi-Hypothesis Routing** | Keep several possible route explanations, score them as messages arrive, and select the most likely route. | [`hypothesis.py`](starter-kit/advanced/hypothesis.py) |
-| **Anomaly Detection** | Detect impossible values, unrealistic movement, route conflicts, suspicious prediction errors, and delayed reports. | [`message_parser.py`](starter-kit/message_parser.py) and [`anomalous.json`](starter-kit/scenarios/anomalous.json) |
-| **Path Planning** | Find or recommend another route around blocked waypoints, weather, restricted areas, or other constraints. | [`path_planning.py`](starter-kit/advanced/path_planning.py) |
-| **Operator Visualization** | Display routes, reports, estimates, uncertainty, alerts, timelines, alternatives, or multiple aircraft. | [`visualizer.py`](starter-kit/visualizer.py) and [`live-tracking/`](starter-kit/live-tracking/) |
+| **ATC message-stream tracking starter kit** | Route reconstruction, state estimation, anomaly detection, multi-hypothesis routing, path planning, and operator visualization. | [Open the supported starter kit](starter-kit/README.md) |
+
+### Additional Possibilities
+
+| Potential Solution | Description |
+| --- | --- |
+| **Multi-Aircraft Conflict Detection** | Track several aircraft and warn when their predicted paths could violate a chosen separation threshold. |
+| **Arrival Sequencing and Runway Scheduling** | Recommend an arrival order that accounts for ETA, runway capacity, wake-turbulence spacing, and disruptions. |
+| **Airport-Surface Conflict Monitoring** | Track aircraft and service vehicles on taxiways and flag conflicting clearances or routes. |
+| **Weather-Aware Rerouting** | Combine route information with simulated weather cells and recommend safe, explainable alternatives. |
+| **Sector Workload Forecasting** | Predict congestion and controller workload from aircraft counts, route complexity, and upcoming handoffs. |
+| **Emergency and Diversion Planning** | Help operators compare diversion airports and response options when communications, weather, fuel, or airport availability changes. |
+| **Raw ADS-B/Mode S Message Ingestion** | Extend the starter kit to receive raw 1090 MHz messages, decode aircraft identity, position, altitude, and velocity with the Python `pyModeS` library, and adapt the results into tracker state messages. `pyModeS` is already included in [`requirements.txt`](requirements.txt). See [*The 1090 Megahertz Riddle*](https://mode-s.org/1090mhz/) for the protocol, receiver setup, and decoding guide. |
 
 ## Resources
 
