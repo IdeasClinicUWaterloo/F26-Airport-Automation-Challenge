@@ -162,7 +162,7 @@ Your challenge is to choose one part of that pipeline and make its state and dec
   * Unified identity gateway: booking, doc checks, seat, bag declare, boarding pass, agent review, audit
   log [Supported](departure-control-system/README.md)
   * Aircraft load control (weight/balance zone assignment) [Supported](departure-control-system/README.md)
-  * Passenger-processing checkpoint monitor (referenced, not yet built)
+  * Passenger-processing checkpoint monitor
   * Document-review assistant w/ mismatch confidence scoring
   * Baggage reconciliation linking declared bags to scan events
   * Flight-close readiness aggregator (identity + load + baggage in one score)
