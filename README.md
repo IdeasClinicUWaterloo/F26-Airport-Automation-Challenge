@@ -94,11 +94,11 @@ Your challenge is to produce a conflict-free gate plan and update it when disrup
 
   Potential solution directions:
 
-  * Greedy scoring-aware assignment algorithm [Supported]
-  * First-fit baseline algorithm [Supported]
-  * Disruption repair (delay, outage, equipment swap) [Supported]
-  * Operator dashboard / interactive timeline visualizer [Supported]
-  * Scenario analysis across busy/emergency/cargo/overnight cases [Supported]
+  * Greedy scoring-aware assignment algorithm [Supported](gate-management-system/solution_scored.py)
+  * First-fit baseline algorithm [Supported](gate-management-system/solution_firstfit.py)
+  * Disruption repair (delay, outage, equipment swap) [Supported](gate-management-system/solution_scored.py)
+  * Operator dashboard / interactive timeline visualizer [Supported](gate-management-system/visualize.py)
+  * Scenario analysis across busy/emergency/cargo/overnight cases [Supported](gate-management-system/visualize.py)
   * Security/restricted gates (origin-specific secure gate rules)
   * Airline gate preferences (soft-reward scoring)
   * Turnaround service buffer between aircraft at same gate
@@ -160,8 +160,8 @@ Your challenge is to choose one part of that pipeline and make its state and dec
   Potential solution directions:
 
   * Unified identity gateway: booking, doc checks, seat, bag declare, boarding pass, agent review, audit
-  log [Supported]
-  * Aircraft load control (weight/balance zone assignment) [Supported]
+  log [Supported](departure-control-system/README.md)
+  * Aircraft load control (weight/balance zone assignment) [Supported](departure-control-system/README.md)
   * Passenger-processing checkpoint monitor (referenced, not yet built)
   * Document-review assistant w/ mismatch confidence scoring
   * Baggage reconciliation linking declared bags to scan events
