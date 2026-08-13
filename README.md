@@ -50,7 +50,7 @@ Toronto Pearson International Airport (YYZ) is the setting for this challenge. T
 
 Airport systems are message driven and closely connected. A passenger update in a Departure Control System can affect baggage handling, aircraft readiness, gate planning, and the operational information used by other teams. Your prototype does not need to model the whole airport, but it should understand where it fits.
 
-Whatever you build, use the [judging criteria](#judging-criteria) to guide your decisions and demonstration.
+As you make your solution this weekend, use the [judging criteria](#judging-criteria) to guide your decisions and demonstration.
 
 ## Sub-Problems
 
