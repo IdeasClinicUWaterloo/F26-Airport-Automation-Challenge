@@ -68,7 +68,7 @@ Your challenge is to design a BHS that can identify, track, route baggage throug
 
 Potential solution directions:
 
-* Security against malicious attempts at switching baggage [[Supported (SecureBag)]](baggage-handling-system/securebag/README.md)
+* SecureBag - Security against malicious attempts at switching baggage [[Supported]](baggage-handling-system/securebag/README.md)
 * Barcode, RFID, or simulated tag-based bag identification 
 * Real-time bag state tracking dashboard
 * Routing logic for conveyors and carousels
