@@ -1,16 +1,13 @@
 # Brock Solutions Airport Automation Challenge
 
+### Theme: Message-Driven Operations at YYZ
+
 ![Aerial view of Toronto Pearson International Airport](images/yyz.jpg)
 
 Created by Engineering IDEAs Clinic co-op students.
 
-## Accessibility
-
-This README uses descriptive headings, meaningful link names, short sections, and alt text for images so it is easier to navigate with screen readers and other assistive technologies. The challenge also welcomes accessible solutions that work for people with different needs and levels of technical experience.
-
 ## Table of Contents
 
-- [Accessibility](#accessibility)
 - [Quick Links](#quick-links)
 - [Your Mission](#your-mission)
 - [Sub-Problems](#sub-problems)
@@ -116,6 +113,8 @@ The starter kit includes repeatable scenarios, a working tracker, a simulator wi
 
 ### [Departure Control System](departure-control-system/README.md)
 
+![Departure control system](images/dcs.png)
+
 A Departure Control System (DCS) manages the departure side of an airline operation, including check-in, identity and document verification, baggage acceptance, boarding passes, boarding status, and aircraft load control.
 
 #### Challenge
@@ -128,8 +127,6 @@ Two working examples show an appropriate scope:
 
 - [Unified Identity Gateway](departure-control-system/unified-identity-gateway/README.md), covering identity checks, seat selection, baggage declaration, boarding passes, and agent review
 - [Load Control](departure-control-system/load-control/), covering aircraft weight-and-balance optimization
-
-![Departure control system workflow](images/dcs.png)
 
 [Open the Departure Control System challenge](departure-control-system/README.md).
 

@@ -58,6 +58,8 @@ After processing each message, your system should produce an updated route and t
 
 There is no single required algorithm. The same message stream can support a direct route reconstructor, a probabilistic tracker, a planning tool, an operator interface, or a combination of these ideas.
 
+[Supported solution: ATC starter kit](starter-kit/README.md)
+
 | Potential Solution | Description | Resources |
 | --- | --- | --- |
 | **Route Reconstruction** | Parse the message stream, maintain an ordered route, check consistency, predict the next waypoint, and calculate ETA. | [`message_parser.py`](starter-kit/message_parser.py) and [`scenarios/`](starter-kit/scenarios/) |
