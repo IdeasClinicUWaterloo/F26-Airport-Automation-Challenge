@@ -2,9 +2,9 @@
 
 A Gate Management System (GMS) assigns arriving and departing aircraft to airport gates. It must account for aircraft size, timing, gate equipment, passenger needs, customs rules, cargo restrictions, and disruptions such as delays or outages.
 
-At a real airport, shared flight information is stored in an Airport Operational Database (AODB). A Resource Management System uses that information to plan gates and stands, then sends changes to airlines, displays, ground handlers, and airport staff. This challenge focuses on the decision logic inside that process.
+At a real airport, shared flight information is stored in an Airport Operational Database. A Resource Management System uses that information to plan gates and stands, then sends changes to airlines, displays, ground handlers, and airport staff. This challenge focuses on the decision logic inside that process.
 
-Toronto Pearson International Airport (YYZ) is the setting. Your solution will build a gate plan, receive operational updates, and adjust the plan without creating new conflicts.
+Toronto Pearson International Airport (YYZ) is the setting. A working gate-assignment algorithm is already included as a starting point, pick somewhere to take it from there.
 
 ## Table of Contents
 
@@ -14,7 +14,18 @@ Toronto Pearson International Airport (YYZ) is the setting. Your solution will b
 
 ## Challenge
 
-Build or extend a system that assigns gates to a full flight schedule and responds to later disruption messages.
+Do something useful with airport gate assignment. That could mean:
+
+- improving the included algorithm
+- writing a different assignment algorithm from scratch
+- treating the algorithm as a given and building on top of it: a dashboard, an analysis tool, an alerting system, anything that makes the gate plan more useful to airport staff
+
+Pick a scope you can actually finish. A few of the questions a good solution might answer:
+
+- Can the plan handle a full day's schedule and the disruptions that land on top of it?
+- Where does the current approach fall short, and what would fix it?
+- Can an operator see what's happening and why, not just the raw assignments?
+- Does it hold up beyond the sample scenarios?
 
 Airports plan gates the way this challenge is structured: the full day's flight schedule is filed first, then a timeline of updates arrives at later information times.
 
@@ -24,11 +35,11 @@ Airports plan gates the way this challenge is structured: the full day's flight 
 1000  disruption  a delay or cancellation
 ```
 
-The opening planning message contains the filed schedule for the day. Later messages may report a delay, gate outage, aircraft change, cancellation, or priority diversion. An unscheduled diversion, such as a medical emergency or returning flight, can also arrive during the day with `priority` set and need a gate immediately.
+The opening planning message contains the filed schedule for the day. Later messages may report a delay, gate outage, aircraft change, cancellation, or priority diversion. An unscheduled diversion can also arrive during the day with `priority` set and need a gate immediately.
 
-A solution must build the initial plan, then repair it as new information arrives. Reassignments affect passengers, ground crews, gate displays, and baggage operations, so a stable recovery is usually better than reshuffling the entire airport after every update. The result should also generalize beyond the visible sample scenarios.
+Reassignments affect passengers, ground crews, gate displays, and baggage operations, so a stable recovery is usually better than reshuffling the entire airport after every update.
 
-Successful solutions should:
+If you're working on the assignment algorithm itself (improving it or replacing it), it should:
 
 - assign every compatible flight when capacity allows
 - prevent overlapping aircraft from using the same gate
@@ -40,7 +51,7 @@ Successful solutions should:
 
 ### Input and Output
 
-The evaluator calls your `decide(observation)` function at each information time.
+If you're writing or modifying an assignment algorithm, the evaluator calls your `decide(observation)` function at each information time. Skip this section if you're building on top of the existing algorithm instead.
 
 The observation includes:
 
@@ -63,6 +74,8 @@ Use `assignments` for a flight receiving its first gate and `reassignments` for 
 
 ### Operational Constraints
 
+These are the rules the included algorithm already enforces. Relevant if you're changing the algorithm; background if you're building something that consumes its output.
+
 | Constraint | Rule |
 | --- | --- |
 | Occupancy | Two aircraft cannot use the same gate during overlapping intervals. |
@@ -83,16 +96,16 @@ When a flight cannot be placed safely, leave it unassigned instead of returning 
 
 ## Potential Solutions
 
-The supplied algorithms are examples, not the only acceptable approach.
+Three broad directions — improve what's here, replace it, or build on top of it. The supplied algorithms are examples, not the only acceptable approach.
 
 | Potential solution | Description | Starting point |
 | --- | --- | --- |
-| First-fit assignment | Place each flight in the first compatible open gate. It is easy to understand and forms a reliable baseline. | [`solution.py`](solution.py) |
-| Scoring-aware greedy assignment | Compare compatible gates using walking distance, premium-gate use, and repair cost. | [`solution_kd.py`](solution_kd.py) |
-| Constraint solver | Model gate choices and conflicts using integer programming or constraint programming. | [`evaluator.py`](evaluator.py) for the required interface |
+| Improve the scoring-aware greedy algorithm | Take the included reference algorithm further: better cost function, smarter repair on disruption, less passenger walking. | [`solution_kd.py`](solution_kd.py) |
+| Build a new assignment algorithm | Write your own from scratch — e.g. a constraint solver using integer or constraint programming instead of a greedy heuristic. | [`evaluator.py`](evaluator.py) for the required interface |
 | Disruption repair | Keep the existing plan stable and move only flights affected by a delay, outage, or equipment change. | [`flight_data/cascade_2.json`](flight_data/cascade_2.json) |
-| Operator dashboard | Explain assignments, conflicts, and changes with a timeline or interactive control view. | [`visualize.py`](visualize.py) |
+| Operator dashboard | Use the existing algorithm's output as a given and explain assignments, conflicts, and changes with a timeline or interactive control view. | [`visualize.py`](visualize.py) |
 | Scenario analysis | Compare algorithms across busy periods, emergencies, cargo, overnight flights, and outages. | [`flight_data/`](flight_data/) |
+| First-fit assignment | The minimal baseline included — read it to understand the interface before building on or replacing it. | [`solution.py`](solution.py) |
 
 ![Flowchart showing one possible gate-assignment algorithm](flowcharts/GateAssignmentAlg.png)
 
@@ -100,7 +113,7 @@ The supplied algorithms are examples, not the only acceptable approach.
 
 ### Industry Context
 
-Gate management software sits inside a larger airport technology stack. An **Airport Operational Database (AODB)** holds shared flight and resource information. A **Resource Management System (RMS)** uses that information to assign gates and stands. Changes then flow to passenger displays, airline systems, ground handlers, and airport staff.
+Gate management software sits inside a larger airport technology stack. An **Airport Operational Database** holds shared flight and resource information. A **Resource Management System** uses that information to assign gates and stands. Changes then flow to passenger displays, airline systems, ground handlers, and airport staff.
 
 Real systems must also handle **Irregular Operations (IROPS)**, including delays, equipment swaps, weather, gate outages, and other events that make a static gate plan obsolete. [Brock Solutions](https://www.brocksolutions.com/airports-and-airlines/), an engineering firm headquartered in Waterloo, builds this type of airport software through its SmartSuite platform for airports including SFO, JFK, Dublin, Sydney, and Toronto Pearson. This challenge is a simplified version of the same resource-planning problem.
 
@@ -209,5 +222,3 @@ Every supplied scenario is designed to allow a solution with zero hard failures.
 - [IATA Safety Audit for Ground Operations](https://www.iata.org/en/programs/ops-infra/ground-operations/isago): the safety-audit framework used by ground-service providers
 - [ICAO Annex 14: Aerodromes](https://store.icao.int/en/annex-14-aerodromes): international context for aerodrome, apron, and stand design
 - [ICAO aerodrome safety information](https://www.icao.int/safety/Pages/default.aspx)
-
-The evaluator is a simplified learning environment. Real gate decisions require airport procedures, safety review, and coordination with airlines and ground teams.

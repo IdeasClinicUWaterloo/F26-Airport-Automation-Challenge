@@ -47,7 +47,7 @@ Toronto Pearson International Airport (YYZ) is the setting for this challenge. T
 
 Airport systems are message driven and closely connected. A passenger update in a Departure Control System can affect baggage handling, aircraft readiness, gate planning, and the operational information used by other teams. Your prototype does not need to model the whole airport, but it should understand where it fits.
 
-Whatever you build, use the [judging criteria](#judging-criteria) to guide your decisions and demonstration.
+As you make your solution this weekend, use the [judging criteria](#judging-criteria) to guide your decisions and demonstration.
 
 ## Sub-Problems
 
@@ -65,12 +65,10 @@ Your challenge is to design a BHS that can identify, track, route baggage throug
 
 Potential solution directions:
 
-* Barcode, RFID, or simulated tag-based bag identification
-* Real-time bag state tracking dashboard
-* Routing logic for conveyors and carousels
+* SecureBag - Security against malicious attempts at switching baggage [[Supported]](baggage-handling-system/securebag/README.md)
+* Control a real conveyor system to simulate bag movement through a network [[Supported]](baggage-handling-system/barcode-conveyor/README.md)
 * Error handling for unreadable, oversized, overweight, fragile, or untagged bags
 * Foreign object or anomaly detection on conveyor tracks
-* Zone-based detection alerts for baggage systems
 * Emergency stop, slowdown, or warning signals for conveyor operations
 * Simulation of bag movement through a simplified conveyor network
 * Privacy-conscious tracking that avoids unnecessary passenger personal information
@@ -89,6 +87,24 @@ A Gate Management System (GMS) assigns aircraft to gates while considering timin
 
 Your challenge is to produce a conflict-free gate plan and update it when disruption messages arrive. The supplied evaluator checks aircraft-gate compatibility, overlapping occupancy, gate outages, reassignment costs, and other operational rules.
 
+### Potential Directions
+
+  Potential solution directions:
+
+  * Greedy scoring-aware assignment algorithm [Supported](gate-management-system/solution_scored.py)
+  * First-fit baseline algorithm [Supported](gate-management-system/solution_firstfit.py)
+  * Disruption repair (delay, outage, equipment swap) [Supported](gate-management-system/solution_scored.py)
+  * Operator dashboard / interactive timeline visualizer [Supported](gate-management-system/visualize.py)
+  * Scenario analysis across busy/emergency/cargo/overnight cases [Supported](gate-management-system/visualize.py)
+  * Security/restricted gates (origin-specific secure gate rules)
+  * Airline gate preferences (soft-reward scoring)
+  * Turnaround service buffer between aircraft at same gate
+  * Constraint-solver (ILP/CP-SAT) replacement for greedy heuristic
+  * Predictive disruption handling from historical delay patterns
+  * Adversarial scenario generator to stress-test beyond fixed scenarios
+  * Assignment explainability layer ("why gate X for flight Y")
+  * Live what-if simulator for manual override impact
+
 #### Starting Point
 
 This is the most structured coding subproblem. You may write your own assignment algorithm or build a larger tool around the supplied baseline.
@@ -105,6 +121,23 @@ Air Traffic Control (ATC) automation combines surveillance reports, flight-plan 
 
 Your challenge is to process a simulated aircraft message stream, reconstruct the likely route, estimate the aircraft state, predict its next waypoint and arrival time, and flag information that should not be trusted without review.
 
+### Potential Directions
+
+ Potential solution directions:
+
+  * Route reconstruction from parsed message stream [Supported]
+  * State estimation w/ predict-update tracker + EKF [Supported]
+  * Multi-hypothesis routing across competing route explanations [Supported]
+  * Anomaly detection for impossible values, unrealistic movement, conflicts [Supported]
+  * Path planning around blocked waypoints or restricted areas [Supported]
+  * Operator visualization of routes, estimates, alerts [Supported]
+  * Multi-aircraft conflict/separation detection 
+  * Track staleness detection + confidence decay when reports stop
+  * Adaptive anomaly thresholds tuned to message cadence (scenario vs live feed)
+  * Sensor fusion across multiple noisy/live sources
+  * Post-incident replay/explainability narrative generator
+  * ML-based route-hypothesis scoring trained on simulator ground truth
+
 #### Starting Point
 
 The starter kit includes repeatable scenarios, a working tracker, a simulator with known ground truth, optional advanced tools, and a live-aircraft demo.
@@ -120,6 +153,20 @@ A Departure Control System (DCS) manages the departure side of an airline operat
 #### Challenge
 
 Your challenge is to choose one part of that pipeline and make its state and decisions clear. A strong project might help an operator understand whether a passenger, bag, or flight is ready, what needs attention, and why.
+
+### Potential Directions
+
+  Potential solution directions:
+
+  * Unified identity gateway: booking, doc checks, seat, bag declare, boarding pass, agent review, audit
+  log [Supported](departure-control-system/README.md)
+  * Aircraft load control (weight/balance zone assignment) [Supported](departure-control-system/README.md)
+  * Passenger-processing checkpoint monitor
+  * Document-review assistant w/ mismatch confidence scoring
+  * Baggage reconciliation linking declared bags to scan events
+  * Flight-close readiness aggregator (identity + load + baggage in one score)
+  * Override/audit-log analytics for staff workload + rule-override patterns
+  * Accessibility-first check-in flow variant
 
 #### Starting Points
 

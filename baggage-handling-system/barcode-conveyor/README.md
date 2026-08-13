@@ -85,7 +85,7 @@ python barcode_scanner.py
 
 ```
 
-A live camera view will open on the window. Hold a valid tracking barcode up to the camera lens to observe the real-time parsing logs in your terminal output and verify that data packets are successfully streaming out to the network broker.
+A live camera view will open on the window. Hold a valid tracking barcode up to the camera lens to observe the real-time parsing logs in your terminal output and verify that data packets are successfully streaming out to the network broker. If available, you may use the bags provided for the securebag solution and put a barcode on them to simulate a real bag passing through the conveyor. 
 
 ---
 
@@ -95,7 +95,7 @@ The physical conveyor loop and mechanical diverter outputs are managed by an Opt
 
 ### 1. Accessing the PLC Web Interface
 
-Open a web browser on a laptop connected to the eduroam and navigate to the following URL:
+Open a web browser on a laptop connected to the eduroam and navigate to the following URL (make sure you are on eduroam wifi):
 
 * **PLC Editor Portal**: `https://ideasplc3.uwaterloo.ca/manage/home`
 
@@ -122,15 +122,15 @@ To make the physical testbed work as an automated sorting system, you must confi
 
 ### The Core Concept: The Active Conveyor State
 
-Because this testbed is a single physical loop, we use a global variable inside Node-RED called the **Active Conveyor** state. This variable acts as a "virtual downstream gate assignment" filter (e.g., configuring the system to actively sort items bound for `conveyor_3`).
+Because this testbed is a single physical loop, we use a global variable inside Node-RED called the **Active Conveyor** state. This variable acts as a "virtual downstream gate assignment" filter (e.g., configuring the system to actively sort items bound for `conveyor_3`). 
 
 ### Boolean Logic Sorting Rules
 
 Your control logic must listen to incoming JSON payloads on `Conveyor3/baggage_routing` and execute the following conditional rules precisely to safeguard the physical equipment:
 
 1. **Condition A: Route Allowed (Successful Sort)**
-* *Criteria:* The scanned barcode string is recognized as valid (`"in_picklist": true`) **AND** its mapped conveyor value matches the current `Active Conveyor` state variable in Node-RED.
-* *Action:* Keep the conveyor motor running, engage the mechanical downstream diverter arm to capture the item, and track the successful sort event.
+* *Criteria:* The scanned barcode string is recognized as valid (`"in_picklist": true`) **AND** its mapped conveyor value matches the current `Active Conveyor` state variable in Node-RED. 
+* *Action:* Keep the conveyor motor running, engage the mechanical downstream diverter arm to capture the item, and track the successful sort event. You can implement specific patterns for diverters to simulate destination conveyors. 
 
 
 2. **Condition B: Misrouted Asset or Invalid Code (Emergency Safety Halt)**

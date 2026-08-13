@@ -1,10 +1,10 @@
 # Departure Control System Automation
 
-A Departure Control System (DCS) manages the work required to prepare passengers and an aircraft for departure. It connects check-in, identity and document checks, baggage acceptance, seat assignments, boarding passes, boarding status, and aircraft load control.
+A Departure Control System (DCS) handles everything that has to happen before a passenger and an aircraft are ready to leave: check-in, identity and document checks, baggage acceptance, seat assignment, boarding passes, boarding status, and aircraft load control.
 
-These activities cannot operate as isolated checkpoints. A document problem may block boarding, a baggage update may affect aircraft load, and a late passenger may change the flight's readiness. Staff need one clear view of what is complete, what is blocked, and what needs manual attention.
+None of that works well as separate checkpoints. A bad document holds up boarding, a late bag shifts the load numbers, a passenger running behind changes whether the flight can close on time. Airport staff need one place that tells them what's done, what's stuck, and what they have to step in on.
 
-This subproblem asks you to build a useful solution somewhere in that pipeline. You may concentrate on one process or connect several processes together.
+Pick somewhere in that pipeline and build something useful. It could be one process, it could be a few connected together.
 
 ## Table of Contents
 
@@ -14,9 +14,7 @@ This subproblem asks you to build a useful solution somewhere in that pipeline. 
 
 ## Challenge
 
-Develop a solution that improves one part of passenger or aircraft departure processing.
-
-Your project might answer a question such as:
+Improve some part of passenger or aircraft departure processing. A few of the questions a good solution might answer:
 
 - Is this passenger identified and cleared for travel?
 - Which passengers or bags need staff review?
@@ -25,60 +23,24 @@ Your project might answer a question such as:
 - Is the flight ready to close and board?
 - Can an operator understand the current state from one screen?
 
-Successful solutions should consider:
+Things worth getting right along the way:
 
 - a clear model for passengers, bags, flights, or aircraft zones
-- traceable state changes and decisions
-- missing, late, or conflicting data
-- useful explanations when an item is blocked or flagged
-- privacy, accessibility, and staff override workflows
-- a scope that can be completed and demonstrated clearly
-
-### Typical Data Flow
-
-1. Load passenger, booking, flight, and aircraft data.
-2. A passenger checks in and verifies their identity.
-3. Documents are validated and uncertain cases are flagged for review.
-4. Bags are accepted, tagged, and linked to the passenger.
-5. Bag scans update the live baggage state.
-6. Passenger and cargo load is estimated across aircraft zones.
-7. The system recommends seat, bag, load, or review actions.
-8. An operational view shows passenger and flight readiness.
-
-Your solution does not need to cover this entire flow, but its data and decisions should connect clearly to the rest of the departure process.
-
-### How This Maps to Real Systems
-
-| Challenge concept | Industry analogue |
-| --- | --- |
-| Check-in flow | DCS passenger acceptance |
-| Identity and document entry | Passport, visa, and identity verification |
-| Boarding-pass generation | Departure-control passenger acceptance |
-| Bag-tag creation | Baggage acceptance and reconciliation |
-| Scan events | Baggage Handling System tracking |
-| Bag-status dashboard | Baggage operations monitoring |
-| Predicted bag count | Passenger behaviour and load forecasting |
-| Seat or load recommendation | Aircraft load control |
-| Manual-review flags | Agent intervention and exception handling |
-| Unified operations dashboard | Departure-readiness control |
-
-### State to Track
-
-Model the entities your problem needs clearly enough that each change can be traced.
-
-- **Passenger:** identity, booking, flight, seat, document status, and boarding status
-- **Baggage:** tag ID, passenger, location or status, weight, and exceptions
-- **Flight:** aircraft type, seat map, cabin and cargo zones, load, and readiness
+- state changes and decisions that can be traced back
+- handling for missing, late, or conflicting data
+- a real explanation when something's blocked or flagged, not just a status code
+- privacy, accessibility, and a way for staff to override the system
+- a scope you can actually finish and demo
 
 ### Inputs and Expected Outputs
 
-Inputs may include passenger lists, bookings, seat maps, aircraft layouts, baggage records, scan events, document fields, and schedules. Expect missing fields, late updates, conflicting counts, and inconsistent scans.
+You'll likely be working with passenger lists, bookings, seat maps, aircraft layouts, baggage records, scan events, document fields, and schedules. As it is difficult to find perfect datasets, some of it will be missing, late, or contradictory. Design for that instead of around it.
 
-Whatever your solution produces should make departure readiness understandable. Show the current status, the decisions made, the exceptions that need attention, and the reason behind each result.
+Whatever you build should make departure readiness legible at a glance: current status, what was decided, what still needs attention, and why.
 
 ## Potential Solutions
 
-The examples below show several possible scopes. You may extend one of them or build something different.
+A few possible scopes below. You can extend one or build something else entirely.
 
 | Potential solution | Description | Starting point |
 | --- | --- | --- |
@@ -89,77 +51,28 @@ The examples below show several possible scopes. You may extend one of them or b
 | Boarding-readiness dashboard | Combine document, seat, baggage, and boarding state into one operator view. | [Unified Identity Gateway](unified-identity-gateway/README.md) |
 | Baggage reconciliation tool | Link accepted bags to passengers and explain missing or unexpected scans. | [Baggage Handling System](../baggage-handling-system/README.md) |
 
-Teams may also explore forecasting, staff allocation, accessible passenger support, audit logging, or another departure-related need.
-
-### Basic and Advanced Approaches
-
-**Basic:** Build a deterministic workflow on mock data with clear models, rule-based checks, traceable state changes, and a readable interface.
-
-**Advanced:** Build a predictive decision-support system that estimates what is likely to happen and recommends an action before every input is known.
-
-An advanced approach might predict baggage volume, detect passenger groups, estimate no-show risk, recommend seat or cargo changes, prioritize agent review, or explain why a flight is not ready.
-
-### Optional Extensions
-
-You can extend any approach with richer data, predictions, a stronger operator interface, accessible passenger support, or an audit log for staff overrides.
-
 ## Resources
 
 ### Industry Context
 
-Airline departure operations rely on passenger records, schedules, seat maps, aircraft configuration, baggage data, document checks, boarding status, and load constraints. All of that information can change until the aircraft departs.
+Departure operations run on a pile of data that keeps shifting until takeoff: passenger records, schedules, seat maps, aircraft configuration, baggage data, document checks, boarding status, load constraints. A DCS sits in the middle of it by taking all relevant data points and consolidate it so that a staff can easily analyze the data and find out where things can go wrong.
 
-A DCS sits at the centre of this operation. It takes in passenger and booking data, runs check-in, accepts bags, validates documents, issues boarding passes, tracks boarding, and feeds aircraft load control.
-
-Passenger processing is not a set of isolated checkpoints. Identity verification, baggage acceptance, security status, boarding, and manual-review decisions all update the same view of passenger and flight readiness. Real systems in this area include Brock Solutions SmartSuite Enterprise, SITA Horizon DCS, and Amadeus Altéa Departure Control.
-
-The industry is also moving from manually supervised, rule-based workflows toward decision-support tools that estimate bag counts, identify group behaviour, flag no-show risk, and recommend load or staffing actions before a problem reaches the gate.
-
-### Getting Started
-
-Choose one of these paths:
-
-#### Explore a Working Check-In System
-
-The [Unified Identity Gateway](unified-identity-gateway/README.md) is a full-stack example with a React web app, Fastify API, PostgreSQL database, and rule-based status engine.
-
-Use it when your team wants to improve identity checks, passenger experience, agent workflows, accessibility, or auditability.
-
-#### Explore Aircraft Load Control
-
-The [`load-control/`](load-control/) example contains a mixed-integer linear programming optimizer in `load.py`. It assigns passenger and cargo load to aircraft bays and cabin zones, aims for a target centre of gravity, and respects structural and zero-fuel-weight limits. The `weight_balancer_app/` folder exposes the optimizer through a small Flask interface.
-
-Use it when your team is interested in optimization, structural limits, center of gravity, or visual decision support.
-
-#### Design an Independent Prototype
-
-The [passenger-processing guide](passenger-processing/README.md) lists projects that can be built with mock data, simulations, dashboards, or simple rules. A paper prototype or focused front end is acceptable when it clearly demonstrates the decision or workflow.
-
-#### Suggested Milestones
-
-1. **Mock data and core models:** Define the passengers, bags, flights, aircraft zones, or other entities your solution needs.
-2. **Core flow:** Make the main workflow run from input to result.
-3. **Exception handling:** Add missing, conflicting, blocked, or review cases and explain them.
-4. **Decision support:** Add a prediction or recommendation if it supports your idea.
-5. **Operational view:** Make the current state and outstanding work visible in one place.
-6. **Polish:** Improve test data, edge cases, accessibility, and the demonstration flow.
+Identity verification, baggage acceptance, security status, boarding, and manual review all end up affecting whether a passenger or flight is ready. Brock Solutions SmartSuite Enterprise, SITA Horizon DCS, and Amadeus Altéa Departure Control are real examples of systems doing this today, and the field is generally shifting from rigid rule-based workflows to adaptable automated systems.
 
 ### Evaluation
 
-When reviewing your solution, consider:
+Worth checking your solution against:
 
 | Area | What to look for |
 | --- | --- |
 | Workflow completeness | Does the process work from input to result? |
 | Data modelling | Are passengers, bags, flights, seats, or load zones represented clearly? |
 | Decision quality | Are recommendations, predictions, and review flags useful? |
-| Exception handling | Does the system handle missing or inconsistent data? |
-| Dashboard clarity | Can an operator understand readiness and outstanding work quickly? |
+| Exception handling | Does the system handle missing, inconsistent data, and edge cases? |
+| Dashboard clarity | Can an operator understand readiness and outstanding work from a glance? |
 | Privacy and accessibility | Is sensitive data minimized, and is feedback usable by people with different needs? |
 | Code quality | Is the implementation modular, readable, and maintainable? |
 | Demonstration | Does the demo make the value and limitations clear? |
-
-The final goal is to make three things clear: the current state of the problem, what needs attention, and why. That is the same question real DCS platforms answer before an aircraft pushes back.
 
 ### Challenge Resources
 
@@ -179,5 +92,3 @@ The final goal is to make three things clear: the current state of the problem, 
 - [Secure Air Travel Regulations](https://laws-lois.justice.gc.ca/eng/regulations/SOR-2015-181/FullText.html)
 - [Personal Information Protection and Electronic Documents Act](https://laws-lois.justice.gc.ca/eng/acts/P-8.6/index.html)
 - [Accessible Transportation for Persons with Disabilities Regulations](https://laws-lois.justice.gc.ca/eng/regulations/SOR-2019-244/index.html)
-
-Real departure systems require formal security, privacy, accessibility, and operational review. Treat the supplied projects as learning prototypes.
