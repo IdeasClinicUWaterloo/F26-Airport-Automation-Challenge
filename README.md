@@ -77,15 +77,15 @@ Your solution may be software-only, hardware-assisted, simulation-based, or a mi
 
 [Open the Baggage Handling System challenge](baggage-handling-system/README.md).
 
-### [Gate Management System](gate-management-system/README.md)
+### [Gate Assignment Subproblem](gate-management-system/README.md)
 
 ![Example of aircraft being assigned to airport gates](images/gate_assgt.png)
 
-A Gate Management System (GMS) assigns aircraft to gates while considering timing, aircraft size, passenger needs, customs rules, cargo restrictions, outages, and delays. A gate plan must remain valid as the day changes.
+#### The Problem
 
-#### Challenge
+Due to cancelations and delays, gate reassignments are unfortunately not uncommon. However, slow or inefficient gate reassignments can disrupt airport operations. When staff cannot identify and assign alternate gates, aircraft arrivals and departures are delayed. This ultimately leads to missed connections, disrupted flight plans, and general congestion in the airport. This is also very costly and damages the reputation of both the airport and the airline.   
 
-Your challenge is to produce a conflict-free gate plan and update it when disruption messages arrive. The supplied evaluator checks aircraft-gate compatibility, overlapping occupancy, gate outages, reassignment costs, and other operational rules.
+Your job is to come up with a solution that assigns flights to gates while taking into consideration gate reassignments, emergency landings, walking distance, and other factors.
 
 ### Potential Directions
 
