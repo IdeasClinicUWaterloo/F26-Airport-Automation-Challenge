@@ -53,10 +53,13 @@ As you make your solution this weekend, use the [judging criteria](#judging-crit
 
 Airlines and airports have suites of software solutions to manage this complicated web of logistics. You can choose to solve your subproblem with these software solutions. Some common software suites are:
 ### BHS
-A BHS is ...
-Examples are SmartBag by Brock Solutions, ... by amedeus...etc
+A Baggage Handling System (BHS) identifies, tracks, routes, and sorts bags through scanners, conveyors, diverters, make-up areas, and carousels. A bad routing decision can delay a passenger, a flight, or an entire baggage pier. Examples of Baggage Handling Systems include SmartBag by Brock Solutions and Amadeus Solutions for Baggage Services. 
 ### GMS
-A GMS is ....
+A Gate Management System (GMS) assigns arriving and departing aircraft to airport gates. It must account for aircraft size, timing, gate equipment, passenger needs, customs rules, cargo restrictions, and disruptions such as delays or outages. Examples of Gate Management Systems include Better Stand & Gate by Copenhagen Optimization and ResourceManager by Assaia. 
+
+Note: For this specific challenge, a gate is a specific numbered/lettered location in a terminal/pier where passengers wait and board their airplane. 
+### DCS
+A Departure Control System (DCS) handles everything that must happen before a passenger, and an aircraft are ready to leave check-in, identity and document checks, baggage acceptance, seat assignment, boarding passes, boarding status, and aircraft load control. Examples of Departure Control Systems include: SmartLoad and SmartClear by Brock Solutions  
 ###
 Here are some software solutions from brock [https://www.brocksolutions.com/airports-and-airlines/#]
 ## Sub-Problems
