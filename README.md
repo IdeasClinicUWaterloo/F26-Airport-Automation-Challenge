@@ -49,7 +49,29 @@ Airport systems are message driven and closely connected. A passenger update in 
 
 As you make your solution this weekend, use the [judging criteria](#judging-criteria) to guide your decisions and demonstration.
 
+## Background 
+
+Airlines and airports have suites of software solutions to manage this complicated web of logistics. You can choose to solve your subproblem with these software solutions. Some common software suites are:
+### BHS
+A BHS is ...
+Examples are SmartBag by Brock Solutions, ... by amedeus...etc
+### GMS
+A GMS is ....
+###
+Here are some software solutions from brock [https://www.brocksolutions.com/airports-and-airlines/#]
 ## Sub-Problems
+
+### Lost or Swapped Bags 
+#### Challenge/The Problem
+Many scenarios exist were a passenger is separated from their bag. This causes heartache money losss...for passengers which translates to damage to the reputation of airlines. Find a way to make sure that doesn't happen.
+### Potential Solutions 
+ * Unified identity gateway: booking, doc checks, seat, bag declare, boarding pass, agent review, audit
+  log [Supported](departure-control-system/README.md)
+
+### Gate/Pier/Concourse Assignment
+Airports must dynamically assign gates to aircraft while balancing operational efficiency, passenger experience, safety constraints, and unpredictable real-world disruptions.
+#### Challenge
+
 
 ### [Baggage Handling System](baggage-handling-system/README.md)
 
