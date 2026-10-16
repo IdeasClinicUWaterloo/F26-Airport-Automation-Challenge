@@ -29,7 +29,7 @@ Created by Engineering IDEAs Clinic co-op students.
 - [Lost Baggage Recovery challenge]
 - [Baggage Handling System challenge](baggage-handling-system/README.md)
 - [Gate Assignment challenge](gate-management-subproblem/README.md)
-- [Passenger Clearance challenge](passenger-clearance-subproblem/README.md)
+- [Group Check-in & Document Verification challenge](passenger-clearance-subproblem/README.md)
 - [Aircraft Loading challenge](aircraft-load-subproblem/README.md)
 - [Submission expectations](#submission)
 - [Judging rubric](#judging-criteria)
@@ -153,7 +153,7 @@ This is the most structured coding subproblem. You may write your own assignment
 
 [Open the Gate Assignment Subproblem](gate-assignment-subproblem/README.md).
 
-### [Passenger Clearance](passenger-clearance-subproblem/README.md)
+### [Group Check-in & Document Verification](group-check-in-&-document-verification-subproblem/README.md)
 ![Passengers check-in](images/Gty_airport_checkin_er_160415_16x9_992.jpg)
 #### The Problem
 A school group of 32 passengers arrives at the airport to check in for the same flight less than an hour before the check-in deadline. Although the passengers are travelling together, each person has different document requirements, seat assignments and baggage information. Most passengers are cleared immediately, but several require additional document review. 
