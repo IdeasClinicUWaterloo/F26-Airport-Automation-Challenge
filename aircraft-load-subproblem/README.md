@@ -9,10 +9,10 @@
 ## The Problem
 A mechanical issue causes the airline to replace the originally scheduled aircraft with a smaller aircraft shortly before departure. The new aircraft has different seating, baggage capacity and weight-and-balance limits. 
 
-Passengers have already checked in, seats have been assigned, and baggage is being prepared for loading. Because the new aircraft has less capacity and different loading constraints, the existing passenger and baggage plan can no longer be used directly. Staff must quickly determine how to reassign passengers and baggage while accounting for the available capacity and avoiding unnecessary delays.
+Passengers have already checked in, seats have been assigned, and baggage is being prepared for loading. Because the new aircraft has less capacity and different loading constraints, the existing passenger and baggage plan can no longer be used directly. Staff must quickly assess how the existing passenger seating arrangement affects the new aircraft's weight and balance, while determining how to adjust baggage and cargo loading to meet the new constraints. Any necessary passenger reseating or boarding decisions are handled separately by the airline.
 
 ## The Challenge
-Your challenge is to develop a solution that quickly adapts the existing passenger and baggage plan to the replacement aircraft while maintaining safe weight-and-balance limits and minimizing operational disruption.  
+Your challenge is to develop a solution that quickly evaluates the passenger and baggage load for the replacement aircraft, optimizes baggage and cargo distribution, and maintains safe weight-and-balance limits while minimizing operational disruption.  
 
 To do this, you can either create your own solution or build off and improve the existing aircraft load control program. 
 
