@@ -1,4 +1,4 @@
-# Passenger Clearance Subproblem
+# Group-Check-in Subproblem
 
 ## Table of Contents
 - [The Problem](#the-problem)
@@ -7,12 +7,12 @@
 - [Resources](#resources)
 
 ## The Problem
-A school group of 32 passengers arrives at the airport to check in for the same flight less than an hour before the check-in deadline. Although the passengers are travelling together, each person has different document requirements, seat assignments and baggage information. Most passengers are cleared immediately, but several require additional document review.
+A school group of 32 passengers arrives at the airport to check in for the same flight less than an hour before the check-in deadline. Although the passengers are travelling together, each person has different document requirements, seat assignments and baggage information. Most passengers complete document verification without issues, but several require additional review.
 
-Processing every passenger individually creates a long queue and increases the risk that the group will not complete check-in on time. However, treating the entire group as one unit could cause individual document or baggage issues to be overlooked. Staff need a way to see which passengers are ready, which require attention and what issues remain unsolved. 
+Processing every passenger individually creates a long queue and increases the risk that the group will not complete check-in on time. However, treating the entire group as one unit could cause individual document or baggage issues to be overlooked. Airline and ground-handling agents need a way to see which passengers are ready, which require attention and what issues remain unresolved.
 
 ## The Challenge
-Your challenge is to develop a solution that helps airport staff process passengers efficiently while maintaining accurate clearance information for each individual passenger. The solution should help staff identify who is ready, who requires additional review, and what issues still need to be resolved.
+Your challenge is to develop a solution that helps airline and ground-handling agents process large group check-ins efficiently while maintaining accurate check-in and document verification information for each individual passenger. The solution should help staff identify who is ready, who requires additional review, and what issues still need to be resolved.
 
 ### Inputs and Expected Outputs 
 You'll likely be working with passenger lists, bookings, document information, seat assignments, baggage records, check-in status, and schedules. As it is difficult to find perfect datasets, some of it will be missing, late, or contradictory. Design for that instead of around it.
@@ -26,7 +26,7 @@ A few possible scopes below. You can extend one or build something else entirely
 | --- | --- | --- |
 | Unified identity gateway | Combine booking lookup, document checks, seat selection, baggage declaration, boarding passes, and agent review. | [Working implementation](unified-identity-gateway/README.md) |
 | Document-review assistant | Validate required fields, identify mismatches, and route uncertain cases to an agent. | [Identity-gateway rules](unified-identity-gateway/apps/api/src/rules/) |
-| Passenger-clearance dashboard | Show which passengers are cleared, blocked, or awaiting review and explain outstanding issues. | [Unified Identity Gateway](unified-identity-gateway/README.md) |
+| Group-Check-in dashboard | Show which passengers are cleared, blocked, or awaiting review and explain outstanding issues. | [Unified Identity Gateway](unified-identity-gateway/README.md) |
 | Baggage reconciliation tool | Link accepted bags to passengers and explain missing or unexpected scans. | [Baggage Handling System](../baggage-handling-system/README.md) |
 
 ## Resources
