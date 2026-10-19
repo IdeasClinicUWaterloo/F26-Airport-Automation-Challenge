@@ -15,7 +15,7 @@ Created by Engineering IDEAs Clinic co-op students.
   - [Lost Baggage Recovery](#lost-baggage-recovery)
   - [Baggage Handling System](#baggage-handling-system)
   - [Gate Assignment](#gate-assignment)
-  - [Passenger Clearance](#passenger-clearance)
+  - [Group-Check-in](#group-check-in)
   - [Aircraft Loading](#aircraft-loading)
 - [Development Approach](#development-approach)
 - [Submission](#submission)
@@ -153,27 +153,28 @@ This is the most structured coding subproblem. You may write your own assignment
 
 [Open the Gate Assignment Subproblem](gate-assignment-subproblem/README.md).
 
-### [Group Check-in & Document Verification](group-check-in-&-document-verification-subproblem/README.md)
+### [Group-Check-in](group-check-in-subproblem/README.md)
 ![Passengers check-in](images/Gty_airport_checkin_er_160415_16x9_992.jpg)
 #### The Problem
-A school group of 32 passengers arrives at the airport to check in for the same flight less than an hour before the check-in deadline. Although the passengers are travelling together, each person has different document requirements, seat assignments and baggage information. Most passengers are cleared immediately, but several require additional document review. 
 
-Processing every passenger individually creates a long queue and increases the risk that the group will not complete check-in on time. However. Treating the entire group as one unit could cause individual document or baggage issues to be overloaded. Staff need a way to see which passengers are ready, which require attention and what issues remain unsolved. 
+A school group of 32 passengers arrives at the airport to check in for the same flight less than an hour before the check-in deadline. Although the passengers are travelling together, each person has different document requirements, seat assignments and baggage information. Most passengers complete document verification without issues, but several require additional review.
+
+Processing every passenger individually creates a long queue and increases the risk that the group will not complete check-in on time. However, treating the entire group as one unit could cause individual document or baggage issues to be overlooked. Airline and ground-handling agents need a way to see which passengers are ready, which require attention and what issues remain unresolved.
 
 #### Challenge
-Your challenge is to develop a solution that helps airport staff process large groups efficiently while maintaining accurate clearance information for each individual passenger. 
 
-#### Potential Solutions:
-  * Unified identity gateway: booking, doc checks, seat, bag declare, boarding pass, agent review, audit
-  log [Supported](departure-control-system/README.md)
-  * Passenger-processing checkpoint monitor
-  * Document-review assistant w/ mismatch confidence scoring
-  * Baggage reconciliation linking declared bags to scan events
-  * Override/audit-log analytics for staff workload + rule-override patterns
-  * Accessibility-first check-in flow variant
+Your challenge is to develop a solution that helps airline and ground-handling agents process large group check-ins efficiently while maintaining accurate check-in and document verification information for each individual passenger.
 
+#### Potential Solutions
 
-[Open the Passenger Clearance Subproblem](passenger-clearance-subproblem/README.md).
+- Unified identity gateway: booking lookup, document checks, seat selection, baggage declaration, boarding pass issuance, agent review, and audit logging. [Supported](departure-control-system/README.md)
+- Group check-in status dashboard
+- Document-review assistant with mismatch confidence scoring
+- Baggage reconciliation linking declared bags to scan events
+- Override and audit-log analytics for staff workload and rule-override patterns
+- Accessibility-first check-in flow variant
+
+[Open the Group-Check-in Subproblem](group-check-in-subproblem/README.md).
 
 ### [Aircraft Loading](passenger-clearance-subproblem/README.md)
 ![Loading cargo at airport](images/faq-air-airplane-cargo-hold-dimensions-v2020-header.webp)
