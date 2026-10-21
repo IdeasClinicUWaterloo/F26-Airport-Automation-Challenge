@@ -7,10 +7,9 @@
 - [Resources](#resources)
 
 ## The Problem
-A mechanical issue causes the airline to replace the originally scheduled aircraft with a smaller aircraft shortly before departure. The new aircraft has different seating, baggage capacity and weight-and-balance limits. 
+A mechanical issue causes an equipment change, requiring the airline to replace the originally scheduled aircraft with a smaller aircraft shortly before departure. The new aircraft has different seating, baggage capacity and weight-and-balance limits.
 
-Passengers have already checked in, seats have been assigned, and baggage is being prepared for loading. Because the new aircraft has less capacity and different loading constraints, the existing passenger and baggage plan can no longer be used directly. Staff must quickly assess how the existing passenger seating arrangement affects the new aircraft's weight and balance, while determining how to adjust baggage and cargo loading to meet the new constraints. Any necessary passenger reseating or boarding decisions are handled separately by the airline.
-
+Passengers have already checked in, seats have been assigned, and baggage is being prepared for loading. Because the new aircraft has less capacity and different loading constraints, the existing passenger and baggage plan can no longer be used directly. Airline and ground-handling staff must assess how passenger seating affects the replacement aircraft's weight and balance while adjusting baggage and cargo loading to meet the new constraints. Any necessary passenger reseating or boarding decisions are handled separately by the airline through its Departure Control System (DCS). Checked baggage belonging to passengers who are removed from the flight must also be removed, and a new load plan must be issued.
 ## The Challenge
 Your challenge is to develop a solution that quickly evaluates the passenger and baggage load for the replacement aircraft, optimizes baggage and cargo distribution, and maintains safe weight-and-balance limits while minimizing operational disruption.  
 
@@ -22,16 +21,16 @@ A possible scope below. You can extend one or build something else entirely.
 
 | Potential solution | Description | Starting point |
 | --- | --- | --- |
-| Aircraft load control | Assign passenger and cargo load to aircraft zones while respecting weight and balance limits. | [`load-control/`](load-control/) |
-| Aircraft-swap replanning tool | Reassign passengers, seats, baggage, and cargo after an aircraft change. | 
+| Aircraft load control | Calculate passenger weight distribution based on assigned seats and optimize baggage and cargo placement while respecting weight-and-balance limits. | [`load-control/`](load-control/) |
+| Aircraft-swap replanning tool | Update the load plan after an equipment change, accounting for revised passenger seating, baggage requirements, and cargo constraints. | 
 | Weight-and-balance dashboard | Show aircraft loading, zone weights, limits, and potential violations. |
-| Load-plan optimization tool | Find a safe loading arrangement while minimizing passenger or baggage disruptions. |
+| Load-plan optimization tool | Find a safe baggage and cargo loading arrangement while minimizing operational disruptions. |
 
 ## Resources
 
 ### Industry Solutions
 
-- [Brock Solutions SmartLoad](https://www.brocksolutions.com/smartload/): A real-world cargo management solution that tracks aircraft loading and validates loads against weight-and-balance plans.
+- [Brock Solutions SmartLoad](https://www.brocksolutions.com/smartload/): A ramp loading and load-verification solution that verifies actual aircraft loading against the planned load.
 - [JetBlue SmartLoad Case Study](https://www.brocksolutions.com/jetblue-is-loading-their-aircrafts-smarter-with-help-from-brock-solutions-and-smartload/): An example of how an airline uses automated loading verification and real-time weight-and-balance information.
 
 ### Technical References
