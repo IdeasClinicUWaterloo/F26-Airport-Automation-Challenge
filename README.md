@@ -12,7 +12,7 @@ Created by Engineering IDEAs Clinic co-op students.
 - [Your Mission](#your-mission)
 - [Background Information](#background)
 - [Sub-Problems](#sub-problems)
-  - [Lost Baggage Recovery](#lost-baggage-recovery)
+  - [Mishandled Baggage](#mishandled-baggage)
   - [Baggage Handling System](#baggage-handling-system)
   - [Gate Assignment](#gate-assignment)
   - [Group-Check-in](#group-check-in)
@@ -26,7 +26,7 @@ Created by Engineering IDEAs Clinic co-op students.
 
 > **Navigation tip:** Use the headings in this document to move quickly between sections. Screen reader users can navigate by heading level.
 
-- [Lost Baggage Recovery challenge]
+- [Mishandled Baggage challenge]
 - [Baggage Handling System challenge](baggage-handling-system/README.md)
 - [Gate Assignment challenge](gate-management-subproblem/README.md)
 - [Group Check-in](group-check-in-subproblem/README.md)
@@ -60,7 +60,7 @@ Airlines and airports have suites of software solutions to manage this complicat
 ### BHS
 A Baggage Handling System (BHS) identifies, tracks, routes, and sorts bags through scanners, conveyors, diverters, make-up areas, and carousels. A bad routing decision can delay a passenger, a flight, or an entire baggage pier. 
 
-Examples of Baggage Handling Systems include SmartBag by Brock Solutions and Amadeus Solutions for Baggage Services. 
+Examples of Baggage Handling System providers include Vanderlande and Siemens Logistics.
 ### GMS
 A Gate Management System (GMS) assigns arriving and departing aircraft to airport gates. It must account for aircraft size, timing, gate equipment, passenger needs, customs rules, cargo restrictions, and disruptions such as delays or outages. 
 
@@ -68,12 +68,12 @@ Examples of Gate Management Systems include Better Stand & Gate by Copenhagen Op
 ### DCS
 A Departure Control System (DCS) handles everything that must happen before a passenger, and an aircraft are ready to leave check-in, identity and document checks, baggage acceptance, seat assignment, boarding passes, boarding status, and aircraft load control. 
 
-Examples of Departure Control Systems include: SmartLoad and SmartClear by Brock Solutions  
+Examples of Departure Control Systems include Amadeus Altéa and Sabre's departure control solutions.
 ###
 You can check out the software solutions from Brock Solutions here: [https://www.brocksolutions.com/airports-and-airlines/#]
 
 ## Sub-Problems
-### [Lost or Misplaced Baggage](baggage-loss-subproblem/README.md)
+### [Mishandled Baggage](mishandled-baggage/README.md)
 other name ideas:
 - baggage recovery
 - baggage tracking
