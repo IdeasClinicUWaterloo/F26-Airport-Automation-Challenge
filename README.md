@@ -1,4 +1,4 @@
-# Brock Solutions Airport Automation Challenge
+# Brock Solutions Airport Innovation Challenge
 
 ### Theme: Message-Driven Operations at YYZ
 
@@ -122,31 +122,23 @@ Your solution may be software-only, hardware-assisted, simulation-based, or a mi
 ![Example of aircraft being assigned to airport gates](images/gate_assgt.png)
 
 #### The Problem
-
-At Toronto Pearson Airport, a sudden gate malfunction forces an arriving aircraft to wait on the taxiway during a busy long weekend. Due to slow gate reassignment, passengers are left stuck on board. This leads to passengers missing connections and appointments. Inside the airport, crowds swell as other flights are also delayed, creating long walking distances and overwhelming staff. The airline ends up having to spend a significant amount of money on compensation and rebooking flights. The airline and airport are bombarded by complaints from very angry passengers from their customer service lines and on social media. 
+During a busy weekend at Toronto Pearson Airport an arriving aircraft is forced to wait on the taxiway. Due to slow and inefficient gate assignments, passengers are left stuck waiting on board. This leads to passengers missing connections and appointments. Inside the airport, crowds swell as other flights are also delayed overwhelming staff. Consequently, this leads to both the airline and the airport suffering financial losses and damage to their reputation.  
 
 #### Challenge
-Ideally, this is a scenario that airports want to avoid. As such, your challenge is to develop a solution that assigns airport gates to arriving and departing flights over time. Your solution must:  
+Your challenge is to develop a solution that assigns airport gates to arriving and departing flights over time. Your solution must:  
 - Respect aircraft-gate compatibility
 - Handle airline preferences and security concerns
 - Adapt dynamically to delays, outages and emergencies (cascading changes)
 - Minimize conflicts, delays and wasted time (optimization) 
 
 #### Potential Solutions:
-  * Greedy scoring-aware assignment algorithm [Supported](gate-management-system/solution_scored.py)
-  * First-fit baseline algorithm [Supported](gate-management-system/solution_firstfit.py)
-  * Disruption repair (delay, outage, equipment swap) [Supported](gate-management-system/solution_scored.py)
-  * Operator dashboard / interactive timeline visualizer [Supported](gate-management-system/visualize.py)
+  * Improve the existing greedy scoring-aware assignment algorithm [Supported](gate-management-system/solution_scored.py)
+  * Improve the existing operator dashboard / interactive timeline visualizer or create a brand new one from scratch [Supported](gate-management-system/visualize.py)
   * Scenario analysis across busy/emergency/cargo/overnight cases [Supported](gate-management-system/visualize.py)
-  * Security/restricted gates (origin-specific secure gate rules)
-  * Airline gate preferences (soft-reward scoring)
-  * Turnaround service buffer between aircraft at same gate
-  * Constraint-solver (ILP/CP-SAT) replacement for greedy heuristic
-  * Predictive disruption handling from historical delay patterns
-  * Adversarial scenario generator to stress-test beyond fixed scenarios
-  * Assignment explainability layer ("why gate X for flight Y")
-  * Live what-if simulator for manual override impact
-
+  * Create a Live what-if simulator for manual override impact
+  * Add an explanation to the Gate Assignments ("why assign gate X for flight Y")
+  * Predictive disruption handling from historical delay patterns 
+     
 #### Starting Point
 
 This is the most structured coding subproblem. You may write your own assignment algorithm or build a larger tool around the supplied baseline.
