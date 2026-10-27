@@ -17,7 +17,7 @@ Your challenge is to develop a solution that helps airline and ground-handling a
 ### Inputs and Expected Outputs 
 You'll likely be working with passenger lists, bookings, document information, seat assignments, baggage records, check-in status, and schedules. As it is difficult to find perfect datasets, some of it will be missing, late, or contradictory. Design for that instead of around it.
 
-Whatever you build should make passenger clearance status easy to understand at a glance: who is cleared, who requires attention, what issues remain unresolved, and why.
+Whatever you build should make passenger check-in and document verification status easy to understand at a glance: who is ready, who requires attention, what issues remain unresolved, and why.
 
 ## Potential Solutions
 A few possible scopes below. You can extend one or build something else entirely.
@@ -26,13 +26,13 @@ A few possible scopes below. You can extend one or build something else entirely
 | --- | --- | --- |
 | Unified identity gateway | Combine booking lookup, document checks, seat selection, baggage declaration, boarding passes, and agent review. | [Working implementation](unified-identity-gateway/README.md) |
 | Document-review assistant | Validate required fields, identify mismatches, and route uncertain cases to an agent. | [Identity-gateway rules](unified-identity-gateway/apps/api/src/rules/) |
-| Group-Check-in dashboard | Show which passengers are cleared, blocked, or awaiting review and explain outstanding issues. | [Unified Identity Gateway](unified-identity-gateway/README.md) |
-| Baggage reconciliation tool | Link accepted bags to passengers and explain missing or unexpected scans. | [Baggage Handling System](../baggage-handling-system/README.md) |
+| Group-Check-in dashboard | Show which passengers are ready, blocked, or awaiting review. | [Unified Identity Gateway](unified-identity-gateway/README.md) |
+| Group check-in workflow assistant | Prioritize passengers requiring additional review and help agents resolve outstanding issues before the check-in deadline. |
 
 ## Resources
 ### Challenge Resources
 
-- [Unified Identity Gateway implementation](https://github.com/n4morin/F26-Airport-Automation-Challenge-Updates/blob/main/passenger-clearance-subproblem/unified-identity-gateway/README.md): An existing implementation for passenger identity verification and clearance decisions.
+- [Unified Identity Gateway implementation](https://github.com/n4morin/F26-Airport-Automation-Challenge-Updates/blob/main/passenger-clearance-subproblem/unified-identity-gateway/README.md): An existing implementation for passenger identity and document verification, check-in status tracking, and agent review.
 - [Identity-gateway challenge specification](https://github.com/n4morin/F26-Airport-Automation-Challenge-Updates/blob/main/passenger-clearance-subproblem/unified-identity-gateway/docs/challenge-spec.md): Technical requirements and expected behaviour for the identity gateway.
 
 ### Industry Solutions
