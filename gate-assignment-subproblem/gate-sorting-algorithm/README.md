@@ -4,10 +4,10 @@
 - [Flight Schedule and Other Considerations](#flight-schedule-and-other-considerations)
 - [Required Input and Outputs](#required-inputs-and-outputs)
 - [Getting Started](#getting-started)
-- [Evaluation](#rvaluation)
+- [Evaluation](#evaluation)
 
 
-### Flight Schedule and Other Considerations 
+## Flight Schedule and Other Considerations 
 Airports plan gates the way this challenge is structured: the full day's flight schedule is filed first, then a timeline of updates arrives at later information times.
 
 ```text
@@ -30,7 +30,7 @@ If you're working on the assignment algorithm itself (improving it or replacing 
 - minimize reassignments and passenger walking distance
 - work on schedules beyond the visible examples
 
-### Required Input and Outputs
+## Required Input and Outputs
 
 If you're writing or modifying an assignment algorithm, the evaluator calls your `decide(observation)` function at each information time. Skip this section if you're building on top of the existing algorithm instead.
 
@@ -57,7 +57,7 @@ Use `assignments` for a flight receiving its first gate and `reassignments` for 
 1. Download VS Code or use any sort of code editor you wish 
 2. If using VS Code, make sure to enable the python extension
 3. Afterwards, you would want to download the following files located in this subproblem folder.
-4. 
+
 #### Starter Files
 | Location | Purpose |
 | --- | --- |
