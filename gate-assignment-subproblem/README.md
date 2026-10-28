@@ -58,59 +58,6 @@ Three broad directions — improve what's here, replace it with something new, o
 | Scenario analysis | Compare algorithms across busy periods, emergencies, cargo, overnight flights, and outages. | [`flight_data/`](flight_data/) |
 | First-fit assignment | The minimal baseline included — read it to understand the interface before building on or replacing it. | [`solution.py`](solution.py) |
 
-![Flowchart showing one possible gate-assignment algorithm](flowcharts/GateAssignmentAlg.png)
-
-## Getting Started
-1. Download VS Code or use any sort of code editor you wish 
-2. If using VS Code, make sure to enable the python extension
-3. Afterwards, you would want to download the following files located in this subproblem folder.
-#### Starter Files
-
-| Location | Purpose |
-| --- | --- |
-| [`solution_firstfit.py`](solution_firstfit.py) | A correct, minimal first-fit baseline and one possible solution interface |
-| [`solution_kd.py`](solution_kd.py) | A more scoring-aware reference algorithm to study or use |
-| [`evaluator.py`](evaluator.py) | Replays a scenario and checks the solution's assignments |
-| [`visualize.py`](visualize.py) | Serves an interactive timeline or exports a visualization |
-| [`gms/`](gms/) | The evaluator's internal domain package; participants normally do not edit it |
-| [`flight_data/`](flight_data/) | Example schedules and disruption timelines |
-| [`static_info.json`](static_info.json) | Gate inventory, aircraft information, and station data |
-| [`JsonFlightMessageSpecification.md`](JsonFlightMessageSpecification.md) | The input message format |
-
-4. Ensure that the flight_data file that you are using is renamed to simple.json
-5. To actually run and evaluate the baseline code, run evaluator.py. Or you type this into the console:
-```bash
-python evaluator.py --scenario flight_data/simple.json --solution solution
-```
-
-6.  To run and evaluate the more optimised code, run evaluator.py. Or you type this into the console: Run the More Optimized Example Or type this: 
-
-```bash
-python evaluator.py --scenario flight_data/simple.json --solution_scored.py
-```
-
-7. To create a visualization of what you have just did, run visualize.py or  
-```bash
-python visualize.py --serve
-```
-
-Open the local address printed in the terminal. On Windows, you can also double-click `launch_visualizer.bat`.
-
-8. Try Disruption Scenarios
-
-Useful starting scenarios include:
-
-| Scenario | What it demonstrates |
-| --- | --- |
-| [`simple.json`](flight_data/simple.json) | Basic placement and repeated aircraft presence |
-| [`cascade_2.json`](flight_data/cascade_2.json) | A delay that forces reassignment |
-| [`gate_outage.json`](flight_data/gate_outage.json) | A gate becoming unavailable |
-| [`equipment_upgrade.json`](flight_data/equipment_upgrade.json) | An aircraft change that invalidates a gate |
-| [`emergencies.json`](flight_data/emergencies.json) | Priority diversions arriving during the day |
-| [`busy_day.json`](flight_data/busy_day.json) | A larger schedule with delays and cancellation |
-
-Do not modify `evaluator.py` or the `gms/` package unless challenge staff asks you to. Put your decision logic in your own solution module
-
 ## Resources
 ### Industry Context
 
