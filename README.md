@@ -28,7 +28,7 @@ Created by Engineering IDEAs Clinic co-op students.
 
 - [Mishandled Baggage challenge]
 - [Baggage Handling System challenge](baggage-handling-system/README.md)
-- [Gate Assignment challenge](gate-management-subproblem/README.md)
+- [Gate Assignment challenge](gate-assignment-subproblem/README.md)
 - [Group Check-in](group-check-in-subproblem/README.md)
 - [Aircraft Loading challenge](aircraft-load-subproblem/README.md)
 - [Submission expectations](#submission)
