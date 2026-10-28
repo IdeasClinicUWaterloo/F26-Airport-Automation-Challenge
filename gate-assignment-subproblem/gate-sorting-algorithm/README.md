@@ -2,7 +2,7 @@
 
 ## Table of Contents
 - [Flight Schedule and Other Considerations](#flight-schedule-and-other-considerations)
-- [Required Input and Outputs](#required-inputs-and-outputs)
+- [Required Input and Outputs](#required-input-and-outputs)
 - [Getting Started](#getting-started)
 - [Evaluation](#evaluation)
 
