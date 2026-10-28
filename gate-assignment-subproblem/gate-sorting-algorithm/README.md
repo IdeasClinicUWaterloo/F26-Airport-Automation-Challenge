@@ -1,10 +1,10 @@
-# Gate Assignment Algorithm [Placeholder Title]
+# Gate Assignment Algorithm 
 
 ## Table of Contents
-- [Flight Schedule and Other Considerations]
-- [Required Input and Outputs]
+- [Flight Schedule and Other Considerations](#Required-Inputs-and-Outputs)
+- [Required Input and Outputs](#Required-Inputs-and-Outputs)
 - [Getting Started](#getting-started)
-- [Evaluation]
+- [Evaluation](#Evaluation)
 
 
 ### Flight Schedule and Other Considerations 
