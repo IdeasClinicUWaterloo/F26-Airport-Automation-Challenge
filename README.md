@@ -117,7 +117,7 @@ Your solution may be software-only, hardware-assisted, simulation-based, or a mi
 
 [Open the Baggage Handling System challenge](baggage-handling-system/README.md).
 
-### [Gate Assignment](gate-management-system/README.md)
+### [Gate Assignment](gate-assignment-subproblem/README.md)
 
 ![Example of aircraft being assigned to airport gates](images/gate_assgt.png)
 
