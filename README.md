@@ -175,7 +175,7 @@ Passengers have already checked in, seats have been assigned, and baggage is bei
 Your challenge is to develop a solution that quickly adapts the existing passenger and baggage plan to the replacement aircraft while maintaining safety weight-and-balance limits and minimizing operational disruption. 
 
 #### Potential Solutions:
-  * Aircraft load control (weight/balance zone assignment) [Supported](aircraft-load-subproblem/load-control/README.md)
+  * Aircraft load control (weight/balance zone assignment) [Supported](aircraft-load-subproblem/load-control)
   * Baggage reconciliation linking declared bags to scan events
   * Flight-close readiness aggregator (identity + load + baggage in one score)
   * Override/audit-log analytics for staff workload + rule-override patterns
