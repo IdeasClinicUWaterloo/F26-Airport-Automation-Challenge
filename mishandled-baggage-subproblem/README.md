@@ -35,7 +35,7 @@ The SecureBag starting point was developed for security against baggage swapping
 
 ### Industry Solutions
 
-- [Brock Solutions SmartBag](https://www.brocksolutions.com/baggage-cargo-processing/): A comprehensive Baggage Reconciliation System (BRS) for airports, airlines, and ground handlers.
+- [Brock Solutions SmartBag](https://www.brocksolutions.com/smartbag-lite-brs-made-simple/): A comprehensive Baggage Reconciliation System (BRS) for airports, airlines, and ground handlers.
 - !!!! some solution from another company
 
 ### Background Information
