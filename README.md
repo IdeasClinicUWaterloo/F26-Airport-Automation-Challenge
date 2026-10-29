@@ -155,7 +155,7 @@ Your challenge is to develop a solution that helps airline and ground-handling a
 
 #### Potential Solutions
 
-- Unified identity gateway: booking lookup, document checks, seat selection, baggage declaration, boarding pass issuance, agent review, and audit logging. [Supported](departure-control-system/README.md)
+- Unified identity gateway: booking lookup, document checks, seat selection, baggage declaration, boarding pass issuance, agent review, and audit logging. [Supported](group-check-in-subproblem/unified-identity-gateway/README.md)
 - Group check-in status dashboard
 - Document-review assistant with mismatch confidence scoring
 - Baggage reconciliation linking declared bags to scan events
@@ -175,7 +175,7 @@ Passengers have already checked in, seats have been assigned, and baggage is bei
 Your challenge is to develop a solution that quickly adapts the existing passenger and baggage plan to the replacement aircraft while maintaining safety weight-and-balance limits and minimizing operational disruption. 
 
 #### Potential Solutions:
-  * Aircraft load control (weight/balance zone assignment) [Supported](departure-control-system/README.md)
+  * Aircraft load control (weight/balance zone assignment) [Supported](aircraft-load-subproblem/load-control/README.md)
   * Baggage reconciliation linking declared bags to scan events
   * Flight-close readiness aggregator (identity + load + baggage in one score)
   * Override/audit-log analytics for staff workload + rule-override patterns
