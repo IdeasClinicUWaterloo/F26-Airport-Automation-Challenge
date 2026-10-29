@@ -32,8 +32,7 @@ A few possible scopes below. You can extend one or build something else entirely
 ## Resources
 ### Challenge Resources
 
-- [Unified Identity Gateway implementation](https://github.com/n4morin/F26-Airport-Automation-Challenge-Updates/blob/main/passenger-clearance-subproblem/unified-identity-gateway/README.md): An existing implementation for passenger identity and document verification, check-in status tracking, and agent review.
-- [Identity-gateway challenge specification](https://github.com/n4morin/F26-Airport-Automation-Challenge-Updates/blob/main/passenger-clearance-subproblem/unified-identity-gateway/docs/challenge-spec.md): Technical requirements and expected behaviour for the identity gateway.
+- [Unified Identity Gateway implementation](https://github.com/n4morin/F26-Airport-Automation-Challenge-Updates/blob/main/group-check-in-subproblem/unified-identity-gateway/README.md): An existing implementation for passenger identity and document verification, check-in status tracking, and agent review.
 
 ### Industry Solutions
 
